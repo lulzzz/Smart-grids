@@ -1,10 +1,12 @@
 
 package control;
 
-import seas3.core.Participant;
-import seas3.core.PiecewiseLinearValuation;
+import java.io.*;
+import javax.swing.JFrame;
+import model.*;
+import seas3.core.*;
 
-public class Main
+public class Main extends JFrame
 {
     Participant p;
     
@@ -15,7 +17,11 @@ public class Main
     
     private void run()
     {
-        p = new Participant(0,PiecewiseLinearValuation.discrete(0, 0));
-        System.out.println(p);
+        Simulation simulation = new Simulation(new City(),24);
+        BidGraph graph = new BidGraph();
+        graph.saveGraphData();
     }
+
+    
+    
 }
