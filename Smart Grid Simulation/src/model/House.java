@@ -52,6 +52,8 @@ public class House
         
         Participant participant = new Participant( id, plv);
         
+        System.out.println(participant);
+        
         return participant;
     }
     

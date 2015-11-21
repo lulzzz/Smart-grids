@@ -16,17 +16,14 @@ public class Simulation
     {
         this.city = city;
         frames = new ArrayList<>(steps);
-    }   
-
-    public void run() 
-    {
-        for( int step = 0; step < frames.size(); step++ )
+        
+        for( int step = 0; step < steps; step++ )
         {
             SimulationFrame frame = new SimulationFrame( step, city );
             
             frames.add(frame);
         }
-    }
+    }   
 
     public void saveJSON( String path ) 
     {

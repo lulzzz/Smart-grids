@@ -19,8 +19,7 @@ public class Main extends JFrame
         city.saveJSON( cityJsonPath );
         
         Simulation simulation = new Simulation( city, simulationFrames );
-        simulation.run();
-        simulation.saveJSON( simulationJsonPath );
+        //simulation.saveJSON( simulationJsonPath );
     }
 
     
