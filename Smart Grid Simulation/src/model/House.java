@@ -2,6 +2,10 @@
 package model;
 
 import com.google.gson.Gson;
+import com.google.gson.annotations.Expose;
+import java.io.PrintWriter;
+import java.util.Locale;
+import java.util.function.DoubleUnaryOperator;
 import seas3.core.IntervalLinearValuation;
 import seas3.core.Participant;
 import seas3.core.PiecewiseLinearValuation;
@@ -10,64 +14,78 @@ import seas3.core.PiecewiseLinearValuation;
  *
  * @author Martin
  */
-public class House
+public class House extends Prosumer
 {
-    public static int totalHouses = 0;
-    public int id;
-    public float[] position;
-    public float minX;
-    public float maxX;
-    public float necessity;
+    public static final int plotResolution = 10;
+    
+    
+    public double necessity;
     public Distributor distributor;
+    public double baseConsum;
+    public double batteryCapacity;
     
     public House(float[] position)
     {
-        totalHouses++;
+        super(position);
         
-        this.id = totalHouses;
-        this.position = position;
+        necessity = 5;
+        baseConsum = 1;
+        batteryCapacity = 10;
+        
+        updateBid(0);
+    }
+    
+    public void updateBid( int frame )
+    {
+        bid = new Bid( baseConsum, baseConsum + batteryCapacity, buildCurve(frame)); 
     }
 
-    Participant getParticipant(int time) 
+    @Override
+    public Participant getParticipant(int frame) 
     {
-        PiecewiseLinearValuation plv = new PiecewiseLinearValuation();
+        PiecewiseLinearValuation plv = bid.toPLV();
         
-        
-        double x0,x1,y0,y1,slope,intercept;
-        double step = (maxX - minX) / 10;
-        for( x0 = minX; x0 < maxX; x0 += step)
+        return new Participant( id, plv );
+    }
+    
+    public DoubleUnaryOperator buildCurve(int time)
+    {
+        return x -> Math.signum(x) * distributor.rate[time] * ( bid.contactX + necessity * Math.log( Math.abs(x) - bid.minX) / necessity + 1);
+    }   
+    
+    
+    
+    @Override
+    public void writePlotData( PrintWriter writer, String plotName, int time ) 
+    {
+        try 
         {
-            y0 = curve(x0);
-            x1 = x0 + step;
-            y1 = curve(x1);
-            
-            slope = slope(x0,y0,x1,y1);
-            intercept = intercept(x0,y0,slope);
-            
-            IntervalLinearValuation ilv = new IntervalLinearValuation(x0, x1, slope, intercept);
-            
-            plv.add(ilv);
+            writer.print(String.format(Locale.US,
+                    
+                "set output '%s.png' %n" +
+                        
+                "f(x) = x > %f ? %f*x : 1/0 %n"+
+                        
+                "g(x) = x > %f ? %f*(%f+%f*log((x-%f)/%f + 1)) : 1/0 %n"+
+                
+                "h(x) = (x > %f && x < %f) ? g(x) : 1/0 %n"+
+                
+                       
+                "plot [%f:%f] f(x) with filledcurve y1=0, g(x) with filledcurve y1=0, h(x) with filledcurve y1=0",
+               
+                plotName, 
+                bid.minX, distributor.rate[time],
+                bid.minX, distributor.rate[time], bid.minX, time, bid.minX, necessity,
+                bid.minX, bid.tradeX,
+                bid.minX, bid.maxX
+            ));
+            writer.close();
+        } 
+        catch (Exception e) 
+        {
+            e.printStackTrace();
         }
-        
-        
-        Participant participant = new Participant( id, plv);
-        
-        return participant;
-    }
-    
-    public double curve(double x)
-    {
-        return distributor.price * ( minX + necessity * Math.log( x - minX) / necessity + 1);
-    }
-    
-    public double slope( double x0, double y0, double x1, double y1)
-    {
-        return (y1-y0)/(x1-x0);
-    }
-    
-    public double intercept( double x, double y, double slope )
-    {
-        return y - x*slope;
+	
     }
     
     

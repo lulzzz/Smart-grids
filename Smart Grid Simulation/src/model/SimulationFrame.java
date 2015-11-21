@@ -1,5 +1,6 @@
 package model;
 
+import com.google.gson.annotations.Expose;
 import java.util.Collection;
 import java.util.Map;
 
@@ -10,6 +11,7 @@ public class SimulationFrame
 {
     int step;
     public Problem problem;
+    @Expose
     public Assignment assignment;
 	
     public SimulationFrame( int step, City city ) 
