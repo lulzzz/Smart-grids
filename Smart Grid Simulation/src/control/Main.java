@@ -9,6 +9,8 @@ public class Main extends JFrame
     public static final int simulationFrames = 24;
     
     public static final String cityJsonPath = "output/city.json";
+    
+    public static final String simulationJsonPath = "output/simulation.json";
 
     public static void main(String[] args)
     {
@@ -17,8 +19,8 @@ public class Main extends JFrame
         city.saveJSON( cityJsonPath );
         
         Simulation simulation = new Simulation( city, simulationFrames );
-        //simulation.run();
-        //simulation.saveJSON();
+        simulation.run();
+        simulation.saveJSON( simulationJsonPath );
     }
 
     
@@ -27,17 +29,7 @@ public class Main extends JFrame
 
 /*package control;
 
-import model.SimulationFrame;
-import model.Simulation;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Random;
 
-import seas3.core.*;
-import seas3.radpro.RadProSolver;
 
 public class InMemorySolving 
 {

@@ -3,9 +3,9 @@ package model;
 
 public class Wire 
 {
-    private int originId;
-    private int destinationId;
-    private float capacity;
+    public int originId;
+    public int destinationId;
+    public float capacity;
     
     public Wire( House origin, House destination, float capacity )
     {

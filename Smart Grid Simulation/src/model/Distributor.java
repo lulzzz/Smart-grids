@@ -9,6 +9,7 @@ package model;
  *
  * @author Martin
  */
-public class Distributor {
-    
+public class Distributor 
+{
+    public double price = 5;
 }

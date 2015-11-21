@@ -5,6 +5,7 @@ import com.google.gson.Gson;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import seas3.core.Problem;
 
 public class City 
 {
@@ -50,5 +51,22 @@ public class City
         {
             e.printStackTrace();
 	}
+    }
+
+    public Problem getProblem( int step ) 
+    {
+        Problem problem = new Problem();
+        
+        for( House house : houses )
+        {
+            problem.addParticipant( house.getParticipant( step ) );
+        }
+        
+        for( Wire wire : wires )
+        {
+            problem.addLink( wire.originId, wire.destinationId, wire.capacity);
+        }
+        
+        return problem;
     }
 }
