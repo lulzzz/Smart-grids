@@ -3,14 +3,14 @@ package model;
 
 public class Wire 
 {
-    private House origin;
-    private House destination;
+    private int originId;
+    private int destinationId;
     private float capacity;
     
     public Wire( House origin, House destination, float capacity )
     {
-        this.origin = origin;
-        this.destination = destination;
+        this.originId = origin.id;
+        this.destinationId = destination.id;
         this.capacity = capacity;
     }
     

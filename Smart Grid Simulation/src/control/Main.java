@@ -8,14 +8,17 @@ public class Main extends JFrame
 {
     public static final int simulationFrames = 24;
     
+    public static final String cityJsonPath = "output/city.json";
+
     public static void main(String[] args)
     {
         City city = new City();
-        city.saveJSON();
+        city.buildExampleCity();
+        city.saveJSON( cityJsonPath );
         
         Simulation simulation = new Simulation( city, simulationFrames );
-        simulation.run();
-        simulation.saveJSON();
+        //simulation.run();
+        //simulation.saveJSON();
     }
 
     
