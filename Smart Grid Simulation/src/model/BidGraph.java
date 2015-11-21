@@ -2,38 +2,43 @@
 package model;
 
 import java.io.*;
+import java.util.Locale;
 
 public class BidGraph 
 {
-    public static final float endesa = 5;
+    public static final float endesa = 2;
     private float tightness = 30;
     private float minX = 1;
     private float maxX = 10;
+    private float sellX = 4;
     
-    private double curve(float x)
-    {
-        return endesa*( minX + tightness * Math.log((Math.abs(x) - minX)/tightness + 1));
-    }
-    
-    public void saveGraphData() 
+    public void saveGraphData( String name ) 
     {
         try 
         {
             PrintWriter writer = new PrintWriter("output/graph.txt", "UTF-8");
             
-            for(int i = 1; i <=10; i++)
-            {
-                writer.println(String.format("%d %.5f", i, curve(i)));
-            }
-            writer.close();
-            System.out.println("file written");
-            
-            writer = new PrintWriter("output/linear.txt", "UTF-8");
-            
-            for(int i = 1; i <=10; i++)
-            {
-                writer.println(String.format("%d %.5f", i, endesa*i));
-            }
+            writer.print(String.format(Locale.US,
+                    
+                "set terminal png %n" +
+                    
+                "set output '%s.png' %n" +
+                        
+                "f(x) = x > %f ? %f*x : 1/0 %n"+
+                        
+                "g(x) = x > %f ? %f*(%f+%f*log((x-%f)/%f + 1)) : 1/0 %n"+
+                
+                "h(x) = (x > %f && x < %f) ? g(x) : 1/0 %n"+
+                
+                       
+                "plot [%f:%f] f(x) with filledcurve y1=0, g(x) with filledcurve y1=0, h(x) with filledcurve y1=0",
+               
+                name, 
+                minX, endesa,
+                minX, endesa, minX, tightness, minX, tightness,
+                minX, sellX,
+                minX, maxX
+            ));
             writer.close();
             System.out.println("file written");
             
