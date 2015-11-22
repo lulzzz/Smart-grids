@@ -20,9 +20,13 @@ public abstract class Prosumer
     
     public Bid bid;
     
-    public abstract void writePlotData( PrintWriter writer, String plotName, int frame );
+    public abstract void updateFrame( int frame );
+    public abstract void writePlotData( PrintWriter writer );
 
-    public abstract Participant getParticipant( int frame );
+    public Participant getParticipant()
+    {
+        return new Participant(id, bid.toPLV());
+    }
     
     public Prosumer( float[] position )
     {

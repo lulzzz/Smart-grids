@@ -1,0 +1,26 @@
+set terminal png
+
+set output '0.png' 
+f(x) = x > 1.000000 ? 3.000000*x : 1/0 
+g(x) = x > 1.000000 ? sgn(x)*3.000000*(1.000000+3.000000*log((abs(x)-1.000000)/3.000000 + 1)) : 1/0 
+plot [1.000000:11.000000] f(x) with filledcurve y1=0, g(x) with filledcurve y1=0 
+
+set output '1.png' 
+f(x) = x > 1.000000 ? 3.000000*x : 1/0 
+g(x) = x > 1.000000 ? sgn(x)*3.000000*(1.000000+10.000000*log((abs(x)-1.000000)/10.000000 + 1)) : 1/0 
+plot [1.000000:11.000000] f(x) with filledcurve y1=0, g(x) with filledcurve y1=0 
+
+set output '2.png' 
+f(x) = x > 1.000000 ? 3.000000*x : 1/0 
+g(x) = x > 1.000000 ? sgn(x)*3.000000*(1.000000+8.000000*log((abs(x)-1.000000)/8.000000 + 1)) : 1/0 
+plot [1.000000:11.000000] f(x) with filledcurve y1=0, g(x) with filledcurve y1=0 
+
+set output '3.png' 
+plot[-10.000000:10.000000] 3.000000 * x with filledcurve y1=0 
+
+set output '4.png' 
+plot[-10.000000:10.000000] 3.000000 * x with filledcurve y1=0 
+
+set output '5.png' 
+plot[-10.000000:10.000000] 3.000000 * x with filledcurve y1=0 
+

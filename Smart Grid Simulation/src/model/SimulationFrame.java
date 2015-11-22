@@ -22,6 +22,8 @@ public class SimulationFrame
         
         problem = city.getProblem( step );
         
+        city.writePlotData( "output/frame"+step+".txt" );
+        
         Options o = new Options();
         Options results = new Options();
         

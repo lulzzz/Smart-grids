@@ -3,7 +3,6 @@ package model;
 
 import java.util.concurrent.Callable;
 import java.util.function.DoubleUnaryOperator;
-import static model.House.plotResolution;
 import seas3.core.IntervalLinearValuation;
 import seas3.core.PiecewiseLinearValuation;
 
@@ -18,12 +17,18 @@ public class Bid
     public double tradeX;
     public double contactX;
     public DoubleUnaryOperator curve;
+    public int resolution;
     
-    public Bid( double minX, double maxX, DoubleUnaryOperator curve )
+    public Bid( double minX, double maxX, DoubleUnaryOperator curve, int resolution )
     {
         this.minX = minX;
         this.maxX = maxX;
         this.curve = curve;
+        this.resolution = resolution;
+        
+        if( minX < 0 && maxX < 0 ) contactX = maxX;
+        else if(minX>0 && maxX > 0) contactX = minX;
+        else contactX = 0;
     }
     
     public PiecewiseLinearValuation toPLV()
@@ -36,9 +41,9 @@ public class Bid
         
         double x0,x1,y0,y1,slope,intercept;
         
-        double step = (maxX - minX) / plotResolution;
+        double step = (maxX - minX) / resolution;
         
-        for( int i = 0; i < plotResolution; i++ )
+        for( int i = 0; i < resolution; i++ )
         {
             x0 = minX + i*step;
             x1 = x0 + step;

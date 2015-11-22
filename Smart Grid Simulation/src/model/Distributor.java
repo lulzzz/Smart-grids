@@ -2,6 +2,7 @@
 package model;
 
 import java.io.PrintWriter;
+import java.util.Locale;
 import seas3.core.Participant;
 
 
@@ -25,28 +26,35 @@ public class Distributor extends Prosumer
     
     public static double[] testRate = new double[]
     {
-        0,1,2,3,4,5,6,7,8,9,10,11,12,0,1,2,3,4,5,6,7,8,9,10,11,12
+        1,2,3,4,5,6,7,8,9,10,11,12,1,2,3,4,5,6,7,8,9,10,11,12
     };
     
     public double[] rate;
+    public double currentRate;
     
     public Distributor( float[] position, double[] rate )
     {
         super(position);
         this.rate = rate;
     }
-
+    
     @Override
-    public void writePlotData(PrintWriter writer, String plotName, int frame) 
+    public void updateFrame(int frame)
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        currentRate = rate[ frame ];
+        bid = new Bid(-10,10, x->currentRate * x, 1 );
     }
 
     @Override
-    public Participant getParticipant(int frame) 
+    public void writePlotData(PrintWriter writer) 
     {
-        bid = new Bid(-10,10,x -> rate[frame] * x );
-        
-        return new Participant(id, bid.toPLV());
+        writer.print(String.format(Locale.US,
+                "set output '%d.png' %n" +
+                
+                "plot[%f:%f] %f * x with filledcurve y1=0 %n%n",
+                
+                id,
+                bid.minX, bid.maxX, currentRate
+        ));
     }
 }

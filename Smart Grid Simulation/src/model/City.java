@@ -6,6 +6,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.Expose;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import seas3.core.Problem;
 
@@ -24,9 +25,9 @@ public class City
     
     public void buildExampleCity()
     {
-        House MartinHouse = new House( new float[]{0,0} );
-        House JuanHouse = new House( new float[]{10,0} );
-        House JesusHouse = new House( new float[]{0,10} );
+        House MartinHouse = new House( new float[]{0,0}, null );
+        House JuanHouse = new House( new float[]{10,0}, null );
+        House JesusHouse = new House( new float[]{0,10}, null );
         
         prosumers.add(MartinHouse);
         prosumers.add(JuanHouse);
@@ -74,13 +75,14 @@ public class City
         }
     }
 
-    public Problem getProblem( int step ) 
+    public Problem getProblem( int frame ) 
     {
         Problem problem = new Problem();
         
         for( Prosumer prosumer : prosumers )
         {
-            problem.addParticipant( prosumer.getParticipant( step ) );
+            prosumer.updateFrame(frame);
+            problem.addParticipant( prosumer.getParticipant() );
         }
         
         for( Wire wire : wires )
@@ -89,5 +91,26 @@ public class City
         }
         
         return problem;
+    }
+
+    void writePlotData(String path) 
+    {
+        try
+        {
+            PrintWriter writer = new PrintWriter(path);
+            
+            writer.print(String.format("set terminal png%n%n"));
+            
+            for(Prosumer p : prosumers)
+            {
+                p.writePlotData(writer);
+            }
+            
+            writer.close();
+        }
+        catch( IOException ex )
+        {
+            ex.printStackTrace();
+        }
     }
 }
