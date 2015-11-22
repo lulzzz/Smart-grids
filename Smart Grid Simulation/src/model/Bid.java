@@ -1,6 +1,7 @@
 
 package model;
 
+import java.util.ArrayList;
 import java.util.concurrent.Callable;
 import java.util.function.DoubleUnaryOperator;
 import seas3.core.IntervalLinearValuation;
@@ -14,7 +15,7 @@ public class Bid
 {
     public double minX;
     public double maxX;
-    public double tradeX;
+    public ArrayList<Double> trades;
     public double contactX;
     public DoubleUnaryOperator curve;
     public int resolution;
@@ -25,6 +26,8 @@ public class Bid
         this.maxX = maxX;
         this.curve = curve;
         this.resolution = resolution;
+        this.trades = new ArrayList<>();
+        addTrade(3);
         
         if( minX < 0 && maxX < 0 ) contactX = maxX;
         else if(minX>0 && maxX > 0) contactX = minX;
@@ -62,10 +65,8 @@ public class Bid
         return plv;
     }
     
-    
-    
-    public void toFile()
+    public void addTrade( double at )
     {
-        
+        trades.add(at);
     }
 }

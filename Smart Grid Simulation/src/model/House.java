@@ -43,17 +43,22 @@ public class House extends Prosumer
     @Override
     public void writePlotData( PrintWriter writer ) 
     {
-        writer.print(String.format(Locale.US,
-
-            "set output '%d.png' %n" +
+        writer.print(String.format("set output '%d.png' %n", id));
+        
+        writer.print(String.format(Locale.US, 
+                 "set arrow %d from %f, %f to %f,%f front %n",
+                 
+                1, bid.trades.get(0), 0.0, bid.trades.get(0), bid.curve.applyAsDouble(bid.trades.get(0))
+        ));
+        
+        writer.print(String.format(Locale.US, 
 
             "f(x) = x > %f ? %f*x : 1/0 %n"+
 
             "g(x) = x > %f ? sgn(x)*%f*(%f+%f*log((abs(x)-%f)/%f + 1)) : 1/0 %n"+
+                    
+            "plot [%f:%f][0:] f(x) with filledcurve y1=0, g(x) with filledcurve y1=0 %n%n",
 
-            "plot [%f:%f] f(x) with filledcurve y1=0, g(x) with filledcurve y1=0 %n%n",
-
-            id, 
             bid.minX, distributorRate,
             bid.minX, distributorRate, bid.contactX, necessity, bid.contactX, necessity,
             bid.minX, bid.maxX
