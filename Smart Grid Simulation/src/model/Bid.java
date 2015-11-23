@@ -27,7 +27,6 @@ public class Bid
         this.curve = curve;
         this.resolution = resolution;
         this.trades = new ArrayList<>();
-        addTrade(3);
         
         if( minX < 0 && maxX < 0 ) contactX = maxX;
         else if(minX>0 && maxX > 0) contactX = minX;

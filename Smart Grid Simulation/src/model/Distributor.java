@@ -3,6 +3,8 @@ package model;
 
 import java.io.PrintWriter;
 import java.util.Locale;
+import seas3.core.Assignment;
+import seas3.core.Link;
 import seas3.core.Participant;
 
 
@@ -43,18 +45,44 @@ public class Distributor extends Prosumer
     {
         currentRate = rate[ frame ];
         bid = new Bid(-10,10, x->currentRate * x, 1 );
+        participant = new Participant(id, bid.toPLV());
     }
 
     @Override
     public void writePlotData(PrintWriter writer) 
     {
+        writer.print(String.format("set output '%d.png' %nunset arrow %n", id));
+        
+        for( double trade : bid.trades )
+        {
+            writer.print(String.format(Locale.US, 
+                 "set arrow from %f, %f to %f,%f front %n",
+                 
+                trade, 0.0, trade, bid.curve.applyAsDouble(trade)
+            ));
+        }
+        
         writer.print(String.format(Locale.US,
-                "set output '%d.png' %n" +
                 
                 "plot[%f:%f] %f * x with filledcurve y1=0 %n%n",
                 
-                id,
                 bid.minX, bid.maxX, currentRate
         ));
+    }
+
+    @Override
+    public void processResults(Assignment assignment) 
+    {
+        for(Link l : participant.getInLinks())
+        {
+            double trade = Math.abs(assignment.get(l));
+            bid.addTrade(trade);
+        }
+        
+        for(Link l : participant.getOutLinks())
+        {
+            double trade = Math.abs(assignment.get(l));
+            bid.addTrade(trade);
+        }
     }
 }

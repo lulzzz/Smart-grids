@@ -22,13 +22,16 @@ public class SimulationFrame
         
         problem = city.getProblem( step );
         
-        city.writePlotData( "output/frame"+step+".txt" );
-        
         Options o = new Options();
         Options results = new Options();
         
         results = radPro.solve(problem, o);
 
         assignment = (Assignment) results.get(Solver.solution);
+        
+        city.processResults( assignment );
+        
+        city.writePlotData( "output/frame"+step+".txt" );
+        
     }
 }

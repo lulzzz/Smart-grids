@@ -3,6 +3,7 @@ package model;
 
 import com.google.gson.annotations.Expose;
 import java.io.PrintWriter;
+import seas3.core.Assignment;
 import seas3.core.Participant;
 
 /**
@@ -19,14 +20,11 @@ public abstract class Prosumer
     public float[] position;
     
     public Bid bid;
+    public Participant participant;
     
     public abstract void updateFrame( int frame );
     public abstract void writePlotData( PrintWriter writer );
 
-    public Participant getParticipant()
-    {
-        return new Participant(id, bid.toPLV());
-    }
     
     public Prosumer( float[] position )
     {
@@ -34,4 +32,6 @@ public abstract class Prosumer
         totalProsumers++;
         this.position = position;
     }
+
+    public abstract void processResults(Assignment assignment);
 }

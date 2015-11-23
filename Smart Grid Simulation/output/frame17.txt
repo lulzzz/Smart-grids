@@ -1,29 +1,42 @@
 set terminal png
 
 set output '0.png' 
-set arrow 1 from 3.000000, 0.000000 to 3.000000,16.356555 front 
+ unset arrow 
+set arrow from 1.000000, 0.000000 to 1.000000,6.000000 front 
+set arrow from 10.000000, 0.000000 to 10.000000,43.429948 front 
+set arrow from 10.000000, 0.000000 to 10.000000,43.429948 front 
 f(x) = x > 1.000000 ? 6.000000*x : 1/0 
-g(x) = x > 1.000000 ? sgn(x)*6.000000*(1.000000+6.000000*log((abs(x)-1.000000)/6.000000 + 1)) : 1/0 
+g(x) = x > 1.000000 ? sgn(x)*6.000000*(1.000000+9.000000*log((abs(x)-1.000000)/9.000000 + 1)) : 1/0 
 plot [1.000000:11.000000][0:] f(x) with filledcurve y1=0, g(x) with filledcurve y1=0 
 
 set output '1.png' 
-set arrow 1 from 3.000000, 0.000000 to 3.000000,14.317766 front 
+ unset arrow 
+set arrow from 9.000000, 0.000000 to 9.000000,25.313255 front 
+set arrow from 10.000000, 0.000000 to 10.000000,26.456977 front 
 f(x) = x > 1.000000 ? 6.000000*x : 1/0 
 g(x) = x > 1.000000 ? sgn(x)*6.000000*(1.000000+2.000000*log((abs(x)-1.000000)/2.000000 + 1)) : 1/0 
 plot [1.000000:11.000000][0:] f(x) with filledcurve y1=0, g(x) with filledcurve y1=0 
 
 set output '2.png' 
-set arrow 1 from 3.000000, 0.000000 to 3.000000,16.939293 front 
+ unset arrow 
+set arrow from 1.000000, 0.000000 to 1.000000,6.000000 front 
+set arrow from 2.000000, 0.000000 to 2.000000,11.355445 front 
 f(x) = x > 1.000000 ? 6.000000*x : 1/0 
-g(x) = x > 1.000000 ? sgn(x)*6.000000*(1.000000+10.000000*log((abs(x)-1.000000)/10.000000 + 1)) : 1/0 
+g(x) = x > 1.000000 ? sgn(x)*6.000000*(1.000000+4.000000*log((abs(x)-1.000000)/4.000000 + 1)) : 1/0 
 plot [1.000000:11.000000][0:] f(x) with filledcurve y1=0, g(x) with filledcurve y1=0 
 
 set output '3.png' 
+unset arrow 
+set arrow from 2.000000, 0.000000 to 2.000000,12.000000 front 
 plot[-10.000000:10.000000] 6.000000 * x with filledcurve y1=0 
 
 set output '4.png' 
+unset arrow 
+set arrow from 9.000000, 0.000000 to 9.000000,54.000000 front 
 plot[-10.000000:10.000000] 6.000000 * x with filledcurve y1=0 
 
 set output '5.png' 
+unset arrow 
+set arrow from 10.000000, 0.000000 to 10.000000,60.000000 front 
 plot[-10.000000:10.000000] 6.000000 * x with filledcurve y1=0 
 

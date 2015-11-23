@@ -2,11 +2,9 @@
 package model;
 
 import java.io.PrintWriter;
-import java.util.Locale;
-import java.util.Random;
+import java.util.*;
 import java.util.function.DoubleUnaryOperator;
-import seas3.core.Participant;
-import seas3.core.PiecewiseLinearValuation;
+import seas3.core.*;
 
 public class House extends Prosumer
 {
@@ -16,6 +14,7 @@ public class House extends Prosumer
     public double baseConsum;
     public double batteryCapacity;
     public double distributorRate;
+    
     
     public House(float[] position, Distributor distributor)
     {
@@ -33,6 +32,7 @@ public class House extends Prosumer
     {
         bid = new Bid( baseConsum, baseConsum + batteryCapacity, buildCurve(frame), 10); 
         distributorRate = distributor.rate[frame];
+        participant = new Participant(id, bid.toPLV());
     }
     
     private DoubleUnaryOperator buildCurve(int time)
@@ -43,13 +43,18 @@ public class House extends Prosumer
     @Override
     public void writePlotData( PrintWriter writer ) 
     {
-        writer.print(String.format("set output '%d.png' %n", id));
+        writer.print(String.format("set output '%d.png' %n unset arrow %n", id));
         
-        writer.print(String.format(Locale.US, 
-                 "set arrow %d from %f, %f to %f,%f front %n",
+        for( double trade : bid.trades )
+        {
+            writer.print(String.format(Locale.US, 
+                 "set arrow from %f, %f to %f,%f front %n",
                  
-                1, bid.trades.get(0), 0.0, bid.trades.get(0), bid.curve.applyAsDouble(bid.trades.get(0))
-        ));
+                trade, 0.0, trade, bid.curve.applyAsDouble(trade)
+            ));
+        }
+        
+        
         
         writer.print(String.format(Locale.US, 
 
@@ -64,4 +69,22 @@ public class House extends Prosumer
             bid.minX, bid.maxX
         ));
     } 
+
+    @Override
+    public void processResults(Assignment assignment) 
+    {
+        for(Link l : participant.getInLinks())
+        {
+            double trade = Math.abs(assignment.get(l));
+            bid.addTrade(trade);
+        }
+        
+        for(Link l : participant.getOutLinks())
+        {
+            double trade = Math.abs(assignment.get(l));
+            bid.addTrade(trade);
+        }
+        
+        
+    }
 }

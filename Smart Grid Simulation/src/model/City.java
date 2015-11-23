@@ -8,6 +8,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import seas3.core.Assignment;
 import seas3.core.Problem;
 
 public class City 
@@ -82,7 +83,7 @@ public class City
         for( Prosumer prosumer : prosumers )
         {
             prosumer.updateFrame(frame);
-            problem.addParticipant( prosumer.getParticipant() );
+            problem.addParticipant( prosumer.participant );
         }
         
         for( Wire wire : wires )
@@ -111,6 +112,14 @@ public class City
         catch( IOException ex )
         {
             ex.printStackTrace();
+        }
+    }
+
+    public void processResults(Assignment assignment) 
+    {
+        for( Prosumer prosumer : prosumers )
+        {
+            prosumer.processResults(assignment);
         }
     }
 }
