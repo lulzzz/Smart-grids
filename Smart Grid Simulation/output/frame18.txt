@@ -2,27 +2,27 @@ set terminal png
 
 set output '0.png' 
  unset arrow 
-set arrow from 10.000000, 0.000000 to 10.000000,50.668272 front 
+set arrow from 10.000000, 0.000000 to 10.000000,23.118096 front 
 set arrow from 1.000000, 0.000000 to 1.000000,7.000000 front 
-set arrow from 10.000000, 0.000000 to 10.000000,50.668272 front 
+set arrow from 10.000000, 0.000000 to 10.000000,23.118096 front 
 f(x) = x > 1.000000 ? 7.000000*x : 1/0 
-g(x) = x > 1.000000 ? sgn(x)*7.000000*(1.000000+9.000000*log((abs(x)-1.000000)/9.000000 + 1)) : 1/0 
+g(x) = x > 1.000000 ? sgn(x)*7.000000*(1.000000+1.000000*log((abs(x)-1.000000)/1.000000 + 1)) : 1/0 
 plot [1.000000:11.000000][0:] f(x) with filledcurve y1=0, g(x) with filledcurve y1=0 
 
 set output '1.png' 
  unset arrow 
-set arrow from 2.000000, 0.000000 to 2.000000,12.676512 front 
+set arrow from 2.000000, 0.000000 to 2.000000,13.595850 front 
 set arrow from 1.000000, 0.000000 to 1.000000,7.000000 front 
 f(x) = x > 1.000000 ? 7.000000*x : 1/0 
-g(x) = x > 1.000000 ? sgn(x)*7.000000*(1.000000+2.000000*log((abs(x)-1.000000)/2.000000 + 1)) : 1/0 
+g(x) = x > 1.000000 ? sgn(x)*7.000000*(1.000000+8.000000*log((abs(x)-1.000000)/8.000000 + 1)) : 1/0 
 plot [1.000000:11.000000][0:] f(x) with filledcurve y1=0, g(x) with filledcurve y1=0 
 
 set output '2.png' 
  unset arrow 
-set arrow from 10.000000, 0.000000 to 10.000000,40.002340 front 
-set arrow from 9.000000, 0.000000 to 9.000000,37.761144 front 
+set arrow from 10.000000, 0.000000 to 10.000000,36.112182 front 
+set arrow from 9.000000, 0.000000 to 9.000000,34.284943 front 
 f(x) = x > 1.000000 ? 7.000000*x : 1/0 
-g(x) = x > 1.000000 ? sgn(x)*7.000000*(1.000000+4.000000*log((abs(x)-1.000000)/4.000000 + 1)) : 1/0 
+g(x) = x > 1.000000 ? sgn(x)*7.000000*(1.000000+3.000000*log((abs(x)-1.000000)/3.000000 + 1)) : 1/0 
 plot [1.000000:11.000000][0:] f(x) with filledcurve y1=0, g(x) with filledcurve y1=0 
 
 set output '3.png' 

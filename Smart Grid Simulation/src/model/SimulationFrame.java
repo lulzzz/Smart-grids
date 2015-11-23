@@ -12,10 +12,14 @@ public class SimulationFrame
     int step;
     public Problem problem;
     @Expose
+    private Weather weather;
+    @Expose
     public Assignment assignment;
 	
-    public SimulationFrame( int step, City city ) 
+    public SimulationFrame( int step, City city, Weather weather ) 
     {
+        this.weather = weather;
+
         this.step = step;
         
         Solver radPro = new RadProSolver();

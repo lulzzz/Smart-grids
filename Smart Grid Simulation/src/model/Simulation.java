@@ -22,9 +22,13 @@ public class Simulation
 
     public void run( int steps ) 
     {
+        
+        
         for( int step = 0; step < steps; step++ )
         {
-            SimulationFrame frame = new SimulationFrame( step, city );
+            Weather weather = new Weather();
+            weather.develop();
+            SimulationFrame frame = new SimulationFrame( step, city, weather );
             
             frames.add(frame);
         }
@@ -45,6 +49,6 @@ public class Simulation
         catch (IOException e) 
         {
             e.printStackTrace();
-	}
+        }
     }
 }
