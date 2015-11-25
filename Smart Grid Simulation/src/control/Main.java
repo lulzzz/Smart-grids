@@ -16,10 +16,18 @@ public class Main extends JFrame
     {
         City city = new City();
         city.buildExampleCity();
+        
+        city.addDistributorToEachHouse();
+        
         city.saveJSON( cityJsonPath );
         
         Simulation simulation = new Simulation( city, simulationFrames );
+<<<<<<< HEAD
         //simulation.saveJSON( simulationJsonPath );
+=======
+        simulation.run( simulationFrames );
+        simulation.saveJSON( simulationJsonPath );
+>>>>>>> origin/master
     }
 
     

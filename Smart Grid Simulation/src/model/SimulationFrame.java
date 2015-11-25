@@ -1,6 +1,12 @@
 package model;
 
+<<<<<<< HEAD
 import java.util.Random;
+=======
+import com.google.gson.annotations.Expose;
+import java.util.Collection;
+import java.util.Map;
+>>>>>>> origin/master
 
 import seas3.core.*;
 import seas3.radpro.RadProSolver;
@@ -9,10 +15,15 @@ public class SimulationFrame
 {
     int step;
     public Problem problem;
+    @Expose
+    private Weather weather;
+    @Expose
     public Assignment assignment;
 	
-    public SimulationFrame( int step, City city ) 
+    public SimulationFrame( int step, City city, Weather weather ) 
     {
+        this.weather = weather;
+
         this.step = step;
         
         Solver radPro = new RadProSolver();
@@ -23,6 +34,11 @@ public class SimulationFrame
         Options results = radPro.solve(problem, o);
 
         assignment = (Assignment) results.get(Solver.solution);
+        
+        city.processResults( assignment );
+        
+        city.writePlotData( "output/frame"+step+".txt" );
+        
     }
     
     public Problem makeProblem() 

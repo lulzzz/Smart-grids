@@ -1,6 +1,0 @@
-set terminal png 
-set output 'name.png' 
-f(x) = x > 1.000000 ? 2.000000*x : 1/0 
-g(x) = x > 1.000000 ? 2.000000*(1.000000+30.000000*log((x-1.000000)/30.000000 + 1)) : 1/0 
-h(x) = (x > 1.000000 && x < 4.000000) ? g(x) : 1/0 
-plot [1.000000:10.000000] f(x) with filledcurve y1=0, g(x) with filledcurve y1=0, h(x) with filledcurve y1=0

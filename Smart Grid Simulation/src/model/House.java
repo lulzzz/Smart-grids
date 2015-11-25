@@ -1,76 +1,98 @@
 
 package model;
 
-import com.google.gson.Gson;
-import seas3.core.IntervalLinearValuation;
-import seas3.core.Participant;
-import seas3.core.PiecewiseLinearValuation;
+import java.io.PrintWriter;
+import java.util.*;
+import java.util.function.DoubleUnaryOperator;
+import seas3.core.*;
 
-/**
- *
- * @author Martin
- */
-public class House
+public class House extends Prosumer
 {
-    public static int totalHouses = 0;
-    public int id;
-    public float[] position;
-    public float minX;
-    public float maxX;
-    public float necessity;
     public Distributor distributor;
     
-    public House(float[] position)
+    public double necessity;
+    public double baseConsum;
+    public double batteryCapacity;
+    public double distributorRate;
+    
+    
+    public House(float[] position, Distributor distributor)
     {
-        totalHouses++;
+        super(position);
         
-        this.id = totalHouses;
-        this.position = position;
-    }
-
-    Participant getParticipant(int time) 
-    {
-        PiecewiseLinearValuation plv = new PiecewiseLinearValuation();
+        this.distributor = distributor;
         
-        
-        double x0,x1,y0,y1,slope,intercept;
-        double step = (maxX - minX) / 10;
-        for( x0 = minX; x0 < maxX; x0 += step)
-        {
-            y0 = curve(x0);
-            x1 = x0 + step;
-            y1 = curve(x1);
-            
-            slope = slope(x0,y0,x1,y1);
-            intercept = intercept(x0,y0,slope);
-            
-            IntervalLinearValuation ilv = new IntervalLinearValuation(x0, x1, slope, intercept);
-            
-            plv.add(ilv);
-        }
-        
-        
+<<<<<<< HEAD
         Participant participant = new Participant( id, plv);
         
         System.out.println(participant);
         
         return participant;
+=======
+        necessity = new Random().nextInt(10) + 1;
+        baseConsum = 1;
+        batteryCapacity = 10;
+>>>>>>> origin/master
     }
     
-    public double curve(double x)
+    @Override
+    public void updateFrame( int frame )
     {
-        return distributor.price * ( minX + necessity * Math.log( x - minX) / necessity + 1);
+        bid = new Bid( baseConsum, baseConsum + batteryCapacity, buildCurve(frame), 10); 
+        distributorRate = distributor.rate[frame];
+        participant = new Participant(id, bid.toPLV());
     }
     
-    public double slope( double x0, double y0, double x1, double y1)
+    private DoubleUnaryOperator buildCurve(int time)
     {
-        return (y1-y0)/(x1-x0);
+        return x -> Math.signum(x) * distributor.rate[time] * ( bid.contactX + necessity * Math.log( (Math.abs(x) - bid.minX) / necessity + 1));
     }
     
-    public double intercept( double x, double y, double slope )
+    @Override
+    public void writePlotData( PrintWriter writer ) 
     {
-        return y - x*slope;
+        writer.print(String.format("set output '%d.png' %n unset arrow %n", id));
+        
+        for( double trade : bid.trades )
+        {
+            writer.print(String.format(Locale.US, 
+                 "set arrow from %f, %f to %f,%f front %n",
+                 
+                trade, 0.0, trade, bid.curve.applyAsDouble(trade)
+            ));
+        }
+        
+        
+        
+        writer.print(String.format(Locale.US, 
+
+            "f(x) = x > %f ? %f*x : 1/0 %n"+
+
+            "g(x) = x > %f ? sgn(x)*%f*(%f+%f*log((abs(x)-%f)/%f + 1)) : 1/0 %n"+
+                    
+            "plot [%f:%f][0:] f(x) with filledcurve y1=0, g(x) with filledcurve y1=0 %n%n",
+
+            bid.minX, distributorRate,
+            bid.minX, distributorRate, bid.contactX, necessity, bid.contactX, necessity,
+            bid.minX, bid.maxX
+        ));
+    } 
+
+    @Override
+    public void processResults(Assignment assignment) 
+    {
+        for(Link l : participant.getInLinks())
+        {
+            double trade = Math.abs(assignment.get(l));
+            bid.addTrade(trade);
+        }
+        
+        for(Link l : participant.getOutLinks())
+        {
+            double trade = Math.abs(assignment.get(l));
+            bid.addTrade(trade);
+        }
+        
+        
     }
-    
-    
 }
