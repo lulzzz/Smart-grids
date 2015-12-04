@@ -36,7 +36,6 @@ public class DaynightCycle : MonoBehaviour
     public void setHour(float value)
     {
         float rotation = 360f / 24 * value;
-        print(rotation);
 
         sun.transform.eulerAngles = new Vector3(90, 0, 0);
         sun.transform.RotateAround(Vector3.zero, Vector3.forward, 180+rotation);

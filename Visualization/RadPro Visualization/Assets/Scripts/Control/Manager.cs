@@ -21,9 +21,9 @@ public class Manager : MonoBehaviour
         if (Instance == null) Instance = this;
         json = System.IO.File.ReadAllText(@""+jsonPath);
         print(json);
-        parseJSON();
+        if(readJSON) parseJSON();
     }
-
+    
     public void setHour(float value)
     {
         stopSimulation();
@@ -49,7 +49,7 @@ public class Manager : MonoBehaviour
 
     public void drawLinks(float hour)
     {
-        if (!readJSON)
+        if (readJSON)
         {
             int h = (int)hour;
             if (h != 0)
