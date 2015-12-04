@@ -2,7 +2,7 @@
 
 Smart Grid simulation and visualization project
 
-![simulator.png](https://bitbucket.org/repo/L95ekz/images/2787895905-simulator.png)
+![tfg_big_structure.png](https://bitbucket.org/repo/L95ekz/images/1660207584-tfg_big_structure.png)
 
 ## Currently working ##
 
