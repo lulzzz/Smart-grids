@@ -8,9 +8,11 @@ public class DetectBuildings : MonoBehaviour
 {
     public Transform city;
     public string outputPath;
-    public bool detect = false;
+    
     public GameObject linkPrefab;
+    public Transform linksParent;
     public string steinerPath;
+
     public static int dimensions = 2;
 
     
@@ -81,6 +83,8 @@ public class DetectBuildings : MonoBehaviour
             lineRenderer.SetPosition(0, city.GetChild(Int32.Parse(linkNodes[0])-1).position);
             lineRenderer.SetPosition(1, city.GetChild(Int32.Parse(linkNodes[1])-1).position);
             j++;
+
+            link.transform.SetParent(linksParent);
         }
     }
 }

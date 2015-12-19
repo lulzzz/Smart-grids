@@ -49,7 +49,7 @@ public class Manager : MonoBehaviour
 
     public void drawLinks(float hour)
     {
-        if (readJSON)
+        if (!readJSON)
         {
             int h = (int)hour;
             if (h != 0)
@@ -148,71 +148,6 @@ public class Manager : MonoBehaviour
             } 
         }
     }
-    
-    /*
-    public void parseJSON()
-    {
-        links = new Dictionary<int, Dictionary<string,double>>();
-        offerTable = new Dictionary<int, Dictionary<int, List<string>>>();
-
-        JSONObject jsonObject = new JSONObject(json);
-        print(jsonObject);
-        JSONObject assignments = jsonObject.list[0];
-        foreach(JSONObject assignment in assignments.list)
-        {
-            JSONObject map = assignment.list[0].list[0];
-
-            Dictionary<string, double> l = new Dictionary<string, double>();
-
-            foreach (JSONObject link in map.list)
-            {
-                l.Add(link.keys[0], double.Parse(link.list[0].ToString().Replace("\"","")));
-            }
-
-            links.Add(int.Parse(assignment.keys[0].ToString().Replace("\"", "")), l);
-
-            // Tables
-            JSONObject participants = assignment.list[0].list[1];
-
-            Dictionary<int, List<string>> of = new Dictionary<int, List<string>>();
-
-            foreach (JSONObject participant in participants.list)
-            {
-                int house = int.Parse(participant.keys[0].Replace("\"", ""));
-                
-                JSONObject offers = participant.list[0];
-
-                List<string> o = new List<string>();
-
-                foreach( JSONObject offer in offers.list )
-                {
-                    o.Add(offer.ToString());
-                    print(offer);
-                }
-
-                of.Add(house, o);           
-            }
-            offerTable.Add(int.Parse(assignment.keys[0].ToString().Replace("\"", "")),of);
-            print(int.Parse(assignment.keys[0].ToString().Replace("\"", "")));
-        }
-    }
-
-    private void drawOffers( int hour )
-    {
-        Dictionary<int,List<string>> today = offerTable[hour];
-
-        foreach( KeyValuePair<int, List<String>> kv in today)
-        {
-            GameObject house = houses[kv.Key];
-
-            house.transform.GetChild(0).gameObject.SetActive(true);
-            PaintOffers script = house.GetComponentInChildren<PaintOffers>();
-            script.paint(kv.Value);
-            house.transform.GetChild(0).gameObject.SetActive(false);
-        }
-        
-
-    }*/
 
     
     
