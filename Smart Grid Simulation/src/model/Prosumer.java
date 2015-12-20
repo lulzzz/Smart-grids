@@ -6,18 +6,10 @@ import java.io.PrintWriter;
 import seas3.core.Assignment;
 import seas3.core.Participant;
 
-/**
- *
- * @author Martin
- */
 public abstract class Prosumer
-{
-    public static int totalProsumers = 0;
-    
+{    
     @Expose
     public int id;
-    @Expose
-    public float[] position;
     
     public Bid bid;
     public Participant participant;
@@ -26,11 +18,9 @@ public abstract class Prosumer
     public abstract void writePlotData( PrintWriter writer );
 
     
-    public Prosumer( float[] position )
+    public Prosumer( int id )
     {
-        this.id = totalProsumers;
-        totalProsumers++;
-        this.position = position;
+        this.id = id;
     }
 
     public abstract void processResults(Assignment assignment);

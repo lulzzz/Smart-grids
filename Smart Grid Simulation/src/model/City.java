@@ -23,7 +23,7 @@ public class City
         prosumers = new ArrayList<>();
         wires = new ArrayList<>();
     }
-    
+    /*
     public void buildExampleCity()
     {
         House MartinHouse = new House( new float[]{0,0}, null );
@@ -56,7 +56,7 @@ public class City
             prosumers.add(distributor);
             wires.add(wire);
         }
-    }
+    }*/
 
     public void saveJSON( String path ) 
     {
@@ -121,5 +121,30 @@ public class City
         {
             prosumer.processResults(assignment);
         }
+    }
+    
+    public boolean hasProsumer(int id)
+    {
+        for(Prosumer prosumer : prosumers)
+        {
+            if( prosumer.id == id ) return true;
+        }
+        return false;
+    }
+
+    public void addHouseIfNecessary(int id) 
+    {
+        if( ! this.hasProsumer(id) )
+        {
+            prosumers.add(new House(id));
+        }
+    }
+
+    public void addWire(int startId, int endId) 
+    {
+        addHouseIfNecessary(startId);
+        addHouseIfNecessary(endId);
+        
+        Wire wire = new Wire(startId, endId, 10);
     }
 }

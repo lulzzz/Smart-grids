@@ -18,15 +18,10 @@ public class Simulation
     {
         this.city = city;
         frames = new ArrayList<>(steps);
-<<<<<<< HEAD
-=======
     }   
 
     public void run( int steps ) 
     {
-        
->>>>>>> origin/master
-        
         for( int step = 0; step < steps; step++ )
         {
             Weather weather = new Weather();

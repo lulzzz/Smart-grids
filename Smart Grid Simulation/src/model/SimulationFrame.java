@@ -1,12 +1,9 @@
 package model;
 
-<<<<<<< HEAD
 import java.util.Random;
-=======
 import com.google.gson.annotations.Expose;
 import java.util.Collection;
 import java.util.Map;
->>>>>>> origin/master
 
 import seas3.core.*;
 import seas3.radpro.RadProSolver;

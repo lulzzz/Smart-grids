@@ -34,9 +34,9 @@ public class Distributor extends Prosumer
     public double[] rate;
     public double currentRate;
     
-    public Distributor( float[] position, double[] rate )
+    public Distributor( int id, double[] rate )
     {
-        super(position);
+        super(id);
         this.rate = rate;
     }
     

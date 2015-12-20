@@ -19,4 +19,11 @@ public class Wire
         this.capacity = capacity;
     }
     
+    public Wire( int startId, int endId, float capacity )
+    {
+        originId = startId;
+        destinationId = endId;
+        this.capacity = capacity;
+    }
+    
 }

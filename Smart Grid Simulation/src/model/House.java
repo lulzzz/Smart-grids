@@ -16,23 +16,21 @@ public class House extends Prosumer
     public double distributorRate;
     
     
-    public House(float[] position, Distributor distributor)
+    public House(int id)
     {
-        super(position);
+        super(id);
         
-        this.distributor = distributor;
-        
-<<<<<<< HEAD
-        Participant participant = new Participant( id, plv);
-        
-        System.out.println(participant);
-        
-        return participant;
-=======
         necessity = new Random().nextInt(10) + 1;
         baseConsum = 1;
         batteryCapacity = 10;
->>>>>>> origin/master
+        
+        
+        //Participant participant = new Participant( id, plv);
+        
+        System.out.println(participant);
+        
+        //return participant;
+        
     }
     
     @Override
