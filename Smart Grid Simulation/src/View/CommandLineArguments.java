@@ -1,7 +1,7 @@
 
-package control;
+package View;
 
-import com.beust.jcommander.Parameter;
+import com.beust.jcommander.*;
 
 public class CommandLineArguments 
 {
@@ -24,5 +24,10 @@ public class CommandLineArguments
 
     public String getOutputFolder() {
         return outputFolder;
+    }
+    
+    public CommandLineArguments( String[] args )
+    {
+        new JCommander(this, args);
     }
 }

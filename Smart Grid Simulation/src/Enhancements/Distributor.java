@@ -1,8 +1,10 @@
 
-package model;
+package Enhancements;
 
 import java.io.PrintWriter;
 import java.util.Locale;
+import Model.Bid;
+import Model.Prosumer;
 import seas3.core.Assignment;
 import seas3.core.Link;
 import seas3.core.Participant;
@@ -45,10 +47,8 @@ public class Distributor extends Prosumer
     {
         currentRate = rate[ frame ];
         bid = new Bid(-10,10, x->currentRate * x, 1 );
-        participant = new Participant(id, bid.toPLV());
     }
 
-    @Override
     public void writePlotData(PrintWriter writer) 
     {
         writer.print(String.format("set output '%d.png' %nunset arrow %n", id));
@@ -73,16 +73,11 @@ public class Distributor extends Prosumer
     @Override
     public void processResults(Assignment assignment) 
     {
-        for(Link l : participant.getInLinks())
-        {
-            double trade = Math.abs(assignment.get(l));
-            bid.addTrade(trade);
-        }
         
-        for(Link l : participant.getOutLinks())
-        {
-            double trade = Math.abs(assignment.get(l));
-            bid.addTrade(trade);
-        }
+    }
+
+    @Override
+    public void createPlot(String folder, int frame) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
