@@ -1,150 +1,82 @@
 
-package model;
+package Model;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.annotations.Expose;
-import java.io.FileWriter;
+import com.google.gson.annotations.*;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import seas3.core.Assignment;
-import seas3.core.Problem;
+import java.util.*;
+import seas3.core.*;
 
 public class City 
 {
     @Expose
-    private ArrayList<Prosumer> prosumers;
+    private final ArrayList<Prosumer> prosumers;
     @Expose
-    private ArrayList<Wire> wires;
+    private final ArrayList<Wire> wires;
     
     public City()
     {
         prosumers = new ArrayList<>();
         wires = new ArrayList<>();
     }
-    /*
-    public void buildExampleCity()
-    {
-        House MartinHouse = new House( new float[]{0,0}, null );
-        House JuanHouse = new House( new float[]{10,0}, null );
-        House JesusHouse = new House( new float[]{0,10}, null );
-        
-        prosumers.add(MartinHouse);
-        prosumers.add(JuanHouse);
-        prosumers.add(JesusHouse);
-        
-        Wire MartinToJuan = new Wire( MartinHouse, JuanHouse, 10 );
-        Wire MartinToJesus = new Wire( MartinHouse, JesusHouse, 10 );
-        
-        wires.add(MartinToJuan);
-        wires.add(MartinToJesus);
-    }
     
-    public void addDistributorToEachHouse()
+    public void newWire(int startId, int endId) 
     {
-        for( int i = prosumers.size()-1; i >= 0; i-- )
+        // Add prosumers if they dont exist
+        boolean startFound = false, endFound = false;
+        for(Prosumer prosumer : prosumers)
         {
-            House house = (House) prosumers.get(i);
-            
-            // Create a distributor near it and link it
-            Distributor distributor = new Distributor(new float[]{house.position[0] + 1, house.position[1]}, Distributor.testRate);
-            Wire wire = new Wire(distributor, house, 10);
-            
-            house.distributor = distributor;
-            
-            prosumers.add(distributor);
-            wires.add(wire);
+            if( prosumer.id == startId ) startFound = true;
+            if( prosumer.id == endId ) endFound = true;
         }
-    }*/
-
-    public void saveJSON( String path ) 
-    {
-        Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
         
-        String json = gson.toJson(this);
+        if( !startFound ) prosumers.add(new House(startId) );
+        if( !endFound )   prosumers.add(new House(endId) );
         
-        try 
-        {
-            FileWriter writer = new FileWriter( path );
-            writer.write(json);
-            writer.close();
-        } 
-        catch (IOException e) 
-        {
-            e.printStackTrace();
-        }
-    }
+        // Add wire
+        wires.add( new Wire( startId, endId, 10 ));
+    }   
 
-    public Problem getProblem( int frame ) 
+    public Problem buildProblem() 
     {
         Problem problem = new Problem();
         
         for( Prosumer prosumer : prosumers )
         {
-            prosumer.updateFrame(frame);
-            problem.addParticipant( prosumer.participant );
+            problem.addParticipant( prosumer.toParticipant() );
         }
         
         for( Wire wire : wires )
         {
-            problem.addLink( wire.originId, wire.destinationId, wire.capacity);
+            problem.addLink( wire.originId, wire.destinationId, wire.capacity );
         }
         
         return problem;
     }
-
-    void writePlotData(String path) 
+    
+    public void applyTrades(Assignment assignment) 
     {
-        try
+        for( Prosumer prosumer : prosumers )
+            prosumer.applyTrades( assignment );
+    }
+    
+    public void createPlotScript( String outputFolder, int frame ) throws IOException
+    {
+        PrintWriter writer = new PrintWriter(outputFolder + "\\frame" + frame + ".txt");
+        
+        writer.println("set terminal png");
+        for( Prosumer prosumer : prosumers )
         {
-            PrintWriter writer = new PrintWriter(path);
-            
-            writer.print(String.format("set terminal png%n%n"));
-            
-            for(Prosumer p : prosumers)
-            {
-                p.writePlotData(writer);
-            }
-            
-            writer.close();
+            prosumer.writePlotData(writer, frame);
         }
-        catch( IOException ex )
-        {
-            ex.printStackTrace();
-        }
+        writer.close();
     }
 
-    public void processResults(Assignment assignment) 
+    public void develop( int frame ) 
     {
         for( Prosumer prosumer : prosumers )
         {
-            prosumer.processResults(assignment);
+            prosumer.develop(frame);
         }
-    }
-    
-    public boolean hasProsumer(int id)
-    {
-        for(Prosumer prosumer : prosumers)
-        {
-            if( prosumer.id == id ) return true;
-        }
-        return false;
-    }
-
-    public void addHouseIfNecessary(int id) 
-    {
-        if( ! this.hasProsumer(id) )
-        {
-            prosumers.add(new House(id));
-        }
-    }
-
-    public void addWire(int startId, int endId) 
-    {
-        addHouseIfNecessary(startId);
-        addHouseIfNecessary(endId);
-        
-        Wire wire = new Wire(startId, endId, 10);
     }
 }

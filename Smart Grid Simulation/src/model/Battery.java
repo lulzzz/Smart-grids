@@ -1,5 +1,5 @@
 
-package model;
+package Model;
 
 public class Battery 
 {
@@ -20,5 +20,10 @@ public class Battery
     public double getRemainingSpace()
     {
         return capacity - level;
+    }
+
+    double getLevel()
+    {
+        return level;
     }
 }

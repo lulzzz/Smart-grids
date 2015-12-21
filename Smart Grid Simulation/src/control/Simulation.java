@@ -22,7 +22,7 @@ public class Simulation
         frames = new ArrayList<>();
     }   
 
-    public void run( int steps, String outputFolder ) 
+    public void run( int steps, String outputFolder ) throws IOException
     {
         for( int step = 0; step < steps; step++ )
         {
@@ -35,7 +35,7 @@ public class Simulation
             Assignment assignment = (Assignment) results.get(Solver.solution);
             
             city.applyTrades( assignment );
-            city.createPlots( outputFolder );
+            city.createPlotScript(outputFolder, step);
             city.develop( step );
         }  
     }   

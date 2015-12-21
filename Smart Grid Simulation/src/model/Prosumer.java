@@ -1,27 +1,48 @@
 
-package model;
+package Model;
 
-import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.*;
 import java.io.PrintWriter;
-import seas3.core.Assignment;
-import seas3.core.Participant;
+import seas3.core.*;
 
 public abstract class Prosumer
 {    
     @Expose
     public int id;
     
-    public Bid bid;
-    public Participant participant;
+    public static int maxId;
     
-    public abstract void updateFrame( int frame );
-    public abstract void writePlotData( PrintWriter writer );
-
+    public Bid bid;
+    
+    public abstract void develop( int frame );
     
     public Prosumer( int id )
     {
         this.id = id;
+        maxId = id > maxId? id : maxId;
+    }
+    
+    public Participant toParticipant() 
+    {
+        return new Participant(id, bid.toPLV());
     }
 
-    public abstract void processResults(Assignment assignment);
+    void applyTrades(Assignment assignment) 
+    {
+        /*
+        for(Link l : participant.getInLinks())
+        {
+            double trade = Math.abs(assignment.get(l));
+            bid.addTrade(trade);
+        }
+        
+        for(Link l : participant.getOutLinks())
+        {
+            double trade = Math.abs(assignment.get(l));
+            bid.addTrade(trade);
+        }
+        */
+    }
+    
+    public abstract void writePlotData( PrintWriter writer, int frame );
 }

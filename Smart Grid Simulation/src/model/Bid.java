@@ -1,24 +1,25 @@
 
-package model;
+package Model;
 
+import com.google.gson.annotations.Expose;
 import java.util.ArrayList;
-import java.util.concurrent.Callable;
 import java.util.function.DoubleUnaryOperator;
-import seas3.core.IntervalLinearValuation;
-import seas3.core.PiecewiseLinearValuation;
+import seas3.core.*;
 
-/**
- *
- * @author Martin
- */
 public class Bid 
 {
+    @Expose
     public double minX;
+    @Expose
     public double maxX;
-    public ArrayList<Double> trades;
+    @Expose
     public double contactX;
+    
     public DoubleUnaryOperator curve;
     public int resolution;
+    
+    @Expose
+    public ArrayList<Double> trades;
     
     public Bid( double minX, double maxX, DoubleUnaryOperator curve, int resolution )
     {
