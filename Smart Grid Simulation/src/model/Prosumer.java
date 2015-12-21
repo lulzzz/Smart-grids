@@ -27,22 +27,7 @@ public abstract class Prosumer
         return new Participant(id, bid.toPLV());
     }
 
-    void applyTrades(Assignment assignment) 
-    {
-        /*
-        for(Link l : participant.getInLinks())
-        {
-            double trade = Math.abs(assignment.get(l));
-            bid.addTrade(trade);
-        }
-        
-        for(Link l : participant.getOutLinks())
-        {
-            double trade = Math.abs(assignment.get(l));
-            bid.addTrade(trade);
-        }
-        */
-    }
+    public abstract void applyTrades(Assignment assignment);
     
     public abstract void writePlotData( PrintWriter writer, String outputFolder, int frame );
 }

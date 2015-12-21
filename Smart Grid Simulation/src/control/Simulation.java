@@ -38,9 +38,7 @@ public class Simulation
             city.createPlotScript(outputFolder, step);
             city.develop( step );
         }  
-    }   
-
-    
+    }
     
     public Problem testProblem() 
     {

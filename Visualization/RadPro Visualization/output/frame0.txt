@@ -2,24 +2,24 @@ set terminal png
 set output 'C:\Users\Martin\Documents\GitHub\Smart Grids\Visualization\RadPro Visualization\Output\id 1 frame 0.png' 
  unset arrow 
 f(x) = x > -2.000000 ? 1.000000*x : 1/0 
-g(x) = x > -2.000000 ? sgn(x)*1.000000*(0.000000+8.000000*log((abs(x)-0.000000)/8.000000 + 1)) : 1/0 
-plot [-2.000000:8.000000] f(x) with filledcurve y1=0, g(x) with filledcurve y1=0 
+g(x) = x > -2.00 ? sgn(x)*1.00*(0.00+5.00*log((abs(x)-0.00)/5.000000 + 1)) : 1/0 
+plot [-2.00:8.00] f(x) with filledcurve y1=0, g(x) with filledcurve y1=0 
 
 set output 'C:\Users\Martin\Documents\GitHub\Smart Grids\Visualization\RadPro Visualization\Output\id 2 frame 0.png' 
  unset arrow 
 f(x) = x > -2.000000 ? 1.000000*x : 1/0 
-g(x) = x > -2.000000 ? sgn(x)*1.000000*(0.000000+2.000000*log((abs(x)-0.000000)/2.000000 + 1)) : 1/0 
-plot [-2.000000:8.000000] f(x) with filledcurve y1=0, g(x) with filledcurve y1=0 
+g(x) = x > -2.00 ? sgn(x)*1.00*(0.00+5.00*log((abs(x)-0.00)/5.000000 + 1)) : 1/0 
+plot [-2.00:8.00] f(x) with filledcurve y1=0, g(x) with filledcurve y1=0 
 
 set output 'C:\Users\Martin\Documents\GitHub\Smart Grids\Visualization\RadPro Visualization\Output\id 4 frame 0.png' 
  unset arrow 
 f(x) = x > -2.000000 ? 1.000000*x : 1/0 
-g(x) = x > -2.000000 ? sgn(x)*1.000000*(0.000000+7.000000*log((abs(x)-0.000000)/7.000000 + 1)) : 1/0 
-plot [-2.000000:8.000000] f(x) with filledcurve y1=0, g(x) with filledcurve y1=0 
+g(x) = x > -2.00 ? sgn(x)*1.00*(0.00+9.00*log((abs(x)-0.00)/9.000000 + 1)) : 1/0 
+plot [-2.00:8.00] f(x) with filledcurve y1=0, g(x) with filledcurve y1=0 
 
 set output 'C:\Users\Martin\Documents\GitHub\Smart Grids\Visualization\RadPro Visualization\Output\id 3 frame 0.png' 
  unset arrow 
 f(x) = x > -2.000000 ? 1.000000*x : 1/0 
-g(x) = x > -2.000000 ? sgn(x)*1.000000*(0.000000+10.000000*log((abs(x)-0.000000)/10.000000 + 1)) : 1/0 
-plot [-2.000000:8.000000] f(x) with filledcurve y1=0, g(x) with filledcurve y1=0 
+g(x) = x > -2.00 ? sgn(x)*1.00*(0.00+10.00*log((abs(x)-0.00)/10.000000 + 1)) : 1/0 
+plot [-2.00:8.00] f(x) with filledcurve y1=0, g(x) with filledcurve y1=0 
 

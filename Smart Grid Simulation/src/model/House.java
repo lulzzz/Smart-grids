@@ -27,8 +27,8 @@ public class House extends Prosumer
     public void setTestParameters()
     {
         necessity = new Random().nextInt(10) + 1;
-        baseConsum = -2;
-        battery = new Battery(10);
+        baseConsum = 1;
+        battery = new Battery(3,10);
         distributorRate = 1;
     }
     
@@ -57,7 +57,7 @@ public class House extends Prosumer
             writer.print(String.format(Locale.US, 
                  "set arrow from %f, %f to %f,%f front %n",
 
-                trade, 0.0, trade, bid.curve.applyAsDouble(trade)
+                trade, 0.0, trade, buildCurve().applyAsDouble(trade)
             ));
         }
 
@@ -66,14 +66,35 @@ public class House extends Prosumer
 
             "f(x) = x > %f ? %f*x : 1/0 %n"+
 
-            "g(x) = x > %f ? sgn(x)*%f*(%f+%f*log((abs(x)-%f)/%f + 1)) : 1/0 %n"+
+            "g(x) = x > %.2f ? sgn(x)*%.2f*(%.2f+%.2f*log((abs(x)-%.2f)/%f + 1)) : 1/0 %n"+
 
-            "plot [%f:%f] f(x) with filledcurve y1=0, g(x) with filledcurve y1=0 %n%n",
+            "plot [%.2f:%.2f] f(x) with filledcurve y1=0, g(x) with filledcurve y1=0 %n%n",
 
             bid.minX, distributorRate,
             bid.minX, distributorRate, bid.contactX, necessity, bid.contactX, necessity,
             bid.minX, bid.maxX
         ));
     }    
+
+    @Override
+    public void applyTrades(Assignment assignment) 
+    {
+        //bid.addTrade(baseConsum);
+    
+        /*
+        for(Link l : participant.getInLinks())
+        {
+            double trade = Math.abs(assignment.get(l));
+            bid.addTrade(trade);
+        }
+        
+        for(Link l : participant.getOutLinks())
+        {
+            double trade = Math.abs(assignment.get(l));
+            bid.addTrade(trade);
+        }
+        */
+    
+    }
 
 }

@@ -6,10 +6,10 @@ public class Battery
     private double capacity;
     private double level;
     
-    public Battery( double capacity )
+    public Battery( double level, double capacity )
     {
         this.capacity = capacity;
-        this.level = 0;
+        this.level = level;
     }
     
     public void changeLevel( double amount )
