@@ -67,7 +67,7 @@ public class City
         writer.println("set terminal png");
         for( Prosumer prosumer : prosumers )
         {
-            prosumer.writePlotData(writer, frame);
+            prosumer.writePlotData(writer, outputFolder, frame);
         }
         writer.close();
     }

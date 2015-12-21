@@ -3,6 +3,9 @@ package Control;
 
 import Model.*;
 import View.*;
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 
 public class Main
 {
@@ -23,11 +26,15 @@ public class Main
             simulation.run( arguments.getFrames(), arguments.getOutputFolder());
             
             // Save output
-            String ouputFolder = arguments.getOutputFolder();
+            String outputFolder = arguments.getOutputFolder();
 
-            JSONBuilder.saveCity(city, ouputFolder + "\\city.json");
-            JSONBuilder.saveSimulation(simulation, ouputFolder + "\\simulation.json");
+            JSONBuilder.saveCity(city, outputFolder + "\\city.json");
+            JSONBuilder.saveSimulation(simulation, outputFolder + "\\simulation.json");
+            
+            Plotter.plotBids(outputFolder, arguments.getFrames());
         }
-        catch( Exception ex ){ ex.printStackTrace(); }
+        catch( Exception ex ){ ex.printStackTrace(); System.err.println("Error"); }
+        
+        
     }
 }

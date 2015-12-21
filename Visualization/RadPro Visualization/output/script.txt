@@ -1,8 +1,0 @@
-set terminal png
-
-set output 'C:\Users\Martin\Documents\GitHub\Smart Grids\Visualization\RadPro Visualization\Output\frame1id12.png' 
- unset arrow 
-f(x) = x > 1.000000 ? 1.000000*x : 1/0 
-g(x) = x > 1.000000 ? sgn(x)*1.000000*(1.000000+8.000000*log((abs(x)-1.000000)/8.000000 + 1)) : 1/0 
-plot [1.000000:11.000000][0:] f(x) with filledcurve y1=0, g(x) with filledcurve y1=0 
-

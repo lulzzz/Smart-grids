@@ -44,9 +44,9 @@ public class House extends Prosumer
     }
     
     @Override
-    public void writePlotData(PrintWriter writer, int frame)
+    public void writePlotData(PrintWriter writer, String outputFolder, int frame)
     {
-        String outputFileName = String.format("frame%did%d.png", frame, id);
+        String outputFileName = String.format("%s\\id %d frame %d.png", outputFolder, id, frame);
         
         // Header
         writer.print(String.format("set output '%s' %n unset arrow %n", outputFileName));
@@ -68,7 +68,7 @@ public class House extends Prosumer
 
             "g(x) = x > %f ? sgn(x)*%f*(%f+%f*log((abs(x)-%f)/%f + 1)) : 1/0 %n"+
 
-            "plot [%f:%f][0:] f(x) with filledcurve y1=0, g(x) with filledcurve y1=0 %n%n",
+            "plot [%f:%f] f(x) with filledcurve y1=0, g(x) with filledcurve y1=0 %n%n",
 
             bid.minX, distributorRate,
             bid.minX, distributorRate, bid.contactX, necessity, bid.contactX, necessity,

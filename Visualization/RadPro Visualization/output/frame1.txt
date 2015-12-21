@@ -1,25 +1,25 @@
 set terminal png
-set output 'frame1id1.png' 
+set output 'C:\Users\Martin\Documents\GitHub\Smart Grids\Visualization\RadPro Visualization\Output\id 1 frame 1.png' 
  unset arrow 
 f(x) = x > -2.000000 ? 1.000000*x : 1/0 
-g(x) = x > -2.000000 ? sgn(x)*1.000000*(0.000000+10.000000*log((abs(x)-0.000000)/10.000000 + 1)) : 1/0 
-plot [-2.000000:8.000000][0:] f(x) with filledcurve y1=0, g(x) with filledcurve y1=0 
+g(x) = x > -2.000000 ? sgn(x)*1.000000*(0.000000+8.000000*log((abs(x)-0.000000)/8.000000 + 1)) : 1/0 
+plot [-2.000000:8.000000] f(x) with filledcurve y1=0, g(x) with filledcurve y1=0 
 
-set output 'frame1id2.png' 
+set output 'C:\Users\Martin\Documents\GitHub\Smart Grids\Visualization\RadPro Visualization\Output\id 2 frame 1.png' 
  unset arrow 
 f(x) = x > -2.000000 ? 1.000000*x : 1/0 
 g(x) = x > -2.000000 ? sgn(x)*1.000000*(0.000000+2.000000*log((abs(x)-0.000000)/2.000000 + 1)) : 1/0 
-plot [-2.000000:8.000000][0:] f(x) with filledcurve y1=0, g(x) with filledcurve y1=0 
+plot [-2.000000:8.000000] f(x) with filledcurve y1=0, g(x) with filledcurve y1=0 
 
-set output 'frame1id4.png' 
+set output 'C:\Users\Martin\Documents\GitHub\Smart Grids\Visualization\RadPro Visualization\Output\id 4 frame 1.png' 
  unset arrow 
 f(x) = x > -2.000000 ? 1.000000*x : 1/0 
-g(x) = x > -2.000000 ? sgn(x)*1.000000*(0.000000+5.000000*log((abs(x)-0.000000)/5.000000 + 1)) : 1/0 
-plot [-2.000000:8.000000][0:] f(x) with filledcurve y1=0, g(x) with filledcurve y1=0 
+g(x) = x > -2.000000 ? sgn(x)*1.000000*(0.000000+7.000000*log((abs(x)-0.000000)/7.000000 + 1)) : 1/0 
+plot [-2.000000:8.000000] f(x) with filledcurve y1=0, g(x) with filledcurve y1=0 
 
-set output 'frame1id3.png' 
+set output 'C:\Users\Martin\Documents\GitHub\Smart Grids\Visualization\RadPro Visualization\Output\id 3 frame 1.png' 
  unset arrow 
 f(x) = x > -2.000000 ? 1.000000*x : 1/0 
-g(x) = x > -2.000000 ? sgn(x)*1.000000*(0.000000+4.000000*log((abs(x)-0.000000)/4.000000 + 1)) : 1/0 
-plot [-2.000000:8.000000][0:] f(x) with filledcurve y1=0, g(x) with filledcurve y1=0 
+g(x) = x > -2.000000 ? sgn(x)*1.000000*(0.000000+10.000000*log((abs(x)-0.000000)/10.000000 + 1)) : 1/0 
+plot [-2.000000:8.000000] f(x) with filledcurve y1=0, g(x) with filledcurve y1=0 
 

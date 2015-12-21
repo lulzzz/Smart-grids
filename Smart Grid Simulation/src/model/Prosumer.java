@@ -44,5 +44,5 @@ public abstract class Prosumer
         */
     }
     
-    public abstract void writePlotData( PrintWriter writer, int frame );
+    public abstract void writePlotData( PrintWriter writer, String outputFolder, int frame );
 }
