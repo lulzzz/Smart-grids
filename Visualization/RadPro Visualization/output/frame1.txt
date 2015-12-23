@@ -2,25 +2,25 @@ set terminal png
 set output 'C:\Users\Martin\Documents\GitHub\smart-grids\Visualization\RadPro Visualization\output\id 0 frame 1.png' 
  unset arrow 
 f(x) = 1.00*x 
-g(x) = sgn(x)*1.00*(1.00+7.00*log((abs(x)-1.00)/7.00 + 1)) 
-set arrow from -1.000000, 0 to -1.000000,g(-1.000000) front 
-plot [1.00:11.00] f(x) with filledcurve y1=0, g(x) with filledcurve y1=0 
+g(x) = sgn(x)*1.00*(0.00+6.00*log((abs(x)-0.00)/6.00 + 1)) 
+set arrow from 1.000000, 0 to 1.000000,g(1.000000) front 
+plot [-1.00:9.00] f(x) with filledcurve y1=0, g(x) with filledcurve y1=0 
 
 
 set output 'C:\Users\Martin\Documents\GitHub\smart-grids\Visualization\RadPro Visualization\output\id 1 frame 1.png' 
  unset arrow 
 f(x) = 1.00*x 
-g(x) = sgn(x)*1.00*(0.00+1.00*log((abs(x)-0.00)/1.00 + 1)) 
-set arrow from 0.000000, 0 to 0.000000,g(0.000000) front 
+g(x) = sgn(x)*1.00*(0.00+7.00*log((abs(x)-0.00)/7.00 + 1)) 
 set arrow from 1.000000, 0 to 1.000000,g(1.000000) front 
-plot [-1.00:9.00] f(x) with filledcurve y1=0, g(x) with filledcurve y1=0 
+set arrow from -1.000000, 0 to -1.000000,g(-1.000000) front 
+plot [0.00:10.00] f(x) with filledcurve y1=0, g(x) with filledcurve y1=0 
 
 
 set output 'C:\Users\Martin\Documents\GitHub\smart-grids\Visualization\RadPro Visualization\output\id 2 frame 1.png' 
  unset arrow 
 f(x) = 1.00*x 
-g(x) = sgn(x)*1.00*(0.00+7.00*log((abs(x)-0.00)/7.00 + 1)) 
-set arrow from -0.000000, 0 to -0.000000,g(-0.000000) front 
-plot [0.00:10.00] f(x) with filledcurve y1=0, g(x) with filledcurve y1=0 
+g(x) = sgn(x)*1.00*(1.00+8.00*log((abs(x)-1.00)/8.00 + 1)) 
+set arrow from -1.000000, 0 to -1.000000,g(-1.000000) front 
+plot [1.00:11.00] f(x) with filledcurve y1=0, g(x) with filledcurve y1=0 
 
 

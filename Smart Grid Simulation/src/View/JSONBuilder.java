@@ -1,8 +1,8 @@
 
 package View;
 
-import Control.*;
-import Model.*;
+import Control.Simulation;
+import Model.City;
 import com.google.gson.*;
 import java.io.*;
 
