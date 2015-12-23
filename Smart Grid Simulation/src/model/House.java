@@ -30,13 +30,14 @@ public class House extends Prosumer
         necessity = new Random().nextInt(10) + 1;
         baseConsum = 1;
         battery = new Battery(3,10);
+        batteryDelta = 0;
         distributorRate = 1;
     }
     
     @Override
     public void develop( int frame )
     {
-        battery.changeLevel(batteryDelta);
+        battery.changeLevel(batteryDelta - baseConsum);
         bid = new Bid( baseConsum - battery.getLevel(), baseConsum + battery.getRemainingSpace(), buildCurve(), 10);
     }
     

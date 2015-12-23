@@ -3,9 +3,6 @@ package Control;
 
 import Model.*;
 import View.*;
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 
 public class Main
 {
@@ -18,7 +15,7 @@ public class Main
         City city = FileParser.parseOptimalSteinerFile(arguments.getGraphFile());
         
         // Create the simulation
-        Simulation simulation = new Simulation( city );
+        Simulation simulation = new Simulation( city, arguments.getStartingHour(), arguments.getStartingMinute(), arguments.getTimeStep() );
         
         // Run the simulation
         try

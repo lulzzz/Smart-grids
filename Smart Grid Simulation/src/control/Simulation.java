@@ -2,22 +2,25 @@ package Control;
 
 import com.google.gson.annotations.*;
 import java.io.*;
-import java.util.*;
-import Model.*;
+import java.util.ArrayList;
+import Model.City;
+import model.Times;
 import seas3.core.*;
 import seas3.radpro.*;
 
 public class Simulation 
 {
     private City city;
+    private Times time;
     
     @Expose
     private ArrayList<Assignment> frames;
     
 
-    public Simulation( City city )
+    public Simulation( City city, int startingHour, int startingMinute, int frameMinutes )
     {
         this.city = city;
+        this.time = new Times(startingHour,startingMinute,frameMinutes);
         frames = new ArrayList<>();
     }   
 
@@ -37,6 +40,8 @@ public class Simulation
             
             city.applyTrades( assignment );
             city.createPlotScript(outputFolder, step);
+            time.nextFrame();
+            System.out.println("Frame: " + time.toString());
             city.develop( step );
         }  
     }
