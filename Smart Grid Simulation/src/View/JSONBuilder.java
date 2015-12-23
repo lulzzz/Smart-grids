@@ -16,6 +16,7 @@ public class JSONBuilder
         
         FileWriter writer = new FileWriter( path );
         writer.write(json);
+        writer.close();
     }
     
     
@@ -27,5 +28,6 @@ public class JSONBuilder
         
         FileWriter writer = new FileWriter( path );
         writer.write(json);
+        writer.close();
     }
 }

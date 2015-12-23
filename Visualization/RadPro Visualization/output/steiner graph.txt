@@ -22,8 +22,7 @@ Steiner points: number, coordinates
 22	0.23083185824074348	0.3977953341095396
 
 Edges: 
+0	1
 1	2
-2	4
-3	4
 
 Done!

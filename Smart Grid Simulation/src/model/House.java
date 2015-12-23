@@ -13,6 +13,7 @@ public class House extends Prosumer
     
     public Battery battery;
     public double distributorRate;
+    public double batteryDelta;
     
     
     public House(int id)
@@ -35,6 +36,7 @@ public class House extends Prosumer
     @Override
     public void develop( int frame )
     {
+        battery.changeLevel(batteryDelta);
         bid = new Bid( baseConsum - battery.getLevel(), baseConsum + battery.getRemainingSpace(), buildCurve(), 10);
     }
     
@@ -50,51 +52,53 @@ public class House extends Prosumer
         
         // Header
         writer.print(String.format("set output '%s' %n unset arrow %n", outputFileName));
+        
+        // Define functions plots
+        writer.print(String.format(Locale.US, 
 
-        // Arrows
+            "f(x) = %.2f*x %n"+ // f is the linear function
+
+            "g(x) = sgn(x)*%.2f*(%.2f+%.2f*log((abs(x)-%.2f)/%.2f + 1)) %n", // g is the approximation
+            
+            distributorRate,
+            distributorRate, bid.contactX, necessity, bid.contactX, necessity
+        ));
+
+        // Define arrows
         for( double trade : bid.trades )
         {
             writer.print(String.format(Locale.US, 
-                 "set arrow from %f, %f to %f,%f front %n",
+                 "set arrow from %f, 0 to %f,g(%f) front %n",
 
-                trade, 0.0, trade, buildCurve().applyAsDouble(trade)
+                trade, trade, trade
             ));
         }
-
-        // Function plots
-        writer.print(String.format(Locale.US, 
-
-            "f(x) = x > %f ? %f*x : 1/0 %n"+
-
-            "g(x) = x > %.2f ? sgn(x)*%.2f*(%.2f+%.2f*log((abs(x)-%.2f)/%f + 1)) : 1/0 %n"+
-
-            "plot [%.2f:%.2f] f(x) with filledcurve y1=0, g(x) with filledcurve y1=0 %n%n",
-
-            bid.minX, distributorRate,
-            bid.minX, distributorRate, bid.contactX, necessity, bid.contactX, necessity,
-            bid.minX, bid.maxX
-        ));
+        
+        // Plot
+        
+        writer.println(String.format(Locale.US,
+                "plot [%.2f:%.2f] f(x) with filledcurve y1=0, g(x) with filledcurve y1=0 %n%n",
+                bid.minX, bid.maxX));
     }    
 
     @Override
     public void applyTrades(Assignment assignment) 
     {
-        //bid.addTrade(baseConsum);
-    
-        /*
-        for(Link l : participant.getInLinks())
+        batteryDelta = 0;
+        for(Link link : assignment.keySet())
         {
-            double trade = Math.abs(assignment.get(l));
-            bid.addTrade(trade);
+            if(link.source.getId() == id && link.dest.getId() != id)
+            {
+                double value = assignment.get(link);
+                bid.addTrade(value);
+                batteryDelta += value;
+            }
+            else if(link.dest.getId() == id && link.source.getId() != id)
+            {
+                double value = assignment.get(link);
+                bid.addTrade(-value);
+                batteryDelta -= value;
+            }            
         }
-        
-        for(Link l : participant.getOutLinks())
-        {
-            double trade = Math.abs(assignment.get(l));
-            bid.addTrade(trade);
-        }
-        */
-    
     }
-
 }
