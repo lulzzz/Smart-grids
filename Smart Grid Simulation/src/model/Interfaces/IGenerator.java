@@ -1,5 +1,7 @@
 
-package Model;
+package Model.Interfaces;
+
+import Model.Moment;
 
 public interface IGenerator 
 {

@@ -1,5 +1,8 @@
 
-package Model;
+package Model.Interfaces;
+
+import Model.ApplianceState;
+import Model.Moment;
 
 public interface IAppliance 
 {

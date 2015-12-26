@@ -1,16 +1,16 @@
 
-package Enhancements;
+package Model;
 
+import Model.Interfaces.IDistributor;
 import java.io.PrintWriter;
 import java.util.Locale;
-import Model.Bid;
 import Model.Prosumer;
 import seas3.core.Assignment;
 import seas3.core.Link;
 import seas3.core.Participant;
 
 
-public class Distributor extends Prosumer
+public class Distributor extends Prosumer implements IDistributor
 {
     public double[] defaultRate = new double[]
     {
@@ -41,43 +41,30 @@ public class Distributor extends Prosumer
         super(id);
         this.rate = rate;
     }
+
+    @Override
+    public void develop(int frame) 
+    {
+        
+    }
+
+    @Override
+    public void applyTrades(Assignment assignment) 
+    {
+        
+    }
+
+    @Override
+    public void writePlotData(PrintWriter writer, String outputFolder, int frame) 
+    {
+        bid.writePlotData(writer);
+    }
+
+    @Override
+    public double getPrice(Moment moment) 
+    {
+        return rate[0];
+    }
     
-    @Override
-    public void updateFrame(int frame)
-    {
-        currentRate = rate[ frame ];
-        bid = new Bid(-10,10, x->currentRate * x, 1 );
-    }
-
-    public void writePlotData(PrintWriter writer) 
-    {
-        writer.print(String.format("set output '%d.png' %nunset arrow %n", id));
-        
-        for( double trade : bid.trades )
-        {
-            writer.print(String.format(Locale.US, 
-                 "set arrow from %f, %f to %f,%f front %n",
-                 
-                trade, 0.0, trade, bid.curve.applyAsDouble(trade)
-            ));
-        }
-        
-        writer.print(String.format(Locale.US,
-                
-                "plot[%f:%f] %f * x with filledcurve y1=0 %n%n",
-                
-                bid.minX, bid.maxX, currentRate
-        ));
-    }
-
-    @Override
-    public void processResults(Assignment assignment) 
-    {
-        
-    }
-
-    @Override
-    public void createPlot(String folder, int frame) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    
 }

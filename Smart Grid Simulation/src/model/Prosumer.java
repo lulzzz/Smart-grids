@@ -1,6 +1,7 @@
 
 package Model;
 
+import Model.Interfaces.IBid;
 import com.google.gson.annotations.*;
 import java.io.PrintWriter;
 import seas3.core.*;

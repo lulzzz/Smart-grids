@@ -1,6 +1,8 @@
 
 package Model;
 
+import Model.Interfaces.IBattery;
+
 public class Battery implements IBattery
 {
     private double capacity;

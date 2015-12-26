@@ -1,6 +1,7 @@
 
 package Model;
 
+import Model.Interfaces.IBattery;
 import java.io.*;
 import java.util.*;
 import java.util.function.*;
@@ -43,11 +44,6 @@ public class House extends Prosumer
         
     }
     
-    private DoubleUnaryOperator buildCurve()
-    {
-        
-    }
-    
     @Override
     public void writePlotData(PrintWriter writer, String outputFolder, int frame)
     {
@@ -56,32 +52,7 @@ public class House extends Prosumer
         // Header
         writer.print(String.format("set output '%s' %n unset arrow %n", outputFileName));
         
-        // Define functions plots
-        writer.print(String.format(Locale.US, 
-
-            "f(x) = %.2f*x %n"+ // f is the linear function
-
-            "g(x) = sgn(x)*%.2f*(%.2f+%.2f*log((abs(x)-%.2f)/%.2f + 1)) %n", // g is the approximation
-            
-            distributorRate,
-            distributorRate, bid.contactX, necessity, bid.contactX, necessity
-        ));
-
-        // Define arrows
-        for( double trade : bid.trades )
-        {
-            writer.print(String.format(Locale.US, 
-                 "set arrow from %f, 0 to %f,g(%f) front %n",
-
-                trade, trade, trade
-            ));
-        }
-        
-        // Plot
-        
-        writer.println(String.format(Locale.US,
-                "plot [%.2f:%.2f] f(x) with filledcurve y1=0, g(x) with filledcurve y1=0 %n%n",
-                bid.minX, bid.maxX));
+        bid.writePlotData(writer);
     }    
 
     @Override
