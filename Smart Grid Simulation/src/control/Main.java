@@ -1,7 +1,8 @@
 
 package Control;
 
-import Model.*;
+import Model.City;
+import Model.Moment;
 import View.*;
 
 public class Main
@@ -17,6 +18,10 @@ public class Main
         // Create the simulation
         Simulation simulation = new Simulation( city, arguments.getStartingHour(), arguments.getStartingMinute(), arguments.getTimeStep() );
         
+        // Test
+        Moment m1 = new Moment(10,10);
+        Moment m2 = new Moment(10,20);
+        
         // Run the simulation
         try
         {
@@ -31,7 +36,5 @@ public class Main
             Plotter.plotBids(outputFolder, arguments.getFrames());
         }
         catch( Exception ex ){ ex.printStackTrace(); System.err.println("Error"); }
-        
-        
     }
 }

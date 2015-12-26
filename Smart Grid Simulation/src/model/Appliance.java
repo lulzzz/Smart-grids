@@ -1,14 +1,25 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package model;
 
-/**
- *
- * @author Martin
- */
-public class Appliance {
+package Model;
+
+import java.util.function.DoubleUnaryOperator;
+
+public class Appliance 
+{
+    public DoubleUnaryOperator curve;
+    public DoubleUnaryOperator primitive;
+    public Moment startingTime;
+    public Moment endingTime;
     
+    public double getCost(Moment moment)
+    {
+        if( moment.compareTo(startingTime) < 0 ) return 0;
+        
+        if( moment.compareTo(endingTime) > 0 ) return 0;
+        
+        double elapsedTime = moment.minutesSince(startingTime);
+        
+        //return primitive.applyAsDouble(elapsedTime);
+        
+        return 0;
+    }
 }

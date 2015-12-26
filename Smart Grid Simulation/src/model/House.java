@@ -11,7 +11,8 @@ public class House extends Prosumer
     public double necessity;
     public double baseConsum;
     
-    public Battery battery;
+    public IBattery battery;
+    
     public double distributorRate;
     public double batteryDelta;
     
@@ -19,6 +20,7 @@ public class House extends Prosumer
     public House(int id)
     {
         super(id);
+        bid = new LogBid();
         
         setTestParameters();
         
@@ -38,12 +40,12 @@ public class House extends Prosumer
     public void develop( int frame )
     {
         battery.changeLevel(batteryDelta - baseConsum);
-        bid = new Bid( baseConsum - battery.getLevel(), baseConsum + battery.getRemainingSpace(), buildCurve(), 10);
+        
     }
     
     private DoubleUnaryOperator buildCurve()
     {
-        return x -> Math.signum(x) * distributorRate * ( bid.contactX + necessity * Math.log( (Math.abs(x) - bid.minX) / necessity + 1));
+        
     }
     
     @Override

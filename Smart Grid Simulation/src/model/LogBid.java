@@ -1,38 +1,20 @@
 
 package Model;
 
-import com.google.gson.annotations.Expose;
-import java.util.ArrayList;
-import java.util.function.DoubleUnaryOperator;
+import com.google.gson.annotations.*;
+import java.io.Writer;
+import java.util.*;
+import java.util.function.*;
 import seas3.core.*;
 
-public class Bid 
-{
-    @Expose
-    public double minX;
-    @Expose
-    public double maxX;
-    @Expose
-    public double contactX;
+public class LogBid implements IBid 
+{    
+    public DoubleUnaryOperator curve; // funcion que va cambiando con el tiempo
     
-    public DoubleUnaryOperator curve;
-    public int resolution;
+    private static final int resolution = 10;
     
     @Expose
     public ArrayList<Double> trades;
-    
-    public Bid( double minX, double maxX, DoubleUnaryOperator curve, int resolution )
-    {
-        this.minX = minX;
-        this.maxX = maxX;
-        this.curve = curve;
-        this.resolution = resolution;
-        this.trades = new ArrayList<>();
-        
-        if( minX < 0 && maxX < 0 ) contactX = maxX;
-        else if(minX>0 && maxX > 0) contactX = minX;
-        else contactX = 0;
-    }
     
     public PiecewiseLinearValuation toPLV()
     {
@@ -51,8 +33,8 @@ public class Bid
             x0 = minX + i*step;
             x1 = x0 + step;
             
-            y0 = curve.applyAsDouble( x0 );
-            y1 = curve.applyAsDouble( x1 );
+            y0 = curve( x0 );
+            y1 = curve( x1 );
             
             slope = (y1-y0)/(x1-x0);
             intercept = y0 - slope*x0;
@@ -65,8 +47,24 @@ public class Bid
         return plv;
     }
     
+    public double curve( double x )
+    {
+        return Math.signum(x) * linear * ( contactX + tightness * Math.log( (Math.abs(x) - minX) / tightness + 1));
+    }
+    
     public void addTrade( double at )
     {
         trades.add(at);
+    }
+
+    @Override
+    public void develop(double baseConsum, IBattery battery) 
+    {
+        
+    }
+
+    @Override
+    public void writePlotData(Writer writer) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

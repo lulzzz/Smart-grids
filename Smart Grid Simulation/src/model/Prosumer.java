@@ -12,7 +12,7 @@ public abstract class Prosumer
     
     public static int maxId;
     
-    public Bid bid;
+    public IBid bid;
     
     public abstract void develop( int frame );
     

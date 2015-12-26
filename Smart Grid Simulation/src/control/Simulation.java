@@ -1,26 +1,27 @@
 package Control;
 
+import Model.Moment;
+import Model.City;
 import com.google.gson.annotations.*;
 import java.io.*;
 import java.util.ArrayList;
-import Model.City;
-import model.Times;
 import seas3.core.*;
 import seas3.radpro.*;
 
 public class Simulation 
 {
     private City city;
-    private Times time;
+    private Moment moment;
+    private int timeStep;
     
     @Expose
     private ArrayList<Assignment> frames;
-    
 
-    public Simulation( City city, int startingHour, int startingMinute, int frameMinutes )
+    public Simulation( City city, int startingHour, int startingMinute, int timeStep )
     {
         this.city = city;
-        this.time = new Times(startingHour,startingMinute,frameMinutes);
+        this.moment = new Moment(startingHour,startingMinute);
+        this.timeStep = timeStep;
         frames = new ArrayList<>();
     }   
 
@@ -40,8 +41,8 @@ public class Simulation
             
             city.applyTrades( assignment );
             city.createPlotScript(outputFolder, step);
-            time.nextFrame();
-            System.out.println("Frame: " + time.toString());
+            moment.advance(timeStep);
+            System.out.println("Frame: " + moment.toString());
             city.develop( step );
         }  
     }

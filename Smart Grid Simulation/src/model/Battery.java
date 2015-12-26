@@ -1,7 +1,7 @@
 
 package Model;
 
-public class Battery 
+public class Battery implements IBattery
 {
     private double capacity;
     private double level;
@@ -12,17 +12,19 @@ public class Battery
         this.level = level;
     }
     
+    @Override
     public void changeLevel( double amount )
     {
         level += amount;
     }
     
-    public double getRemainingSpace()
+    @Override
+    public double getCapacityLeft()
     {
         return capacity - level;
     }
 
-    double getLevel()
+    public double getLevel()
     {
         return level;
     }
