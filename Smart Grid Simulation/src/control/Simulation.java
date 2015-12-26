@@ -16,6 +16,8 @@ public class Simulation
     
     @Expose
     private ArrayList<Assignment> frames;
+    @Expose
+    private ArrayList<City> cities;
 
     public Simulation( City city, int startingHour, int startingMinute, int timeStep )
     {
@@ -29,21 +31,26 @@ public class Simulation
     {
         for( int step = 0; step < steps; step++ )
         {
+            // Set the moment
+            System.out.println("Moment: " + moment.toString());
+            city.setMoment( moment );
+            
+            // Solve the problem
             Problem problem = city.buildProblem();
             
             Solver radPro = new RadProSolver();
-        
             Options results = radPro.solve(problem, new Options());
-
-            Assignment assignment = (Assignment) results.get(Solver.solution);
             
+            // Save the assignment
+            Assignment assignment = (Assignment) results.get(Solver.solution);
             frames.add(assignment);
             
-            city.applyTrades( assignment );
-            city.createPlotScript(outputFolder, step);
+            // Develop city
+            city.processAssignment( assignment, outputFolder );
+            cities.add(city);
+            
+            // Advance the moment
             moment.advance(timeStep);
-            System.out.println("Frame: " + moment.toString());
-            city.develop( step );
         }  
     }
 }

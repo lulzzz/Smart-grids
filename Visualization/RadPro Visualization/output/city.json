@@ -1,1 +1,1 @@
-{"prosumers":[{"id":0},{"id":1},{"id":2}],"wires":[{"originId":0,"destinationId":1,"capacity":10.0},{"originId":1,"destinationId":2,"capacity":10.0}]}
+{"prosumers":[{"id":0},{"id":1},{"id":2}],"wires":[{"originId":0,"destinationId":1,"capacity":10.0},{"originId":1,"destinationId":2,"capacity":10.0}],"moment":{}}

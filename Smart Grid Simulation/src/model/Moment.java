@@ -29,7 +29,7 @@ public class Moment implements Comparable<Moment>
     
     public String toString()
     {
-        return String.format("%2d:%2d", hour, minute);
+        return String.format("%02d:%02d", hour, minute);
     }
 
     @Override

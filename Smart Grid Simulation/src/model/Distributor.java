@@ -43,7 +43,7 @@ public class Distributor extends Prosumer implements IDistributor
     }
 
     @Override
-    public void develop(int frame) 
+    public void setMoment( Moment moment ) 
     {
         
     }
@@ -55,7 +55,7 @@ public class Distributor extends Prosumer implements IDistributor
     }
 
     @Override
-    public void writePlotData(PrintWriter writer, String outputFolder, int frame) 
+    public void writePlotData(PrintWriter writer, String outputFolder, Moment moment) 
     {
         bid.writePlotData(writer);
     }

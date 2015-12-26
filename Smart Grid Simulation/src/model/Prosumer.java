@@ -15,7 +15,7 @@ public abstract class Prosumer
     
     public IBid bid;
     
-    public abstract void develop( int frame );
+    public abstract void setMoment( Moment moment );
     
     public Prosumer( int id )
     {
@@ -30,5 +30,5 @@ public abstract class Prosumer
 
     public abstract void applyTrades(Assignment assignment);
     
-    public abstract void writePlotData( PrintWriter writer, String outputFolder, int frame );
+    public abstract void writePlotData( PrintWriter writer, String outputFolder, Moment moment );
 }

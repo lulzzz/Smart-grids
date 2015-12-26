@@ -13,6 +13,8 @@ public class City
     private final ArrayList<Prosumer> prosumers;
     @Expose
     private final ArrayList<Wire> wires;
+    @Expose
+    private Moment moment;
     
     public City()
     {
@@ -54,29 +56,29 @@ public class City
         return problem;
     }
     
-    public void applyTrades(Assignment assignment) 
+    public void processAssignment(Assignment assignment, String outputFolder ) throws IOException 
     {
         for( Prosumer prosumer : prosumers )
             prosumer.applyTrades( assignment );
-    }
-    
-    public void createPlotScript( String outputFolder, int frame ) throws IOException
-    {
-        PrintWriter writer = new PrintWriter(outputFolder + "\\frame" + frame + ".txt");
+        
+        PrintWriter writer = new PrintWriter(outputFolder + "\\frame" + moment.toString() + ".txt");
         
         writer.println("set terminal png");
         for( Prosumer prosumer : prosumers )
         {
-            prosumer.writePlotData(writer, outputFolder, frame);
+            prosumer.writePlotData(writer, outputFolder, moment);
         }
+        
         writer.close();
     }
 
-    public void develop( int frame ) 
+    public void setMoment( Moment moment ) 
     {
+        this.moment = moment;
+        
         for( Prosumer prosumer : prosumers )
         {
-            prosumer.develop(frame);
+            prosumer.setMoment(moment);
         }
     }
 }

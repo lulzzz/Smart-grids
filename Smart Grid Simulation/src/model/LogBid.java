@@ -24,6 +24,11 @@ public class LogBid implements IBid
     
     public ArrayList<Double> trades;
     
+    public LogBid()
+    {
+        trades = new ArrayList<>();
+    }
+    
     public PiecewiseLinearValuation toPLV()
     {
         PiecewiseLinearValuation plv = new PiecewiseLinearValuation();
