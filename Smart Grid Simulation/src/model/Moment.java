@@ -61,4 +61,17 @@ public class Moment implements Comparable<Moment>
         
         return h * 24 + m;
     }
+
+    int hoursSince(Moment since) 
+    {
+        int hours = hour - since.hour;
+        if( hours < 0 ) hours += 24;
+        
+        return hours;
+    }
+    
+    public int getHour()
+    {
+        return hour;
+    }
 }

@@ -4,6 +4,7 @@ package Model;
 import Model.Interfaces.IAppliance;
 import Model.Interfaces.IBattery;
 import Model.Interfaces.IDistributor;
+import Model.Interfaces.IGenerator;
 import java.io.*;
 import java.util.*;
 import java.util.function.*;
@@ -17,6 +18,7 @@ public class House extends Prosumer
     private IBattery battery;
     private IDistributor distributor;
     private ArrayList<IAppliance> appliances;
+    private ArrayList<IGenerator> generators;
     
     
     
@@ -28,6 +30,8 @@ public class House extends Prosumer
         bid = new LogBid();
         distributor = new Distributor(Prosumer.maxId+1, Distributor.testRate);
         appliances = new ArrayList<>();
+        generators = new ArrayList<>();
+        generators.add(new ValueMapGenerator());
         battery = new Battery(3,10);
         
         consumPerMinute = .2;
@@ -37,11 +41,29 @@ public class House extends Prosumer
     @Override
     public void develop( Moment since, Moment until )
     {
+        // Base consum
         int elapsedTime = until.minutesSince(since);
-        
         double baseConsum = elapsedTime * consumPerMinute;
         
-        battery.changeLevel(totalTraded - baseConsum);
+        // Generated
+        double totalGenerated = 0;
+        for( IGenerator generator : generators )
+        {
+            totalGenerated += generator.getGeneration(since, until);
+        }
+        
+        // Appliances
+        double totalApplied = 0;
+        for( IAppliance appliance : appliances )
+        {
+            totalApplied += appliance.getConsum(since, until);
+        }
+        
+        // total change
+        double total = totalTraded + 0 - totalApplied - baseConsum;
+        battery.changeLevel( total );
+        
+        // Regenerate bid
         bid.develop(until, baseConsum, battery, distributor, appliances);
     }
     
