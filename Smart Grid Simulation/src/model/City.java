@@ -22,7 +22,7 @@ public class City
         wires = new ArrayList<>();
     }
     
-    public void newWire(int startId, int endId) 
+    public void addWire(int startId, int endId) 
     {
         // Add prosumers if they dont exist
         boolean startFound = false, endFound = false;
@@ -39,7 +39,7 @@ public class City
         wires.add( new Wire( startId, endId, 10 ));
     }   
 
-    public Problem buildProblem() 
+    public Problem toProblem() 
     {
         Problem problem = new Problem();
         
@@ -72,13 +72,13 @@ public class City
         writer.close();
     }
 
-    public void setMoment( Moment moment ) 
+    public void develop( Moment since, Moment until ) 
     {
-        this.moment = moment;
+        this.moment = until;
         
         for( Prosumer prosumer : prosumers )
         {
-            prosumer.setMoment(moment);
+            prosumer.develop(since, until);
         }
     }
 }

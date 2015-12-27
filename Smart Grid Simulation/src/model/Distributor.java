@@ -43,7 +43,7 @@ public class Distributor extends Prosumer implements IDistributor
     }
 
     @Override
-    public void setMoment( Moment moment ) 
+    public void develop( Moment since, Moment until ) 
     {
         
     }
@@ -65,6 +65,4 @@ public class Distributor extends Prosumer implements IDistributor
     {
         return rate[0];
     }
-    
-    
 }

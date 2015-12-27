@@ -26,7 +26,7 @@ public class FileParser
                 int startId = Integer.parseInt(lineSegments[0]);
                 int endId = Integer.parseInt(lineSegments[1]);
                 
-                city.newWire(startId,endId);
+                city.addWire(startId,endId);
             }
         }       
         catch (Exception ex) {}

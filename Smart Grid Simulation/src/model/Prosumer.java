@@ -15,7 +15,7 @@ public abstract class Prosumer
     
     public IBid bid;
     
-    public abstract void setMoment( Moment moment );
+    public abstract void develop( Moment since, Moment until );
     
     public Prosumer( int id )
     {

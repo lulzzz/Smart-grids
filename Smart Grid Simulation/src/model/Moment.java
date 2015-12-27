@@ -45,7 +45,7 @@ public class Moment implements Comparable<Moment>
         }
     }
 
-    public double minutesSince(Moment startingTime) 
+    public int minutesSince(Moment startingTime) 
     {
         int h = hour - startingTime.hour;
         int m = minute - startingTime.minute;
