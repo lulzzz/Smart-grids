@@ -25,9 +25,6 @@ public class Main
             
             // Save output
             String outputFolder = arguments.getOutputFolder();
-
-            JSONBuilder.saveCity(city, outputFolder + "\\city.json");
-            JSONBuilder.saveSimulation(simulation, outputFolder + "\\simulation.json");
             
             Plotter.plotBids(outputFolder, arguments.getFrames(), new Moment(arguments.getStartingHour(), arguments.getStartingMinute()), arguments.getTimeStep());
         }

@@ -8,7 +8,6 @@ import Model.Interfaces.IGenerator;
 import com.google.gson.annotations.Expose;
 import java.io.*;
 import java.util.*;
-import java.util.function.*;
 import seas3.core.*;
 
 public class House extends Prosumer
@@ -17,25 +16,23 @@ public class House extends Prosumer
     @Expose
     public double totalTraded;
     
+    @Expose
     private IBattery battery;
     private IDistributor distributor;
     @Expose
     private ArrayList<IAppliance> appliances;
     private ArrayList<IGenerator> generators;
     
-    
-    
-    
-    public House(int id)
+    public House(int id, IDistributor distributor)
     {
         super(id);
         
-        distributor = new Distributor(Prosumer.maxId+1, Distributor.testRate);
+        this.distributor = distributor;
         appliances = new ArrayList<>();
         generators = new ArrayList<>();
         
-        generators.add(new ValueMapGenerator());
-        appliances.add(new ValueMapAppliance(10));
+        generators.add(new ValueMapGenerator(Data.cloudsAt));
+        appliances.add(new ValueMapAppliance(IAppliance.ApplianceType.TV, Data.consumTV));
         battery = new Battery(3,10);
         
         consumPerMinute = .2;
@@ -45,12 +42,16 @@ public class House extends Prosumer
     @Override
     public void setStartingMoment(Moment moment) 
     {
+        Prosumer p = (Prosumer) distributor;
+        p.setStartingMoment(moment);
         bid = new LogBid(moment, 0,battery, distributor, appliances);
     }
     
     @Override
     public void develop( Moment since, Moment until )
     {
+        // Update rate
+        ((Prosumer) distributor).setStartingMoment(until);
         // Base consum
         int elapsedTime = until.minutesSince(since);
         double baseConsum = elapsedTime * consumPerMinute;
@@ -75,17 +76,15 @@ public class House extends Prosumer
         
         // Regenerate bid
         bid.develop(until, baseConsum, battery, distributor, appliances);
+        
     }
     
     @Override
     public void writePlotData(PrintWriter writer, String outputFolder, Moment moment)
     {
-        String outputFileName = String.format("%s\\id %d moment %s.png", outputFolder, id, moment.toString());
+        String plotFile = String.format("%s\\id %d moment %s.png", outputFolder, id, moment.toString());
         
-        // Header
-        writer.print(String.format("set output '%s' %nunset arrow %n", outputFileName));
-        
-        bid.writePlotData(writer);
+        bid.writePlotData(plotFile, writer);
     }    
 
     @Override
@@ -109,9 +108,6 @@ public class House extends Prosumer
                 totalTraded += value;
             }            
         }
-        
         bid.setTrades(trades);
     }
-
-    
 }

@@ -2,6 +2,7 @@
 package Model;
 
 import Model.Interfaces.IAppliance;
+import Model.Interfaces.IAppliance.ApplianceState;
 import com.google.gson.annotations.Expose;
 import java.util.HashMap;
 
@@ -10,39 +11,37 @@ public class ValueMapAppliance implements IAppliance
     @Expose
     private ApplianceState state;
     @Expose
+    private ApplianceType type;
+    @Expose
     private double progress;
+    
+    private HashMap<Moment, Double> consum;
     
     private int totalTime;
     
-    private HashMap<Moment, Double> consumAt = new HashMap<Moment,Double>()
-    {{
-      put(new Moment(10,0), 1.0);
-      put(new Moment(10,5), 2.0);
-      put(new Moment(10,7), 2.0);
-      put(new Moment(10,10), 1.0);
-    }};
-    
-    public ValueMapAppliance( int totalTime )
+    public ValueMapAppliance( ApplianceType type, HashMap<Moment,Double> consum )
     {
-        state = ApplianceState.Waiting;
-        progress = 0;
-        this.totalTime = totalTime;        
+        this.type = type;
+        this.consum = consum;
+        this.state = ApplianceState.Waiting;
+        this.progress = 0;
+        this.totalTime = 10;
     }
     @Override
     public double getConsum(Moment since, Moment until) 
     {
-        double consum = 0;
-        for( Moment moment : consumAt.keySet())
+        double total = 0;
+        for( Moment moment : consum.keySet())
         {
             if( moment.isBetween(since, until))
             {
-                consum += consumAt.get(moment);
+                total += consum.get(moment);
             }
         }
         
         advanceProgress(until.minutesSince(since));
                 
-        return consum;
+        return total;
     }
 
     @Override

@@ -2,6 +2,7 @@
 package Model;
 
 import Model.Interfaces.*;
+import com.google.gson.annotations.Expose;
 import java.io.PrintWriter;
 import java.util.*;
 import java.util.function.*;
@@ -13,11 +14,14 @@ public class LogBid implements IBid
     
     private double linearFactor, tightness;
     
-    public DoubleUnaryOperator curve; // funcion que va cambiando con el tiempo
+    private DoubleUnaryOperator curve; // funcion que va cambiando con el tiempo
     
     private static final int resolution = 10;
     
-    public ArrayList<Double> trades;
+    private ArrayList<Double> trades;
+    
+    @Expose
+    private String plotFile; 
     
     public LogBid(Moment moment, double baseConsum, IBattery battery, IDistributor distributor, ArrayList<IAppliance> appliances)
     {
@@ -63,20 +67,15 @@ public class LogBid implements IBid
     public void setTrades( ArrayList<Double> trades )
     {
         this.trades = trades;
-        for( int i = 0; i < trades.size(); i++ )
-        {
-            double trade = trades.get(i);
-            if( trade < minX || trade > maxX ) 
-            {
-                System.out.println("erroneous trade");
-                trades.remove(trade);
-            }
-        }
     }
 
     @Override
-    public void writePlotData(PrintWriter writer) 
+    public void writePlotData(String plotFile, PrintWriter writer) 
     {
+        this.plotFile = plotFile;
+        // Header
+        writer.print(String.format("set output '%s' %nunset arrow %n", plotFile));
+        
         // Define functions plots
         writer.print(String.format(Locale.US, 
 
@@ -105,7 +104,7 @@ public class LogBid implements IBid
         
         writer.println(String.format(Locale.US,
                 "plot [%.2f:%.2f][%.2f:%.2f] f(x) lt rgb \"#8E7DFA\" with filledcurve y1=0, g(x) lt rgb \"#ACC6f2\" with filledcurve y1=0 %n%n",
-                minPlot, maxPlot, minPlot, maxPlot));
+                minPlot, maxPlot, minPlot*linearFactor, maxPlot*linearFactor));
     }
 
     @Override
@@ -118,7 +117,7 @@ public class LogBid implements IBid
         else if( minX < 0 && maxX < 0 ) contactX = maxX;
         else                                        contactX = 0;
         
-        linearFactor = distributor.getPrice(moment);
+        linearFactor = distributor.getRate();
         tightness = 5; // Will depend on appliances
         
         curve = x -> Math.signum(x) * linearFactor * ( contactX + tightness * Math.log( (Math.abs(x) - minX) / tightness + 1));

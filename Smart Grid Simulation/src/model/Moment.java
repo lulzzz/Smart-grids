@@ -1,9 +1,13 @@
 
 package Model;
 
+import com.google.gson.annotations.Expose;
+
 public class Moment implements Comparable<Moment>
 {
+    @Expose
     private int hour;
+    @Expose
     private int minute;
     
     public Moment( int hour, int minute )

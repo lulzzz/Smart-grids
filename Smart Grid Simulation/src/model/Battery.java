@@ -2,11 +2,14 @@
 package Model;
 
 import Model.Interfaces.IBattery;
+import com.google.gson.annotations.Expose;
 
 public class Battery implements IBattery
 {
-    private double capacity;
+    @Expose
     private double level;
+    @Expose
+    private double capacity;
     
     public Battery( double level, double capacity )
     {
@@ -18,6 +21,7 @@ public class Battery implements IBattery
     public void changeLevel( double amount )
     {
         level += amount;
+        if( level < 0 ) level = 0;
     }
     
     public double getCapacity()

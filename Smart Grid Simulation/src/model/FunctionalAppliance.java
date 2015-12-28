@@ -2,6 +2,7 @@
 package Model;
 
 import Model.Interfaces.IAppliance;
+import Model.Interfaces.IAppliance.ApplianceState;
 import java.util.function.DoubleUnaryOperator;
 
 public class FunctionalAppliance implements IAppliance 

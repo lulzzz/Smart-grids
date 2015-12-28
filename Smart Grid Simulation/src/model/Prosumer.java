@@ -2,6 +2,7 @@
 package Model;
 
 import Model.Interfaces.IBid;
+import Model.Interfaces.IDistributor;
 import com.google.gson.annotations.*;
 import java.io.PrintWriter;
 import seas3.core.*;
@@ -11,8 +12,9 @@ public abstract class Prosumer
     @Expose
     public int id;
     
-    public static int maxId;
+    public static int totalDistributors = 0;
     
+    @Expose
     public IBid bid;
     
     public abstract void develop( Moment since, Moment until );
@@ -20,7 +22,7 @@ public abstract class Prosumer
     public Prosumer( int id )
     {
         this.id = id;
-        maxId = id > maxId? id : maxId;
+        if( this instanceof IDistributor ) totalDistributors++;
     }
     
     public Participant toParticipant() 
