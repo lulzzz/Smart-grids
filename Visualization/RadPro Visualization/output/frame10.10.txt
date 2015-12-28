@@ -1,0 +1,38 @@
+set terminal png
+set output 'C:\Users\Martin\Documents\GitHub\smart-grids\Visualization\RadPro Visualization\output\id 0 moment 10.10.png' 
+unset arrow 
+f(x) = x >= 2.95 && x <= 12.95 ? 1.00*x : 1/0 
+g(x) = x >= 2.95 && x <= 12.95 ? sgn(x)*1.00*(2.95+5.00*log((abs(x)-2.95)/5.00 + 1)) : 1/0 
+set arrow from 2.95, 0 to 2.95,g(2.95) front 
+set samples 10000 
+set nokey 
+set xzeroaxis 
+set yzeroaxis
+plot [-10.00:10.00][-10.00:10.00] f(x) lt rgb "#8E7DFA" with filledcurve y1=0, g(x) lt rgb "#ACC6f2" with filledcurve y1=0 
+
+
+set output 'C:\Users\Martin\Documents\GitHub\smart-grids\Visualization\RadPro Visualization\output\id 1 moment 10.10.png' 
+unset arrow 
+f(x) = x >= -3.05 && x <= 6.95 ? 1.00*x : 1/0 
+g(x) = x >= -3.05 && x <= 6.95 ? sgn(x)*1.00*(0.00+5.00*log((abs(x)-0.00)/5.00 + 1)) : 1/0 
+set arrow from -2.95, 0 to -2.95,g(-2.95) front 
+set arrow from -0.10, 0 to -0.10,g(-0.10) front 
+set samples 10000 
+set nokey 
+set xzeroaxis 
+set yzeroaxis
+plot [-10.00:10.00][-10.00:10.00] f(x) lt rgb "#8E7DFA" with filledcurve y1=0, g(x) lt rgb "#ACC6f2" with filledcurve y1=0 
+
+
+set output 'C:\Users\Martin\Documents\GitHub\smart-grids\Visualization\RadPro Visualization\output\id 2 moment 10.10.png' 
+unset arrow 
+f(x) = x >= -0.05 && x <= 9.95 ? 1.00*x : 1/0 
+g(x) = x >= -0.05 && x <= 9.95 ? sgn(x)*1.00*(0.00+5.00*log((abs(x)-0.00)/5.00 + 1)) : 1/0 
+set arrow from 0.10, 0 to 0.10,g(0.10) front 
+set samples 10000 
+set nokey 
+set xzeroaxis 
+set yzeroaxis
+plot [-10.00:10.00][-10.00:10.00] f(x) lt rgb "#8E7DFA" with filledcurve y1=0, g(x) lt rgb "#ACC6f2" with filledcurve y1=0 
+
+

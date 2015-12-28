@@ -29,7 +29,7 @@ public class Main
             JSONBuilder.saveCity(city, outputFolder + "\\city.json");
             JSONBuilder.saveSimulation(simulation, outputFolder + "\\simulation.json");
             
-            Plotter.plotBids(outputFolder, arguments.getFrames());
+            Plotter.plotBids(outputFolder, arguments.getFrames(), new Moment(arguments.getStartingHour(), arguments.getStartingMinute()), arguments.getTimeStep());
         }
         catch( Exception ex ){ ex.printStackTrace(); System.err.println("Error"); }
     }

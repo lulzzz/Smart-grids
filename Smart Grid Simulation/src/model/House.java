@@ -78,10 +78,10 @@ public class House extends Prosumer
     @Override
     public void writePlotData(PrintWriter writer, String outputFolder, Moment moment)
     {
-        String outputFileName = String.format("%s\\id %d frame %s.png", outputFolder, id, moment.toString());
+        String outputFileName = String.format("%s\\id %d moment %s.png", outputFolder, id, moment.toString());
         
         // Header
-        writer.print(String.format("set output '%s' %n unset arrow %n", outputFileName));
+        writer.print(String.format("set output '%s' %nunset arrow %n", outputFileName));
         
         bid.writePlotData(writer);
     }    
@@ -90,21 +90,25 @@ public class House extends Prosumer
     public void applyTrades(Assignment assignment) 
     {
         totalTraded = 0;
+        ArrayList<Double> trades = new ArrayList<>();
+        
         for(Link link : assignment.keySet())
         {
             if(link.source.getId() == id && link.dest.getId() != id)
             {
                 double value = assignment.get(link);
-                bid.addTrade(value);
-                totalTraded += value;
+                trades.add(-value);
+                totalTraded -= value;
             }
             else if(link.dest.getId() == id && link.source.getId() != id)
             {
                 double value = assignment.get(link);
-                bid.addTrade(-value);
-                totalTraded -= value;
+                trades.add(value);
+                totalTraded += value;
             }            
         }
+        
+        bid.setTrades(trades);
     }
 
     

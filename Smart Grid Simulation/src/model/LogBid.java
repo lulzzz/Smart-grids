@@ -1,20 +1,15 @@
 
 package Model;
 
-import Model.Interfaces.IBattery;
-import Model.Interfaces.IAppliance;
-import Model.Interfaces.IBid;
-import Model.Interfaces.IDistributor;
-import com.google.gson.annotations.*;
+import Model.Interfaces.*;
 import java.io.PrintWriter;
-import java.io.Writer;
 import java.util.*;
 import java.util.function.*;
 import seas3.core.*;
 
 public class LogBid implements IBid 
 {
-    private double minX, maxX, contactX;
+    private double minX, maxX, contactX, minPlot, maxPlot;
     
     private double linearFactor, tightness;
     
@@ -26,6 +21,9 @@ public class LogBid implements IBid
     
     public LogBid(Moment moment, double baseConsum, IBattery battery, IDistributor distributor, ArrayList<IAppliance> appliances)
     {
+        minPlot = -battery.getCapacity();
+        maxPlot = battery.getCapacity();
+        
         trades = new ArrayList<>();
         develop( moment, baseConsum, battery, distributor, appliances );
     }
@@ -61,42 +59,53 @@ public class LogBid implements IBid
         return plv;
     }
     
-    public void addTrade( double at )
+    @Override
+    public void setTrades( ArrayList<Double> trades )
     {
-        trades.add(at);
+        this.trades = trades;
+        for( int i = 0; i < trades.size(); i++ )
+        {
+            double trade = trades.get(i);
+            if( trade < minX || trade > maxX ) 
+            {
+                System.out.println("erroneous trade");
+                trades.remove(trade);
+            }
+        }
     }
 
     @Override
     public void writePlotData(PrintWriter writer) 
     {
-        
-        
         // Define functions plots
         writer.print(String.format(Locale.US, 
 
-            "f(x) = %.2f*x %n"+ // f is the linear function
+            "f(x) = x >= %.2f && x <= %.2f ? %.2f*x : 1/0 %n"+ // f is the linear function
 
-            "g(x) = sgn(x)*%.2f*(%.2f+%.2f*log((abs(x)-%.2f)/%.2f + 1)) %n", // g is the approximation
+            "g(x) = x >= %.2f && x <= %.2f ? sgn(x)*%.2f*(%.2f+%.2f*log((abs(x)-%.2f)/%.2f + 1)) : 1/0 %n", // g is the approximation
             
-            linearFactor,
-            linearFactor, contactX, tightness, contactX, tightness
+            minX, maxX, linearFactor,
+            minX, maxX, linearFactor, contactX, tightness, contactX, tightness
         ));
 
         // Define arrows
         for( double trade : trades )
         {
             writer.print(String.format(Locale.US, 
-                 "set arrow from %f, 0 to %f,g(%f) front %n",
+                 "set arrow from %.2f, 0 to %.2f,g(%.2f) front %n",
 
                 trade, trade, trade
             ));
         }
         
+        // Set samples
+        writer.println(String.format(Locale.US, "set samples 10000 %nset nokey %nset xzeroaxis %nset yzeroaxis"));
+        
         // Plot
         
         writer.println(String.format(Locale.US,
-                "plot [%.2f:%.2f] f(x) with filledcurve y1=0, g(x) with filledcurve y1=0 %n%n",
-                minX, maxX));
+                "plot [%.2f:%.2f][%.2f:%.2f] f(x) lt rgb \"#8E7DFA\" with filledcurve y1=0, g(x) lt rgb \"#ACC6f2\" with filledcurve y1=0 %n%n",
+                minPlot, maxPlot, minPlot, maxPlot));
     }
 
     @Override
