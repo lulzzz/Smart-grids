@@ -1,0 +1,1 @@
+{"prosumers":[{"totalTraded":-4.0,"appliances":[{"state":"inExecution","progress":0.5}],"id":0},{"totalTraded":1.0,"appliances":[{"state":"inExecution","progress":0.5}],"id":1},{"totalTraded":3.0,"appliances":[{"state":"inExecution","progress":0.5}],"id":2}],"wires":[{"originId":0,"destinationId":1,"capacity":10.0},{"originId":1,"destinationId":2,"capacity":10.0}],"moment":{}}

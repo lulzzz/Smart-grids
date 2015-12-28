@@ -5,7 +5,7 @@ import Model.Interfaces.IAppliance;
 import Model.Interfaces.IBattery;
 import Model.Interfaces.IDistributor;
 import Model.Interfaces.IGenerator;
-import com.google.gson.Gson;
+import com.google.gson.annotations.Expose;
 import java.io.*;
 import java.util.*;
 import java.util.function.*;
@@ -14,10 +14,12 @@ import seas3.core.*;
 public class House extends Prosumer
 {
     public double consumPerMinute;
+    @Expose
     public double totalTraded;
     
     private IBattery battery;
     private IDistributor distributor;
+    @Expose
     private ArrayList<IAppliance> appliances;
     private ArrayList<IGenerator> generators;
     
@@ -33,7 +35,7 @@ public class House extends Prosumer
         generators = new ArrayList<>();
         
         generators.add(new ValueMapGenerator());
-        appliances.add(new ValueMapAppliance());
+        appliances.add(new ValueMapAppliance(10));
         battery = new Battery(3,10);
         
         consumPerMinute = .2;

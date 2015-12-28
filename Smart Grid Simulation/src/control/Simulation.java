@@ -2,6 +2,7 @@ package Control;
 
 import Model.Moment;
 import Model.City;
+import View.JSONBuilder;
 import com.google.gson.annotations.*;
 import java.io.*;
 import java.util.ArrayList;
@@ -33,7 +34,7 @@ public class Simulation
         cities = new ArrayList<>();
     }   
 
-    public void run( int steps, String outputFolder ) throws IOException
+    public void run( int steps, String outputFolder ) throws IOException, CloneNotSupportedException
     {
         city.setStartingMoment(from);
         
@@ -56,10 +57,11 @@ public class Simulation
             
             // Process results
             city.processAssignment( assignment, outputFolder );
-            cities.add(city);
             
             // Develop the city in this timeframe
             city.develop( from, to );
+            
+            JSONBuilder.saveCity(city, outputFolder+"\\city " + to.toString() + ".json");
             
             // Advance timeframe
             if( to.minutesSince(from) != 0 )
