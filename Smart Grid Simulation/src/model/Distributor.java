@@ -65,4 +65,10 @@ public class Distributor extends Prosumer implements IDistributor
     {
         return rate[0];
     }
+
+    @Override
+    public void setStartingMoment(Moment moment) 
+    {
+        
+    }
 }

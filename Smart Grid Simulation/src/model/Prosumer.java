@@ -27,6 +27,8 @@ public abstract class Prosumer
     {
         return new Participant(id, bid.toPLV());
     }
+    
+    public abstract void setStartingMoment( Moment moment );
 
     public abstract void applyTrades(Assignment assignment);
     

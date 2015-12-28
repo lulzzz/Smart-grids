@@ -5,6 +5,7 @@ import Model.Interfaces.IAppliance;
 import Model.Interfaces.IBattery;
 import Model.Interfaces.IDistributor;
 import Model.Interfaces.IGenerator;
+import com.google.gson.Gson;
 import java.io.*;
 import java.util.*;
 import java.util.function.*;
@@ -27,15 +28,22 @@ public class House extends Prosumer
     {
         super(id);
         
-        bid = new LogBid();
         distributor = new Distributor(Prosumer.maxId+1, Distributor.testRate);
         appliances = new ArrayList<>();
         generators = new ArrayList<>();
+        
         generators.add(new ValueMapGenerator());
+        appliances.add(new ValueMapAppliance());
         battery = new Battery(3,10);
         
         consumPerMinute = .2;
         totalTraded = 0;
+    }
+    
+    @Override
+    public void setStartingMoment(Moment moment) 
+    {
+        bid = new LogBid(moment, 0,battery, distributor, appliances);
     }
     
     @Override
@@ -60,11 +68,11 @@ public class House extends Prosumer
         }
         
         // total change
-        double total = totalTraded + 0 - totalApplied - baseConsum;
+        double total = totalTraded + totalGenerated - totalApplied - baseConsum;
         battery.changeLevel( total );
         
         // Regenerate bid
-        bid.develop(until, baseConsum, battery, distributor, appliances);
+        //bid.develop(until, baseConsum, battery, distributor, appliances);
     }
     
     @Override
@@ -98,4 +106,6 @@ public class House extends Prosumer
             }            
         }
     }
+
+    
 }

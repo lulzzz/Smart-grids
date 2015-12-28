@@ -81,4 +81,12 @@ public class City
             prosumer.develop(since, until);
         }
     }
+    
+    public void setStartingMoment( Moment moment )
+    {
+        this.moment = moment;
+        
+        for( Prosumer prosumer : prosumers )
+            prosumer.setStartingMoment(moment);
+    }
 }

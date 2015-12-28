@@ -74,4 +74,9 @@ public class Moment implements Comparable<Moment>
     {
         return hour;
     }
+
+    boolean isBetween(Moment since, Moment until) 
+    {
+        return hour >= since.hour && hour <= until.hour && minute >= since.minute && minute< until.minute;
+    }
 }

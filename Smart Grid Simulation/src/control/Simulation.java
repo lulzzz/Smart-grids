@@ -26,7 +26,6 @@ public class Simulation
         
         this.from = new Moment(startingHour,startingMinute);
         this.to = new Moment(startingHour, startingMinute);
-        this.to.advance(timeStep);
         
         this.timeStep = timeStep;
         
@@ -36,14 +35,14 @@ public class Simulation
 
     public void run( int steps, String outputFolder ) throws IOException
     {
-        for( int step = 0; step < steps; step++ )
+        city.setStartingMoment(from);
+        
+        for( int step = 0; step <= steps; step++ )
         {
             // Set the moment
-            
             System.out.println(String.format("Simulating from: %s to %s", from.toString(), to.toString()));
             
-            // Develop the city in this timeframe
-            city.develop( from, to );
+            
             
             // Solve the problem
             Problem problem = city.toProblem();
@@ -59,8 +58,12 @@ public class Simulation
             city.processAssignment( assignment, outputFolder );
             cities.add(city);
             
+            // Develop the city in this timeframe
+            city.develop( from, to );
+            
             // Advance timeframe
-            from.advance(timeStep);
+            if( to.minutesSince(from) != 0 )
+                from.advance(timeStep);
             to.advance(timeStep);
         }  
     }

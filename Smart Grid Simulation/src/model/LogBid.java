@@ -24,9 +24,10 @@ public class LogBid implements IBid
     
     public ArrayList<Double> trades;
     
-    public LogBid()
+    public LogBid(Moment moment, double baseConsum, IBattery battery, IDistributor distributor, ArrayList<IAppliance> appliances)
     {
         trades = new ArrayList<>();
+        develop( moment, baseConsum, battery, distributor, appliances );
     }
     
     public PiecewiseLinearValuation toPLV()
@@ -99,7 +100,7 @@ public class LogBid implements IBid
     }
 
     @Override
-    public void develop( Moment moment, double baseConsum, IBattery battery, IDistributor distributor, ArrayList<IAppliance> appliances) 
+    public final void develop( Moment moment, double baseConsum, IBattery battery, IDistributor distributor, ArrayList<IAppliance> appliances) 
     {
         minX = baseConsum - battery.getLevel();
         maxX = baseConsum + battery.getCapacityLeft();
