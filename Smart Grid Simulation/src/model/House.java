@@ -72,7 +72,7 @@ public class House extends Prosumer
         battery.changeLevel( total );
         
         // Regenerate bid
-        //bid.develop(until, baseConsum, battery, distributor, appliances);
+        bid.develop(until, baseConsum, battery, distributor, appliances);
     }
     
     @Override
