@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.IO;
+using System.Collections.Generic;
 
 public class Controller : MonoBehaviour
 {
@@ -15,7 +17,7 @@ public class Controller : MonoBehaviour
 	void Start ()
     {
         city = Instantiate(cityModel, Vector3.zero, Quaternion.identity) as GameObject;
-        AnimationClip a;
+        parseJSON();
 	}
 
     public void MoveTransformToCenter( GameObject gameObject )
@@ -49,6 +51,28 @@ public class Controller : MonoBehaviour
             }
 
             mesh.sharedMesh.vertices = desiredVertices;
+        }
+    }
+
+    public void parseJSON()
+    {
+        string sjson = File.ReadAllText(outputFolder + "\\simulation.json");
+        JSONObject jsonObject = new JSONObject(sjson);
+        print(jsonObject);
+
+        JSONObject frames = jsonObject.GetField("frames");
+        foreach (JSONObject frame in frames.list)
+        {
+            JSONObject prosumers = frame.GetField("prosumers");
+
+            foreach (JSONObject prosumer in prosumers.list)
+            {
+                int id = int.Parse(prosumer.GetField("id").ToString());
+
+                Building building = city.transform.GetChild(id).GetComponent<Building>();
+
+                building.addPlotFile(prosumer.GetField("bid").GetField("plotFile"));
+            }
         }
     }
 }

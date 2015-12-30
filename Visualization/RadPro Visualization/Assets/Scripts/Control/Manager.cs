@@ -21,7 +21,6 @@ public class Manager : MonoBehaviour
         if (Instance == null) Instance = this;
         json = System.IO.File.ReadAllText(@""+jsonPath);
         print(json);
-        if(readJSON) parseJSON();
     }
     
     public void setHour(float value)
@@ -106,47 +105,7 @@ public class Manager : MonoBehaviour
         }
     }
     
-    public void parseJSON()
-    {
-        links = new Dictionary<int, Dictionary<string,double>>();
-        JSONObject jsonObject = new JSONObject(json);
-        print(jsonObject);
-        JSONObject assignments = jsonObject.list[0];
-        foreach(JSONObject assignment in assignments.list)
-        {
-            JSONObject map = assignment.list[0].list[0];
-
-            Dictionary<string, double> l = new Dictionary<string, double>();
-
-            foreach (JSONObject link in map.list)
-            {
-                l.Add(link.keys[0], double.Parse(link.list[0].ToString().Replace("\"","")));
-            }
-
-            links.Add(int.Parse(assignment.keys[0].ToString().Replace("\"", "")), l);
-
-            // Tables
-            JSONObject participants = assignment.list[0].list[1];
-            
-            foreach(JSONObject participant in participants.list)
-            {
-                GameObject house = houses[int.Parse(participant.keys[0].Replace("\"", ""))];
-                house.transform.GetChild(0).gameObject.SetActive(true);
-                PaintOffers script = house.GetComponentInChildren<PaintOffers>();
-                
-                JSONObject offers = participant.list[0];
-
-                List<string> o = new List<string>();
-
-                foreach( JSONObject offer in offers.list )
-                {
-                    o.Add(offer.ToString());
-                }
-                
-                house.transform.GetChild(0).gameObject.SetActive(false);
-            } 
-        }
-    }
+    
 
     
     

@@ -12,16 +12,15 @@ public class Main
     {
         // Parse command lines
         CommandLineArguments arguments = new CommandLineArguments( args );
-        
-        // Read input file
-        City city = FileParser.parseOptimalSteinerFile(arguments.getGraphFile());
-        
-        // Create the simulation
-        Simulation simulation = new Simulation( city, arguments.getStartingHour(), arguments.getStartingMinute(), arguments.getTimeStep() );
-        
         // Run the simulation
         try
         {
+            // Read input file
+            City city = FileParser.parseOptimalSteinerFile(arguments.getGraphFile());
+
+            // Create the simulation
+            Simulation simulation = new Simulation( city, arguments.getStartingHour(), arguments.getStartingMinute(), arguments.getTimeStep() );
+        
             // output folder
             String outputFolder = arguments.getOutputFolder();
             

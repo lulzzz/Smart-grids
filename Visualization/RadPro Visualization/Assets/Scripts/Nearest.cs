@@ -11,7 +11,7 @@ public class Nearest : MonoBehaviour
         {
             positions.Add(child.position);
         }
-        File.WriteAllLines("tree.txt", makeWires(positions));
+        File.WriteAllLines("output/edges.txt", makeWires(positions));
     }
 
     public string[] makeWires( List<Vector3> positions )
@@ -21,11 +21,11 @@ public class Nearest : MonoBehaviour
         List<int> done = new List<int>();
         done.Add(0);
 
-        for (int i = 1; i < positions.Count; i++)
+        for (int i = 0; i < positions.Count -1; i++)
         {
             // Get vertex at minimal distance
-            double shortest = Vector3.Distance(positions[i], positions[i-1]);
-            int index = 0;
+            double shortest = Vector3.Distance(positions[i], positions[(i+1) % positions.Count]);
+            int index = i+1 % positions.Count;
 
             for (int other = 0; other < positions.Count; other++)
             {

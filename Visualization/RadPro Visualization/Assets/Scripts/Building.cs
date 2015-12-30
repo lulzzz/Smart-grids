@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using System;
 
 public class Building : MonoBehaviour
 {
@@ -13,9 +14,12 @@ public class Building : MonoBehaviour
         {"-2", "-2" }
     };
 
+    public List<string> plotFiles;
+
     public void Start()
     {
         originalMaterial = GetComponent<Renderer>().material;
+        plotFiles = new List<string>();
     }
 
     public void OnMouseEnter()
@@ -32,5 +36,11 @@ public class Building : MonoBehaviour
     {
         offerTable.SetActive(!offerTable.activeSelf);
         //offerTable.GetComponent<PaintOffers>().paint(testOffers);
+    }
+
+    internal void addPlotFile(JSONObject jSONObject)
+    {
+        plotFiles.Add(jSONObject.ToString());
+        print(jSONObject.ToString());
     }
 }

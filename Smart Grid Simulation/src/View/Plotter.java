@@ -12,9 +12,12 @@ public class Plotter
     {
         for( int frame = 0; frame <= frames; frame++ )
         {
+            // Execute gnuplot file
             Runtime.getRuntime().exec("gnuplot \"" + outputFolder + "\\frame"+startingMoment.toString()+".txt\"");
-            boolean ok = new File(outputFolder + "\\frame"+startingMoment.toString()+".txt").delete();
-            startingMoment.advance(5);
+            // Delete the gnuplot script file
+            new File(outputFolder + "\\frame"+startingMoment.toString()+".txt").delete();
+            
+            startingMoment.advance(timeStep);
         }
     }
 }
