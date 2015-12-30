@@ -4,6 +4,7 @@ package Control;
 import Model.City;
 import Model.Moment;
 import View.*;
+import com.google.gson.JsonObject;
 
 public class Main
 {
@@ -21,12 +22,14 @@ public class Main
         // Run the simulation
         try
         {
-            simulation.run( arguments.getFrames(), arguments.getOutputFolder());
-            
-            // Save output
+            // output folder
             String outputFolder = arguments.getOutputFolder();
             
-            Plotter.plotBids(outputFolder, arguments.getFrames(), new Moment(arguments.getStartingHour(), arguments.getStartingMinute()), arguments.getTimeStep());
+            JsonObject json = simulation.run( arguments.getFrames(), outputFolder + "\\plot images");
+            
+            FileSaver.saveJson(json, outputFolder + "\\simulation.json");
+            
+            Plotter.plotBids(outputFolder + "\\plot images", arguments.getFrames(), new Moment(arguments.getStartingHour(), arguments.getStartingMinute()), arguments.getTimeStep());
         }
         catch( Exception ex ){ ex.printStackTrace(); System.err.println("Error"); }
     }

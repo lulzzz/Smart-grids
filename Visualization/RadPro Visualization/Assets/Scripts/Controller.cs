@@ -1,16 +1,26 @@
 ﻿using UnityEngine;
-using UnityEditor;
-using System.IO;
-using System.Collections.Generic;
+using System.Collections;
 
-public class PointToCenter : MonoBehaviour
+public class Controller : MonoBehaviour
 {
+    [SerializeField]
+    private GameObject cityModel;
+    [SerializeField]
+    private string simulatorPath;
+    [SerializeField]
+    private string outputFolder;
 
-    // Use this for initialization
-    [MenuItem("Custom/Move transform point to center")]
-    public static void MoveTransformToCenter()
+    private GameObject city;
+
+	void Start ()
     {
-        foreach (GameObject shape in Selection.gameObjects)
+        city = Instantiate(cityModel, Vector3.zero, Quaternion.identity) as GameObject;
+        AnimationClip a;
+	}
+
+    public void MoveTransformToCenter( GameObject gameObject )
+    {
+        foreach (Transform shape in gameObject.transform)
         {
             Vector3 center;
             var mesh = shape.GetComponent<MeshFilter>();
@@ -40,19 +50,5 @@ public class PointToCenter : MonoBehaviour
 
             mesh.sharedMesh.vertices = desiredVertices;
         }
-    }
-
-    [MenuItem("Custom/Export shape points as .txt")]
-    public static void exportAsTxT()
-    {
-        List<string> lines = new List<string>();
-        lines.Add(Selection.gameObjects.Length + " 2");
-
-        foreach (GameObject shape in Selection.gameObjects)
-        {
-            lines.Add( string.Format("{0} {1}", shape.transform.position.x, shape.transform.position.z));
-        }
-
-        File.WriteAllLines("Output/graph points.txt", lines.ToArray());
     }
 }

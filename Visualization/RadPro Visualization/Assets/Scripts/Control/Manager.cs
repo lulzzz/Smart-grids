@@ -142,8 +142,7 @@ public class Manager : MonoBehaviour
                 {
                     o.Add(offer.ToString());
                 }
-
-                script.paint(o);
+                
                 house.transform.GetChild(0).gameObject.SetActive(false);
             } 
         }

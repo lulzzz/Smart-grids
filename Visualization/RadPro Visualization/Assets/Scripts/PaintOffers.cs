@@ -1,23 +1,21 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 
+[RequireComponent(typeof(Animation))]
 public class PaintOffers : MonoBehaviour
 {
-    public GameObject offerTextPrefab;
-
-    public void paint(List<string> offers)
+    public Animation anim;
+    void Start()
     {
-        foreach (Transform child in transform) Destroy(child.gameObject);
-        int i = 0;
-        foreach( string offer in offers )
-        {
-            GameObject offerGO = Instantiate(offerTextPrefab);
-            offerGO.transform.SetParent(transform);
-            offerGO.transform.localPosition = new Vector3(-.4f, 0, .4f - .1f * i);
-            offerGO.transform.localEulerAngles = new Vector3(90, 0, 0);
-            offerGO.transform.localScale = new Vector3(.03f, .05f, .05f);
-            offerGO.GetComponent<TextMesh>().text = offer;
-            i++;
-        }
+        anim = GetComponent<Animation>();
+        AnimationCurve curve = AnimationCurve.Linear(0.5f, 1, 2, 3);
+        AnimationCurve c = AnimationCurve.Linear(2, 3, 4, 0);
+        AnimationClip clip = new AnimationClip();
+        clip.legacy = true;
+        clip.SetCurve("", typeof(Transform), "localPosition.x", curve);
+        anim.AddClip(clip, "test");
+        anim.Play("test");
+
+        Animator ats;
     }
 }
