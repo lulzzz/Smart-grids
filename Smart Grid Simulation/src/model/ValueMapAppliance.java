@@ -57,4 +57,10 @@ public class ValueMapAppliance implements IAppliance
         else if( progress < .99 ) state = ApplianceState.inExecution;
         else state = ApplianceState.Ended;
     }
+
+    @Override
+    public Moment getStartingTime() 
+    {
+        return new Moment(10,20);
+    }
 }

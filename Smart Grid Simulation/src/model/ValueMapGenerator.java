@@ -3,6 +3,7 @@ package Model;
 
 import Model.Interfaces.IGenerator;
 import com.google.gson.Gson;
+import com.google.gson.annotations.Expose;
 import java.io.*;
 import java.util.HashMap;
 
@@ -11,6 +12,9 @@ public class ValueMapGenerator implements IGenerator
     private double productionPerHour = 5;
     
     private HashMap<Integer, Integer> generation;
+    
+    @Expose
+    private double efficiency;
     
     public ValueMapGenerator( HashMap<Integer, Integer> generation )
     {
@@ -22,13 +26,13 @@ public class ValueMapGenerator implements IGenerator
     {
         int cloudTime = until.getHour() / 3 * 3;
         int clouds = generation.get(cloudTime);
-        double productionPercent = (100 - clouds) / 100.0;
+        efficiency = (100 - clouds) / 100.0;
         
         int elapsedMinutes = until.minutesSince(since);
         
         double productionPerMinute = productionPerHour / 60.0;
         
-        double production = elapsedMinutes * productionPerMinute * productionPercent;
+        double production = elapsedMinutes * productionPerMinute * efficiency;
         
         return production;
     }

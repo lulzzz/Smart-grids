@@ -26,7 +26,7 @@ final class LinearBid implements IBid
         maxPlot = 100;
         trades = new ArrayList<>();
         
-        develop(moment,0,null,distributor,null);
+        develop(moment, moment,0,null,distributor,null);
     }
 
     @Override
@@ -42,9 +42,9 @@ final class LinearBid implements IBid
     }
 
     @Override
-    public void develop(Moment moment, double baseConsum, IBattery battery, IDistributor distributor, ArrayList<IAppliance> appliances) 
+    public void develop(Moment since, Moment until, double baseConsum, IBattery battery, IDistributor distributor, ArrayList<IAppliance> appliances) 
     {
-        linearFactor = distributor.getRate();
+        linearFactor = distributor.getRate(since, until);
     }
 
     @Override

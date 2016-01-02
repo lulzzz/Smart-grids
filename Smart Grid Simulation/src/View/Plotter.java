@@ -15,7 +15,7 @@ public class Plotter
             // Execute gnuplot file
             Runtime.getRuntime().exec("gnuplot \"" + outputFolder + "\\frame"+startingMoment.toString()+".txt\"");
             // Delete the gnuplot script file
-            new File(outputFolder + "\\frame"+startingMoment.toString()+".txt").delete();
+            //new File(outputFolder + "\\frame"+startingMoment.toString()+".txt").delete();
             
             startingMoment.advance(timeStep);
         }

@@ -29,7 +29,7 @@ public class LogBid implements IBid
         maxPlot = battery.getCapacity();
         
         trades = new ArrayList<>();
-        develop( moment, baseConsum, battery, distributor, appliances );
+        develop( moment, moment, baseConsum, battery, distributor, appliances );
     }
     
     public PiecewiseLinearValuation toPLV()
@@ -108,7 +108,7 @@ public class LogBid implements IBid
     }
 
     @Override
-    public final void develop( Moment moment, double baseConsum, IBattery battery, IDistributor distributor, ArrayList<IAppliance> appliances) 
+    public final void develop( Moment since, Moment until, double baseConsum, IBattery battery, IDistributor distributor, ArrayList<IAppliance> appliances) 
     {
         minX = baseConsum - battery.getLevel();
         maxX = baseConsum + battery.getCapacityLeft();
@@ -117,9 +117,22 @@ public class LogBid implements IBid
         else if( minX < 0 && maxX < 0 ) contactX = maxX;
         else                                        contactX = 0;
         
-        linearFactor = distributor.getRate();
-        tightness = 5; // Will depend on appliances
+        linearFactor = distributor.getRate(since, until);
+        // set tightness
+        tightness = 0;
+        int minutes;
+        for( IAppliance appliance : appliances )
+        {
+            minutes = appliance.getStartingTime().minutesSince(until);
+            if(minutes > 0)
+                tightness += linearFactor*10/(minutes*1.0);
+        }
         
+        tightness -= linearFactor * battery.getLevel() / battery.getCapacity();
+        
+        System.out.println(tightness);
+        
+        // Update the curve
         curve = x -> Math.signum(x) * linearFactor * ( contactX + tightness * Math.log( (Math.abs(x) - minX) / tightness + 1));
     }
 }

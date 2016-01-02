@@ -5,5 +5,5 @@ import Model.Moment;
 
 public interface IDistributor 
 {
-    public double getRate();
+    public double getRate(Moment since, Moment until);
 }

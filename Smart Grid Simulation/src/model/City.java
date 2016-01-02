@@ -15,57 +15,51 @@ public class City
     @Expose
     private Weather weather;
     @Expose
-    private ArrayList<Prosumer> prosumers;
+    private ArrayList<House> houses;
+    @Expose
+    private IDistributor distributor;
     @Expose
     private ArrayList<Wire> wires;
     
     public City()
     {
-        prosumers = new ArrayList<>();
+        houses = new ArrayList<>();
         wires = new ArrayList<>();
-        weather = new Weather();
+        distributor = new HourlyDistributor(Data.testRate);
+        weather = new Weather();        
     }
     
-    public void addWire(int startId, int endId) 
+    public void setStartingMoment( Moment moment )
     {
-        // Add prosumers if they dont exist
-        boolean startFound = false, endFound = false;
-        for(Prosumer prosumer : prosumers)
-        {
-            if( prosumer.id == startId ) startFound = true;
-            if( prosumer.id == endId ) endFound = true;
-        }
+        this.moment = moment;
+        this.weather.setStartingMoment(moment);
         
-        if( !startFound ) 
-        {
-            HourlyDistributor distributor = new HourlyDistributor( -Prosumer.totalDistributors -1 , Data.testRate );
-            House house = new House(startId, distributor);
-            prosumers.add( house );
-            //prosumers.add( distributor );
-            Wire wire = new Wire( distributor.id, house.id, 10);
-            //wires.add(wire);
-        }
-        if( !endFound )
-        {
-            HourlyDistributor distributor = new HourlyDistributor( -Prosumer.totalDistributors -1 , Data.testRate );
-            House house = new House(endId, distributor);
-            prosumers.add( house );
-            //prosumers.add( distributor );
-            Wire wire = new Wire( distributor.id, house.id, 10);
-            //wires.add(wire);
-        }
+        for( House house : houses )
+            house.setStartingMoment(moment);
+    }
+    
+    public void addWire(int sourceId, int destinationId) 
+    {
+        // Add houses if they arent added
+        House source = new House(sourceId, distributor);
+        House destination = new House(destinationId, distributor);
+        
+        if( !houses.contains(source) ) houses.add(source);
+        if( !houses.contains(destination) ) houses.add(destination);
         
         // Add wire
-        wires.add( new Wire( startId, endId, 10 ));
+        Wire wire = new Wire( sourceId, destinationId, Data.defaultCapacity );
+        wires.add( wire );
     }   
 
     public Problem toProblem() 
     {
         Problem problem = new Problem();
         
-        for( Prosumer prosumer : prosumers )
+        for( House house : houses )
         {
-            problem.addParticipant( prosumer.toParticipant() );
+            problem.addParticipant( house.toParticipant() );
+            // Add distributor participant to it
         }
         
         for( Wire wire : wires )
@@ -78,6 +72,8 @@ public class City
     
     public void processAssignment(Assignment assignment, String outputFolder ) throws IOException 
     {
+        if( assignment != null )
+        {
         // Set wire flows
         for(Link link : assignment.keySet())
         {
@@ -88,15 +84,15 @@ public class City
             }
         }
         
-        for( Prosumer prosumer : prosumers )
-            prosumer.applyTrades( assignment );
-        
+        for( House house : houses )
+            house.applyTrades( assignment );
+        }
         PrintWriter writer = new PrintWriter(outputFolder + "\\frame" + moment.toString() + ".txt");
         
         writer.println("set terminal png");
-        for( Prosumer prosumer : prosumers )
+        for( House house : houses )
         {
-            prosumer.writePlotData(writer, outputFolder, moment);
+            house.writePlotData(writer, outputFolder, moment);
         }
         
         writer.close();
@@ -106,18 +102,11 @@ public class City
     {
         this.moment = until;
         
-        for( Prosumer prosumer : prosumers )
+        for( House house : houses )
         {
-            prosumer.develop(since, until);
+            house.develop(since, until);
         }
     }
     
-    public void setStartingMoment( Moment moment )
-    {
-        this.moment = moment;
-        this.weather.setStartingMoment(moment);
-        
-        for( Prosumer prosumer : prosumers )
-            prosumer.setStartingMoment(moment);
-    }
+    
 }

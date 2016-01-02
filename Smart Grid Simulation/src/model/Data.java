@@ -45,4 +45,5 @@ public class Data
       put(18, 36);
       put(21, 92);  
     }};
+    public static final float defaultCapacity = 10f;
 }

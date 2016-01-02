@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(Animation))]
 public class PaintOffers : MonoBehaviour
@@ -7,7 +8,7 @@ public class PaintOffers : MonoBehaviour
     public Animation anim;
     void Start()
     {
-        anim = GetComponent<Animation>();
+        /*anim = GetComponent<Animation>();
         AnimationCurve curve = AnimationCurve.Linear(0.5f, 1, 2, 3);
         AnimationCurve c = AnimationCurve.Linear(2, 3, 4, 0);
         AnimationClip clip = new AnimationClip();
@@ -16,6 +17,8 @@ public class PaintOffers : MonoBehaviour
         anim.AddClip(clip, "test");
         anim.Play("test");
 
-        Animator ats;
+        Animator ats;*/
+        Image image = GetComponentInChildren<Image>();
+
     }
 }

@@ -7,6 +7,8 @@ public interface IAppliance
 {
     public double getConsum( Moment since, Moment until );
     public ApplianceState getState();
+
+    public Moment getStartingTime();
     
     public enum ApplianceState 
     {

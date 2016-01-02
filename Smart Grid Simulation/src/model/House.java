@@ -1,31 +1,37 @@
 
 package Model;
 
-import Model.Interfaces.IAppliance;
-import Model.Interfaces.IBattery;
-import Model.Interfaces.IDistributor;
-import Model.Interfaces.IGenerator;
-import com.google.gson.annotations.Expose;
+import Model.Interfaces.*;
+import com.google.gson.annotations.*;
 import java.io.*;
 import java.util.*;
 import seas3.core.*;
 
-public class House extends Prosumer
+public class House
 {
-    public double consumPerMinute;
     @Expose
-    public double totalTraded;
+    private int id;
     
-    @Expose
-    private IBattery battery;
+    private double consumPerMinute;
+    
     private IDistributor distributor;
     @Expose
+    private IBattery battery;
+    @Expose
     private ArrayList<IAppliance> appliances;
+    @Expose
     private ArrayList<IGenerator> generators;
+    
+    @Expose
+    public IBid bid;
+    @Expose
+    private double totalTraded;
+    
+    
     
     public House(int id, IDistributor distributor)
     {
-        super(id);
+        this.id = id;
         
         this.distributor = distributor;
         appliances = new ArrayList<>();
@@ -39,19 +45,18 @@ public class House extends Prosumer
         totalTraded = 0;
     }
     
-    @Override
+    public Participant toParticipant() 
+    {
+        return new Participant(id, bid.toPLV());
+    }
+    
     public void setStartingMoment(Moment moment) 
     {
-        Prosumer p = (Prosumer) distributor;
-        p.setStartingMoment(moment);
         bid = new LogBid(moment, 0,battery, distributor, appliances);
     }
     
-    @Override
     public void develop( Moment since, Moment until )
     {
-        // Update rate
-        ((Prosumer) distributor).setStartingMoment(until);
         // Base consum
         int elapsedTime = until.minutesSince(since);
         double baseConsum = elapsedTime * consumPerMinute;
@@ -75,11 +80,10 @@ public class House extends Prosumer
         battery.changeLevel( total );
         
         // Regenerate bid
-        bid.develop(until, baseConsum, battery, distributor, appliances);
+        bid.develop(since, until, baseConsum, battery, distributor, appliances);
         
     }
     
-    @Override
     public void writePlotData(PrintWriter writer, String outputFolder, Moment moment)
     {
         String plotFile = String.format("%s\\id %d moment %s.png", outputFolder, id, moment.toString());
@@ -87,7 +91,6 @@ public class House extends Prosumer
         bid.writePlotData(plotFile, writer);
     }    
 
-    @Override
     public void applyTrades(Assignment assignment) 
     {
         totalTraded = 0;
@@ -109,5 +112,18 @@ public class House extends Prosumer
             }            
         }
         bid.setTrades(trades);
+    }
+    
+    @Override
+    public boolean equals(Object object)
+    {
+        boolean same = false;
+
+        if (object != null && object instanceof House)
+        {
+            same = this.id == ((House) object).id;
+        }
+        
+        return same;
     }
 }

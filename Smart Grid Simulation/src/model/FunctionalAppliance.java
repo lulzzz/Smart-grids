@@ -38,4 +38,10 @@ public class FunctionalAppliance implements IAppliance
     {
         return state;
     }
+
+    @Override
+    public Moment getStartingTime() 
+    {
+        return new Moment(0,0);
+    }
 }

@@ -12,6 +12,7 @@ public class Main
     {
         // Parse command lines
         CommandLineArguments arguments = new CommandLineArguments( args );
+        
         // Run the simulation
         try
         {
