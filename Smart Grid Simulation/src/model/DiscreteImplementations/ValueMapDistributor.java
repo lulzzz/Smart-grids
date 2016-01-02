@@ -1,39 +1,34 @@
 
-package Model;
+package Model.DiscreteImplementations;
 
 import Model.Interfaces.*;
+import Model.LinearBid;
+import Model.Moment;
 import com.google.gson.annotations.*;
 import java.io.*;
-import java.util.*;
-import seas3.core.*;
 
 
-public class HourlyDistributor implements IDistributor
+public class ValueMapDistributor implements IDistributor
 {
-    private double[] rate;
     @Expose
-    private double currentRate;
+    private TimeValueMap rate;
     @Expose
     private IBid bid;
     
-    public HourlyDistributor( double[] rate )
+    public ValueMapDistributor( TimeValueMap rate )
     {
         this.rate = rate;
     }
     
     public void setStartingMoment(Moment moment) 
     {
-        this.currentRate = rate[moment.getHour()];
+        rate.getLowerNearest(moment);
         this.bid = new LinearBid(moment, this);
     }
 
     public void develop( Moment since, Moment until ) 
     {
-        currentRate = rate[until.getHour()];
-    }
-
-    public void applyTrades(Assignment assignment) 
-    {
+        bid.develop(since, until, 0, null, this, null);
     }
 
     public void writePlotData(PrintWriter writer, String outputFolder, Moment moment) 
@@ -46,6 +41,6 @@ public class HourlyDistributor implements IDistributor
     @Override
     public double getRate(Moment since, Moment until) 
     {
-        return currentRate;
+        return 1;
     }
 }

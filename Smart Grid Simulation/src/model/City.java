@@ -1,6 +1,8 @@
 
 package Model;
 
+import Model.DiscreteImplementations.TimeValueMap;
+import Model.DiscreteImplementations.ValueMapDistributor;
 import Model.Interfaces.IDistributor;
 import com.google.gson.annotations.*;
 import java.io.IOException;
@@ -25,7 +27,7 @@ public class City
     {
         houses = new ArrayList<>();
         wires = new ArrayList<>();
-        distributor = new HourlyDistributor(Data.testRate);
+        distributor = new ValueMapDistributor(new TimeValueMap(Data.testRate));
         weather = new Weather();        
     }
     
@@ -107,6 +109,4 @@ public class City
             house.develop(since, until);
         }
     }
-    
-    
 }

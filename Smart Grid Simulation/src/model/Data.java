@@ -1,6 +1,7 @@
 
 package Model;
 
+import Model.DiscreteImplementations.TimeValueMap;
 import java.util.HashMap;
 
 public class Data 
@@ -21,29 +22,54 @@ public class Data
         0.12707, 0.12504, 0.12714, 0.12214, 0.05468, 0.04887
     };
     
-    public static double[] testRate = new double[]
-    {
-        1,2,3,4,5,6,7,8,9,10,11,12,1,2,3,4,5,6,7,8,9,10,11,12
-    };
+    public static HashMap<Moment,Double> testRate = new HashMap<Moment,Double>()
+    {{
+        put(new Moment(0,0), 0.0);
+        put(new Moment(1,0), 1.0);
+        put(new Moment(2,0), 2.0);
+        put(new Moment(3,0), 3.0);
+        put(new Moment(4,0), 4.0);
+        put(new Moment(5,0), 5.0);
+        put(new Moment(6,0), 6.0);
+        put(new Moment(7,0), 7.0);
+        put(new Moment(8,0), 8.0);
+        put(new Moment(9,0), 9.0);
+        put(new Moment(10,0), 10.0);
+        put(new Moment(11,0), 11.0);
+        
+        put(new Moment(12,0), 12.0);
+        put(new Moment(13,0), 13.0);
+        put(new Moment(14,0), 14.0);
+        put(new Moment(15,0), 15.0);
+        put(new Moment(16,0), 16.0);
+        put(new Moment(17,0), 17.0);
+        put(new Moment(18,0), 18.0);
+        put(new Moment(19,0), 19.0);
+        put(new Moment(20,0), 20.0);
+        put(new Moment(21,0), 21.0);
+        put(new Moment(22,0), 22.0);
+        put(new Moment(23,0), 23.0);
+    }};
     
-    public static HashMap<Moment, Double> consumTV = new HashMap<Moment,Double>()
+    public static TimeValueMap consumTV = new TimeValueMap(new HashMap<Moment,Double>()
     {{
       put(new Moment(10,0), 1.0);
       put(new Moment(10,5), 2.0);
       put(new Moment(10,7), 2.0);
       put(new Moment(10,10), 1.0);
-    }};
+    }});
     
-    public static HashMap<Integer, Integer> cloudsAt = new HashMap<Integer,Integer>()
+    public static TimeValueMap cloudMap = new TimeValueMap(new HashMap<Moment,Double>()
     {{
-      put(0, 56);
-      put(3, 76);
-      put(6, 88);
-      put(9, 88);
-      put(12, 100);
-      put(15, 88);
-      put(18, 36);
-      put(21, 92);  
-    }};
+      put(new Moment(0,0), 56.0);
+      put(new Moment(3,0), 76.0);
+      put(new Moment(6,0), 88.0);
+      put(new Moment(9,0), 88.0);
+      put(new Moment(12,0), 100.0);
+      put(new Moment(15,0), 88.0);
+      put(new Moment(18,0), 36.0);
+      put(new Moment(21,0), 92.0);  
+    }});
+    
     public static final float defaultCapacity = 10f;
 }

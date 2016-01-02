@@ -1,6 +1,9 @@
 
 package Model;
 
+import Model.DiscreteImplementations.Battery;
+import Model.DiscreteImplementations.ValueMapAppliance;
+import Model.DiscreteImplementations.ValueMapGenerator;
 import Model.Interfaces.*;
 import com.google.gson.annotations.*;
 import java.io.*;
@@ -37,7 +40,7 @@ public class House
         appliances = new ArrayList<>();
         generators = new ArrayList<>();
         
-        generators.add(new ValueMapGenerator(Data.cloudsAt));
+        generators.add(new ValueMapGenerator(IGenerator.GeneratorType.Solar, Data.cloudMap));
         appliances.add(new ValueMapAppliance(IAppliance.ApplianceType.TV, Data.consumTV));
         battery = new Battery(3,10);
         

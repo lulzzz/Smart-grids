@@ -9,7 +9,7 @@ import java.util.Locale;
 import java.util.function.DoubleUnaryOperator;
 import seas3.core.*;
 
-final class LinearBid implements IBid 
+public final class LinearBid implements IBid 
 {
     private double minPlot, maxPlot;
     

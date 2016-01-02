@@ -1,5 +1,5 @@
 
-package Model;
+package Model.DiscreteImplementations;
 
 import Model.Interfaces.IBattery;
 import com.google.gson.annotations.Expose;
@@ -24,6 +24,7 @@ public class Battery implements IBattery
         if( level < 0 ) level = 0;
     }
     
+    @Override
     public double getCapacity()
     {
         return capacity;
@@ -35,6 +36,7 @@ public class Battery implements IBattery
         return capacity - level;
     }
 
+    @Override
     public double getLevel()
     {
         return level;

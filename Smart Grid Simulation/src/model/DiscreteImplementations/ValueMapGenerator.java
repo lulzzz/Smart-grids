@@ -1,32 +1,33 @@
 
-package Model;
+package Model.DiscreteImplementations;
 
 import Model.Interfaces.IGenerator;
-import com.google.gson.Gson;
+import Model.Moment;
 import com.google.gson.annotations.Expose;
-import java.io.*;
-import java.util.HashMap;
 
 public class ValueMapGenerator implements IGenerator 
 {
+    @Expose
+    private GeneratorType type;
+    @Expose
     private double productionPerHour = 5;
-    
-    private HashMap<Integer, Integer> generation;
-    
     @Expose
     private double efficiency;
     
-    public ValueMapGenerator( HashMap<Integer, Integer> generation )
+    private TimeValueMap clouds;
+    
+    public ValueMapGenerator( GeneratorType type, TimeValueMap clouds )
     {
-        this.generation = generation;
+        this.type = type;
+        this.clouds = clouds;
     }
     
     @Override
     public double getGeneration(Moment since, Moment until) 
     {
-        int cloudTime = until.getHour() / 3 * 3;
-        int clouds = generation.get(cloudTime);
-        efficiency = (100 - clouds) / 100.0;
+        double cloudMean = clouds.getMeanBetween(since, until);
+        
+        efficiency = (100 - cloudMean) / 100.0;
         
         int elapsedMinutes = until.minutesSince(since);
         
