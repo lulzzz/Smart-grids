@@ -10,7 +10,7 @@ public class ValueMapGenerator implements IGenerator
     @Expose
     private GeneratorType type;
     @Expose
-    private double productionPerHour = 5;
+    private double productionPerHour = 500;
     @Expose
     private double efficiency;
     

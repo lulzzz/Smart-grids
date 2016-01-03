@@ -50,7 +50,35 @@ public class TimeValueMap extends TreeMap<Moment, Double>
 
     public double getAddedValue(Moment since, Moment until) 
     {        
-        return 1;
+        double res = 0;
+        
+        Moment start = getLowerNearest(since);
+        
+        if( start.compareTo(lastKey()) == 0 ) return 0;
+        
+        SortedMap<Moment, Double> submap = subMap(start, until);
+        
+        Moment lastMoment = null;
+        for( Moment moment : submap.keySet())
+        {
+            if( lastMoment != null )
+            {
+
+                if( lastMoment.compareTo(start) != 0)
+                {
+                    res += moment.minutesSince(lastMoment) * get(lastMoment);
+                }
+                else
+                {
+                    res += moment.minutesSince(since) * get(start);
+                }
+            }
+            lastMoment = moment;
+        }
+        
+        res += until.minutesSince(lastMoment) * get(lastMoment);
+        
+        return res;
     }
 
     public double getProgress(Moment until) 

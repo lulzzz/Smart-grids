@@ -22,6 +22,7 @@ public class Battery implements IBattery
     {
         level += amount;
         if( level < 0 ) level = 0;
+        if( level > capacity ) level = capacity;
     }
     
     @Override

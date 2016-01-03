@@ -29,6 +29,11 @@ public class Moment implements Comparable<Moment>
         {
             this.hour = 0;
         }
+        if(this.minute < 0)
+        {
+            this.minute += 60;
+            this.hour--;
+        }
     }
     
     @Override

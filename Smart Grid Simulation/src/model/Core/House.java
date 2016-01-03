@@ -1,10 +1,8 @@
 
 package Model.Core;
 
-import Model.ContinuousImplementations.LogBid;
-import Model.DiscreteImplementations.Battery;
-import Model.DiscreteImplementations.ValueMapAppliance;
-import Model.DiscreteImplementations.ValueMapGenerator;
+import Model.ContinuousImplementations.*;
+import Model.DiscreteImplementations.*;
 import Model.Interfaces.*;
 import com.google.gson.annotations.*;
 import java.io.*;
@@ -18,7 +16,6 @@ public class House
     
     private double consumPerMinute;
     
-    private IDistributor distributor;
     @Expose
     private IBattery battery;
     @Expose
@@ -30,14 +27,23 @@ public class House
     public IBid bid;
     @Expose
     private double totalTraded;
+    @Expose
+    private double totalGenerated;
+    @Expose
+    private double totalApplied;
+    @Expose
+    private double baseConsum;
+    @Expose
+    private double balance;
+    @Expose
+    private double toPay;
     
     
     
-    public House(int id, IDistributor distributor)
+    public House(int id)
     {
         this.id = id;
         
-        this.distributor = distributor;
         appliances = new ArrayList<>();
         generators = new ArrayList<>();
         
@@ -54,7 +60,7 @@ public class House
         return new Participant(id, bid.toPLV());
     }
     
-    public void setStartingMoment(Moment moment, Weather weather) 
+    public void setStartingMoment(Moment moment, IDistributor distributor, Weather weather) 
     {
         for( IAppliance appliance : appliances )
             appliance.setStartingMoment(moment);
@@ -69,29 +75,30 @@ public class House
     {
         // Base consum
         int elapsedTime = until.minutesSince(since);
-        double baseConsum = elapsedTime * consumPerMinute;
+        baseConsum = - elapsedTime * consumPerMinute;
         
         // Generated
-        double totalGenerated = 0;
+        totalGenerated = 0;
         for( IGenerator generator : generators )
         {
             totalGenerated += generator.getGeneration(since, until, weather);
         }
         
         // Appliances
-        double totalApplied = 0;
+        totalApplied = 0;
         for( IAppliance appliance : appliances )
         {
-            totalApplied += appliance.getConsum(since, until);
+            totalApplied -= appliance.getConsum(since, until);
         }
         
         // total change
-        double total = totalTraded + totalGenerated - totalApplied - baseConsum;
-        battery.changeLevel( total );
+        balance = totalTraded + totalGenerated + totalApplied + baseConsum;
         
+        toPay = Math.min(balance+battery.getLevel(), 0);
+        battery.changeLevel( balance );
     }
     
-    public void refreshBid( Moment moment )
+    public void refreshBid( Moment moment, IDistributor distributor )
     {
         // Regenerate bid
         bid.develop( moment, 1, battery, distributor, appliances);

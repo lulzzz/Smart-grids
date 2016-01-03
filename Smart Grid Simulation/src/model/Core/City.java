@@ -1,13 +1,10 @@
 
 package Model.Core;
 
-import Model.DiscreteImplementations.TimeValueMap;
-import Model.DiscreteImplementations.ValueMapDistributor;
-import Model.Interfaces.IDistributor;
+import Model.DiscreteImplementations.*;
+import Model.Interfaces.*;
 import com.google.gson.annotations.*;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
 import java.util.*;
 import seas3.core.*;
 
@@ -42,14 +39,14 @@ public class City
         this.distributor.setStartingMoment(moment);
         
         for( House house : houses )
-            house.setStartingMoment(moment, weather);
+            house.setStartingMoment(moment, distributor, weather );
     }
     
     private void addWire(int sourceId, int destinationId) 
     {
         // Add houses if they arent added
-        House source = new House(sourceId, distributor);
-        House destination = new House(destinationId, distributor);
+        House source = new House(sourceId);
+        House destination = new House(destinationId);
         
         if( !houses.contains(source) ) houses.add(source);
         if( !houses.contains(destination) ) houses.add(destination);
@@ -123,6 +120,6 @@ public class City
     public void refreshBids() 
     {
         for( House house : houses )
-            house.refreshBid(moment);
+            house.refreshBid(moment, distributor);
     }
 }
