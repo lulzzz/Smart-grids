@@ -2,7 +2,7 @@
 package Model.DiscreteImplementations;
 
 import Model.Interfaces.IGenerator;
-import Model.Moment;
+import Model.Core.*;
 import com.google.gson.annotations.Expose;
 
 public class ValueMapGenerator implements IGenerator 
@@ -14,18 +14,23 @@ public class ValueMapGenerator implements IGenerator
     @Expose
     private double efficiency;
     
-    private TimeValueMap clouds;
-    
-    public ValueMapGenerator( GeneratorType type, TimeValueMap clouds )
+    public ValueMapGenerator( GeneratorType type )
     {
         this.type = type;
-        this.clouds = clouds;
     }
     
     @Override
-    public double getGeneration(Moment since, Moment until) 
+    public void setStartingMoment( Moment moment, Weather weather )
     {
-        double cloudMean = clouds.getMeanBetween(since, until);
+        double c = weather.getClouds(moment);
+        
+        efficiency = (100 - c) / 100.0;
+    }
+    
+    @Override
+    public double getGeneration(Moment since, Moment until, Weather weather) 
+    {
+        double cloudMean = weather.getMeanCloudsBetween(since, until);
         
         efficiency = (100 - cloudMean) / 100.0;
         

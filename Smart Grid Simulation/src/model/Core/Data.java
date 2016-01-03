@@ -1,8 +1,9 @@
 
-package Model;
+package Model.Core;
 
 import Model.DiscreteImplementations.TimeValueMap;
 import java.util.HashMap;
+import java.util.TreeMap;
 
 public class Data 
 {
@@ -22,7 +23,7 @@ public class Data
         0.12707, 0.12504, 0.12714, 0.12214, 0.05468, 0.04887
     };
     
-    public static HashMap<Moment,Double> testRate = new HashMap<Moment,Double>()
+    public static TimeValueMap testRate = new TimeValueMap()
     {{
         put(new Moment(0,0), 0.0);
         put(new Moment(1,0), 1.0);
@@ -51,15 +52,15 @@ public class Data
         put(new Moment(23,0), 23.0);
     }};
     
-    public static TimeValueMap consumTV = new TimeValueMap(new HashMap<Moment,Double>()
+    public static TimeValueMap consumTV = new TimeValueMap()
     {{
       put(new Moment(10,0), 1.0);
       put(new Moment(10,5), 2.0);
       put(new Moment(10,7), 2.0);
       put(new Moment(10,10), 1.0);
-    }});
+    }};
     
-    public static TimeValueMap cloudMap = new TimeValueMap(new HashMap<Moment,Double>()
+    public static TimeValueMap cloudMap = new TimeValueMap()
     {{
       put(new Moment(0,0), 56.0);
       put(new Moment(3,0), 76.0);
@@ -69,7 +70,7 @@ public class Data
       put(new Moment(15,0), 88.0);
       put(new Moment(18,0), 36.0);
       put(new Moment(21,0), 92.0);  
-    }});
+    }};
     
     public static final float defaultCapacity = 10f;
 }

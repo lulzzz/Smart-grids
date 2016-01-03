@@ -1,5 +1,5 @@
 
-package Model;
+package Model.Core;
 
 import com.google.gson.annotations.Expose;
 

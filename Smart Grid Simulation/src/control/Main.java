@@ -1,10 +1,10 @@
 
 package Control;
 
-import Model.City;
-import Model.Moment;
+import Model.Core.*;
 import View.*;
-import com.google.gson.JsonObject;
+import com.google.gson.*;
+import java.util.HashMap;
 
 public class Main
 {
@@ -17,8 +17,9 @@ public class Main
         try
         {
             // Read input file
-            City city = FileParser.parseOptimalSteinerFile(arguments.getGraphFile());
-
+            HashMap<Integer,Integer> map = FileIO.parseEdges(arguments.getGraphFile());
+            City city = new City(map);
+            
             // Create the simulation
             Simulation simulation = new Simulation( city, arguments.getStartingHour(), arguments.getStartingMinute(), arguments.getTimeStep() );
         
@@ -27,9 +28,9 @@ public class Main
             
             JsonObject json = simulation.run( arguments.getFrames(), outputFolder + "\\plot images");
             
-            FileSaver.saveJson(json, outputFolder + "\\simulation.json");
+            FileIO.saveJson(json, outputFolder + "\\simulation.json");
             
-            Plotter.plotBids(outputFolder + "\\plot images", arguments.getFrames(), new Moment(arguments.getStartingHour(), arguments.getStartingMinute()), arguments.getTimeStep());
+            FileIO.plotBids(outputFolder + "\\plot images", arguments.getFrames(), new Moment(arguments.getStartingHour(), arguments.getStartingMinute()), arguments.getTimeStep());
         }
         catch( Exception ex ){ ex.printStackTrace(); System.err.println("Error"); }
     }

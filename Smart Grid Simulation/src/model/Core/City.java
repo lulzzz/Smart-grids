@@ -1,10 +1,11 @@
 
-package Model;
+package Model.Core;
 
 import Model.DiscreteImplementations.TimeValueMap;
 import Model.DiscreteImplementations.ValueMapDistributor;
 import Model.Interfaces.IDistributor;
 import com.google.gson.annotations.*;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.*;
@@ -23,24 +24,28 @@ public class City
     @Expose
     private ArrayList<Wire> wires;
     
-    public City()
+    public City( HashMap<Integer, Integer> edges )
     {
         houses = new ArrayList<>();
         wires = new ArrayList<>();
-        distributor = new ValueMapDistributor(new TimeValueMap(Data.testRate));
-        weather = new Weather();        
+        distributor = new ValueMapDistributor(Data.testRate);
+        weather = new Weather(Data.cloudMap, Data.cloudMap); 
+        
+        for(Map.Entry<Integer, Integer> entry : edges.entrySet() )
+            addWire(entry.getKey(), entry.getValue());
     }
     
     public void setStartingMoment( Moment moment )
     {
         this.moment = moment;
         this.weather.setStartingMoment(moment);
+        this.distributor.setStartingMoment(moment);
         
         for( House house : houses )
-            house.setStartingMoment(moment);
+            house.setStartingMoment(moment, weather);
     }
     
-    public void addWire(int sourceId, int destinationId) 
+    private void addWire(int sourceId, int destinationId) 
     {
         // Add houses if they arent added
         House source = new House(sourceId, distributor);
@@ -72,7 +77,7 @@ public class City
         return problem;
     }
     
-    public void processAssignment(Assignment assignment, String outputFolder ) throws IOException 
+    public void processAssignment(Assignment assignment ) throws IOException 
     {
         if( assignment != null )
         {
@@ -89,6 +94,10 @@ public class City
         for( House house : houses )
             house.applyTrades( assignment );
         }
+    }
+    
+    public void savePlots( String outputFolder ) throws FileNotFoundException
+    {
         PrintWriter writer = new PrintWriter(outputFolder + "\\frame" + moment.toString() + ".txt");
         
         writer.println("set terminal png");
@@ -103,10 +112,17 @@ public class City
     public void develop( Moment since, Moment until ) 
     {
         this.moment = until;
+        this.weather.develop(until);
         
         for( House house : houses )
         {
-            house.develop(since, until);
+            house.develop(since, until,weather);
         }
+    }
+
+    public void refreshBids() 
+    {
+        for( House house : houses )
+            house.refreshBid(moment);
     }
 }

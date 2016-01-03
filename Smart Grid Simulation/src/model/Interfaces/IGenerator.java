@@ -1,11 +1,12 @@
 
 package Model.Interfaces;
 
-import Model.Moment;
+import Model.Core.*;
 
 public interface IGenerator 
 {
-    public double getGeneration( Moment since, Moment until );
+    public void setStartingMoment( Moment moment, Weather weather );
+    public double getGeneration( Moment since, Moment until, Weather weather );
     
     public enum GeneratorType
     {

@@ -1,9 +1,11 @@
 
 package Model.Interfaces;
 
-import Model.Moment;
+import Model.Core.Moment;
 
 public interface IDistributor 
 {
-    public double getRate(Moment since, Moment until);
+    public void setStartingMoment(Moment moment);
+
+    public double getRate(Moment moment);
 }

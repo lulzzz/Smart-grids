@@ -1,5 +1,5 @@
 
-package Model;
+package Model.Core;
 
 import com.google.gson.annotations.Expose;
 
@@ -64,7 +64,7 @@ public class Moment implements Comparable<Moment>
             h += 24;
         }
         
-        return h * 24 + m;
+        return h * 60 + m;
     }
 
     int hoursSince(Moment since) 
