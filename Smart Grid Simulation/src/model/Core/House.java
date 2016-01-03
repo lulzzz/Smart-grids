@@ -4,6 +4,7 @@ package Model.Core;
 import Model.ContinuousImplementations.*;
 import Model.DiscreteImplementations.*;
 import Model.Interfaces.*;
+import Model.Interfaces.IBid.TraderType;
 import com.google.gson.annotations.*;
 import java.io.*;
 import java.util.*;
@@ -114,21 +115,23 @@ public class House
     public void applyTrades(Assignment assignment) 
     {
         totalTraded = 0;
-        ArrayList<Double> trades = new ArrayList<>();
+        HashMap<Double, TraderType > trades = new HashMap<>();
         
         for(Link link : assignment.keySet())
         {
             if(link.source.getId() == id && link.dest.getId() != id)
             {
                 double value = assignment.get(link);
-                trades.add(-value);
-                totalTraded -= value;
+                TraderType type = link.dest.getId() > City.maxId / 2 ? TraderType.Distributor : TraderType.House;
+                trades.put(+value, type);
+                totalTraded += value;
             }
             else if(link.dest.getId() == id && link.source.getId() != id)
             {
                 double value = assignment.get(link);
-                trades.add(value);
-                totalTraded += value;
+                TraderType type = link.source.getId() > City.maxId / 2 ? TraderType.Distributor : TraderType.House;
+                trades.put(-value, type);
+                totalTraded -= value;
             }            
         }
         bid.setTrades(trades);

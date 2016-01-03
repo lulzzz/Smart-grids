@@ -19,7 +19,7 @@ public class LogBid implements IBid
     
     private static final int resolution = 10;
     
-    private ArrayList<Double> trades;
+    private HashMap<Double, TraderType> trades;
     
     @Expose
     private String plotFile; 
@@ -29,7 +29,7 @@ public class LogBid implements IBid
         minPlot = -battery.getCapacity();
         maxPlot = battery.getCapacity();
         
-        trades = new ArrayList<>();
+        trades = new HashMap<>();
         develop( moment, baseConsum, battery, distributor, appliances );
     }
     
@@ -65,7 +65,7 @@ public class LogBid implements IBid
     }
     
     @Override
-    public void setTrades( ArrayList<Double> trades )
+    public void setTrades( HashMap<Double, TraderType> trades )
     {
         this.trades = trades;
     }
@@ -89,13 +89,27 @@ public class LogBid implements IBid
         ));
 
         // Define arrows
-        for( double trade : trades )
+        for( Map.Entry<Double,TraderType> trade : trades.entrySet() )
         {
-            writer.print(String.format(Locale.US, 
+            double traded = trade.getKey();
+            // To remove after big error solved
+            if( traded < minX || traded > maxX ) continue;
+            
+            if( trade.getValue() == TraderType.Distributor)
+            {
+                writer.print(String.format(Locale.US, 
+                 "set arrow from %.2f, 0 to %.2f,f(%.2f) front %n",
+                traded, traded, traded
+                ));
+            }
+            else if( trade.getValue() == TraderType.House )
+            {
+                writer.print(String.format(Locale.US, 
                  "set arrow from %.2f, 0 to %.2f,g(%.2f) front %n",
-
-                trade, trade, trade
-            ));
+                traded, traded, traded
+                ));
+            }
+            
         }
         
         // Set samples

@@ -20,6 +20,8 @@ public class City
     private IDistributor distributor;
     @Expose
     private ArrayList<Wire> wires;
+
+    public static int maxId = 0;
     
     public City( HashMap<Integer, Integer> edges )
     {
@@ -48,8 +50,16 @@ public class City
         House source = new House(sourceId);
         House destination = new House(destinationId);
         
-        if( !houses.contains(source) ) houses.add(source);
-        if( !houses.contains(destination) ) houses.add(destination);
+        if( !houses.contains(source) )
+        {
+            houses.add(source);
+            if( sourceId > maxId ) maxId = sourceId;
+        }
+        if( !houses.contains(destination) )
+        {
+            houses.add(destination);
+            if( destinationId > maxId ) maxId = destinationId;
+        }
         
         // Add wire
         Wire wire = new Wire( sourceId, destinationId, Data.defaultCapacity );
@@ -62,8 +72,14 @@ public class City
         
         for( House house : houses )
         {
-            problem.addParticipant( house.toParticipant() );
-            // Add distributor participant to it
+            Participant houseParticipant = house.toParticipant();
+            Participant distributorParticipant = distributor.toParticipant( ++maxId );
+            
+            problem.addParticipant( houseParticipant );
+            //problem.addParticipant(distributorParticipant);
+            
+            //problem.addLink(houseParticipant.getId(), distributorParticipant.getId(), Data.defaultCapacity);
+            
         }
         
         for( Wire wire : wires )

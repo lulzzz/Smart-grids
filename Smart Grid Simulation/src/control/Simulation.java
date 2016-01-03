@@ -49,10 +49,11 @@ public class Simulation
 
             // Process results
             city.processAssignment( assignment );
-            city.savePlots(outputFolder);
-            
             // Develop the city in this timeframe mal nombre 3 en 1
             city.develop( from, to );
+            city.savePlots(outputFolder);
+            
+            
             
             // Save city state
             array.add( new JsonParser().parse( gson.toJson(city) ).getAsJsonObject());

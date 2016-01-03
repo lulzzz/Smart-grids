@@ -6,6 +6,7 @@ import Model.Core.Moment;
 import com.google.gson.annotations.Expose;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import seas3.core.*;
 
 public final class LinearBid implements IBid 
@@ -47,7 +48,7 @@ public final class LinearBid implements IBid
     }
 
     @Override
-    public void setTrades(ArrayList<Double> trades) 
+    public void setTrades(HashMap<Double, TraderType> trades) 
     {
         
     }

@@ -2,10 +2,10 @@
 package Model.DiscreteImplementations;
 
 import Model.Interfaces.*;
-import Model.ContinuousImplementations.LinearBid;
-import Model.Core.Moment;
+import Model.ContinuousImplementations.*;
+import Model.Core.*;
 import com.google.gson.annotations.*;
-import java.io.*;
+import seas3.core.Participant;
 
 
 public class ValueMapDistributor implements IDistributor
@@ -37,5 +37,11 @@ public class ValueMapDistributor implements IDistributor
     public double getRate( Moment moment ) 
     {
         return rate.getLowerNearestValue(moment);
+    }
+
+    @Override
+    public Participant toParticipant(int id) 
+    {
+        return new Participant(id, bid.toPLV());
     }
 }
