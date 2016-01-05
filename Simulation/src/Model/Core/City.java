@@ -1,7 +1,8 @@
 
 package Model.Core;
 
-import Model.DiscreteImplementations.*;
+import Model.DataSets.Data;
+import Model.Implementations.ValueMapDistributor;
 import Model.Interfaces.*;
 import com.google.gson.annotations.*;
 import java.io.*;

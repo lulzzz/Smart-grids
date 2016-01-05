@@ -9,10 +9,13 @@ public class Manager : MonoBehaviour
     private string jsonPath;
 
     private GameObject city;
+    private List<House> hs;
 
 	void Start ()
     {
+        hs = new List<House>();
         parseJSON();
+        print(hs.Count);
 	}
 
     public void parseJSON()
@@ -35,9 +38,21 @@ public class Manager : MonoBehaviour
             {
                 int id = int.Parse(house.GetField("id").ToString());
 
+                House h = new House(id);
+                if (!hs.Contains(h))
+                {
+                    hs.Add(h);
+                }
+                else
+                {
+                    h = hs[id];
+                }
+                
                 JSONObject battery = house.GetField("battery");
                 float level = float.Parse(battery.GetField("level").ToString());
                 float capacity = float.Parse(battery.GetField("capacity").ToString());
+
+                h.battery.addPercent(level / capacity);
 
                 JSONObject appliances = house.GetField("appliances");
                 foreach (JSONObject appliance in appliances.list)

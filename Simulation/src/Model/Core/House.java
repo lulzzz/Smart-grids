@@ -1,8 +1,11 @@
 
 package Model.Core;
 
-import Model.ContinuousImplementations.*;
-import Model.DiscreteImplementations.*;
+import Model.DataSets.Data;
+import Model.Implementations.LogBid;
+import Model.Implementations.ValueMapAppliance;
+import Model.Implementations.Battery;
+import Model.Implementations.ValueMapGenerator;
 import Model.Interfaces.*;
 import Model.Interfaces.IBid.TraderType;
 import com.google.gson.annotations.*;

@@ -1,0 +1,180 @@
+\documentclass[12pt,a4paper,openright,oneside]{article}
+\usepackage{amsfonts, amsmath, amssymb,latexsym,amsthm, mathrsfs, enumerate}
+\usepackage[spanish]{babel}
+\usepackage{epsfig}
+
+\parskip=5pt
+\parindent=15pt
+\usepackage[margin=1.2in]{geometry}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage[latin1]{inputenc}
+
+\setcounter{page}{0}
+
+
+\numberwithin{equation}{section}
+\newtheorem{teo}{Teorema}[subsubsection]
+\newtheorem*{teo*}{Teorema}
+\newtheorem*{prop*}{Proposició}
+\newtheorem*{corol*}{Corol·lari}
+\newtheorem{prop}{Proposició}[subsubsection]
+\newtheorem{corol}{Corol·lari}[subsubsection]
+\newtheorem{lema}{Lema}[subsubsection]
+\newtheorem{defi}{Definició}[subsubsection]
+\newtheorem{nota}{Notació}
+
+\theoremstyle{definition}
+\newtheorem{prob}{Problema}
+\newtheorem*{sol}{Solució}
+\newtheorem{ex}{Exemple}
+\newtheorem{exs}{Exemples}
+\newtheorem{obs}{Observació}
+\newtheorem{obss}{Observacions}
+
+\def\qed{\hfill $\square$}
+
+\renewcommand{\refname}{Bibliografia}
+% --------------------------------------------------
+\usepackage{fancyhdr}
+
+\lhead{}
+\lfoot{}
+\rhead{}
+\cfoot{}
+\rfoot{\thepage}
+
+\begin{document}
+
+\bibstyle{plain}
+
+\thispagestyle{empty}
+
+\begin{titlepage}
+\begin{center}
+\begin{figure}[htb]
+\begin{center}
+\includegraphics[width=6cm]{ub.png}
+\end{center}
+\end{figure}
+
+\textbf{\LARGE Trabajo final de grado} \\
+\vspace*{.5cm}
+\textbf{\LARGE GRADO DE INFORMÁTICA } \\
+\vspace*{.5cm}
+\textbf{\LARGE Facultat de Matem\`atiques \\ Universitat de Barcelona} \\
+\vspace*{1.5cm}
+\rule{16cm}{0.1mm}\\
+\begin{Huge}
+\textbf{Visualización de redes inteligentes} \\
+\end{Huge}
+\rule{16cm}{0.1mm}\\
+
+\vspace{1cm}
+
+\begin{flushright}
+\textbf{\LARGE Autor: Martin Azpillaga Aldalur}
+
+\vspace*{2cm}
+
+\renewcommand{\arraystretch}{1.5}
+\begin{tabular}{ll}
+\textbf{\Large Director:} & \textbf{\Large Dr. Jesús Cerquides } \\
+\textbf{\Large Realitzat a:} & \textbf{\Large  IIIA   } \\
+ & \textbf{\Large (nom del departament)} \\
+\\
+\textbf{\Large Barcelona,} & \textbf{\Large \today }
+\end{tabular}
+
+\end{flushright}
+
+\end{center}
+
+
+
+
+
+
+
+
+
+
+\end{titlepage}
+
+
+\newpage
+\pagenumbering{roman} 
+
+\section*{Abstract}
+
+Example abstract.
+
+\section*{Resúmen}
+Resúmen
+
+\newpage 
+
+\tableofcontents
+
+\newpage
+
+\pagenumbering{arabic} 
+\setcounter{page}{1}
+\section{El entorno(1)}
+\subsection{La humanidad necesita energía eléctrica}
+Hay gran interés por parte de goviernos en invertir en investigar maneras más eficientes de tratar con la energía.
+\subsection{La idea de los Smart Grids}
+Auge de energías renovables personales. Mencionar artículos donde se tratan smart grids.
+\subsection{Problemas: ¿Como se tradea la energía?}
+Quien controla todo el flujo, cuando se hacen los intercambios, como se hacen los intercambios, como pueden interferir los usuarios en estos intercambios. Mencionar reglamentos de otros países y estado actual de España.
+
+\newpage
+
+\section{Definiendo el problema(2)}
+
+\subsection{El problema}
+Explicar qué se intenta resolver
+\subsection{Partes del problema: Creación de grafo, CEAP, Simulación, Visualización, Reports}
+Explicar por que existe cada parte y por que está diferenciado del resto.
+\subsection{Buscando tecnologías adecuadas}
+Explicar programas adeuados para cada parte así como posibles distintas maneras de implementar cada aspecto a grandes rasgos
+\subsection{A partir de ahora}
+Iremos explicando cada parte desde el núcleo (CEAP) hasta el exterior (Visualización)
+\newpage
+
+\section{CEAP(5)}
+\subsection{Se me presentó este proyecto.} 
+\subsection{Formalización en participant, ILV, PLV, Link.} 
+\subsection{RadPro. }
+\subsection{Limitaciones y ampliaciones posibles.}
+\section{Simulación(8)}
+\subsection{Filosofía de java. POO, encapsulación, interfaces.}
+\subsection{Input/Output. }
+\subsection{Diagramas. }
+\subsection{Modelado de una casa}
+\subsection{Battery, }
+\subsection{Generator,} 
+\subsection{Appliance, }
+\subsection{Bid.}
+\section{Visualización(5)}
+\subsection{Filosofía de Unity. Componentes/no.} 
+\subsection{Menú dinámico.} 
+\subsection{Animaciones.}
+\section{Reports(2)}
+\subsection{Aún por decidir.}
+\section{Creación de la ciudad(5)}
+\subsection{Algoritmos: Steiner tree, algoritmo RTT, algoritmo nearest.}
+\subsection{ Ampliar a Open Street Map, CityEngine.}
+
+\section{Conclusiones(1)}
+
+adf.
+\normalfont
+
+\newpage
+
+\begin{thebibliography}{25}
+\bibitem{pari} Batut, C.; Belabas, K.; Bernardi, D.; Cohen, H.; Olivier, M.: User's guide to \textit{PARI-GP},  \newline \texttt{pari.math.u-bordeaux.fr/pub/pari/manuals/2.3.3/users.pdf}, 2000.
+\end{thebibliography}
+\end{document} 
+
