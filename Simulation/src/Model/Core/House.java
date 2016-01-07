@@ -48,8 +48,10 @@ public class House
         appliances = new ArrayList<>();
         generators = new ArrayList<>();
         
-        generators.add(new SolarGenerator(IGenerator.GeneratorType.Solar));
-        appliances.add(new Appliance(IAppliance.ApplianceType.TV, Data.consumTV));
+        generators.add(new SolarGenerator(generators.size(),IGenerator.GeneratorType.Solar));
+        generators.add(new WindGenerator(generators.size(),IGenerator.GeneratorType.Wind));
+        appliances.add(new Appliance(appliances.size(),IAppliance.ApplianceType.TV, Data.consumTV));
+        
         battery = new Battery(3,10);
         
         consumPerMinute = .2;

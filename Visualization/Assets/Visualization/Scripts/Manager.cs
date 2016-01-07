@@ -10,15 +10,23 @@ public class Manager : MonoBehaviour
     private GameObject city;
     [SerializeField]
     private GameObject appliancePrefab;
+    [SerializeField]
+    private bool repeat = false;
 
     public Sprite sprite;
 
-	void Start ()
+    public static Manager Instance { get; private set; }
+
+    void Start ()
     {
+        if (Instance == null) Instance = this;
         Application.targetFrameRate = 30;
         createPanels();
         parseJSON();
+        city.transform.GetChild(0).GetComponentsInChildren<Appliance>()[0].ready();
 	}
+
+    public bool repeatAnimation() { return repeat; }
 
     private void createPanels()
     {
@@ -102,6 +110,8 @@ public class Manager : MonoBehaviour
                     string type = appliance.GetField("type").ToString();
                     string state = appliance.GetField("state").ToString();
                     float progress = float.Parse(appliance.GetField("progress").ToString());
+                    h.GetComponentsInChildren<Appliance>()[0].addProgress(progress);
+                    break;
                 }
 
                 JSONObject generators = house.GetField("generators");

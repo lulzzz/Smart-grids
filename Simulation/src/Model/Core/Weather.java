@@ -42,4 +42,14 @@ public class Weather
         cloudPercentage = clouds.getValue(moment);
         windSpeed = winds.getValue(moment);
     }
+
+    public double getWindSpeed(Moment moment) 
+    {
+        return windSpeed;
+    }
+
+    public double getMeanWindBetween(Moment since, Moment until) 
+    {
+        return winds.getMeanBetween(since, until);
+    }
 }

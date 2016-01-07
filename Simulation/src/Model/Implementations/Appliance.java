@@ -10,6 +10,8 @@ import com.google.gson.annotations.Expose;
 public class Appliance implements IAppliance 
 {
     @Expose
+    private int id;
+    @Expose
     private ApplianceType type;
     @Expose
     private ApplianceState state;
@@ -18,8 +20,9 @@ public class Appliance implements IAppliance
     
     private DiscreteDataSet consum;
     
-    public Appliance( ApplianceType type, DiscreteDataSet consum )
+    public Appliance( int id, ApplianceType type, DiscreteDataSet consum )
     {
+        this.id = id;
         this.type = type;
         this.consum = consum;
         this.state = ApplianceState.Waiting;

@@ -3,14 +3,25 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Martin/Documents/GitHub/Smart%20grids/Simulation/src/Control/Simulation.java</file>
+            <file>file:/C:/Users/Martin/Documents/GitHub/Smart%20grids/Simulation/src/Model/Implementations/LinearBid.java</file>
+            <file>file:/C:/Users/Martin/Documents/GitHub/Smart%20grids/Simulation/src/Model/Implementations/Distributor.java</file>
+            <file>file:/C:/Users/Martin/Documents/GitHub/Smart%20grids/Simulation/src/Model/Interfaces/IBattery.java</file>
+            <file>file:/C:/Users/Martin/Documents/GitHub/Smart%20grids/Simulation/src/View/FileIO.java</file>
             <file>file:/C:/Users/Martin/Documents/GitHub/Smart%20grids/Simulation/src/Model/DataSets/IDataSet.java</file>
-            <file>file:/C:/Users/Martin/Documents/GitHub/Smart%20grids/Simulation/src/Model/Interfaces/IAppliance.java</file>
+            <file>file:/C:/Users/Martin/Documents/GitHub/Smart%20grids/Simulation/src/Model/Implementations/WindGenerator.java</file>
             <file>file:/C:/Users/Martin/Documents/GitHub/Smart%20grids/Simulation/src/Model/DataSets/ContinuousDataSet.java</file>
-            <file>file:/C:/Users/Martin/Documents/GitHub/Smart%20grids/Simulation/src/Model/Core/Weather.java</file>
+            <file>file:/C:/Users/Martin/Documents/GitHub/Smart%20grids/Simulation/src/Model/Implementations/SolarGenerator.java</file>
             <file>file:/C:/Users/Martin/Documents/GitHub/Smart%20grids/Simulation/src/Model/Core/House.java</file>
+            <file>file:/C:/Users/Martin/Documents/GitHub/Smart%20grids/Simulation/src/Model/Interfaces/IGenerator.java</file>
             <file>file:/C:/Users/Martin/Documents/GitHub/Smart%20grids/Simulation/src/Model/DataSets/DiscreteDataSet.java</file>
-            <file>file:/C:/Users/Martin/Documents/GitHub/Smart%20grids/Simulation/src/Model/Implementations/ValueMapDistributor.java</file>
+            <file>file:/C:/Users/Martin/Documents/GitHub/Smart%20grids/Simulation/src/Model/Interfaces/IBid.java</file>
+            <file>file:/C:/Users/Martin/Documents/GitHub/Smart%20grids/Simulation/src/Control/Simulation.java</file>
+            <file>file:/C:/Users/Martin/Documents/GitHub/Smart%20grids/Simulation/src/Model/Implementations/Battery.java</file>
+            <file>file:/C:/Users/Martin/Documents/GitHub/Smart%20grids/Simulation/src/Model/Implementations/LogBid.java</file>
+            <file>file:/C:/Users/Martin/Documents/GitHub/Smart%20grids/Simulation/src/Model/Interfaces/IAppliance.java</file>
+            <file>file:/C:/Users/Martin/Documents/GitHub/Smart%20grids/Simulation/src/Model/Implementations/Appliance.java</file>
+            <file>file:/C:/Users/Martin/Documents/GitHub/Smart%20grids/Simulation/src/Model/Core/City.java</file>
+            <file>file:/C:/Users/Martin/Documents/GitHub/Smart%20grids/Simulation/src/Model/Core/Weather.java</file>
         </group>
     </open-files>
 </project-private>
