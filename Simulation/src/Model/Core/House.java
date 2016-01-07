@@ -2,12 +2,9 @@
 package Model.Core;
 
 import Model.DataSets.Data;
-import Model.Implementations.LogBid;
-import Model.Implementations.ValueMapAppliance;
-import Model.Implementations.Battery;
-import Model.Implementations.ValueMapGenerator;
+import Model.Implementations.*;
 import Model.Interfaces.*;
-import Model.Interfaces.IBid.TraderType;
+import Model.Interfaces.IBid.*;
 import com.google.gson.annotations.*;
 import java.io.*;
 import java.util.*;
@@ -40,7 +37,7 @@ public class House
     @Expose
     private double balance;
     @Expose
-    private double toPay;
+    private double mandatory;
     
     
     
@@ -51,11 +48,12 @@ public class House
         appliances = new ArrayList<>();
         generators = new ArrayList<>();
         
-        generators.add(new ValueMapGenerator(IGenerator.GeneratorType.Solar));
-        appliances.add(new ValueMapAppliance(IAppliance.ApplianceType.TV, Data.consumTV));
+        generators.add(new SolarGenerator(IGenerator.GeneratorType.Solar));
+        appliances.add(new Appliance(IAppliance.ApplianceType.TV, Data.consumTV));
         battery = new Battery(3,10);
         
         consumPerMinute = .2;
+        mandatory = -battery.getLevel();
         totalTraded = 0;
     }
     
@@ -72,7 +70,7 @@ public class House
         for( IGenerator generator : generators )
             generator.setStartingMoment(moment, weather);
         
-        bid = new LogBid(moment, 0,battery, distributor, appliances);
+        bid = new LogBid(moment, mandatory,mandatory + battery.getCapacity(), distributor, appliances);
     }
     
     public void develop( Moment since, Moment until, Weather weather )
@@ -95,17 +93,36 @@ public class House
             totalApplied -= appliance.getConsum(since, until);
         }
         
-        // total change
-        balance = totalTraded + totalGenerated + totalApplied + baseConsum;
+        // Pay mandatory
+        double extra = 0;
+        if( totalTraded >= mandatory )
+        {
+            extra = totalTraded - mandatory; // we get extra energy after trading
+        }
+        else
+        {
+            battery.changeLevel( totalTraded - mandatory);
+        }
         
-        toPay = Math.min(balance+battery.getLevel(), 0);
-        battery.changeLevel( balance );
+        // Compute next mandatory
+        balance = extra + totalGenerated + totalApplied + baseConsum;
+        if( balance >= 0)
+        {
+            // Store extra and no mandatory
+            battery.changeLevel(balance);
+            mandatory = - battery.getLevel();
+        }
+        else
+        {
+            // mandatory can be negative
+            mandatory =-balance - battery.getLevel();
+        }
     }
     
     public void refreshBid( Moment moment, IDistributor distributor )
     {
         // Regenerate bid
-        bid.develop( moment, 1, battery, distributor, appliances);
+        bid.develop( moment, mandatory, mandatory+battery.getCapacity(), distributor, appliances);
     }
     
     public void writePlotData(PrintWriter writer, String outputFolder, Moment moment)

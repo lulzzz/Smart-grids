@@ -24,13 +24,13 @@ public class LogBid implements IBid
     @Expose
     private String plotFile; 
     
-    public LogBid(Moment moment, double baseConsum, IBattery battery, IDistributor distributor, ArrayList<IAppliance> appliances)
+    public LogBid(Moment moment, double minX, double maxX, IDistributor distributor, ArrayList<IAppliance> appliances)
     {
-        minPlot = -battery.getCapacity();
-        maxPlot = battery.getCapacity();
+        minPlot = -10;
+        maxPlot = 20;
         
         trades = new HashMap<>();
-        develop( moment, baseConsum, battery, distributor, appliances );
+        develop( moment, minX, maxX, distributor, appliances );
     }
     
     public PiecewiseLinearValuation toPLV()
@@ -123,10 +123,10 @@ public class LogBid implements IBid
     }
 
     @Override
-    public final void develop( Moment moment, double baseConsum, IBattery battery, IDistributor distributor, ArrayList<IAppliance> appliances) 
+    public final void develop( Moment moment, double minX, double maxX, IDistributor distributor, ArrayList<IAppliance> appliances) 
     {
-        minX = baseConsum - battery.getLevel();
-        maxX = baseConsum + battery.getCapacityLeft();
+        this.minX = minX;
+        this.maxX = maxX;
         
               if( minX > 0 && maxX > 0 ) contactX = minX;
         else if( minX < 0 && maxX < 0 ) contactX = maxX;

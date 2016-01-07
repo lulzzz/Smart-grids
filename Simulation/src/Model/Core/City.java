@@ -2,7 +2,7 @@
 package Model.Core;
 
 import Model.DataSets.Data;
-import Model.Implementations.ValueMapDistributor;
+import Model.Implementations.Distributor;
 import Model.Interfaces.*;
 import com.google.gson.annotations.*;
 import java.io.*;
@@ -28,7 +28,7 @@ public class City
     {
         houses = new ArrayList<>();
         wires = new ArrayList<>();
-        distributor = new ValueMapDistributor(Data.testRate);
+        distributor = new Distributor(Data.testRate);
         weather = new Weather(Data.cloudMap, Data.cloudMap); 
         
         for(Map.Entry<Integer, Integer> entry : edges.entrySet() )

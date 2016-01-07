@@ -7,7 +7,7 @@ import Model.Interfaces.IAppliance.ApplianceState;
 import Model.Core.Moment;
 import com.google.gson.annotations.Expose;
 
-public class ValueMapAppliance implements IAppliance 
+public class Appliance implements IAppliance 
 {
     @Expose
     private ApplianceType type;
@@ -18,7 +18,7 @@ public class ValueMapAppliance implements IAppliance
     
     private DiscreteDataSet consum;
     
-    public ValueMapAppliance( ApplianceType type, DiscreteDataSet consum )
+    public Appliance( ApplianceType type, DiscreteDataSet consum )
     {
         this.type = type;
         this.consum = consum;

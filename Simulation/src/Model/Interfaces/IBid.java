@@ -9,7 +9,7 @@ import seas3.core.*;
 public interface IBid 
 {
     public PiecewiseLinearValuation toPLV();
-    public void develop( Moment moment, double baseConsum, IBattery battery, IDistributor distributor, ArrayList<IAppliance> appliances);
+    public void develop( Moment moment, double minX, double maxX, IDistributor distributor, ArrayList<IAppliance> appliances);
     public void writePlotData( String plotFile, PrintWriter writer );
     public void setTrades( HashMap<Double,  TraderType> trades );
     

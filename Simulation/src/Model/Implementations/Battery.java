@@ -30,12 +30,6 @@ public class Battery implements IBattery
     {
         return capacity;
     }
-    
-    @Override
-    public double getCapacityLeft()
-    {
-        return capacity - level;
-    }
 
     @Override
     public double getLevel()

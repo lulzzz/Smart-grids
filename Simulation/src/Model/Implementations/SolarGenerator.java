@@ -5,7 +5,7 @@ import Model.Interfaces.IGenerator;
 import Model.Core.*;
 import com.google.gson.annotations.Expose;
 
-public class ValueMapGenerator implements IGenerator 
+public class SolarGenerator implements IGenerator 
 {
     @Expose
     private GeneratorType type;
@@ -14,7 +14,7 @@ public class ValueMapGenerator implements IGenerator
     @Expose
     private double efficiency;
     
-    public ValueMapGenerator( GeneratorType type )
+    public SolarGenerator( GeneratorType type )
     {
         this.type = type;
     }

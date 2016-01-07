@@ -8,14 +8,16 @@ import com.google.gson.annotations.*;
 import seas3.core.Participant;
 
 
-public class ValueMapDistributor implements IDistributor
+public class Distributor implements IDistributor
 {
     private DiscreteDataSet rate;
     private IBid bid;
     @Expose
     private double currentRate;
     
-    public ValueMapDistributor( DiscreteDataSet rate )
+    private static final double maxTrade = 100;
+    
+    public Distributor( DiscreteDataSet rate )
     {
         this.rate = rate;
     }
@@ -29,7 +31,7 @@ public class ValueMapDistributor implements IDistributor
 
     public void develop( Moment since, Moment until ) 
     {
-        bid.develop(until, 0, null, this, null);
+        bid.develop(until, -maxTrade, maxTrade, this, null);
     }
 
     @Override

@@ -36,7 +36,7 @@ public final class LinearBid implements IBid
     }
 
     @Override
-    public void develop(Moment moment, double baseConsum, IBattery battery, IDistributor distributor, ArrayList<IAppliance> appliances) 
+    public void develop(Moment moment, double minX, double maxX, IDistributor distributor, ArrayList<IAppliance> appliances) 
     {
         linearFactor = distributor.getRate(moment);
     }

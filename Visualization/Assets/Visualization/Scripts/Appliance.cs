@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 
-public class Appliance
+public class Appliance : MonoBehaviour
 {
     private Sprite sprite;
     private List<float> progresses;

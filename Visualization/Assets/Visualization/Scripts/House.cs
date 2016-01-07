@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using System;
 
-public class House : IEquatable<House>
+public class House : MonoBehaviour, IEquatable<House>
 {
     public Battery battery;
     public int id;
     public List<Appliance> appliances;
     public List<Generator> generators;
     public Bid bid;
+    public GameObject applianceParent;
 
     public House(int id)
     {
