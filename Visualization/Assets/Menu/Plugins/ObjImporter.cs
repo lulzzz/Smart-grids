@@ -9,9 +9,8 @@ using UnityEngine;
 using System.Collections.Generic;
 using System.IO;
 
-public class ObjImporter
+public class ObjImporter : MonoBehaviour
 {
-
     private struct meshStruct
     {
         public Vector3[] vertices;
@@ -28,7 +27,7 @@ public class ObjImporter
     }
 
     // Use this for initialization
-    public Mesh ImportFile(string filePath)
+    public static Mesh ImportFile(string filePath)
     {
         meshStruct newMesh = createMeshStruct(filePath);
         populateMeshStruct(ref newMesh);
