@@ -19,3 +19,4 @@
 
 # Unity3D generated meta files
 *.pidb.meta
+/Simulation/dist/

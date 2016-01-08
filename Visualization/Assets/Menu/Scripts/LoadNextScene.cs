@@ -5,6 +5,7 @@ public class LoadNextScene : MonoBehaviour
 {
     void OnMouseDown()
     {
-        Application.LoadLevel(Application.loadedLevel + 1);
+        RunBat.runSimulator();
+        //Application.LoadLevel(Application.loadedLevel + 1);
     }
 }
