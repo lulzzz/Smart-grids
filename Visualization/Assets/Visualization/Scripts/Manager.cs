@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.IO;
-using UnityEngine.UI;
+using System;
 
 public class Manager : MonoBehaviour
 {
@@ -23,7 +23,10 @@ public class Manager : MonoBehaviour
         Application.targetFrameRate = 30;
         createPanels();
         parseJSON();
-        city.transform.GetChild(0).GetComponentsInChildren<Appliance>()[0].ready();
+        foreach( Transform child in city.transform )
+        {
+            child.GetComponent<House>().ready();
+        }
 	}
 
     public bool repeatAnimation() { return repeat; }
@@ -39,39 +42,20 @@ public class Manager : MonoBehaviour
         foreach (JSONObject house in houses.list)
         {
             int id = int.Parse(house.GetField("id").ToString());
-
             House h = city.transform.GetChild(id).GetComponent<House>();
-            print(h);
+
             JSONObject appliances = house.GetField("appliances");
-            int i = 0;
             foreach (JSONObject appliance in appliances.list)
             {
-                string type = appliance.GetField("type").ToString();
-                GameObject applianceGO = Instantiate(appliancePrefab) as GameObject;
-                applianceGO.GetComponent<Image>().sprite = sprite;
-                applianceGO.transform.SetParent(h.applianceParent.transform);
-                applianceGO.GetComponent<RectTransform>().anchorMin = new Vector2(0f, .1f);
-                applianceGO.GetComponent<RectTransform>().anchorMax = new Vector2(1f, .3f);
-                applianceGO.GetComponent<RectTransform>().localScale = Vector3.one;
-
-                applianceGO.GetComponent<RectTransform>().offsetMin = Vector2.zero;
-                applianceGO.GetComponent<RectTransform>().offsetMax = Vector2.zero;
-                i++;
+                string type = appliance.GetField("type").ToString().Replace("\"", "");
+                h.addAppliance((ApplianceType)Enum.Parse(typeof(ApplianceType), type));
             }
 
             JSONObject generators = house.GetField("generators");
             foreach (JSONObject generator in generators.list)
             {
-                string type = generator.GetField("type").ToString();
-                GameObject applianceGO = Instantiate(appliancePrefab) as GameObject;
-                applianceGO.GetComponent<Image>().sprite = sprite;
-                applianceGO.transform.SetParent(h.applianceParent.transform);
-                applianceGO.GetComponent<RectTransform>().anchorMin = new Vector2(0f, .3f);
-                applianceGO.GetComponent<RectTransform>().anchorMax = new Vector2(1f, .5f);
-                applianceGO.GetComponent<RectTransform>().localScale = Vector3.one;
-                applianceGO.GetComponent<RectTransform>().offsetMin = Vector2.zero;
-                applianceGO.GetComponent<RectTransform>().offsetMax = Vector2.zero;
-                i++;
+                string type = generator.GetField("type").ToString().Replace("\"", "");
+                h.addGenerator((GeneratorType)Enum.Parse(typeof(GeneratorType), type.Trim()));
             }
         }
     }
@@ -104,32 +88,36 @@ public class Manager : MonoBehaviour
                 float level = float.Parse(battery.GetField("level").ToString());
                 float capacity = float.Parse(battery.GetField("capacity").ToString());
 
+                h.addBatteryPercent(level / capacity);
+
                 JSONObject appliances = house.GetField("appliances");
                 foreach (JSONObject appliance in appliances.list)
                 {
-                    string type = appliance.GetField("type").ToString();
-                    string state = appliance.GetField("state").ToString();
+                    int applianceId = int.Parse(appliance.GetField("id").ToString());
+
                     float progress = float.Parse(appliance.GetField("progress").ToString());
-                    h.GetComponentsInChildren<Appliance>()[0].addProgress(progress);
-                    break;
+                    h.addApplianceProgress(applianceId, progress);
                 }
 
                 JSONObject generators = house.GetField("generators");
                 foreach (JSONObject generator in generators.list)
                 {
-                    string type = generator.GetField("type").ToString();
-                    float productionPerHour = float.Parse(generator.GetField("productionPerHour").ToString());
+                    int generatorId = int.Parse(generator.GetField("id").ToString());
+
+                    //float productionPerHour = float.Parse(generator.GetField("productionPerHour").ToString());
                     float efficiency = float.Parse(generator.GetField("efficiency").ToString());
+                    h.addGeneratorEfficiency(generatorId, efficiency);
                 }
 
                 string plotFile = house.GetField("bid").GetField("plotFile").ToString();
-
+                h.addBidPlot(plotFile);
+                /*
                 float totalTraded = float.Parse(house.GetField("totalTraded").ToString());
                 float totalGenerated = float.Parse(house.GetField("totalGenerated").ToString());
                 float totalApplied = float.Parse(house.GetField("totalApplied").ToString());
                 float baseConsum = float.Parse(house.GetField("baseConsum").ToString());
                 float balance = float.Parse(house.GetField("balance").ToString());
-                float toPay = float.Parse(house.GetField("toPay").ToString());
+                */
             }
 
             JSONObject wires = frame.GetField("wires");

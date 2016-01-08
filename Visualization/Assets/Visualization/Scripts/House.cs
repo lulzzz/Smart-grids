@@ -1,28 +1,90 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 using System;
+using UnityEngine.UI;
 
-public class House : MonoBehaviour, IEquatable<House>
+public class House : MonoBehaviour
 {
     public Battery battery;
-    public int id;
     public List<Appliance> appliances;
     public List<Generator> generators;
     public Bid bid;
-    public GameObject applianceParent;
 
-    public House(int id)
+    public GameObject infoPanel;
+    public GameObject applianceParent;
+    public GameObject generatorParent;
+    public ApplianceSpriteDictionary spriteOfAppliance;
+    public GeneratorSpriteDictionary spriteOfGenerator;
+    public GameObject appliancePrefab;
+    public GameObject generatorPrefab;
+
+
+    public void Start()
     {
-        battery = new Battery();
-        this.id = id;
+        battery = GetComponentInChildren<Battery>();
         appliances = new List<Appliance>();
         generators = new List<Generator>();
-        bid = new Bid();
+        bid = GetComponentInChildren<Bid>();
     }
 
-    public bool Equals(House other)
+    public void ready()
     {
-        if (other == null) return false;
-        return this.id.Equals(other.id);
+        bid.ready();
+        battery.ready();
+        foreach( Appliance appliance in appliances )
+        {
+            appliance.ready();
+        }
+    }
+
+    public void addAppliance( ApplianceType type )
+    {
+        GameObject applianceGO = Instantiate(appliancePrefab) as GameObject;
+        applianceGO.transform.GetChild(0).GetComponent<Image>().sprite = spriteOfAppliance[type];
+        applianceGO.transform.SetParent(applianceParent.transform);
+
+        applianceGO.GetComponent<RectTransform>().localScale = Vector3.one;
+        applianceGO.GetComponent<RectTransform>().offsetMin = Vector2.zero;
+        applianceGO.GetComponent<RectTransform>().offsetMax = Vector2.zero;
+
+        appliances.Add(applianceGO.GetComponentInChildren<Appliance>());
+    }
+
+    public void addApplianceProgress( int id, float progress )
+    {
+        appliances[id].addProgress(progress);
+    }
+
+    public void addGenerator(GeneratorType type)
+    {
+        GameObject applianceGO = Instantiate(generatorPrefab) as GameObject;
+        applianceGO.transform.GetChild(0).GetComponent<Image>().sprite = spriteOfGenerator[type];
+        applianceGO.transform.SetParent(generatorParent.transform);
+
+        applianceGO.GetComponent<RectTransform>().localScale = Vector3.one;
+        applianceGO.GetComponent<RectTransform>().offsetMin = Vector2.zero;
+        applianceGO.GetComponent<RectTransform>().offsetMax = Vector2.zero;
+
+        generators.Add(applianceGO.GetComponentInChildren<Generator>());
+    }
+
+    public void addGeneratorEfficiency(int id, float efficiency)
+    {
+        generators[id].addEfficiency(efficiency);
+    }
+
+    public void OnMouseDown()
+    {
+        infoPanel.SetActive(!infoPanel.activeSelf);
+    }
+
+    public void addBatteryPercent(float percent)
+    {
+        battery.addPercent(percent);
+    }
+
+    public void addBidPlot(string plotFile)
+    {
+        bid.addPlot(plotFile.Replace("\"",""));
     }
 }

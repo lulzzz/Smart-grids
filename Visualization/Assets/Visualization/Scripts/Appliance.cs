@@ -11,7 +11,7 @@ public class Appliance : MonoBehaviour
     private List<float> progresses;
     private Image image;
 
-    public Appliance() { progresses = new List<float>(); image = GetComponent<Image>(); }
+    public void Awake() { progresses = new List<float>(); image = GetComponent<Image>(); }
 
     public void addProgress( float progress ) { progresses.Add(progress); }
 
@@ -23,17 +23,6 @@ public class Appliance : MonoBehaviour
     public void animate()
     {
         image.fillAmount += (progresses[next] - progresses[current]) / animRate;
-        if( frames == animRate )
-        {
-            frames = 0;
-            if (Manager.Instance.repeatAnimation())
-                image.fillAmount = progresses[current];
-            else
-            {
-                current = next;
-                next = (next + 1) % progresses.Count;
-            }
-        }
-        frames++;
+        
     }
 }

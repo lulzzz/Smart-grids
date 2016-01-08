@@ -14,7 +14,7 @@ public class WindGenerator implements IGenerator
     @Expose
     private double productionPerHour = 500;
     @Expose
-    private double speed;
+    private double efficiency;
     
     public WindGenerator( int id, GeneratorType type )
     {
@@ -27,7 +27,7 @@ public class WindGenerator implements IGenerator
     {
         double c = weather.getWindSpeed(moment);
         
-        speed = c;
+        efficiency = c/100.0;
     }
     
     @Override
@@ -35,13 +35,13 @@ public class WindGenerator implements IGenerator
     {
         double windMean = weather.getMeanWindBetween(since, until);
         
-        speed = windMean;
+        efficiency = windMean/100.0;
         
         int elapsedMinutes = until.minutesSince(since);
         
         double productionPerMinute = productionPerHour / 60.0;
         
-        double production = elapsedMinutes * productionPerMinute * speed;
+        double production = elapsedMinutes * productionPerMinute * efficiency;
         
         return production;
     }
