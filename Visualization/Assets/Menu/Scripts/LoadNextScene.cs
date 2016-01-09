@@ -3,9 +3,19 @@ using System.Collections;
 
 public class LoadNextScene : MonoBehaviour
 {
+    executeSimulation simulation = null;
+
     void OnMouseDown()
     {
-        RunBat.runSimulator();
-        //Application.LoadLevel(Application.loadedLevel + 1);
+        simulation = new executeSimulation();
+        simulation.dataPath = Application.dataPath;
+        simulation.Start();
+        GetComponent<Animator>().enabled = true;
+    }
+
+    void Update()
+    {
+        if (simulation != null && simulation.Update())
+            Destroy(gameObject);
     }
 }

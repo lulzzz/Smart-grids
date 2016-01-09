@@ -5,10 +5,16 @@ public class loadModelFromFile : MonoBehaviour
     [SerializeField]
     private GameObject platform;
 
+    void Start()
+    {
+        DontDestroyOnLoad(gameObject);
+    }
+
     public void OnMouseDown()
     {
         string path = DialogManager.showDialog();
         loadMesh(path);
+        Manager.Instance.city = gameObject;
     }
     
     public void loadMesh( string path )

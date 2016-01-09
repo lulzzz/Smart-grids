@@ -19,7 +19,7 @@ public class House : MonoBehaviour
     public GameObject generatorPrefab;
 
 
-    public void Start()
+    public void Awake()
     {
         battery = GetComponentInChildren<Battery>();
         appliances = new List<Appliance>();

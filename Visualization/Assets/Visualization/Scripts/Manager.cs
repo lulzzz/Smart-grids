@@ -5,29 +5,69 @@ using System;
 public class Manager : MonoBehaviour
 {
     [SerializeField]
-    private string jsonPath;
+    public string jsonPath;
     [SerializeField]
-    private GameObject city;
+    public GameObject cityPrefab;
+    public GameObject city;
     [SerializeField]
     private GameObject appliancePrefab;
     [SerializeField]
     private bool repeat = false;
 
-    public Sprite sprite;
-
     public static Manager Instance { get; private set; }
 
     void Start ()
     {
-        if (Instance == null) Instance = this;
-        Application.targetFrameRate = 30;
-        createPanels();
-        parseJSON();
-        foreach( Transform child in city.transform )
+        Application.runInBackground = true;
+        jsonPath = null;
+        if (Instance == null)
         {
-            child.GetComponent<House>().ready();
+            Instance = this;
         }
+        else
+        {
+            Destroy(gameObject);
+        }
+        DontDestroyOnLoad(gameObject);
 	}
+
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            #if UNITY_EDITOR
+                        UnityEditor.EditorApplication.isPlaying = false;
+            #elif UNITY_WEBPLAYER
+                     Application.OpenURL(webplayerQuitURL);
+            #else
+                     Application.Quit();
+            #endif
+        }
+        
+    }
+
+    public void simulationReady()
+    {
+        print("woohoo");
+    }
+
+    void OnLevelWasLoaded()
+    {
+        if (Application.loadedLevel == 1)
+        {
+            createPanels();
+            parseJSON();
+            foreach (Transform child in city.transform)
+            {
+                child.GetComponent<House>().ready();
+            }
+        }
+    }
+
+    public void setJSON( string path )
+    {
+        jsonPath = path;
+    }
 
     public bool repeatAnimation() { return repeat; }
 
@@ -60,7 +100,6 @@ public class Manager : MonoBehaviour
         }
     }
 
-
     public void parseJSON()
     {
         string sjson = File.ReadAllText(jsonPath);
@@ -69,12 +108,14 @@ public class Manager : MonoBehaviour
         JSONObject frames = jsonObject.GetField("frames");
         foreach (JSONObject frame in frames.list)
         {
+            /*
             JSONObject moment = frame.GetField("moment");
             string sMoment = moment.GetField("hour").ToString() + ":" + moment.GetField("minute").ToString();
 
             JSONObject weather = frame.GetField("weather");
             float cloudPercentage = float.Parse(weather.GetField("cloudPercentage").ToString());
             float windSpeed  = float.Parse(weather.GetField("windSpeed").ToString());
+            */
 
             JSONObject houses = frame.GetField("houses");
             foreach (JSONObject house in houses.list)
@@ -119,14 +160,15 @@ public class Manager : MonoBehaviour
                 float balance = float.Parse(house.GetField("balance").ToString());
                 */
             }
-
+            /*
             JSONObject wires = frame.GetField("wires");
             foreach (JSONObject wire in wires.list)
             {
+
                 int origin = int.Parse(wire.GetField("originId").ToString());
                 int destination = int.Parse(wire.GetField("destinationId").ToString());
                 float flow = float.Parse(wire.GetField("flow").ToString());
-            }
+            }*/
         }
     }
 }
