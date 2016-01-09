@@ -7,10 +7,15 @@ public class LoadNextScene : MonoBehaviour
 
     void OnMouseDown()
     {
-        simulation = new executeSimulation();
-        simulation.dataPath = Application.dataPath;
-        simulation.Start();
-        GetComponent<Animator>().enabled = true;
+        
+        executeSimulation.SimulationInput input = new executeSimulation.SimulationInput();
+        input.folder = Application.dataPath + "/Simulator";
+        input.hour = 10;
+        input.minute = 0;
+        input.timeStep = 5;
+        input.frames = 12;
+
+        simulation.input = input;
     }
 
     void Update()

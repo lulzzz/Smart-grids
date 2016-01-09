@@ -14,11 +14,20 @@ public class Manager : MonoBehaviour
     [SerializeField]
     private bool repeat = false;
 
+    public executeSimulation.SimulationInput simulationInput;
+
     public static Manager Instance { get; private set; }
 
     void Start ()
     {
         Application.runInBackground = true;
+
+        simulationInput.folder = Application.dataPath + "/Simulator";
+        simulationInput.frames = 12;
+        simulationInput.hour = 10;
+        simulationInput.minute = 0;
+        simulationInput.timeStep = 5;
+
         jsonPath = null;
         if (Instance == null)
         {
@@ -30,6 +39,14 @@ public class Manager : MonoBehaviour
         }
         DontDestroyOnLoad(gameObject);
 	}
+
+    void OnMouseDown()
+    {
+        executeSimulation simulation = new executeSimulation();
+        simulation.input = simulationInput;
+        simulation.Start();
+        GetComponent<Animator>().enabled = true;
+    }
 
     void Update()
     {

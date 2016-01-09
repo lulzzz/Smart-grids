@@ -5,6 +5,8 @@ public class MoveOverTorus : MonoBehaviour
 {
     [SerializeField]
     private float torusRadius = 4;
+    [SerializeField]
+    private bool end;
 
     void OnMouseDrag()
     {
@@ -17,9 +19,22 @@ public class MoveOverTorus : MonoBehaviour
         
         int sign = Vector3.Cross(new Vector3(0, -1, 0), overTorus).z < 0 ? 1 : -1;
         float degrees = (sign * Vector3.Angle(new Vector3(0, -1, 0), overTorus) + 360) % 360;
-        Debug.Log((sign * Vector3.Angle(new Vector3(0, -1, 0), overTorus) + 360)%360);
+
         int hour = (int) (degrees / 360 * 24);
         int minutes = (int)(((degrees / 360 * 24) % 1)*60);
-        print(hour+":"+minutes);
+        minutes = (minutes / 5) * 5;
+        print(hour + ":" + minutes);
+
+        if (!end)
+        {
+            Manager.Instance.simulationInput.hour = hour;
+            Manager.Instance.simulationInput.minute = minutes;
+        }
+        if(end)
+        {
+            int m = (hour - Manager.Instance.simulationInput.hour) * 60 + minutes - Manager.Instance.simulationInput.minute;
+            Manager.Instance.simulationInput.frames = m / Manager.Instance.simulationInput.timeStep;
+            print(m);
+        }
     }
 }

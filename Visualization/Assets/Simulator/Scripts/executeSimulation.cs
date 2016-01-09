@@ -4,7 +4,16 @@ using System.Collections;
 
 public class executeSimulation : ThreadedJob
 {
-    public string dataPath;
+    public struct SimulationInput
+    {
+        public string folder;
+        public int hour;
+        public int minute;
+        public int frames;
+        public int timeStep;
+    }
+
+    public SimulationInput input;
     public string jsonPath;
 
     protected override void ThreadFunction()
@@ -13,15 +22,15 @@ public class executeSimulation : ThreadedJob
 
         proc1.UseShellExecute = true;
 
-        string java = dataPath + @"\Simulator\simulator.jar";
+        string java = input.folder + "/simulator.jar";
         string param = string.Format(
             "-i \"{0}\" -f  {1} -o \"{2}\" -h {3} -m {4} -t {5}",
-            dataPath + @"\Simulator\edges.txt",
-            12,
-            dataPath + @"\Simulator",
-            10,
-            0,
-            5);
+            input.folder + "/edges.txt",
+            input.frames,
+            input.folder,
+            input.hour,
+            input.minute,
+            input.timeStep);
 
         string anyCommand = "java -jar \"" + java + "\" " + param;
 
@@ -33,7 +42,7 @@ public class executeSimulation : ThreadedJob
         p.StartInfo = proc1;
         p.Start();
         p.WaitForExit();
-        jsonPath = dataPath + @"/Simulator/simulation.json";
+        jsonPath = input.folder + "/simulation.json";
     }
 
     protected override void OnFinished()
