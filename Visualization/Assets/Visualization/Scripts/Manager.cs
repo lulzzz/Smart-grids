@@ -14,6 +14,8 @@ public class Manager : MonoBehaviour
     [SerializeField]
     private bool repeat = false;
 
+    private List<GameObject> wireGOs = new List<GameObject>();
+
     public executeSimulation.SimulationInput simulationInput;
 
     public static Manager Instance { get; private set; }
@@ -88,6 +90,14 @@ public class Manager : MonoBehaviour
     {
         print("ready");
         createPanels( jsonPath );
+        parseJSON(jsonPath);
+        foreach( Transform house in city.transform )
+        {
+            House h = house.GetComponentInChildren<House>();
+            if (h != null) h.ready();
+            Spark spark = house.GetComponentInChildren<Spark>();
+            if (spark != null) spark.ready();
+        }
     }
 
     public bool repeatAnimation() { return repeat; }
@@ -190,15 +200,23 @@ public class Manager : MonoBehaviour
                 float balance = float.Parse(house.GetField("balance").ToString());
                 */
             }
-            /*
+            
             JSONObject wires = frame.GetField("wires");
             foreach (JSONObject wire in wires.list)
             {
 
                 int origin = int.Parse(wire.GetField("originId").ToString());
                 int destination = int.Parse(wire.GetField("destinationId").ToString());
+                
                 float flow = float.Parse(wire.GetField("flow").ToString());
-            }*/
+
+                foreach (GameObject w in wireGOs)
+                {
+                    Spark spark = w.GetComponentInChildren<Spark>();
+                    if (spark.start == city.transform.GetChild(origin).position && spark.end == city.transform.GetChild(destination).position)
+                        spark.addFlow(flow);
+                }
+            }
         }
     }
 
@@ -254,6 +272,12 @@ public class Manager : MonoBehaviour
             wire.transform.SetParent(city.transform);
             lineRenderer.SetPosition(0, city.transform.GetChild(entry.Key).position);
             lineRenderer.SetPosition(1, city.transform.GetChild(entry.Value).position);
+
+            Spark spark = wire.GetComponentInChildren<Spark>();
+            spark.start = city.transform.GetChild(entry.Key).position;
+            spark.end = city.transform.GetChild(entry.Value).position;
+
+            wireGOs.Add(wire);
         }
     }
 }

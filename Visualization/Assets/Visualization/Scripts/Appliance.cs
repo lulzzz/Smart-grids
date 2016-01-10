@@ -4,24 +4,23 @@ using UnityEngine.UI;
 
 public class Appliance : MonoBehaviour
 {
-    private static float animRate = 10;
-    private int current = 0;
-    private int next = 1;
-    private List<float> progresses;
+    public List<float> progresses;
     private Image image;
+    private FrameAnimator animator;
 
     public void Awake() { progresses = new List<float>(); image = GetComponent<Image>(); }
 
-    public void addProgress( float progress ) { progresses.Add(progress); }
+    public void addProgress( float progress ) { print(name); progresses.Add(progress); }
 
     public void ready()
     {
-        InvokeRepeating("animate", 0, 1 / animRate);
+        animator = gameObject.AddComponent<FrameAnimator>();
+        animator.setData(progresses);
+        InvokeRepeating("animate", 0, 1 / FrameAnimator.animRate);
     }
 
     public void animate()
     {
-        image.fillAmount += (progresses[next] - progresses[current]) / animRate;
-        
+        image.fillAmount += animator.getDiff();
     }
 }

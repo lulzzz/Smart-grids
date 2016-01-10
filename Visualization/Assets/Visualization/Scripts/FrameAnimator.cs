@@ -8,10 +8,10 @@ public class FrameAnimator : MonoBehaviour
     public static float animRate = 20;
     private static float pauseTime = 2;
 
-    private int current = 0;
-    private int next = 1;
+    public int current = 0;
+    public int next = 1;
     private int frames = 0;
-    private float diff;
+    public float diff;
 
     private List<float> data;
     private int amount;
@@ -35,6 +35,7 @@ public class FrameAnimator : MonoBehaviour
                 CancelInvoke("animate");
                 InvokeRepeating("animate", pauseTime, 1 / animRate);
                 StartCoroutine(pause(current));
+                
             }
             else
             {
