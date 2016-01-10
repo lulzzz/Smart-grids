@@ -1,16 +1,16 @@
 ﻿using UnityEngine;
 using System.IO;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 public class Manager : MonoBehaviour
 {
-    [SerializeField]
-    public string jsonPath;
-    [SerializeField]
-    public GameObject cityPrefab;
     public GameObject city;
     [SerializeField]
-    private GameObject appliancePrefab;
+    private GameObject wirePrefab;
+    [SerializeField]
+    private GameObject infoPanelPrefab;
     [SerializeField]
     private bool repeat = false;
 
@@ -18,17 +18,19 @@ public class Manager : MonoBehaviour
 
     public static Manager Instance { get; private set; }
 
+    private executeSimulation simulation;
+
     void Start ()
     {
         Application.runInBackground = true;
 
         simulationInput.folder = Application.dataPath + "/Simulator";
-        simulationInput.frames = 12;
-        simulationInput.hour = 10;
-        simulationInput.minute = 0;
+        simulationInput.startingHour = 6;
+        simulationInput.startingMinute = 0;
+        simulationInput.endingHour = 18;
+        simulationInput.endingMinute = 0;
         simulationInput.timeStep = 5;
-
-        jsonPath = null;
+        
         if (Instance == null)
         {
             Instance = this;
@@ -40,12 +42,26 @@ public class Manager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
 	}
 
+    public void setCity(GameObject city)
+    {
+        this.city = city;
+        GetComponent<MeshRenderer>().enabled = true;
+        GetComponent<BoxCollider>().enabled = true;
+    }
+
     void OnMouseDown()
     {
-        executeSimulation simulation = new executeSimulation();
+        // Compute net
+        Dictionary<int,int> wires = addWires();
+        saveEdges(wires);
+        
+        simulation = new executeSimulation();
         simulation.input = simulationInput;
         simulation.Start();
         GetComponent<Animator>().enabled = true;
+        
+        createWires(wires);
+        //simulationReady(Application.dataPath+"/Simulator/simulation.json");
     }
 
     void Update()
@@ -60,35 +76,23 @@ public class Manager : MonoBehaviour
                      Application.Quit();
             #endif
         }
+
+        if( simulation != null && simulation.Update() )
+        {
+            simulation = null;
+        }
         
     }
 
-    public void simulationReady()
+    public void simulationReady( string jsonPath )
     {
-        print("woohoo");
-    }
-
-    void OnLevelWasLoaded()
-    {
-        if (Application.loadedLevel == 1)
-        {
-            createPanels();
-            parseJSON();
-            foreach (Transform child in city.transform)
-            {
-                child.GetComponent<House>().ready();
-            }
-        }
-    }
-
-    public void setJSON( string path )
-    {
-        jsonPath = path;
+        print("ready");
+        createPanels( jsonPath );
     }
 
     public bool repeatAnimation() { return repeat; }
 
-    private void createPanels()
+    private void createPanels( string jsonPath )
     {
         string sjson = File.ReadAllText(jsonPath);
         JSONObject jsonObject = new JSONObject(sjson);
@@ -99,7 +103,16 @@ public class Manager : MonoBehaviour
         foreach (JSONObject house in houses.list)
         {
             int id = int.Parse(house.GetField("id").ToString());
-            House h = city.transform.GetChild(id).GetComponent<House>();
+            Transform t = city.transform.GetChild(id);
+            print(id);
+
+            // Add collider and info panel
+            BoxCollider collider = t.gameObject.AddComponent<BoxCollider>();
+            GameObject infoPanel = Instantiate(infoPanelPrefab, t.position + collider.size.y * Vector3.up, Quaternion.identity) as GameObject;
+            infoPanel.transform.SetParent(t);
+            House h = infoPanel.GetComponent<House>();
+            ShowHide showHide = t.gameObject.AddComponent<ShowHide>();
+            showHide.target = infoPanel;
 
             JSONObject appliances = house.GetField("appliances");
             foreach (JSONObject appliance in appliances.list)
@@ -117,7 +130,7 @@ public class Manager : MonoBehaviour
         }
     }
 
-    public void parseJSON()
+    public void parseJSON( string jsonPath )
     {
         string sjson = File.ReadAllText(jsonPath);
         JSONObject jsonObject = new JSONObject(sjson);
@@ -139,7 +152,7 @@ public class Manager : MonoBehaviour
             {
                 int id = int.Parse(house.GetField("id").ToString());
 
-                House h = city.transform.GetChild(id).GetComponent<House>();
+                House h = city.transform.GetChild(id).GetComponentInChildren<House>();
                 
                 
                 JSONObject battery = house.GetField("battery");
@@ -186,6 +199,61 @@ public class Manager : MonoBehaviour
                 int destination = int.Parse(wire.GetField("destinationId").ToString());
                 float flow = float.Parse(wire.GetField("flow").ToString());
             }*/
+        }
+    }
+
+    public Dictionary<int,int> addWires()
+    {
+        Dictionary<int, List<int>> dontAssign = new Dictionary<int, List<int>>();
+        Dictionary<int, int> edges = new Dictionary<int, int>();
+        for ( int i = 0; i < city.transform.childCount - 1; i++ )
+        {
+            int pair = (i + 1) % city.transform.childCount;
+            Transform house = city.transform.GetChild(i);
+
+            float minDistance = Vector3.Distance(house.position, city.transform.GetChild(pair).position);
+
+            for (int j = 0; j < city.transform.childCount; j++ )
+            {
+                if ( dontAssign.ContainsKey(j) && !dontAssign[j].Contains(i) && i != j) 
+                {
+                    float distance = Vector3.Distance(house.position, city.transform.GetChild(j).position);
+                    if (distance < minDistance)
+                    {
+                        minDistance = distance;
+                        pair = j;
+                    }
+                }
+            }
+            if (!dontAssign.ContainsKey(pair)) dontAssign.Add(pair, new List<int>());
+            dontAssign[pair].Add(i);
+            edges.Add(i, pair);
+        }
+        return edges;
+    }
+
+    public void saveEdges(Dictionary<int,int> edges)
+    {
+        List<string> lines = new List<string>();
+        lines.Add("Edges:");
+        foreach( KeyValuePair<int,int> entry in edges )
+        {
+            lines.Add(string.Format("{0}\t{1}",entry.Key, entry.Value));
+        }
+
+        File.WriteAllLines(Application.dataPath + "/Simulator/edges.txt", lines.ToArray());
+    }
+
+    public void createWires( Dictionary<int,int> wires )
+    {
+        foreach( KeyValuePair<int,int> entry in wires )
+        {
+            GameObject wire = Instantiate(wirePrefab, Vector3.zero, Quaternion.identity) as GameObject;
+            LineRenderer lineRenderer = wire.GetComponent<LineRenderer>();
+
+            wire.transform.SetParent(city.transform);
+            lineRenderer.SetPosition(0, city.transform.GetChild(entry.Key).position);
+            lineRenderer.SetPosition(1, city.transform.GetChild(entry.Value).position);
         }
     }
 }

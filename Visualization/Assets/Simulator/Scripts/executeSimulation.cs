@@ -7,9 +7,10 @@ public class executeSimulation : ThreadedJob
     public struct SimulationInput
     {
         public string folder;
-        public int hour;
-        public int minute;
-        public int frames;
+        public int startingHour;
+        public int startingMinute;
+        public int endingHour;
+        public int endingMinute;
         public int timeStep;
     }
 
@@ -17,7 +18,10 @@ public class executeSimulation : ThreadedJob
     public string jsonPath;
 
     protected override void ThreadFunction()
-    { 
+    {
+        int m = (input.endingHour - input.startingHour) * 60 + input.endingMinute - input.startingMinute;
+        int frames = m / input.timeStep;
+
         var proc1 = new ProcessStartInfo();
 
         proc1.UseShellExecute = true;
@@ -26,10 +30,10 @@ public class executeSimulation : ThreadedJob
         string param = string.Format(
             "-i \"{0}\" -f  {1} -o \"{2}\" -h {3} -m {4} -t {5}",
             input.folder + "/edges.txt",
-            input.frames,
+            frames,
             input.folder,
-            input.hour,
-            input.minute,
+            input.startingHour,
+            input.startingMinute,
             input.timeStep);
 
         string anyCommand = "java -jar \"" + java + "\" " + param;
@@ -47,6 +51,6 @@ public class executeSimulation : ThreadedJob
 
     protected override void OnFinished()
     {
-        Manager.Instance.simulationReady();
+        Manager.Instance.simulationReady( jsonPath );
     }
 }

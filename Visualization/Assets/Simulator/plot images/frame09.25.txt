@@ -1,0 +1,34 @@
+set terminal png
+set output 'C:/Users/Martin/Documents/GitHub/Smart grids/Visualization/Assets/Simulator\plot images\id 0 moment 09.25.png' 
+unset arrow 
+f(x) = x >= -3.00 && x <= 7.00 ? 9.00*x : 1/0 
+g(x) = x >= -3.00 && x <= 7.00 ? sgn(x)*9.00*(0.00+1.00*log((abs(x)-0.00)/1.00 + 1)) : 1/0 
+set samples 10000 
+set nokey 
+set xzeroaxis 
+set yzeroaxis
+plot [-10.00:20.00][-90.00:180.00] f(x) lt rgb "#8E7DFA" with filledcurve y1=0, g(x) lt rgb "#ACC6f2" with filledcurve y1=0 
+
+
+set output 'C:/Users/Martin/Documents/GitHub/Smart grids/Visualization/Assets/Simulator\plot images\id 1 moment 09.25.png' 
+unset arrow 
+f(x) = x >= -3.00 && x <= 7.00 ? 9.00*x : 1/0 
+g(x) = x >= -3.00 && x <= 7.00 ? sgn(x)*9.00*(0.00+1.00*log((abs(x)-0.00)/1.00 + 1)) : 1/0 
+set samples 10000 
+set nokey 
+set xzeroaxis 
+set yzeroaxis
+plot [-10.00:20.00][-90.00:180.00] f(x) lt rgb "#8E7DFA" with filledcurve y1=0, g(x) lt rgb "#ACC6f2" with filledcurve y1=0 
+
+
+set output 'C:/Users/Martin/Documents/GitHub/Smart grids/Visualization/Assets/Simulator\plot images\id 2 moment 09.25.png' 
+unset arrow 
+f(x) = x >= -3.00 && x <= 7.00 ? 9.00*x : 1/0 
+g(x) = x >= -3.00 && x <= 7.00 ? sgn(x)*9.00*(0.00+1.00*log((abs(x)-0.00)/1.00 + 1)) : 1/0 
+set samples 10000 
+set nokey 
+set xzeroaxis 
+set yzeroaxis
+plot [-10.00:20.00][-90.00:180.00] f(x) lt rgb "#8E7DFA" with filledcurve y1=0, g(x) lt rgb "#ACC6f2" with filledcurve y1=0 
+
+

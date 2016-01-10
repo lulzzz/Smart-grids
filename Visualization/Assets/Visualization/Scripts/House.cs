@@ -10,13 +10,13 @@ public class House : MonoBehaviour
     public List<Generator> generators;
     public Bid bid;
 
-    public GameObject infoPanel;
-    public GameObject applianceParent;
-    public GameObject generatorParent;
     public ApplianceSpriteDictionary spriteOfAppliance;
     public GeneratorSpriteDictionary spriteOfGenerator;
     public GameObject appliancePrefab;
     public GameObject generatorPrefab;
+
+    public GameObject applianceParent;
+    public GameObject generatorParent;
 
 
     public void Awake()
@@ -42,10 +42,11 @@ public class House : MonoBehaviour
         GameObject applianceGO = Instantiate(appliancePrefab) as GameObject;
         applianceGO.transform.GetChild(0).GetComponent<Image>().sprite = spriteOfAppliance[type];
         applianceGO.transform.SetParent(applianceParent.transform);
-
+        
         applianceGO.GetComponent<RectTransform>().localScale = Vector3.one;
         applianceGO.GetComponent<RectTransform>().offsetMin = Vector2.zero;
         applianceGO.GetComponent<RectTransform>().offsetMax = Vector2.zero;
+        applianceGO.transform.localPosition = new Vector3(applianceGO.transform.localPosition.x, applianceGO.transform.localPosition.y, 0);
 
         appliances.Add(applianceGO.GetComponentInChildren<Appliance>());
     }
@@ -64,6 +65,8 @@ public class House : MonoBehaviour
         applianceGO.GetComponent<RectTransform>().localScale = Vector3.one;
         applianceGO.GetComponent<RectTransform>().offsetMin = Vector2.zero;
         applianceGO.GetComponent<RectTransform>().offsetMax = Vector2.zero;
+        applianceGO.transform.localPosition = new Vector3(applianceGO.transform.localPosition.x, applianceGO.transform.localPosition.y, 0);
+
 
         generators.Add(applianceGO.GetComponentInChildren<Generator>());
     }
@@ -71,11 +74,6 @@ public class House : MonoBehaviour
     public void addGeneratorEfficiency(int id, float efficiency)
     {
         generators[id].addEfficiency(efficiency);
-    }
-
-    public void OnMouseDown()
-    {
-        infoPanel.SetActive(!infoPanel.activeSelf);
     }
 
     public void addBatteryPercent(float percent)
