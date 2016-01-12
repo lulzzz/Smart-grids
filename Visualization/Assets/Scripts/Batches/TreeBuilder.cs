@@ -5,6 +5,7 @@ using System.IO;
 public class TreeBuilder
 {
     private GameObject city;
+    private Dictionary<int, int> wires;
 
     public TreeBuilder(GameObject city)
     {
@@ -13,7 +14,7 @@ public class TreeBuilder
 
     public void buildNearestTree(string filePath)
     {
-        Dictionary<int, int> wires = nearestTree();
+        wires = nearestTree();
         saveEdges(wires, filePath);
     }
 
@@ -57,5 +58,27 @@ public class TreeBuilder
         }
 
         File.WriteAllLines(filePath, lines.ToArray());
+    }
+
+    public List<GameObject> createWires(GameObject wirePrefab)
+    {
+        List<GameObject> wireGOs = new List<GameObject>();
+        foreach (KeyValuePair<int, int> entry in wires)
+        {
+            GameObject wire = MonoBehaviour.Instantiate(wirePrefab, Vector3.zero, Quaternion.identity) as GameObject;
+            LineRenderer lineRenderer = wire.GetComponent<LineRenderer>();
+
+            wire.transform.SetParent(city.transform);
+            lineRenderer.SetPosition(0, city.transform.GetChild(entry.Key).position);
+            lineRenderer.SetPosition(1, city.transform.GetChild(entry.Value).position);
+
+            TranslationAnimator spark = wire.GetComponentInChildren<TranslationAnimator>();
+            spark.from = city.transform.GetChild(entry.Key).position;
+            spark.to = city.transform.GetChild(entry.Value).position;
+
+            wireGOs.Add(wire);
+        }
+
+        return wireGOs;
     }
 }

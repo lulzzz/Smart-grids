@@ -1,8 +1,5 @@
 ﻿using UnityEngine;
-using System.IO;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 
 public class Manager : MonoBehaviour
 {
@@ -52,8 +49,9 @@ public class Manager : MonoBehaviour
         simulation = new Simulator();
         simulation.input = simulationInput;
         simulation.Start();
-        
-        //createWires(wires);
+
+        //create Wire go's
+        wireGOs = treeBuilder.createWires(wirePrefab);
         
     }
 
@@ -87,26 +85,5 @@ public class Manager : MonoBehaviour
     public bool repeatAnimation()
     {
         return repeat;
-    }
-
-    
-
-    public void createWires(Dictionary<int, int> wires)
-    {
-        foreach (KeyValuePair<int, int> entry in wires)
-        {
-            GameObject wire = MonoBehaviour.Instantiate(wirePrefab, Vector3.zero, Quaternion.identity) as GameObject;
-            LineRenderer lineRenderer = wire.GetComponent<LineRenderer>();
-
-            wire.transform.SetParent(city.transform);
-            lineRenderer.SetPosition(0, city.transform.GetChild(entry.Key).position);
-            lineRenderer.SetPosition(1, city.transform.GetChild(entry.Value).position);
-
-            TranslationAnimator spark = wire.GetComponentInChildren<TranslationAnimator>();
-            spark.from = city.transform.GetChild(entry.Key).position;
-            spark.to = city.transform.GetChild(entry.Value).position;
-
-            wireGOs.Add(wire);
-        }
     }
 }

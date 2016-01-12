@@ -6,6 +6,7 @@ public class StartAnimation : MonoBehaviour
 	public void OnMouseDown()
     {
         GetComponent<Animator>().enabled = true;
+        Manager.Instance.startSimulation();
     }
 
     public void Update()
