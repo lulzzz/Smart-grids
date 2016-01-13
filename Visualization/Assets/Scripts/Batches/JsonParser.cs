@@ -3,7 +3,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -45,7 +44,7 @@ public class JsonParser
             infoPanel.transform.SetParent(t);
 
             // Add show hide infopanel effect
-            ShowHide showHide = t.gameObject.AddComponent<ShowHide>();
+            ShowHideCanvas showHide = t.gameObject.AddComponent<ShowHideCanvas>();
             showHide.target = infoPanel.gameObject;
 
             // Create panel struct

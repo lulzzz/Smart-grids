@@ -49,7 +49,6 @@ public class House
         generators = new ArrayList<>();
         
         generators.add(new SolarGenerator(generators.size(),IGenerator.GeneratorType.Solar));
-        generators.add(new WindGenerator(generators.size(),IGenerator.GeneratorType.Wind));
         appliances.add(new Appliance(appliances.size(),IAppliance.ApplianceType.TV, Data.consumTV));
         
         battery = new Battery(3,10);

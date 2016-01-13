@@ -46,7 +46,7 @@ public class Manager : MonoBehaviour
     {
         // Fade menu
         foreach (FadeMaterial toFade in fadeAfterMenu)
-            toFade.fade();
+            toFade.toggleFade();
 
         // Build tree
         TreeBuilder treeBuilder = new TreeBuilder(city);
@@ -72,7 +72,26 @@ public class Manager : MonoBehaviour
             #endif
         }
 
-        if( simulation != null && simulation.Update() )
+        if(Input.GetKeyDown(KeyCode.H))
+        {
+            foreach (Transform t in city.transform)
+            {
+                FadeMaterial fader = t.GetComponent<FadeMaterial>();
+                if (fader.house)
+                    fader.toggleFade();
+            }
+        }
+        if (Input.GetKeyDown(KeyCode.G))
+        {
+            foreach (Transform t in city.transform)
+            {
+                FadeMaterial fader = t.GetComponent<FadeMaterial>();
+                if (!fader.house)
+                    fader.toggleFade();
+            }
+        }
+
+        if ( simulation != null && simulation.Update() )
         
             simulation = null;
         
@@ -82,17 +101,21 @@ public class Manager : MonoBehaviour
     public void simulationReady( string jsonPath )
     {
         foreach (FadeMaterial toFade in fadeAfterSimulation)
-            toFade.fade();
+            toFade.toggleFade();
 
         JsonParser parser = new JsonParser(jsonPath, city, wireGOs);
         parser.createPanels(infoPanelPrefab,appliancePrefab, generatorPrefab, spriteOfAppliance, spriteOfGenerator);
         parser.parseJSON();
 
-        // make generic animator
-        foreach(FillImageAnimator fillAnimator in FindObjectsOfType<FillImageAnimator>() )
+        // Enable all animators
+        foreach(FillImageAnimator fillAnimator in FindObjectsOfType<FillImageAnimator>())
         {
             fillAnimator.animate();
         }
+        foreach (ChangeImageAnimator changeAnimator in FindObjectsOfType<ChangeImageAnimator>())
+            changeAnimator.animate();
+        foreach (TranslationAnimator translation in FindObjectsOfType<TranslationAnimator>())
+            translation.animate();
     }
 
     public bool getRepeat()

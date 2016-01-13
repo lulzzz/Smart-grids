@@ -22,6 +22,7 @@ public class TranslationAnimator : MonoBehaviour
 
     public void animate()
     {
+        transform.position = flows[current] > 0 ? from : to;
         InvokeRepeating("frameEnded", 1, 1);
         this.enabled = true;
     }
@@ -39,14 +40,19 @@ public class TranslationAnimator : MonoBehaviour
     {
         if (Manager.Instance.getRepeat())
         {
+            GetComponent<TrailRenderer>().enabled = false;
             transform.position = flows[current] > 0 ? from : to;
+            GetComponent<TrailRenderer>().enabled = true;
         }
         else
         {
             int next = (current + 1) % flows.Count;
             current = next;
             next = (next + 1) % flows.Count;
+
+            GetComponent<TrailRenderer>().enabled = false;
             transform.position = flows[current] > 0 ? from : to;
+            GetComponent<TrailRenderer>().enabled = true;
         }
     }
 }

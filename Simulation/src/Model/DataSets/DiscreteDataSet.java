@@ -58,7 +58,7 @@ public class DiscreteDataSet extends TreeMap<Moment, Double> implements IDataSet
         
         Moment start = getLowerNearest(since);
         
-        if( start.compareTo(lastKey()) == 0 ) return 0;
+        if( start != null && start.compareTo(lastKey()) == 0 ) return 0;
         
         SortedMap<Moment, Double> submap = subMap(start, until);
         
