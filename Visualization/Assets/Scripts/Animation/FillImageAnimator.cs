@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine.UI;
 
-public class FrameAnimator : MonoBehaviour
+public class FillImageAnimator : MonoBehaviour
 {
     public int current = 0;
 
     public List<float> data;
     private Image image;
 
-    public void Start()
+    public void Awake()
     {
         data = new List<float>();
         enabled = false;
@@ -23,6 +23,7 @@ public class FrameAnimator : MonoBehaviour
 
     public void animate()
     {
+        image.fillAmount = data[current];
         InvokeRepeating("frameEnded", 1, 1);
         this.enabled = true;
     }
@@ -35,7 +36,7 @@ public class FrameAnimator : MonoBehaviour
 
     public void frameEnded()
     {
-        if( Manager.Instance.repeatAnimation() )
+        if( Manager.Instance.getRepeat() )
         {
             image.fillAmount = data[current];
         }

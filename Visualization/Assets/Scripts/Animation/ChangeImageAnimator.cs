@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine.UI;
 using System.IO;
+using System;
 
 public class ChangeImageAnimator : MonoBehaviour
 {
@@ -10,7 +11,7 @@ public class ChangeImageAnimator : MonoBehaviour
     public List<Sprite> bidPlots;
     private Image image;
 
-    public void Start()
+    public void Awake()
     {
         bidPlots = new List<Sprite>();
         enabled = false;
@@ -29,6 +30,7 @@ public class ChangeImageAnimator : MonoBehaviour
 
     public void animate()
     {
+        image.sprite = bidPlots[current];
         InvokeRepeating("frameEnded", 1, 1);
         this.enabled = true;
     }
@@ -40,7 +42,7 @@ public class ChangeImageAnimator : MonoBehaviour
 
     public void frameEnded()
     {
-        if (!Manager.Instance.repeatAnimation())
+        if (!Manager.Instance.getRepeat())
         {
             current = (current + 1) % bidPlots.Count;
         }

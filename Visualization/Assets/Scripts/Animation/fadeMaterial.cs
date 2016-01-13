@@ -1,27 +1,35 @@
 ﻿using UnityEngine;
 
-public class fadeMaterial : MonoBehaviour
+public class FadeMaterial : MonoBehaviour
 {
-    public Material material1;
-    public Material material2;
-    public float duration = 2.0F;
-    public Renderer rend;
-    public bool pingpong;
-    public float lerp = 0;
+    [SerializeField]
+    private Material original;
+    [SerializeField]
+    private Material faded;
+    [SerializeField]
+    private float duration;
+
+    private Renderer rend;
 
     void Start()
     {
         rend = GetComponent<Renderer>();
-        rend.material = material1;
+        rend.material = original;
     }
-    void Update()
-    {
 
-        if (!pingpong && lerp > .9f) print("now");
-        else
+    public void fade()
+    {
+        InvokeRepeating("fadeStep", 0, .05f);
+    }
+
+    private void fadeStep()
+    {
+        float lerp = Mathf.PingPong(Time.time, duration) / duration;
+        rend.material.Lerp(original, faded, lerp);
+        if (lerp > .9f)
         {
-            lerp = Mathf.PingPong(Time.time, duration) / duration;
-            rend.material.Lerp(material1, material2, lerp);
+            CancelInvoke("fadeStep");
+            Destroy(gameObject);
         }
     }
 }

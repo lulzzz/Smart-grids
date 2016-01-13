@@ -9,7 +9,7 @@ public class TranslationAnimator : MonoBehaviour
     public int current = 0;
     public List<float> flows;
 
-    public void Start()
+    public void Awake()
     {
         flows = new List<float>();
         enabled = false;
@@ -37,7 +37,7 @@ public class TranslationAnimator : MonoBehaviour
 
     public void frameEnded()
     {
-        if (Manager.Instance.repeatAnimation())
+        if (Manager.Instance.getRepeat())
         {
             transform.position = flows[current] > 0 ? from : to;
         }
