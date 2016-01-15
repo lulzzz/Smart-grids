@@ -19,6 +19,10 @@ public class Reposition : MonoBehaviour {
     }
 	void Start ()
     {
+        JSONObject json = new JSONObject();
+        json.AddField("city model", "path");
+        print("json"+json.ToString());
+
         from.GetComponent<Supply>().wires.Add(gameObject);
         to.GetComponent<Supply>().wires.Add(gameObject);
         Vector3 vector = to.transform.position - from.transform.position;
