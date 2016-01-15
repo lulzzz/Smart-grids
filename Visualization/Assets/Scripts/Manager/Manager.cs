@@ -99,6 +99,8 @@ public class Manager : MonoBehaviour
                 if (profile != null)
                     profile.toggleAlwaysShown();
             }
+            Color c = new Color(RenderSettings.ambientLight.r, RenderSettings.ambientLight.g, RenderSettings.ambientLight.b + .1f);
+            RenderSettings.ambientLight = c;
         }
 
         if ( simulation != null && simulation.Update() )

@@ -29,15 +29,15 @@ public class SelectProfile : MonoBehaviour
 
     void OnMouseEnter ()
     {
-        if(!alwaysShown)
-            rend.material.color = colors[assigned];
+        if (!alwaysShown)
+            changeColor(assigned);
         over = true;
 	}
 	
 	void OnMouseExit ()
     {
-        if(!alwaysShown)
-            rend.material.color = colors[0];
+        if (!alwaysShown)
+            changeColor(0);
         over = false;
     }
 
@@ -48,7 +48,7 @@ public class SelectProfile : MonoBehaviour
             if (Input.GetKeyDown(acceptedKeyCodes[i]))
             {
                 assigned = i + 1;
-                rend.material.color = colors[assigned];
+                changeColor(assigned);
             }
         }
     }
@@ -57,9 +57,16 @@ public class SelectProfile : MonoBehaviour
     {
         alwaysShown = !alwaysShown;
         if (alwaysShown)
-            rend.material.color = colors[assigned];
-        else if( !over )
-            rend.material.color = colors[0];
+            changeColor(assigned);
+        else if (!over)
+            changeColor(0);
 
     }
+
+    private void changeColor(int index)
+    {
+
+        rend.material.color = new Color(colors[index].r, colors[index].g, colors[index].b, rend.material.color.a);
+    }
+
 }
