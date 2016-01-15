@@ -91,6 +91,16 @@ public class Manager : MonoBehaviour
             }
         }
 
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            foreach (Transform t in city.transform)
+            {
+                SelectProfile profile = t.GetComponent<SelectProfile>();
+                if (profile != null)
+                    profile.toggleAlwaysShown();
+            }
+        }
+
         if ( simulation != null && simulation.Update() )
         
             simulation = null;

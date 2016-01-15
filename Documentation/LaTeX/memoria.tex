@@ -255,14 +255,27 @@ MonoBehaviour contiene un método Update() que se llama a cada frame de la simula
 Añadir un modelo a una escena previamente a su ejecución es relativamente sencillo, basta con crear un prefab que tenga las componentes que te interesan. Sin embargo, importar un modelo en tiempo de ejecución en Unity es más complicado de lo que puede parecer. El primer problema es abrir un cuadro de diálogo que permita al usuario elegir un archivo. Unity usa Mono que es un subconjunto de .NET FrameWork 2.0 especializado para juegos, que por defecto no incorpora la opción de crear ventanas propias del SO. 
 La solución ha sido añadir el dll Windows.Forms.dll de .NET FrameWork 2.0 en una carpeta llamada Plugins dentro del proyecto de unity de manera que el compilador de unity comprenda que queremos usar tal extensión y permita crear las ventanas. El soporte de .NET FrameWrk 2.0 no está garantizado por Unity por lo que pueden saltar errores de seguridad al intentar abrir la ventana, pero ignorando estos defectos podemos permitir que el usuario abra un fichero. Quiero agradecer a <Referencia> por la solución prestada.
 
+\subsection{Seleccionando el perfil de las casas}
+Una vez la ciudad se encuentre en la escena el usuario podrá ver y modificar el perfil de la gente que vive en esa casa en tres niveles: Alto consumo, consumo regular o alto ahorro. 
+
+Cuando el usuario pasa el ratón por encima de una casa, está casa se coloreará de un color dependiendo del perfil que tenga asignado. Por defecto, todas las casas tienen asignado el perfil de consumo regular que viene representado por el color naranja. Una vez situado el ratón sobre la casa el usuario podrá elegir el perfil deseado para esa casa simplemente pulsando las teclas 1, 2 o 3 siendo 1 el de menor consumo y 3 el mayor. 
+
+Por último si se pulsa la tecla P, las casas se colorearán con el color correspondiente a su perfil hasta que se vuelva a pulsar P. Esto permite visualizar la distribución de perfiles a lo largo de una ciudad.
+
 \subsection{Seleccionando la franja horaria}
 El segundo paso es seleccionar de que hora a que hora se ejecutará la simulación. Para ello contamos con un torus fino con dos bolas sobre ella. Estas bolas se pueden seleccionar y arrastrar sobre el torus y muestran un lienzo al moverse que indica la hora que señalan. La idea bajo esta implementación es:
 - Detectar si el mouse está en modo drag con el método OnMouseDrag de Monobehaviour
+
 - Coger el punto que representa el ratón en la ventana
+
 - Hacer un cambio de base para que deje el pixel 0,0 esté situado en el centro de la screen
+
 - normalizar el vector que va desde el centro hasta el punto del ratón.
+
 - escalarlo por el radio mayor del torus para situarlo encima del mismo
+
 Por defecto estos valores empiezan de 06:00h a 18:00h. Cabe considerar que para que el funcionamiento del programa sea el esperado, la hora inicial debería ser inferior a la hora final
+
 
 \subsection{Ejecutando la animación} 
 Como tercer paso, el usuario hace click en la estrella de acuerdo con que está contento con los parámetros elegidos hasta ahora. Esto crea un nuevo thread que se encarga de correr la simulación. La creación del thread se consigue gracias a la clase ThreadedJob que es aportación de <referencia> En particular este thread tiene un método que se ejecutará al ser creado. Además, cada vez que el thread principal llame al metodo update de ThreadedJob, este actualizará su estado y en caso de que haaya acabado generará un evento que será tratado por el thread principal. Por último el thread se destruirá porque ya ha completado su trabajo.
