@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (MiKTeX 2.9) (preloaded format=pdflatex 2016.1.5)  5 JAN 2016 02:40
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (MiKTeX 2.9) (preloaded format=pdflatex 2016.1.5)  15 JAN 2016 01:39
 entering extended mode
 **./memoria.tex
 (memoria.tex
@@ -408,44 +408,35 @@ File: ursfs.fd 1998/03/24 rsfs font definition file (jk)
 ) [1
 
 {C:/Users/Martin/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map} <./ub.png>]
- [1] (memoria.toc
+ [1] [2] (memoria.toc
 LaTeX Info: Redefining \. on input line 1.
 LaTeX Info: Redefining \% on input line 1.
- [2])
+ [3])
 \tf@toc=\write3
 \openout3 = `memoria.toc'.
 
- [3] [1] [2]
-Overfull \hbox (6.80302pt too wide) in paragraph at lines 166--166
-[]\OT1/cmr/bx/n/14.4 Algoritmos: Stei-ner tree, al-go-rit-mo RTT, al-go-rit-mo 
-nea-
- []
-
-
-Overfull \vbox (138.66077pt too high) has occurred while \output is active []
-
-
-[3] [4] (memoria.aux
+ [4] [1] [2] [3] [4] [5] [6] [7] [8] [9]
+[10] [11] [12] [13] [14] (memoria.aux
 LaTeX Info: Redefining \. on input line 6.
 LaTeX Info: Redefining \% on input line 6.
 ) ) 
 Here is how much of TeX's memory you used:
- 5080 strings out of 493634
- 68466 string characters out of 3134832
- 142689 words of memory out of 3000000
- 8383 multiletter control sequences out of 15000+200000
+ 5098 strings out of 493634
+ 68708 string characters out of 3134832
+ 143689 words of memory out of 3000000
+ 8401 multiletter control sequences out of 15000+200000
  12345 words of font info for 49 fonts, out of 3000000 for 9000
  1025 hyphenation exceptions out of 8191
- 34i,7n,43p,245b,416s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 34i,7n,43p,1822b,416s stack positions out of 5000i,500n,10000p,200000b,50000s
 <C:/Users/Martin/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfon
 ts/cm/cmbx12.pfb><C:/Users/Martin/AppData/Local/Programs/MiKTeX 2.9/fonts/type1
 /public/amsfonts/cm/cmcsc10.pfb><C:/Users/Martin/AppData/Local/Programs/MiKTeX 
 2.9/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Users/Martin/AppData/Local/Pro
 grams/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti12.pfb><C:/Users/Martin/App
 Data/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
-Output written on memoria.pdf (8 pages, 94421 bytes).
+Output written on memoria.pdf (19 pages, 121752 bytes).
 PDF statistics:
- 50 PDF objects out of 1000 (max. 8388607)
+ 85 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  6 words of extra memory for PDF output out of 10000 (max. 10000000)
 

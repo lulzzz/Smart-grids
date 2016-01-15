@@ -1,34 +1,51 @@
 \select@language {spanish}
-\contentsline {section}{\numberline {1}El entorno(1)}{1}
-\contentsline {subsection}{\numberline {1.1}La humanidad necesita energ\IeC {\'\i }a el\'ectrica}{1}
+\contentsline {section}{\numberline {1}Introducci\'on y antecedentes}{1}
+\contentsline {subsection}{\numberline {1.1}El entorno: La humanidad necesita energ\IeC {\'\i }a el\'ectrica}{1}
 \contentsline {subsection}{\numberline {1.2}La idea de los Smart Grids}{1}
-\contentsline {subsection}{\numberline {1.3}Problemas: \IeC {\textquestiondown }Como se tradea la energ\IeC {\'\i }a?}{1}
-\contentsline {section}{\numberline {2}Definiendo el problema(2)}{2}
-\contentsline {subsection}{\numberline {2.1}El problema}{2}
-\contentsline {subsection}{\numberline {2.2}Partes del problema: Creaci\'on de grafo, CEAP, Simulaci\'on, Visualizaci\'on, Reports}{2}
-\contentsline {subsection}{\numberline {2.3}Buscando tecnolog\IeC {\'\i }as adecuadas}{2}
-\contentsline {subsection}{\numberline {2.4}A partir de ahora}{2}
-\contentsline {section}{\numberline {3}CEAP(5)}{3}
-\contentsline {subsection}{\numberline {3.1}Se me present\'o este proyecto.}{3}
-\contentsline {subsection}{\numberline {3.2}Formalizaci\'on en participant, ILV, PLV, Link.}{3}
-\contentsline {subsection}{\numberline {3.3}RadPro. }{3}
-\contentsline {subsection}{\numberline {3.4}Limitaciones y ampliaciones posibles.}{3}
-\contentsline {section}{\numberline {4}Simulaci\'on(8)}{3}
-\contentsline {subsection}{\numberline {4.1}Filosof\IeC {\'\i }a de java. POO, encapsulaci\'on, interfaces.}{3}
-\contentsline {subsection}{\numberline {4.2}Input/Output. }{3}
-\contentsline {subsection}{\numberline {4.3}Diagramas. }{3}
-\contentsline {subsection}{\numberline {4.4}Modelado de una casa}{3}
-\contentsline {subsection}{\numberline {4.5}Battery, }{3}
-\contentsline {subsection}{\numberline {4.6}Generator,}{3}
-\contentsline {subsection}{\numberline {4.7}Appliance, }{3}
-\contentsline {subsection}{\numberline {4.8}Bid.}{3}
-\contentsline {section}{\numberline {5}Visualizaci\'on(5)}{3}
-\contentsline {subsection}{\numberline {5.1}Filosof\IeC {\'\i }a de Unity. Componentes/no.}{3}
-\contentsline {subsection}{\numberline {5.2}Men\'u din\'amico.}{3}
-\contentsline {subsection}{\numberline {5.3}Animaciones.}{3}
-\contentsline {section}{\numberline {6}Reports(2)}{3}
-\contentsline {subsection}{\numberline {6.1}A\'un por decidir.}{3}
-\contentsline {section}{\numberline {7}Creaci\'on de la ciudad(5)}{3}
-\contentsline {subsection}{\numberline {7.1}Algoritmos: Steiner tree, algoritmo RTT, algoritmo nearest.}{3}
-\contentsline {subsection}{\numberline {7.2} Ampliar a Open Street Map, CityEngine.}{3}
-\contentsline {section}{\numberline {8}Conclusiones(1)}{3}
+\contentsline {subsection}{\numberline {1.3}El problema de la liquidaci\'on de mercados distribuidos de energ\IeC {\'\i }a: CEAP}{1}
+\contentsline {subsection}{\numberline {1.4}Algoritmos de clearing para mercados distribuidos de energ\IeC {\'\i }a: ILP, Radpro}{1}
+\contentsline {subsection}{\numberline {1.5}RadPro. }{1}
+\contentsline {subsection}{\numberline {1.6}A continuaci\'on}{1}
+\contentsline {section}{\numberline {2}Objetivos}{2}
+\contentsline {subsection}{\numberline {2.1}En este cap\IeC {\'\i }tulo}{2}
+\contentsline {subsection}{\numberline {2.2}El problema}{2}
+\contentsline {subsection}{\numberline {2.3}Partes del problema: Creaci\'on de grafo, CEAP, Simulaci\'on, Visualizaci\'on, Reports}{2}
+\contentsline {section}{\numberline {3}Metodolog\IeC {\'\i }a y herramientas}{2}
+\contentsline {subsection}{\numberline {3.1}En este cap\IeC {\'\i }tulo}{2}
+\contentsline {subsection}{\numberline {3.2}A continuaci\'on}{2}
+\contentsline {section}{\numberline {4}Creaci\'on de la ciudad}{3}
+\contentsline {subsection}{\numberline {4.1} En este cap\IeC {\'\i }tulo }{3}
+\contentsline {subsection}{\numberline {4.2}Definiendo la ciudad}{3}
+\contentsline {subsection}{\numberline {4.3}Leyendo el fichero}{3}
+\contentsline {subsection}{\numberline {4.4}Creando la red}{4}
+\contentsline {subsection}{\numberline {4.5}Informaci\'on completa: Steiner Trees}{4}
+\contentsline {subsection}{\numberline {4.6}Informaci\'on incompleta: Nearest neighbour problem}{4}
+\contentsline {subsection}{\numberline {4.7} Ampliar a Open Street Map, CityEngine.}{5}
+\contentsline {subsection}{\numberline {4.8} A continuaci\'on }{5}
+\contentsline {section}{\numberline {5}Simulaci\'on}{6}
+\contentsline {subsection}{\numberline {5.1}En este cap\IeC {\'\i }tulo}{6}
+\contentsline {subsection}{\numberline {5.2}Filosof\IeC {\'\i }a de java. POO, encapsulaci\'on, interfaces.}{6}
+\contentsline {subsection}{\numberline {5.3}Input/Output. }{6}
+\contentsline {subsection}{\numberline {5.4}Diagramas. }{6}
+\contentsline {subsection}{\numberline {5.5}Modelado de una casa}{6}
+\contentsline {subsection}{\numberline {5.6}Battery, }{6}
+\contentsline {subsection}{\numberline {5.7}Generator,}{6}
+\contentsline {subsection}{\numberline {5.8}Appliance, }{6}
+\contentsline {subsection}{\numberline {5.9}Bid.}{6}
+\contentsline {subsection}{\numberline {5.10}A continuaci\'on}{6}
+\contentsline {section}{\numberline {6}Visualizaci\'on}{7}
+\contentsline {subsection}{\numberline {6.1}En este cap\IeC {\'\i }tulo}{7}
+\contentsline {subsection}{\numberline {6.2}Filosof\IeC {\'\i }a de dise\~no de Unity}{7}
+\contentsline {subsection}{\numberline {6.3}Dise\~nando los paneles}{8}
+\contentsline {subsection}{\numberline {6.4}Control de la c\'amara}{8}
+\contentsline {subsection}{\numberline {6.5}Eligiendo la ciudad}{9}
+\contentsline {subsection}{\numberline {6.6}Seleccionando la franja horaria}{9}
+\contentsline {subsection}{\numberline {6.7}Ejecutando la animaci\'on}{9}
+\contentsline {subsection}{\numberline {6.8}Mostrando la informaci\'on relevante}{10}
+\contentsline {subsection}{\numberline {6.9}Programando las animaciones}{10}
+\contentsline {subsection}{\numberline {6.10}Controlando el flow}{11}
+\contentsline {subsection}{\numberline {6.11}Parseando el JSON}{11}
+\contentsline {subsection}{\numberline {6.12}A continuaci\'on}{12}
+\contentsline {section}{\numberline {7}Conclusiones y futuro trabajo}{13}
+\contentsline {subsection}{\numberline {7.1}Conclusiones}{13}
+\contentsline {subsection}{\numberline {7.2}Futuro trabajo}{13}
