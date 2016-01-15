@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using System.IO;
 
 public class Manager : MonoBehaviour
 {
@@ -35,29 +36,60 @@ public class Manager : MonoBehaviour
         simulationInput.timeStep = 5;
 
         Instance = this;
+
+        // Build tree
+        TreeBuilder treeBuilder = new TreeBuilder(city);
+        treeBuilder.buildNearestTree(Application.dataPath + "/Simulator/edges.txt");
+        //create Wire go's
+        wireGOs = treeBuilder.createWires(wirePrefab);
     }
 
     public void setCity(GameObject city)
     {
         this.city = city;
+        // Build tree
+        TreeBuilder treeBuilder = new TreeBuilder(city);
+        treeBuilder.buildNearestTree(Application.dataPath + "/Simulator/edges.txt");
+        //create Wire go's
+        wireGOs = treeBuilder.createWires(wirePrefab);
     }
 
     public void startSimulation()
     {
         // Fade menu
+        /*
         foreach (FadeMaterial toFade in fadeAfterMenu)
             toFade.toggleFade();
-
-        // Build tree
-        TreeBuilder treeBuilder = new TreeBuilder(city);
-        treeBuilder.buildNearestTree(Application.dataPath + "/Simulator/edges.txt");
+        */
         
+
+
+        JSONObject houseArray = new JSONObject(JSONObject.Type.ARRAY);
+        JSONObject wireArray = new JSONObject(JSONObject.Type.ARRAY);
+
+        foreach (HouseIdentity house in FindObjectsOfType<HouseIdentity>())
+            houseArray.Add(house.toJson());
+
+        foreach (WireIdentity wire in FindObjectsOfType<WireIdentity>())
+            wireArray.Add(wire.toJson());
+
+        JSONObject json = new JSONObject();
+        json.AddField("cityModel", "path");
+        json.AddField("outputFolder", "path");
+        json.AddField("hour", simulationInput.startingHour);
+        json.AddField("minute", simulationInput.startingMinute);
+        json.AddField("frames", 12);
+        json.AddField("timeStep", 5);
+        json.AddField("houses", houseArray);
+        json.AddField("wires", wireArray);
+        print("json" + json.ToString());
+        File.WriteAllText(Application.dataPath + "/Simulator/input.json", json.ToString());
+        /*
         simulation = new Simulator();
         simulation.input = simulationInput;
         simulation.Start();
-
-        //create Wire go's
-        wireGOs = treeBuilder.createWires(wirePrefab);
+        */
+        
         
     }
 

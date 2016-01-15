@@ -21,7 +21,7 @@ public class SelectProfile : MonoBehaviour
 
     private bool over;
  
-    void Start ()
+    void Awake ()
     {
         assigned = 2;
         rend = GetComponent<Renderer>();
