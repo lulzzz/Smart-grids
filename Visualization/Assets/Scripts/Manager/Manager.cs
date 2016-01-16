@@ -14,34 +14,31 @@ public class Manager : MonoBehaviour
     [SerializeField] private ManagerState state;
 
     // Selecting mode objects
-    [SerializeField] private GameObject title;
-    [SerializeField] private GameObject optionPanels;
+    [SerializeField] private GameObject menuObjects;
     
     [SerializeField] public GameObject city;
     [SerializeField] private string cityPath;
 
-    public void cityImported(string cityPath, GameObject city)
+    public void cityImported(float size)
     {
-        Destroy(title);
-        Destroy(optionPanels);
-        this.cityPath = cityPath;
-        this.city = city;
-
-        TreeBuilder treeBuilder = new TreeBuilder(city);
-        treeBuilder.buildNearestTree();
-        wireGOs = treeBuilder.createWires(wirePrefab, sparkPrefab);
-
+        Destroy(menuObjects, 2);
+        
         state = ManagerState.BuildingCity;
         myTorus = Instantiate(torusPrefab, Vector3.zero, Quaternion.identity) as GameObject;
-        startingHourBall = myTorus.transform.GetChild(0).GetComponent<MoveOverTorus>();
-        endingHourBall = myTorus.transform.GetChild(1).GetComponent<MoveOverTorus>();
+        myTorus.transform.localScale *= size * 1.2f;
+
+        foreach (FadeMaterial fader in FindObjectsOfType<FadeMaterial>())
+        {
+            fader.toggleFade();
+        }
     }
     
     // Build city objects
+    [SerializeField] private Material material;
+    [SerializeField] private Material transparent;
     [SerializeField] private GameObject torusPrefab;
     [SerializeField] private GameObject myTorus;
-    [SerializeField] private MoveOverTorus startingHourBall;
-    [SerializeField] private MoveOverTorus endingHourBall;
+
     [SerializeField] private GameObject wirePrefab;
     [SerializeField] private GameObject sparkPrefab;
 
@@ -72,6 +69,11 @@ public class Manager : MonoBehaviour
 
     public void startSimulation()
     {
+        myTorus.GetComponent<FadeMaterial>().toggleFade();
+        foreach(Transform child in myTorus.transform)
+        {
+            child.GetComponent<FadeMaterial>().toggleFade();
+        }
 
         createSimulationInputJson(Application.dataPath + "/Simulator/input.json");
 
@@ -89,6 +91,9 @@ public class Manager : MonoBehaviour
 
     private void createSimulationInputJson(string filePath)
     {
+        MoveOverTorus startingHourBall = myTorus.transform.GetChild(0).GetComponent<MoveOverTorus>();
+        MoveOverTorus endingHourBall = myTorus.transform.GetChild(1).GetComponent<MoveOverTorus>();
+
         int timeStep = 5;
         int startingHour = startingHourBall.hour;
         int startingMinute = startingHourBall.minute;
@@ -126,15 +131,16 @@ public class Manager : MonoBehaviour
             simulation = null;
     }
 
-    public void simulationReady()
+    public void simulationReady(string jsonPath)
     {
-
-        Destroy(myTorus);
+        if (jsonPath == null)
+        {
+            jsonPath = Application.dataPath + "/Simulator/simulation.json";
+            Destroy(myTorus, 2);
+        }
         Instantiate(timeUIPrefab);
 
         state = ManagerState.Visualizating;
-
-        string jsonPath = Application.dataPath + "/Simulator/simulation.json";
 
         JsonParser parser = new JsonParser(jsonPath, city, wireGOs);
         parser.createPanels(infoPanelPrefab,appliancePrefab, generatorPrefab, spriteOfAppliance, spriteOfGenerator);
@@ -155,32 +161,96 @@ public class Manager : MonoBehaviour
     {
         Instantiate(timeUIPrefab);
 
-        Destroy(title);
-        Destroy(optionPanels);
+        foreach (Transform child in menuObjects.transform)
+        {
+            child.GetComponent<FadeMaterial>().toggleFade();
+        }
+        Destroy(menuObjects, 2);
+
         state = ManagerState.Visualizating;
 
         string sjson = File.ReadAllText(path);
         JSONObject jsonObject = new JSONObject(sjson);
 
-        string cityPath = "test";// jsonObject.GetField("cityModel").ToString();
-        GameObject city = ObjImporter.Import(cityPath);
+        string cityPath = Application.dataPath+ "/ObjReader/Sample Files/city_obj.txt";// jsonObject.GetField("cityModel").ToString();
+        loadCity(cityPath);
+        simulationReady(path);
+    }
+
+    public float loadCity(string path)
+    {
+
+        this.cityPath = path;
+        GameObject city = new GameObject("City");
+        this.city = city;
+        GetComponent<KeyBoardInput>().setCity(city);
+
+        // Create and set parent
+        GameObject[] houses = ObjReader.use.ConvertFile(path, false, material, transparent);
+        foreach (GameObject house in houses)
+        {
+            house.transform.SetParent(city.transform);
+        }
+        // Compute Scale
+        float minX, maxX;
+        minX = 0;
+        maxX = 0;
+
+        foreach(GameObject house in houses)
+        {
+            Mesh mesh = house.GetComponent<MeshFilter>().mesh;
+            float min = (mesh.bounds.center - mesh.bounds.extents).x;
+            float max = (mesh.bounds.center + mesh.bounds.extents).x;
+
+            if (min < minX) minX = min;
+            if (max > maxX) maxX = max;
+
+        }
+        
+        // Move gravity point to center
+        foreach (GameObject house in houses)
+        {
+            Mesh mesh = house.GetComponent<MeshFilter>().mesh;
+            Vector3 center = mesh.bounds.center;
+            
+            // Move vertices accordingly
+            List<Vector3> newVertices = new List<Vector3>();
+            foreach(Vector3 vertex in mesh.vertices)
+            {
+                newVertices.Add(vertex -( center - house.transform.position ));
+            }
+            house.transform.position = center;
+            mesh.vertices = newVertices.ToArray();
+
+            mesh.RecalculateBounds();
+            
+        }
+
+        // Add house components
+        for(int i = 0; i < houses.Length; i++)
+        {
+            GameObject house = houses[i];
+            
+            house.AddComponent<SelectProfile>();
+
+            BoxCollider collider = house.AddComponent<BoxCollider>();
+            collider.center = Vector3.zero;
+
+            HouseIdentity identity = house.AddComponent<HouseIdentity>();
+            identity.id = i;
+
+            
+
+            FadeMaterial fader = house.AddComponent<FadeMaterial>();
+            fader.original = transparent;
+            fader.fade = material;
+            fader.house = true;
+        }
         TreeBuilder treeBuilder = new TreeBuilder(city);
         treeBuilder.buildNearestTree();
         wireGOs = treeBuilder.createWires(wirePrefab, sparkPrefab);
 
-        JsonParser parser = new JsonParser(path, city, wireGOs);
-        parser.createPanels(infoPanelPrefab, appliancePrefab, generatorPrefab, spriteOfAppliance, spriteOfGenerator);
-        parser.parseJSON();
-
-        // Enable all animators
-        foreach (FillImageAnimator fillAnimator in FindObjectsOfType<FillImageAnimator>())
-        {
-            fillAnimator.animate();
-        }
-        foreach (ChangeImageAnimator changeAnimator in FindObjectsOfType<ChangeImageAnimator>())
-            changeAnimator.animate();
-        foreach (TranslationAnimator translation in FindObjectsOfType<TranslationAnimator>())
-            translation.animate();
+        return Math.Max(Math.Abs(minX), maxX);
     }
 
     public ManagerState getState() { return state; }

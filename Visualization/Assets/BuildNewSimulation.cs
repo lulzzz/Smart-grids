@@ -3,11 +3,15 @@ using System.Collections;
 
 public class BuildNewSimulation : MonoBehaviour
 {
-	void OnMouseDown ()
+
+    public Material standardMaterial;
+    public Material transparentMaterial;
+
+    void OnMouseDown ()
     {
         string path = DialogManager.showObjDialog();
-        GameObject city = ObjImporter.Import(path);
+        float size = Manager.Instance.loadCity(path);
 
-        Manager.Instance.cityImported(path, city);
+        Manager.Instance.cityImported(size);
     }
 }

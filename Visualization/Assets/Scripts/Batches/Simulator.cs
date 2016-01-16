@@ -10,17 +10,6 @@ public class Simulator : ThreadedJob
         var proc1 = new ProcessStartInfo();
 
         proc1.UseShellExecute = true;
-        /*
-        string java = input.folder + "/simulator.jar";
-        string param = string.Format(
-            "-i \"{0}\" -f  {1} -o \"{2}\" -h {3} -m {4} -t {5}",
-            input.folder + "/edges.txt",
-            frames,
-            input.folder,
-            input.startingHour,
-            input.startingMinute,
-            input.timeStep);
-            */
         string command = string.Format("java -jar \"{0}\" \"{1}\"", simulator, input);
 
         proc1.FileName = @"C:\Windows\System32\cmd.exe";
@@ -35,6 +24,6 @@ public class Simulator : ThreadedJob
 
     protected override void OnFinished()
     {
-        Manager.Instance.simulationReady();
+        Manager.Instance.simulationReady(null);
     }
 }

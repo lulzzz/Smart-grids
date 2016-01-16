@@ -4,7 +4,13 @@ using System;
 
 public class SelectProfile : MonoBehaviour
 {
-    public List<Color> colors;
+    private List<Color> colors = new List<Color>()
+    {
+        Color.white,
+        Color.green,
+        Color.yellow,
+        Color.red
+    };
 
     public int assigned;
 

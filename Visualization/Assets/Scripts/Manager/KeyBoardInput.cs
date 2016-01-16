@@ -4,9 +4,9 @@ public class KeyBoardInput : MonoBehaviour
 {
     private GameObject city;
 
-    void Start ()
+    public void setCity (GameObject city)
     {
-        city = Manager.Instance.city;
+        this.city = city;
     }
     void Update ()
     {
@@ -19,35 +19,41 @@ public class KeyBoardInput : MonoBehaviour
             #endif
         }
 
-        if (Input.GetKeyDown(KeyCode.H))
+        if (city != null)
         {
-            foreach (Transform t in city.transform)
-            {
-                FadeMaterial fader = t.GetComponent<FadeMaterial>();
-                if (fader.house)
-                    fader.toggleFade();
-            }
-        }
-        if (Input.GetKeyDown(KeyCode.G))
-        {
-            foreach (Transform t in city.transform)
-            {
-                FadeMaterial fader = t.GetComponent<FadeMaterial>();
-                if (!fader.house)
-                    fader.toggleFade();
-            }
-        }
 
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            foreach (Transform t in city.transform)
+
+
+            if (Input.GetKeyDown(KeyCode.H))
             {
-                SelectProfile profile = t.GetComponent<SelectProfile>();
-                if (profile != null)
-                    profile.toggleAlwaysShown();
+                foreach (Transform t in city.transform)
+                {
+                    FadeMaterial fader = t.GetComponent<FadeMaterial>();
+                    if (fader.house)
+                        fader.toggleFade();
+                }
             }
-            Color c = new Color(RenderSettings.ambientLight.r, RenderSettings.ambientLight.g, RenderSettings.ambientLight.b + .1f);
-            RenderSettings.ambientLight = c;
+            if (Input.GetKeyDown(KeyCode.G))
+            {
+                foreach (Transform t in city.transform)
+                {
+                    FadeMaterial fader = t.GetComponent<FadeMaterial>();
+                    if (!fader.house)
+                        fader.toggleFade();
+                }
+            }
+
+            if (Input.GetKeyDown(KeyCode.P))
+            {
+                foreach (Transform t in city.transform)
+                {
+                    SelectProfile profile = t.GetComponent<SelectProfile>();
+                    if (profile != null)
+                        profile.toggleAlwaysShown();
+                }
+                Color c = new Color(RenderSettings.ambientLight.r, RenderSettings.ambientLight.g, RenderSettings.ambientLight.b + .1f);
+                RenderSettings.ambientLight = c;
+            }
         }
     }
 }

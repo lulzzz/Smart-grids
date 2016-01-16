@@ -5,13 +5,16 @@ using UnityEngine.UI;
 public class MoveOverTorus : MonoBehaviour
 {
     [SerializeField]
-    private float torusRadius = 4;
+    private GameObject torus;
+
+    private float torusRadius;
 
     public int hour;
     public int minute;
 
     void Start ()
     {
+        torusRadius = torus.transform.localScale.x;
 
         int sign = Vector3.Cross(new Vector3(0, -1, 0), transform.position).z < 0 ? 1 : -1;
         float degrees = (sign * Vector3.Angle(new Vector3(0, -1, 0), transform.position) + 360) % 360;

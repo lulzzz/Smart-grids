@@ -3,11 +3,11 @@
 public class FadeMaterial : MonoBehaviour
 {
     [SerializeField]
-    private Material original;
+    public Material original;
     [SerializeField]
-    private Material fade;
+    public Material fade;
     [SerializeField]
-    private float duration;
+    private float duration = 2;
     [SerializeField]
     private bool destroyAfter;
 
@@ -16,7 +16,7 @@ public class FadeMaterial : MonoBehaviour
     private bool faded = false;
 
     private Renderer rend;
-    private float lerp;
+    public float lerp;
 
     void Start()
     {
@@ -36,7 +36,7 @@ public class FadeMaterial : MonoBehaviour
 
     private void fadeStep()
     {
-        lerp += duration / 20;
+        lerp += 1 / (20*duration);
         rend.material.Lerp(original, fade, lerp);
         if (lerp > .99f)
         {

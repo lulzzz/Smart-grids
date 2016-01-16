@@ -1,17 +1,17 @@
 fileFormatVersion: 2
-guid: 0e2b437705e6edc44b394f2e2b2e473b
-timeCreated: 1452917828
+guid: 591c86799ee70f5488e446b73ab522d1
+timeCreated: 1452966268
 licenseType: Free
 ModelImporter:
   serializedVersion: 18
   fileIDToRecycleName:
-    100000: Teapot001_Instance_0
-    100002: //RootNode
-    400000: Teapot001_Instance_0
-    400002: //RootNode
-    2300000: Teapot001_Instance_0
-    3300000: Teapot001_Instance_0
-    4300000: Teapot001_Instance_0
+    100000: //RootNode
+    400000: //RootNode
+    2300000: //RootNode
+    3300000: //RootNode
+    4300000: Text
+    7400000: Default Take
+    9500000: //RootNode
   materials:
     importMaterials: 1
     materialName: 0
@@ -70,7 +70,7 @@ ModelImporter:
     rootMotionBoneName: 
     hasTranslationDoF: 0
   lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 0
+  animationType: 2
   humanoidOversampling: 1
   additionalBone: 0
   userData: 

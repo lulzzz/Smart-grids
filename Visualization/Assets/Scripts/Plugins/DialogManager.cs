@@ -13,7 +13,7 @@ public class DialogManager : MonoBehaviour
     {
         openDialog = new OpenFileDialog();
         openDialog.InitialDirectory = UnityEngine.Application.dataPath;
-        openDialog.Filter = "obj files|*.OBJ";
+        openDialog.Filter = "obj files|*.txt";
         openDialog.Title = "Select the city model";
         openDialog.Multiselect = false;
         string[] result = null;
