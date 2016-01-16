@@ -3,24 +3,57 @@ using System.Collections.Generic;
 using System.IO;
 using System;
 
+public enum ManagerState
+{
+    SelectingMode, BuildingCity, Visualizating
+}
+
 public class Manager : MonoBehaviour
 {
-    [SerializeField] public GameObject city;
+    public GameObject exampleCity;
+    [SerializeField] private ManagerState state;
+
+    // Selecting mode objects
+    [SerializeField] private GameObject title;
+    [SerializeField] private GameObject optionPanels;
     
+    [SerializeField] public GameObject city;
+    [SerializeField] private string cityPath;
+
+    public void cityImported(string cityPath, GameObject city)
+    {
+        Destroy(title);
+        Destroy(optionPanels);
+        this.cityPath = cityPath;
+        this.city = city;
+
+        TreeBuilder treeBuilder = new TreeBuilder(city);
+        treeBuilder.buildNearestTree();
+        wireGOs = treeBuilder.createWires(wirePrefab, sparkPrefab);
+
+        state = ManagerState.BuildingCity;
+        myTorus = Instantiate(torusPrefab, Vector3.zero, Quaternion.identity) as GameObject;
+        startingHourBall = myTorus.transform.GetChild(0).GetComponent<MoveOverTorus>();
+        endingHourBall = myTorus.transform.GetChild(1).GetComponent<MoveOverTorus>();
+    }
+    
+    // Build city objects
+    [SerializeField] private GameObject torusPrefab;
+    [SerializeField] private GameObject myTorus;
+    [SerializeField] private MoveOverTorus startingHourBall;
+    [SerializeField] private MoveOverTorus endingHourBall;
     [SerializeField] private GameObject wirePrefab;
     [SerializeField] private GameObject sparkPrefab;
+
+    // Visualization objects
     [SerializeField] private GameObject infoPanelPrefab;
     [SerializeField] private ApplianceSpriteDictionary spriteOfAppliance;
     [SerializeField] private GeneratorSpriteDictionary spriteOfGenerator;
-
     [SerializeField] private GameObject appliancePrefab;
     [SerializeField] private GameObject generatorPrefab;
-    [SerializeField] public bool repeat;
-    [SerializeField] private List<FadeMaterial> fadeAfterMenu;
-    [SerializeField] private List<FadeMaterial> fadeAfterSimulation;
+    [SerializeField] private GameObject timeUIPrefab;
 
-    [SerializeField] private MoveOverTorus startingHourBall;
-    [SerializeField] private MoveOverTorus endingHourBall;
+    [SerializeField] public bool repeat;
 
     private List<GameObject> wireGOs = new List<GameObject>();
 
@@ -30,31 +63,15 @@ public class Manager : MonoBehaviour
 
     void Start ()
     {
+        state = ManagerState.SelectingMode;
+
         Application.runInBackground = true;
 
         Instance = this;
-
-        // Build tree
-        TreeBuilder treeBuilder = new TreeBuilder(city);
-        treeBuilder.buildNearestTree(Application.dataPath + "/Simulator/edges.txt");
-        //create Wire go's
-        wireGOs = treeBuilder.createWires(wirePrefab, sparkPrefab);
-    }
-
-    public void setCity(GameObject city)
-    {
-        this.city = city;
-        // Build tree
-        TreeBuilder treeBuilder = new TreeBuilder(city);
-        treeBuilder.buildNearestTree(Application.dataPath + "/Simulator/edges.txt");
-        //create Wire go's
-        wireGOs = treeBuilder.createWires(wirePrefab, sparkPrefab);
     }
 
     public void startSimulation()
     {
-        foreach (FadeMaterial toFade in fadeAfterMenu)
-            toFade.toggleFade();
 
         createSimulationInputJson(Application.dataPath + "/Simulator/input.json");
 
@@ -91,7 +108,7 @@ public class Manager : MonoBehaviour
             wireArray.Add(wire.toJson());
 
         JSONObject json = new JSONObject();
-        json.AddField("cityModel", city.GetComponent<loadModelFromFile>().path);
+        json.AddField("cityModel", cityPath);
         json.AddField("outputFolder", Application.dataPath + "/Simulator");
         json.AddField("hour", startingHour);
         json.AddField("minute", startingMinute);
@@ -111,8 +128,11 @@ public class Manager : MonoBehaviour
 
     public void simulationReady()
     {
-        foreach (FadeMaterial toFade in fadeAfterSimulation)
-            toFade.toggleFade();
+
+        Destroy(myTorus);
+        Instantiate(timeUIPrefab);
+
+        state = ManagerState.Visualizating;
 
         string jsonPath = Application.dataPath + "/Simulator/simulation.json";
 
@@ -130,4 +150,38 @@ public class Manager : MonoBehaviour
         foreach (TranslationAnimator translation in FindObjectsOfType<TranslationAnimator>())
             translation.animate();
     }
+
+    public void loadJson(string path)
+    {
+        Instantiate(timeUIPrefab);
+
+        Destroy(title);
+        Destroy(optionPanels);
+        state = ManagerState.Visualizating;
+
+        string sjson = File.ReadAllText(path);
+        JSONObject jsonObject = new JSONObject(sjson);
+
+        string cityPath = "test";// jsonObject.GetField("cityModel").ToString();
+        GameObject city = ObjImporter.Import(cityPath);
+        TreeBuilder treeBuilder = new TreeBuilder(city);
+        treeBuilder.buildNearestTree();
+        wireGOs = treeBuilder.createWires(wirePrefab, sparkPrefab);
+
+        JsonParser parser = new JsonParser(path, city, wireGOs);
+        parser.createPanels(infoPanelPrefab, appliancePrefab, generatorPrefab, spriteOfAppliance, spriteOfGenerator);
+        parser.parseJSON();
+
+        // Enable all animators
+        foreach (FillImageAnimator fillAnimator in FindObjectsOfType<FillImageAnimator>())
+        {
+            fillAnimator.animate();
+        }
+        foreach (ChangeImageAnimator changeAnimator in FindObjectsOfType<ChangeImageAnimator>())
+            changeAnimator.animate();
+        foreach (TranslationAnimator translation in FindObjectsOfType<TranslationAnimator>())
+            translation.animate();
+    }
+
+    public ManagerState getState() { return state; }
 }

@@ -30,22 +30,25 @@ public class ChangeCapacity : MonoBehaviour
     }
     void Update()
     {
-        if (transform.localScale.x <= maxScale - scaleStep && over)
+        if (Manager.Instance.getState() == ManagerState.BuildingCity)
         {
-            if (Input.GetAxis("Mouse ScrollWheel") > 0) // forward
+            if (transform.localScale.x <= maxScale - scaleStep && over)
             {
-                //spark.transform.localScale += Vector3.one * scaleStep;
-                transform.localScale = new Vector3(transform.localScale.x + scaleStep, transform.localScale.y, transform.localScale.z + scaleStep);
-                capacity = 10 + ((transform.localScale.x - minScale) / (maxScale - minScale)) * 15;
+                if (Input.GetAxis("Mouse ScrollWheel") > 0) // forward
+                {
+                    //spark.transform.localScale += Vector3.one * scaleStep;
+                    transform.localScale = new Vector3(transform.localScale.x + scaleStep, transform.localScale.y, transform.localScale.z + scaleStep);
+                    capacity = 10 + ((transform.localScale.x - minScale) / (maxScale - minScale)) * 15;
+                }
             }
-        }
-        if (transform.localScale.x >= minScale + scaleStep && over)
-        {
-            if (Input.GetAxis("Mouse ScrollWheel") < 0) // back
+            if (transform.localScale.x >= minScale + scaleStep && over)
             {
-                //spark.transform.localScale -= Vector3.one * scaleStep;
-                transform.localScale = new Vector3(transform.localScale.x - scaleStep, transform.localScale.y, transform.localScale.z - scaleStep);
-                capacity = 10 + ((transform.localScale.x - minScale) / (maxScale - minScale)) * 15;
+                if (Input.GetAxis("Mouse ScrollWheel") < 0) // back
+                {
+                    //spark.transform.localScale -= Vector3.one * scaleStep;
+                    transform.localScale = new Vector3(transform.localScale.x - scaleStep, transform.localScale.y, transform.localScale.z - scaleStep);
+                    capacity = 10 + ((transform.localScale.x - minScale) / (maxScale - minScale)) * 15;
+                }
             }
         }
     }

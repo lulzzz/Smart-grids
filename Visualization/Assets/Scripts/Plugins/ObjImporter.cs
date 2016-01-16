@@ -26,6 +26,11 @@ public class ObjImporter : MonoBehaviour
         public string fileName;
     }
 
+    public static GameObject Import( string filePath )
+    {
+        return MonoBehaviour.Instantiate( Manager.Instance.exampleCity, Vector3.zero, Quaternion.identity) as GameObject;
+    }
+
     // Use this for initialization
     public static Mesh ImportFile(string filePath)
     {

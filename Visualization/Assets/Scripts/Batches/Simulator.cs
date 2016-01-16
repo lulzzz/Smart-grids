@@ -21,7 +21,7 @@ public class Simulator : ThreadedJob
             input.startingMinute,
             input.timeStep);
             */
-        string command = string.Format("java -jar \"{0}\" -i \"{1}\"", simulator, input);
+        string command = string.Format("java -jar \"{0}\" \"{1}\"", simulator, input);
 
         proc1.FileName = @"C:\Windows\System32\cmd.exe";
         proc1.Verb = "runas";

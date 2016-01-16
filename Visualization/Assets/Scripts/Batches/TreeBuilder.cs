@@ -12,10 +12,9 @@ public class TreeBuilder
         this.city = city;
     }
 
-    public void buildNearestTree(string filePath)
+    public void buildNearestTree()
     {
         wires = nearestTree();
-        saveEdges(wires, filePath);
     }
 
     public Dictionary<int, int> nearestTree()
@@ -46,18 +45,6 @@ public class TreeBuilder
             edges.Add(i, pair);
         }
         return edges;
-    }
-
-    public void saveEdges(Dictionary<int, int> edges, string filePath)
-    {
-        List<string> lines = new List<string>();
-        lines.Add("Edges:");
-        foreach (KeyValuePair<int, int> entry in edges)
-        {
-            lines.Add(string.Format("{0}\t{1}", entry.Key, entry.Value));
-        }
-
-        File.WriteAllLines(filePath, lines.ToArray());
     }
 
     public List<GameObject> createWires(GameObject wirePrefab, GameObject sparkPrefab)

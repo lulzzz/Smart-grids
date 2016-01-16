@@ -8,13 +8,19 @@ public class Main
     public static void main(String[] args)
     {
         // Parse command lines
-        CommandLineArguments arguments = new CommandLineArguments( args );
+        if( args.length != 1 )
+        {
+            System.out.println("Wrong number of arguments");
+            System.out.println("Usage: java -jar simulator.jar input.json");
+            System.exit(1);
+        }
         
         // Run the simulation
         try
         {
+            String inputJson = args[0];
             // Read input file
-            Simulation simulation = FileIO.parseInputJson(arguments.getInputJson());
+            Simulation simulation = FileIO.parseInputJson(inputJson);
             
             simulation.run();
         }

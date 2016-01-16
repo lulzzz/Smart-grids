@@ -43,12 +43,15 @@ public class SelectProfile : MonoBehaviour
 
     void OnMouseOver()
     {
-        for (int i = 0; i < acceptedKeyCodes.Length; i++)
+        if (Manager.Instance.getState() == ManagerState.BuildingCity)
         {
-            if (Input.GetKeyDown(acceptedKeyCodes[i]))
+            for (int i = 0; i < acceptedKeyCodes.Length; i++)
             {
-                assigned = i + 1;
-                changeColor(assigned);
+                if (Input.GetKeyDown(acceptedKeyCodes[i]))
+                {
+                    assigned = i + 1;
+                    changeColor(assigned);
+                }
             }
         }
     }
