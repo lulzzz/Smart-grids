@@ -52,7 +52,8 @@ public class FileIO
         for( int frame = 0; frame <= frames; frame++ )
         {
             // Execute gnuplot file
-            Runtime.getRuntime().exec("gnuplot \"" + outputFolder + "\\frame"+startingMoment.toString()+".txt\"");
+            Runtime.getRuntime().exec("gnuplot \"" + outputFolder + "/frame"+startingMoment.toString()+".txt\"");
+            System.out.println("Plotting: " + outputFolder + "/frame"+startingMoment.toString()+".txt");
             // Delete the gnuplot script file
             new File(outputFolder + "\\frame"+startingMoment.toString()+".txt").delete();
             

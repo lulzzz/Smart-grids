@@ -2,6 +2,7 @@ package Control;
 
 import Model.Core.Moment;
 import Model.Core.City;
+import View.FileIO;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
@@ -14,7 +15,7 @@ import seas3.radpro.*;
 public class Simulation 
 {
     private City city;
-    private Moment from, to;
+    private Moment from, to, startingMoment;
     private int timeStep;
     private int frames;
     private String outputFolder;
@@ -25,6 +26,7 @@ public class Simulation
         
         this.from = new Moment(startingHour,startingMinute);
         this.to = new Moment(startingHour, startingMinute);
+        this.startingMoment = new Moment(startingHour, startingMinute);
         to.advance(timeStep);
         
         this.timeStep = timeStep;
@@ -72,6 +74,9 @@ public class Simulation
         }  
         
         json.add("frames", array);
+        
+        FileIO.saveJson(json, outputFolder + "/simulation.json");
+        FileIO.plotBids(outputFolder, frames, startingMoment, timeStep);
         
         return json;
     }
