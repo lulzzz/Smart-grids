@@ -8,9 +8,12 @@
 using UnityEngine;
 using System.Collections.Generic;
 using System.IO;
+using System;
 
 public class ObjImporter : MonoBehaviour
 {
+    public string path;
+
     private struct meshStruct
     {
         public Vector3[] vertices;
@@ -24,6 +27,11 @@ public class ObjImporter : MonoBehaviour
         public Vector3[] faceData;
         public string name;
         public string fileName;
+    }
+
+    void Start ()
+    {
+        GetComponent<MeshFilter>().mesh = ImportFile(path);
     }
 
     public static GameObject Import( string filePath )
@@ -44,16 +52,20 @@ public class ObjImporter : MonoBehaviour
         /* The following foreach loops through the facedata and assigns the appropriate vertex, uv, or normal
          * for the appropriate Unity mesh array.
          */
-        foreach (Vector3 v in newMesh.faceData)
+        try
         {
-            newVerts[i] = newMesh.vertices[(int)v.x - 1];
-            if (v.y >= 1)
-                newUVs[i] = newMesh.uv[(int)v.y - 1];
+            foreach (Vector3 v in newMesh.faceData)
+            {
+                newVerts[i] = newMesh.vertices[(int)v.x - 1];
+                if (v.y >= 1)
+                    newUVs[i] = newMesh.uv[(int)v.y - 1];
 
-            if (v.z >= 1)
-                newNormals[i] = newMesh.normals[(int)v.z - 1];
-            i++;
+                if (v.z >= 1)
+                    newNormals[i] = newMesh.normals[(int)v.z - 1];
+                i++;
+            }
         }
+        catch (Exception ex) { }
 
         Mesh mesh = new Mesh();
 
@@ -87,6 +99,17 @@ public class ObjImporter : MonoBehaviour
             string[] brokenString;
             while (currentText != null)
             {
+
+                if (currentText.StartsWith("o "))
+                {
+                    print("o found");
+                    mesh.triangles = new int[triangles];
+                    mesh.vertices = new Vector3[vertices];
+                    mesh.uv = new Vector2[vt];
+                    mesh.normals = new Vector3[vn];
+                    mesh.faceData = new Vector3[face];
+                    return mesh;
+                }
                 if (!currentText.StartsWith("f ") && !currentText.StartsWith("v ") && !currentText.StartsWith("vt ")
                     && !currentText.StartsWith("vn "))
                 {
@@ -156,6 +179,11 @@ public class ObjImporter : MonoBehaviour
             int vt2 = 0;
             while (currentText != null)
             {
+                if(currentText.StartsWith("o "))
+                {
+                    print("o found");
+                    return;
+                }
                 if (!currentText.StartsWith("f ") && !currentText.StartsWith("v ") && !currentText.StartsWith("vt ") &&
                     !currentText.StartsWith("vn ") && !currentText.StartsWith("g ") && !currentText.StartsWith("usemtl ") &&
                     !currentText.StartsWith("mtllib ") && !currentText.StartsWith("vt1 ") && !currentText.StartsWith("vt2 ") &&
