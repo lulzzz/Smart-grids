@@ -4,7 +4,11 @@ package View;
 import Control.Simulation;
 import Model.Core.*;
 import com.google.gson.*;
+import com.google.gson.stream.JsonReader;
 import java.io.*;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.HashMap;
 
 public class FileIO 
@@ -56,8 +60,46 @@ public class FileIO
         }
     }
 
-    public static Simulation parseInputJson(String inputJson) 
+    public static Simulation parseInputJson(String inputJson) throws IOException 
     {
-        return null;
+        City city = new City();
+        
+        // Read file and create json object
+        String sjson = new String(Files.readAllBytes(Paths.get(inputJson)), StandardCharsets.UTF_8);
+        JsonObject json = new Gson().fromJson(sjson, JsonElement.class).getAsJsonObject();
+        
+        String cityModel = json.get("cityModel").getAsString();
+        String outputFolder = json.get("outputFolder").getAsString();
+        
+        int hour = json.get("hour").getAsInt();
+        int minute = json.get("minute").getAsInt();
+        int frames = json.get("frames").getAsInt();
+        int timeStep = json.get("timeStep").getAsInt();
+        
+        JsonArray houseArray = json.getAsJsonArray("houses");
+        JsonArray wireArray = json.getAsJsonArray("wires");
+        
+        for( JsonElement elem : houseArray)
+        {
+            JsonObject object = elem.getAsJsonObject();
+            int id = object.get("id").getAsInt();
+            int profile = object.get("profile").getAsInt();
+            House house = new House(id, profile);
+            city.addHouse( house );
+        }
+        
+        for( JsonElement elem : wireArray )
+        {
+            JsonObject object = elem.getAsJsonObject();
+            int origin = object.get("origin").getAsInt();
+            int destination = object.get("destination").getAsInt();
+            float capacity = object.get("capacity").getAsFloat();
+            Wire wire = new Wire(origin, destination, capacity);
+            city.addWire( wire );
+        }
+        
+        Simulation simulation = new Simulation(city, hour, minute, timeStep, frames, outputFolder);
+        
+        return simulation;
     }
 }

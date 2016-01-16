@@ -41,7 +41,7 @@ public class House
     
     
     
-    public House(int id)
+    public House(int id, int profile)
     {
         this.id = id;
         

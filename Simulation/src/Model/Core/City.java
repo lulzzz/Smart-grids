@@ -23,16 +23,23 @@ public class City
     private ArrayList<Wire> wires;
 
     public static int maxId = 0;
-    
-    public City( HashMap<Integer, Integer> edges )
+
+    public City() 
     {
         houses = new ArrayList<>();
         wires = new ArrayList<>();
         distributor = new Distributor(Data.testRate);
         weather = new Weather(Data.cloudMap, Data.cloudMap); 
-        
-        for(Map.Entry<Integer, Integer> entry : edges.entrySet() )
-            addWire(entry.getKey(), entry.getValue());
+    }
+    
+    public void addHouse( House house )
+    {
+        houses.add(house);
+    }
+    
+    public void addWire(Wire wire) 
+    {
+        wires.add( wire );
     }
     
     public void setStartingMoment( Moment moment )
@@ -45,27 +52,7 @@ public class City
             house.setStartingMoment(moment, distributor, weather );
     }
     
-    private void addWire(int sourceId, int destinationId) 
-    {
-        // Add houses if they arent added
-        House source = new House(sourceId);
-        House destination = new House(destinationId);
-        
-        if( !houses.contains(source) )
-        {
-            houses.add(source);
-            if( sourceId > maxId ) maxId = sourceId;
-        }
-        if( !houses.contains(destination) )
-        {
-            houses.add(destination);
-            if( destinationId > maxId ) maxId = destinationId;
-        }
-        
-        // Add wire
-        Wire wire = new Wire( sourceId, destinationId, Data.defaultCapacity );
-        wires.add( wire );
-    }   
+       
 
     public Problem toProblem() 
     {
