@@ -126,9 +126,12 @@ public class JsonParser
 
                 foreach (GameObject w in wireGOs)
                 {
-                    TranslationAnimator spark = w.GetComponentInChildren<TranslationAnimator>();
-                    if (spark.from == city.transform.GetChild(origin).position && spark.to == city.transform.GetChild(destination).position)
+                    TranslationAnimator spark = w.GetComponent<WireIdentity>().spark.GetComponent<TranslationAnimator>();
+                    if (spark.from == city.transform.GetChild(origin).position && 
+                        spark.to == city.transform.GetChild(destination).position)
+                    {
                         spark.addFlow(flow);
+                    }
                 }
             }
         }
@@ -156,11 +159,6 @@ public class JsonParser
         applianceGO.GetComponent<RectTransform>().offsetMin = Vector2.zero;
         applianceGO.GetComponent<RectTransform>().offsetMax = Vector2.zero;
         applianceGO.transform.localPosition = new Vector3(applianceGO.transform.localPosition.x, applianceGO.transform.localPosition.y, 0);
-    }
-
-    public IEnumerator pause()
-    {
-        yield return new WaitForSeconds(20);
     }
     
 }

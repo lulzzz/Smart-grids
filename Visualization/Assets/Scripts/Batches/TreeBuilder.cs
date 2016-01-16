@@ -60,22 +60,28 @@ public class TreeBuilder
         File.WriteAllLines(filePath, lines.ToArray());
     }
 
-    public List<GameObject> createWires(GameObject wirePrefab)
+    public List<GameObject> createWires(GameObject wirePrefab, GameObject sparkPrefab)
     {
         List<GameObject> wireGOs = new List<GameObject>();
         foreach (KeyValuePair<int, int> entry in wires)
         {
-            GameObject wire = MonoBehaviour.Instantiate(wirePrefab, Vector3.zero, Quaternion.identity) as GameObject;
-            LineRenderer lineRenderer = wire.GetComponent<LineRenderer>();
+            GameObject wire = MonoBehaviour.Instantiate(wirePrefab, Vector3.zero, wirePrefab.transform.rotation) as GameObject;
 
             wire.transform.SetParent(city.transform);
-            lineRenderer.SetPosition(0, city.transform.GetChild(entry.Key).position);
-            lineRenderer.SetPosition(1, city.transform.GetChild(entry.Value).position);
 
-            TranslationAnimator spark = wire.GetComponentInChildren<TranslationAnimator>();
-            spark.from = city.transform.GetChild(entry.Key).position;
-            spark.to = city.transform.GetChild(entry.Value).position;
+            WireIdentity wireIdentity = wire.GetComponent<WireIdentity>();
+            wireIdentity.from = city.transform.GetChild(entry.Key).gameObject;
+            wireIdentity.to = city.transform.GetChild(entry.Value).gameObject;
+            
+            GameObject spark = MonoBehaviour.Instantiate(sparkPrefab, Vector3.zero, sparkPrefab.transform.rotation ) as GameObject;
+            TranslationAnimator animator = spark.GetComponent<TranslationAnimator>();
+            animator.from = city.transform.GetChild(entry.Key).position;
+            animator.to = city.transform.GetChild(entry.Value).position;
+            animator.addFlow(1);
+            animator.animate();
 
+            wireIdentity.spark = spark;
+            
             wireGOs.Add(wire);
         }
 

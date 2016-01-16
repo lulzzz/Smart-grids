@@ -11,13 +11,20 @@ public class TranslationAnimator : MonoBehaviour
 
     public void Awake()
     {
-        //flows = new List<float>();
-        animate();//enabled = false;
+        flows = new List<float>();
+        enabled = false;
     }
 
     public void addFlow(float flow)
     {
         flows.Add(flow);
+    }
+
+    public void reset()
+    {
+        flows = new List<float>();
+        CancelInvoke("frameEnded");
+        this.enabled = false;
     }
 
     public void animate()
@@ -38,21 +45,17 @@ public class TranslationAnimator : MonoBehaviour
 
     public void frameEnded()
     {
-        if (Manager.Instance.getRepeat())
+        if (Manager.Instance.repeat)
         {
-            //GetComponent<TrailRenderer>().enabled = false;
             transform.position = flows[current] > 0 ? from : to;
-            //GetComponent<TrailRenderer>().enabled = true;
         }
         else
         {
             int next = (current + 1) % flows.Count;
             current = next;
             next = (next + 1) % flows.Count;
-
-            //GetComponent<TrailRenderer>().enabled = false;
+            
             transform.position = flows[current] > 0 ? from : to;
-            //GetComponent<TrailRenderer>().enabled = true;
         }
     }
 }

@@ -42,7 +42,7 @@ public class ChangeImageAnimator : MonoBehaviour
 
     public void frameEnded()
     {
-        if (!Manager.Instance.getRepeat())
+        if (!Manager.Instance.repeat)
         {
             current = (current + 1) % bidPlots.Count;
         }

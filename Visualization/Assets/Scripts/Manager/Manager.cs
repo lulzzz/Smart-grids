@@ -1,26 +1,30 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 using System.IO;
+using System;
 
 public class Manager : MonoBehaviour
 {
-    [SerializeField] private GameObject city;
+    [SerializeField] public GameObject city;
     
     [SerializeField] private GameObject wirePrefab;
+    [SerializeField] private GameObject sparkPrefab;
     [SerializeField] private GameObject infoPanelPrefab;
     [SerializeField] private ApplianceSpriteDictionary spriteOfAppliance;
     [SerializeField] private GeneratorSpriteDictionary spriteOfGenerator;
 
     [SerializeField] private GameObject appliancePrefab;
     [SerializeField] private GameObject generatorPrefab;
-    [SerializeField] private bool repeat = false;
+    [SerializeField] public bool repeat;
     [SerializeField] private List<FadeMaterial> fadeAfterMenu;
     [SerializeField] private List<FadeMaterial> fadeAfterSimulation;
+
+    [SerializeField] private MoveOverTorus startingHourBall;
+    [SerializeField] private MoveOverTorus endingHourBall;
 
     private List<GameObject> wireGOs = new List<GameObject>();
 
     private Simulator simulation;
-    public Simulator.SimulationInput simulationInput;
 
     public static Manager Instance { get; private set; }
 
@@ -28,20 +32,13 @@ public class Manager : MonoBehaviour
     {
         Application.runInBackground = true;
 
-        simulationInput.folder = Application.dataPath + "/Simulator";
-        simulationInput.startingHour = 6;
-        simulationInput.startingMinute = 0;
-        simulationInput.endingHour = 18;
-        simulationInput.endingMinute = 0;
-        simulationInput.timeStep = 5;
-
         Instance = this;
 
         // Build tree
         TreeBuilder treeBuilder = new TreeBuilder(city);
         treeBuilder.buildNearestTree(Application.dataPath + "/Simulator/edges.txt");
         //create Wire go's
-        wireGOs = treeBuilder.createWires(wirePrefab);
+        wireGOs = treeBuilder.createWires(wirePrefab, sparkPrefab);
     }
 
     public void setCity(GameObject city)
@@ -51,18 +48,38 @@ public class Manager : MonoBehaviour
         TreeBuilder treeBuilder = new TreeBuilder(city);
         treeBuilder.buildNearestTree(Application.dataPath + "/Simulator/edges.txt");
         //create Wire go's
-        wireGOs = treeBuilder.createWires(wirePrefab);
+        wireGOs = treeBuilder.createWires(wirePrefab, sparkPrefab);
     }
 
     public void startSimulation()
     {
-        // Fade menu
-        /*
         foreach (FadeMaterial toFade in fadeAfterMenu)
             toFade.toggleFade();
-        */
-        
 
+        createSimulationInputJson(Application.dataPath + "/Simulator/input.json");
+
+        foreach(TranslationAnimator a in FindObjectsOfType<TranslationAnimator>())
+        {
+            a.reset();
+        }
+        
+        simulation = new Simulator();
+        simulation.simulator = Application.dataPath + "/Simulator/simulator.jar";
+        simulation.input = Application.dataPath+"/Simulator/input.json";
+        simulation.Start();
+        
+    }
+
+    private void createSimulationInputJson(string filePath)
+    {
+        int timeStep = 5;
+        int startingHour = startingHourBall.hour;
+        int startingMinute = startingHourBall.minute;
+        int endingHour = endingHourBall.hour;
+        int endingMinute = endingHourBall.minute;
+
+        int m = (endingHour - startingHour) * 60 + endingMinute - startingMinute;
+        int frames = m / timeStep;
 
         JSONObject houseArray = new JSONObject(JSONObject.Type.ARRAY);
         JSONObject wireArray = new JSONObject(JSONObject.Type.ARRAY);
@@ -76,76 +93,28 @@ public class Manager : MonoBehaviour
         JSONObject json = new JSONObject();
         json.AddField("cityModel", "path");
         json.AddField("outputFolder", "path");
-        json.AddField("hour", simulationInput.startingHour);
-        json.AddField("minute", simulationInput.startingMinute);
-        json.AddField("frames", 12);
+        json.AddField("hour", startingHour);
+        json.AddField("minute", startingMinute);
+        json.AddField("frames", frames);
         json.AddField("timeStep", 5);
         json.AddField("houses", houseArray);
         json.AddField("wires", wireArray);
-        print("json" + json.ToString());
-        File.WriteAllText(Application.dataPath + "/Simulator/input.json", json.ToString());
-        /*
-        simulation = new Simulator();
-        simulation.input = simulationInput;
-        simulation.Start();
-        */
-        
-        
+        File.WriteAllText(filePath, json.ToString());
     }
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            #if UNITY_EDITOR
-                        UnityEditor.EditorApplication.isPlaying = false;
-            #else
-                     Application.Quit();
-            #endif
-        }
-
-        if(Input.GetKeyDown(KeyCode.H))
-        {
-            foreach (Transform t in city.transform)
-            {
-                FadeMaterial fader = t.GetComponent<FadeMaterial>();
-                if (fader.house)
-                    fader.toggleFade();
-            }
-        }
-        if (Input.GetKeyDown(KeyCode.G))
-        {
-            foreach (Transform t in city.transform)
-            {
-                FadeMaterial fader = t.GetComponent<FadeMaterial>();
-                if (!fader.house)
-                    fader.toggleFade();
-            }
-        }
-
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            foreach (Transform t in city.transform)
-            {
-                SelectProfile profile = t.GetComponent<SelectProfile>();
-                if (profile != null)
-                    profile.toggleAlwaysShown();
-            }
-            Color c = new Color(RenderSettings.ambientLight.r, RenderSettings.ambientLight.g, RenderSettings.ambientLight.b + .1f);
-            RenderSettings.ambientLight = c;
-        }
-
         if ( simulation != null && simulation.Update() )
         
             simulation = null;
-        
-        
     }
 
-    public void simulationReady( string jsonPath )
+    public void simulationReady()
     {
         foreach (FadeMaterial toFade in fadeAfterSimulation)
             toFade.toggleFade();
+
+        string jsonPath = Application.dataPath + "/Simulator/simulation.json";
 
         JsonParser parser = new JsonParser(jsonPath, city, wireGOs);
         parser.createPanels(infoPanelPrefab,appliancePrefab, generatorPrefab, spriteOfAppliance, spriteOfGenerator);
@@ -160,10 +129,5 @@ public class Manager : MonoBehaviour
             changeAnimator.animate();
         foreach (TranslationAnimator translation in FindObjectsOfType<TranslationAnimator>())
             translation.animate();
-    }
-
-    public bool getRepeat()
-    {
-        return repeat;
     }
 }

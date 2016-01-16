@@ -8,6 +8,9 @@ public class Reposition : MonoBehaviour {
     
 	void Start ()
     {
+        from = GetComponent<WireIdentity>().from;
+        to = GetComponent<WireIdentity>().to;
+
         from.GetComponent<Supply>().wires.Add(gameObject);
         to.GetComponent<Supply>().wires.Add(gameObject);
         Vector3 vector = to.transform.position - from.transform.position;

@@ -1,6 +1,7 @@
 
 package View;
 
+import Control.Simulation;
 import Model.Core.*;
 import com.google.gson.*;
 import java.io.*;
@@ -53,5 +54,10 @@ public class FileIO
             
             startingMoment.advance(timeStep);
         }
+    }
+
+    public static Simulation parseInputJson(String inputJson) 
+    {
+        return null;
     }
 }

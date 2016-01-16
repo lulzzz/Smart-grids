@@ -5,7 +5,7 @@ public class WireIdentity : MonoBehaviour
     public GameObject from, to;
     
     private ChangeCapacity capacityChanger;
-    
+    public GameObject spark;
     
     void Start()
     {

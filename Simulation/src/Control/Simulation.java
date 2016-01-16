@@ -16,8 +16,10 @@ public class Simulation
     private City city;
     private Moment from, to;
     private int timeStep;
+    private int frames;
+    private String outputFolder;
 
-    public Simulation( City city, int startingHour, int startingMinute, int timeStep )
+    public Simulation( City city, int startingHour, int startingMinute, int timeStep, int frames, String outputfolder )
     {
         this.city = city;
         
@@ -26,9 +28,12 @@ public class Simulation
         to.advance(timeStep);
         
         this.timeStep = timeStep;
+        
+        this.frames = frames;
+        this.outputFolder = outputfolder;
     }   
 
-    public JsonObject run( int steps, String outputFolder ) throws IOException
+    public JsonObject run() throws IOException
     {
         // The output json
         JsonObject json = new JsonObject();
@@ -40,7 +45,7 @@ public class Simulation
         city.savePlots( outputFolder );
         array.add( new JsonParser().parse( gson.toJson(city) ).getAsJsonObject());
         
-        for( int step = 0; step < steps; step++ )
+        for( int step = 0; step < frames; step++ )
         {
             // Print the moment
             System.out.println(String.format("Simulating from: %s to %s", from.toString(), to.toString()));

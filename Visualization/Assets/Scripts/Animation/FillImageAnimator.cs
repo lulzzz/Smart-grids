@@ -36,7 +36,7 @@ public class FillImageAnimator : MonoBehaviour
 
     public void frameEnded()
     {
-        if( Manager.Instance.getRepeat() )
+        if( Manager.Instance.repeat )
         {
             image.fillAmount = data[current];
         }

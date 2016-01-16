@@ -13,9 +13,10 @@ public class ChangeCapacity : MonoBehaviour
 
     public float capacity;
 
-    void Awake ()
+    void Start ()
     {
-        capacity = 10 + ((spark.transform.localScale.x - minScale) / (maxScale - minScale)) * 15;
+        capacity = 10 + ((transform.localScale.x - minScale) / (maxScale - minScale)) * 15;
+        spark = GetComponent<WireIdentity>().spark;
     }
     
     void OnMouseEnter()
@@ -33,18 +34,18 @@ public class ChangeCapacity : MonoBehaviour
         {
             if (Input.GetAxis("Mouse ScrollWheel") > 0) // forward
             {
-                spark.transform.localScale += Vector3.one * scaleStep;
+                //spark.transform.localScale += Vector3.one * scaleStep;
                 transform.localScale = new Vector3(transform.localScale.x + scaleStep, transform.localScale.y, transform.localScale.z + scaleStep);
-                capacity = 10 + ((spark.transform.localScale.x - minScale) / (maxScale - minScale)) * 15;
+                capacity = 10 + ((transform.localScale.x - minScale) / (maxScale - minScale)) * 15;
             }
         }
         if (transform.localScale.x >= minScale + scaleStep && over)
         {
             if (Input.GetAxis("Mouse ScrollWheel") < 0) // back
             {
-                spark.transform.localScale -= Vector3.one * scaleStep;
+                //spark.transform.localScale -= Vector3.one * scaleStep;
                 transform.localScale = new Vector3(transform.localScale.x - scaleStep, transform.localScale.y, transform.localScale.z - scaleStep);
-                capacity = 10 + ((spark.transform.localScale.x - minScale) / (maxScale - minScale)) * 15;
+                capacity = 10 + ((transform.localScale.x - minScale) / (maxScale - minScale)) * 15;
             }
         }
     }
