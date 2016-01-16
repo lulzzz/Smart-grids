@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (MiKTeX 2.9) (preloaded format=pdflatex 2016.1.5)  15 JAN 2016 01:39
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (MiKTeX 2.9) (preloaded format=pdflatex 2016.1.5)  16 JAN 2016 02:33
 entering extended mode
 **./memoria.tex
 (memoria.tex
@@ -307,20 +307,20 @@ LaTeX Info: Redefining \% on input line 6.
 )
 \openout1 = `memoria.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 47.
-LaTeX Font Info:    ... okay on input line 47.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 47.
-LaTeX Font Info:    ... okay on input line 47.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 47.
-LaTeX Font Info:    ... okay on input line 47.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 47.
-LaTeX Font Info:    ... okay on input line 47.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 47.
-LaTeX Font Info:    ... okay on input line 47.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 47.
-LaTeX Font Info:    ... okay on input line 47.
-LaTeX Info: Redefining \. on input line 47.
-LaTeX Info: Redefining \% on input line 47.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 55.
+LaTeX Font Info:    ... okay on input line 55.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 55.
+LaTeX Font Info:    ... okay on input line 55.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 55.
+LaTeX Font Info:    ... okay on input line 55.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 55.
+LaTeX Font Info:    ... okay on input line 55.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 55.
+LaTeX Font Info:    ... okay on input line 55.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 55.
+LaTeX Font Info:    ... okay on input line 55.
+LaTeX Info: Redefining \. on input line 55.
+LaTeX Info: Redefining \% on input line 55.
 
 ("C:\Users\Martin\AppData\Local\Programs\MiKTeX 2.9\tex\context\base\supp-pdf.m
 kii"
@@ -375,32 +375,32 @@ kii"
 <ub.png, id=1, 633.86812pt x 303.38344pt>
 File: ub.png Graphic file (type png)
  <use ub.png>
-Package pdftex.def Info: ub.png used on input line 57.
+Package pdftex.def Info: ub.png used on input line 65.
 (pdftex.def)             Requested size: 170.71652pt x 81.7063pt.
 
-Overfull \hbox (31.18375pt too wide) in paragraph at lines 67--67
+Overfull \hbox (31.18375pt too wide) in paragraph at lines 75--75
  [][] 
  []
 
 
-Overfull \hbox (31.18375pt too wide) in paragraph at lines 71--71
+Overfull \hbox (31.18375pt too wide) in paragraph at lines 79--79
  [][] 
  []
 
-LaTeX Font Info:    Try loading font information for U+msa on input line 81.
+LaTeX Font Info:    Try loading font information for U+msa on input line 89.
 ("C:\Users\Martin\AppData\Local\Programs\MiKTeX 2.9\tex\latex\amsfonts\umsa.fd"
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 81.
+LaTeX Font Info:    Try loading font information for U+msb on input line 89.
  ("C:\Users\Martin\AppData\Local\Programs\MiKTeX 2.9\tex\latex\amsfonts\umsb.fd
 "
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-LaTeX Font Info:    Try loading font information for U+lasy on input line 81.
+LaTeX Font Info:    Try loading font information for U+lasy on input line 89.
  ("C:\Users\Martin\AppData\Local\Programs\MiKTeX 2.9\tex\latex\base\ulasy.fd"
 File: ulasy.fd 1998/08/17 v2.2e LaTeX symbol font definitions
 )
-LaTeX Font Info:    Try loading font information for U+rsfs on input line 81.
+LaTeX Font Info:    Try loading font information for U+rsfs on input line 89.
 
 ("C:\Users\Martin\AppData\Local\Programs\MiKTeX 2.9\tex\latex\jknappen\ursfs.fd
 "
@@ -415,16 +415,26 @@ LaTeX Info: Redefining \% on input line 1.
 \tf@toc=\write3
 \openout3 = `memoria.toc'.
 
- [4] [1] [2] [3] [4] [5] [6] [7] [8] [9]
-[10] [11] [12] [13] [14] (memoria.aux
+ [4] [1] [2] [3] [4] [5] [6]
+<visualization.png, id=40, 1789.68625pt x 792.9625pt>
+File: visualization.png Graphic file (type png)
+ <use visualization.png>
+Package pdftex.def Info: visualization.png used on input line 244.
+(pdftex.def)             Requested size: 512.1496pt x 226.91623pt.
+
+Overfull \hbox (88.08926pt too wide) in paragraph at lines 244--244
+ [] 
+ []
+
+[7 <./visualization.png>] [8] [9] [10] [11] [12] [13] [14] (memoria.aux
 LaTeX Info: Redefining \. on input line 6.
 LaTeX Info: Redefining \% on input line 6.
 ) ) 
 Here is how much of TeX's memory you used:
- 5098 strings out of 493634
- 68708 string characters out of 3134832
- 143689 words of memory out of 3000000
- 8401 multiletter control sequences out of 15000+200000
+ 5104 strings out of 493634
+ 68824 string characters out of 3134832
+ 143755 words of memory out of 3000000
+ 8406 multiletter control sequences out of 15000+200000
  12345 words of font info for 49 fonts, out of 3000000 for 9000
  1025 hyphenation exceptions out of 8191
  34i,7n,43p,1822b,416s stack positions out of 5000i,500n,10000p,200000b,50000s
@@ -434,9 +444,9 @@ ts/cm/cmbx12.pfb><C:/Users/Martin/AppData/Local/Programs/MiKTeX 2.9/fonts/type1
 2.9/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Users/Martin/AppData/Local/Pro
 grams/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti12.pfb><C:/Users/Martin/App
 Data/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
-Output written on memoria.pdf (19 pages, 121752 bytes).
+Output written on memoria.pdf (19 pages, 190949 bytes).
 PDF statistics:
- 85 PDF objects out of 1000 (max. 8388607)
+ 88 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
- 6 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 11 words of extra memory for PDF output out of 10000 (max. 10000000)
 

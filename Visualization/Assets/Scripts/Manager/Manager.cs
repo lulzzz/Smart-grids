@@ -91,8 +91,8 @@ public class Manager : MonoBehaviour
             wireArray.Add(wire.toJson());
 
         JSONObject json = new JSONObject();
-        json.AddField("cityModel", "path");
-        json.AddField("outputFolder", "path");
+        json.AddField("cityModel", city.GetComponent<loadModelFromFile>().path);
+        json.AddField("outputFolder", Application.dataPath + "/Simulator");
         json.AddField("hour", startingHour);
         json.AddField("minute", startingMinute);
         json.AddField("frames", frames);

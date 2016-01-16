@@ -4,12 +4,16 @@ public class loadModelFromFile : MonoBehaviour
 {
     [SerializeField]
     private GameObject platform;
+    public string path = "no city selected";
     
     public void OnMouseDown()
     {
-        string path = DialogManager.showDialog();
-        loadMesh(path);
-        Manager.Instance.setCity( gameObject );
+        path = DialogManager.showDialog();
+        //loadMesh(path);
+        
+        path = path.Replace("\\", "/");
+        
+        //Manager.Instance.setCity( gameObject );
     }
     
     public void loadMesh( string path )
