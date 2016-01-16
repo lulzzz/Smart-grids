@@ -14,6 +14,8 @@ public class House
 {
     @Expose
     private int id;
+    @Expose
+    private int profile;
     
     private double consumPerMinute;
     
@@ -44,16 +46,43 @@ public class House
     public House(int id, int profile)
     {
         this.id = id;
+        this.profile = profile;
         
         appliances = new ArrayList<>();
         generators = new ArrayList<>();
         
-        generators.add(new SolarGenerator(generators.size(),IGenerator.GeneratorType.Solar));
-        appliances.add(new Appliance(appliances.size(),IAppliance.ApplianceType.TV, Data.consumTV));
+        addComponents();
+    }
+    
+    private void addComponents()
+    {
+        switch(profile)
+        {
+            case 1:
+                generators.add(new SolarGenerator(generators.size(),IGenerator.GeneratorType.Solar));
+                generators.add(new WindGenerator(generators.size(), IGenerator.GeneratorType.Wind));
+                
+                appliances.add(new Appliance(appliances.size(), IAppliance.ApplianceType.Cooking, Data.consumTV));
+                break;
+                
+            case 2:
+                generators.add(new SolarGenerator(generators.size(),IGenerator.GeneratorType.Solar));
+                
+                appliances.add(new Appliance(appliances.size(), IAppliance.ApplianceType.Cooking, Data.consumTV));
+                appliances.add(new Appliance(appliances.size(),IAppliance.ApplianceType.WashingMachine, Data.consumTV));
+                break;
+                
+            case 3:
+                appliances.add(new Appliance(appliances.size(), IAppliance.ApplianceType.Cooking, Data.consumTV));
+                appliances.add(new Appliance(appliances.size(),IAppliance.ApplianceType.TV, Data.consumTV));
+                appliances.add(new Appliance(appliances.size(), IAppliance.ApplianceType.WashingMachine, Data.consumTV));
+                break;
+                
+        }
         
         battery = new Battery(3,10);
         
-        consumPerMinute = .2;
+        consumPerMinute = .2 * profile;
         mandatory = -battery.getLevel();
         totalTraded = 0;
     }
