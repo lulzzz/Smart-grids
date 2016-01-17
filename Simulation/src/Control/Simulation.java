@@ -48,7 +48,7 @@ public class Simulation
         
         // Save starting state
         city.setStartingMoment(from);
-        city.savePlots( outputFolder );
+        city.savePlots( outputFolder + "/plot images" );
         array.add( new JsonParser().parse( gson.toJson(city) ).getAsJsonObject());
         
         for( int step = 0; step < frames; step++ )
@@ -62,7 +62,7 @@ public class Simulation
             city.processAssignment( assignment );
             // Develop the city in this timeframe mal nombre 3 en 1
             city.develop( from, to );
-            city.savePlots(outputFolder);
+            city.savePlots(outputFolder+"/plot images");
             
             
             
@@ -80,7 +80,7 @@ public class Simulation
         json.add("frames", array);
         
         FileIO.saveJson(json, outputFolder + "/simulation.json");
-        FileIO.plotBids(outputFolder, frames, startingMoment, timeStep);
+        FileIO.plotBids(outputFolder+"/plot images", frames, startingMoment, timeStep);
         
         return json;
     }

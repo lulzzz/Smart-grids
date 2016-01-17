@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (MiKTeX 2.9) (preloaded format=pdflatex 2016.1.5)  16 JAN 2016 02:33
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (MiKTeX 2.9) (preloaded format=pdflatex 2016.1.5)  17 JAN 2016 05:17
 entering extended mode
 **./memoria.tex
 (memoria.tex
@@ -415,26 +415,27 @@ LaTeX Info: Redefining \% on input line 1.
 \tf@toc=\write3
 \openout3 = `memoria.toc'.
 
- [4] [1] [2] [3] [4] [5] [6]
-<visualization.png, id=40, 1789.68625pt x 792.9625pt>
+ [4] [1] [2] [3] [4] [5] [6] [7] [8] [9]
+[10] [11] [12] <visualization.png, id=60, 1789.68625pt x 792.9625pt>
 File: visualization.png Graphic file (type png)
- <use visualization.png>
-Package pdftex.def Info: visualization.png used on input line 244.
+
+<use visualization.png>
+Package pdftex.def Info: visualization.png used on input line 365.
 (pdftex.def)             Requested size: 512.1496pt x 226.91623pt.
 
-Overfull \hbox (88.08926pt too wide) in paragraph at lines 244--244
+Overfull \hbox (88.08926pt too wide) in paragraph at lines 365--365
  [] 
  []
 
-[7 <./visualization.png>] [8] [9] [10] [11] [12] [13] [14] (memoria.aux
+[13 <./visualization.png>] [14] [15] [16] [17] [18] [19] [20] (memoria.aux
 LaTeX Info: Redefining \. on input line 6.
 LaTeX Info: Redefining \% on input line 6.
 ) ) 
 Here is how much of TeX's memory you used:
- 5104 strings out of 493634
- 68824 string characters out of 3134832
- 143755 words of memory out of 3000000
- 8406 multiletter control sequences out of 15000+200000
+ 5120 strings out of 493634
+ 69045 string characters out of 3134832
+ 144755 words of memory out of 3000000
+ 8422 multiletter control sequences out of 15000+200000
  12345 words of font info for 49 fonts, out of 3000000 for 9000
  1025 hyphenation exceptions out of 8191
  34i,7n,43p,1822b,416s stack positions out of 5000i,500n,10000p,200000b,50000s
@@ -442,11 +443,13 @@ Here is how much of TeX's memory you used:
 ts/cm/cmbx12.pfb><C:/Users/Martin/AppData/Local/Programs/MiKTeX 2.9/fonts/type1
 /public/amsfonts/cm/cmcsc10.pfb><C:/Users/Martin/AppData/Local/Programs/MiKTeX 
 2.9/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Users/Martin/AppData/Local/Pro
-grams/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti12.pfb><C:/Users/Martin/App
-Data/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
-Output written on memoria.pdf (19 pages, 190949 bytes).
+grams/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr6.pfb><C:/Users/Martin/AppDa
+ta/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti12.pfb><C:/User
+s/Martin/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmtt1
+2.pfb>
+Output written on memoria.pdf (25 pages, 218004 bytes).
 PDF statistics:
- 88 PDF objects out of 1000 (max. 8388607)
+ 111 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  11 words of extra memory for PDF output out of 10000 (max. 10000000)
 

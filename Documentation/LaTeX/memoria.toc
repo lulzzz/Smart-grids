@@ -12,41 +12,47 @@
 \contentsline {subsection}{\numberline {2.3}Partes del problema: Creaci\'on de grafo, CEAP, Simulaci\'on, Visualizaci\'on, Reports}{2}
 \contentsline {section}{\numberline {3}Metodolog\IeC {\'\i }a y herramientas}{2}
 \contentsline {subsection}{\numberline {3.1}En este cap\IeC {\'\i }tulo}{2}
-\contentsline {subsection}{\numberline {3.2}A continuaci\'on}{2}
-\contentsline {section}{\numberline {4}Creaci\'on de la ciudad}{3}
-\contentsline {subsection}{\numberline {4.1} En este cap\IeC {\'\i }tulo }{3}
-\contentsline {subsection}{\numberline {4.2}Definiendo la ciudad}{3}
-\contentsline {subsection}{\numberline {4.3}Leyendo el fichero}{3}
-\contentsline {subsection}{\numberline {4.4}Creando la red}{4}
-\contentsline {subsection}{\numberline {4.5}Informaci\'on completa: Steiner Trees}{4}
-\contentsline {subsection}{\numberline {4.6}Informaci\'on incompleta: Nearest neighbour problem}{4}
-\contentsline {subsection}{\numberline {4.7} Ampliar a Open Street Map, CityEngine.}{5}
-\contentsline {subsection}{\numberline {4.8} A continuaci\'on }{5}
-\contentsline {section}{\numberline {5}Simulaci\'on}{6}
-\contentsline {subsection}{\numberline {5.1}En este cap\IeC {\'\i }tulo}{6}
-\contentsline {subsection}{\numberline {5.2}Filosof\IeC {\'\i }a de java. POO, encapsulaci\'on, interfaces.}{6}
-\contentsline {subsection}{\numberline {5.3}Input/Output. }{6}
-\contentsline {subsection}{\numberline {5.4}Diagramas. }{6}
-\contentsline {subsection}{\numberline {5.5}Modelado de una casa}{6}
-\contentsline {subsection}{\numberline {5.6}Battery, }{6}
-\contentsline {subsection}{\numberline {5.7}Generator,}{6}
-\contentsline {subsection}{\numberline {5.8}Appliance, }{6}
-\contentsline {subsection}{\numberline {5.9}Bid.}{6}
-\contentsline {subsection}{\numberline {5.10}A continuaci\'on}{6}
-\contentsline {section}{\numberline {6}Visualizaci\'on}{7}
-\contentsline {subsection}{\numberline {6.1}En este cap\IeC {\'\i }tulo}{7}
-\contentsline {subsection}{\numberline {6.2}Filosof\IeC {\'\i }a de dise\~no de Unity}{7}
-\contentsline {subsection}{\numberline {6.3}Dise\~nando los paneles}{8}
-\contentsline {subsection}{\numberline {6.4}Control de la c\'amara}{9}
-\contentsline {subsection}{\numberline {6.5}Eligiendo la ciudad}{9}
-\contentsline {subsection}{\numberline {6.6}Seleccionando el perfil de las casas}{9}
-\contentsline {subsection}{\numberline {6.7}Seleccionando la franja horaria}{10}
-\contentsline {subsection}{\numberline {6.8}Ejecutando la animaci\'on}{10}
-\contentsline {subsection}{\numberline {6.9}Mostrando la informaci\'on relevante}{11}
-\contentsline {subsection}{\numberline {6.10}Programando las animaciones}{11}
-\contentsline {subsection}{\numberline {6.11}Controlando el flow}{12}
-\contentsline {subsection}{\numberline {6.12}Parseando el JSON}{12}
-\contentsline {subsection}{\numberline {6.13}A continuaci\'on}{12}
-\contentsline {section}{\numberline {7}Conclusiones y futuro trabajo}{13}
-\contentsline {subsection}{\numberline {7.1}Conclusiones}{13}
-\contentsline {subsection}{\numberline {7.2}Futuro trabajo}{13}
+\contentsline {subsection}{\numberline {3.2} Git}{2}
+\contentsline {subsection}{\numberline {3.3}LaTeX}{3}
+\contentsline {subsection}{\numberline {3.4}Blender}{4}
+\contentsline {subsection}{\numberline {3.5}Unity}{5}
+\contentsline {subsection}{\numberline {3.6}Java}{5}
+\contentsline {subsection}{\numberline {3.7}JSON}{6}
+\contentsline {subsection}{\numberline {3.8}GnuPlot}{7}
+\contentsline {subsection}{\numberline {3.9}A continuaci\'on}{8}
+\contentsline {section}{\numberline {4}Creaci\'on de la ciudad}{9}
+\contentsline {subsection}{\numberline {4.1} En este cap\IeC {\'\i }tulo }{9}
+\contentsline {subsection}{\numberline {4.2}Definiendo la ciudad}{9}
+\contentsline {subsection}{\numberline {4.3}Leyendo el fichero}{9}
+\contentsline {subsection}{\numberline {4.4}Creando la red}{10}
+\contentsline {subsection}{\numberline {4.5}Informaci\'on completa: Steiner Trees}{10}
+\contentsline {subsection}{\numberline {4.6}Informaci\'on incompleta: Nearest neighbour problem}{10}
+\contentsline {subsection}{\numberline {4.7} Ampliar a Open Street Map, CityEngine.}{11}
+\contentsline {subsection}{\numberline {4.8} A continuaci\'on }{11}
+\contentsline {section}{\numberline {5}Simulaci\'on}{12}
+\contentsline {subsection}{\numberline {5.1}En este cap\IeC {\'\i }tulo}{12}
+\contentsline {subsection}{\numberline {5.2}Filosof\IeC {\'\i }a de dise\~no de java. POO, encapsulaci\'on, interfaces.}{12}
+\contentsline {subsection}{\numberline {5.3}Input/Output. }{12}
+\contentsline {subsection}{\numberline {5.4}Diagramas. }{12}
+\contentsline {subsection}{\numberline {5.5}Modelado de una casa}{12}
+\contentsline {subsection}{\numberline {5.6}Battery, }{12}
+\contentsline {subsection}{\numberline {5.7}Generator,}{12}
+\contentsline {subsection}{\numberline {5.8}Appliance, }{12}
+\contentsline {subsection}{\numberline {5.9}Bid.}{12}
+\contentsline {subsection}{\numberline {5.10}A continuaci\'on}{12}
+\contentsline {section}{\numberline {6}Visualizaci\'on}{13}
+\contentsline {subsection}{\numberline {6.1}En este cap\IeC {\'\i }tulo}{13}
+\contentsline {subsection}{\numberline {6.2}Filosof\IeC {\'\i }a de dise\~no de Unity}{13}
+\contentsline {subsection}{\numberline {6.3}Dise\~nando los paneles}{14}
+\contentsline {subsection}{\numberline {6.4}Control de la c\'amara}{15}
+\contentsline {subsection}{\numberline {6.5}Eligiendo la ciudad}{15}
+\contentsline {subsection}{\numberline {6.6}Seleccionando el perfil de las casas}{15}
+\contentsline {subsection}{\numberline {6.7}Seleccionando la franja horaria}{16}
+\contentsline {subsection}{\numberline {6.8}Ejecutando la animaci\'on}{16}
+\contentsline {subsection}{\numberline {6.9}Mostrando la informaci\'on relevante}{17}
+\contentsline {subsection}{\numberline {6.10}Programando las animaciones}{17}
+\contentsline {subsection}{\numberline {6.11}Controlando el flow}{18}
+\contentsline {subsection}{\numberline {6.12}Parseando el JSON}{18}
+\contentsline {subsection}{\numberline {6.13}A continuaci\'on}{18}
+\contentsline {section}{\numberline {7}Futuro trabajo}{19}
+\contentsline {subsection}{\numberline {7.1}Futuro trabajo}{19}

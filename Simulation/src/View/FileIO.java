@@ -55,7 +55,7 @@ public class FileIO
             Runtime.getRuntime().exec("gnuplot \"" + outputFolder + "/frame"+startingMoment.toString()+".txt\"");
             System.out.println("Plotting: " + outputFolder + "/frame"+startingMoment.toString()+".txt");
             // Delete the gnuplot script file
-            new File(outputFolder + "\\frame"+startingMoment.toString()+".txt").delete();
+            //new File(outputFolder + "\\frame"+startingMoment.toString()+".txt").delete();
             
             startingMoment.advance(timeStep);
         }

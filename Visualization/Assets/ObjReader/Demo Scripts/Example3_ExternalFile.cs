@@ -14,9 +14,7 @@ public class Example3_ExternalFile : MonoBehaviour {
 		yield return null;
 		
 		objFileName = Application.dataPath + "/ObjReader/Sample Files/" + objFileName;
-        GameObject city = new GameObject("city");
-        Instantiate(city);
-        GameObject[] houses = ObjReader.use.ConvertFile (objFileName, false, standardMaterial, transparentMaterial);
+        ObjReader.use.ConvertFile (objFileName, false, standardMaterial, transparentMaterial);
         
 
 		loadingText.enabled = false;

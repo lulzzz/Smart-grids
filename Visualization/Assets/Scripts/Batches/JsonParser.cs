@@ -126,11 +126,12 @@ public class JsonParser
 
                 foreach (GameObject w in wireGOs)
                 {
-                    TranslationAnimator spark = w.GetComponent<WireIdentity>().spark.GetComponent<TranslationAnimator>();
-                    if (spark.from == city.transform.GetChild(origin).position && 
-                        spark.to == city.transform.GetChild(destination).position)
+                    WireIdentity identity = w.GetComponent<WireIdentity>();
+
+                    if (identity.from.transform.position == city.transform.GetChild(origin).position && 
+                        identity.to.transform.position == city.transform.GetChild(destination).position)
                     {
-                        spark.addFlow(flow);
+                        identity.spark.GetComponent<TranslationAnimator>().addFlow(flow);
                     }
                 }
             }

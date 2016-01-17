@@ -3,5 +3,5 @@ using System.Collections;
 
 public enum ApplianceType
 {
-    TV,Cooking,Washing
+    TV,Cooking,WashingMachine
 }

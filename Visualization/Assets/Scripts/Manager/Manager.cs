@@ -43,6 +43,7 @@ public class Manager : MonoBehaviour
     [SerializeField] private GameObject sparkPrefab;
 
     // Visualization objects
+    [SerializeField] private GameObject loadingPrefab;
     [SerializeField] private GameObject infoPanelPrefab;
     [SerializeField] private ApplianceSpriteDictionary spriteOfAppliance;
     [SerializeField] private GeneratorSpriteDictionary spriteOfGenerator;
@@ -55,6 +56,7 @@ public class Manager : MonoBehaviour
     private List<GameObject> wireGOs = new List<GameObject>();
 
     private Simulator simulation;
+    private GameObject loader;
 
     public static Manager Instance { get; private set; }
 
@@ -75,12 +77,14 @@ public class Manager : MonoBehaviour
             child.GetComponent<FadeMaterial>().toggleFade();
         }
 
+
+        //Loading...
+        loader = Instantiate(loadingPrefab, Vector3.zero, Quaternion.identity) as GameObject;
+        state = ManagerState.Visualizating;
+
         createSimulationInputJson(Application.dataPath + "/Simulator/input.json");
 
-        foreach(TranslationAnimator a in FindObjectsOfType<TranslationAnimator>())
-        {
-            a.reset();
-        }
+        
         
         simulation = new Simulator();
         simulation.simulator = Application.dataPath + "/Simulator/simulator.jar";
@@ -138,16 +142,21 @@ public class Manager : MonoBehaviour
             jsonPath = Application.dataPath + "/Simulator/simulation.json";
             Destroy(myTorus, 2);
         }
-        Instantiate(timeUIPrefab);
-
-        state = ManagerState.Visualizating;
+        //Instantiate(timeUIPrefab);
 
         JsonParser parser = new JsonParser(jsonPath, city, wireGOs);
         parser.createPanels(infoPanelPrefab,appliancePrefab, generatorPrefab, spriteOfAppliance, spriteOfGenerator);
-        parser.parseJSON();
-
         // Enable all animators
-        foreach(FillImageAnimator fillAnimator in FindObjectsOfType<FillImageAnimator>())
+        foreach (TranslationAnimator a in FindObjectsOfType<TranslationAnimator>())
+        {
+            a.reset();
+        }
+        parser.parseJSON();
+        Destroy(loader);
+
+        
+
+        foreach (FillImageAnimator fillAnimator in FindObjectsOfType<FillImageAnimator>())
         {
             fillAnimator.animate();
         }
@@ -172,7 +181,7 @@ public class Manager : MonoBehaviour
         string sjson = File.ReadAllText(path);
         JSONObject jsonObject = new JSONObject(sjson);
 
-        string cityPath = Application.dataPath+ "/ObjReader/Sample Files/city_obj.txt";// jsonObject.GetField("cityModel").ToString();
+        string cityPath = jsonObject.GetField("cityModel").ToString();
         loadCity(cityPath);
         simulationReady(path);
     }
@@ -192,18 +201,30 @@ public class Manager : MonoBehaviour
             house.transform.SetParent(city.transform);
         }
         // Compute Scale
-        float minX, maxX;
+        float minX, maxX, minZ, maxZ, minY, maxY;
         minX = 0;
         maxX = 0;
+        minY = 0;
+        maxY = 0;
+        minZ = 0;
+        maxZ = 0;
 
         foreach(GameObject house in houses)
         {
             Mesh mesh = house.GetComponent<MeshFilter>().mesh;
-            float min = (mesh.bounds.center - mesh.bounds.extents).x;
-            float max = (mesh.bounds.center + mesh.bounds.extents).x;
+            float mx = (mesh.bounds.center - mesh.bounds.extents).x;
+            float Mx = (mesh.bounds.center + mesh.bounds.extents).x;
+            float my = (mesh.bounds.center - mesh.bounds.extents).y;
+            float My = (mesh.bounds.center + mesh.bounds.extents).y;
+            float mz = (mesh.bounds.center - mesh.bounds.extents).z;
+            float Mz = (mesh.bounds.center + mesh.bounds.extents).z;
 
-            if (min < minX) minX = min;
-            if (max > maxX) maxX = max;
+            if (mx < minX) minX = mx;
+            if (Mx > maxX) maxX = Mx;
+            if (my < minY) minY = my;
+            if (My > maxY) maxY = My;
+            if (mz < minZ) minZ = mz;
+            if (Mz > maxZ) maxZ = Mz;
 
         }
         
@@ -250,7 +271,7 @@ public class Manager : MonoBehaviour
         treeBuilder.buildNearestTree();
         wireGOs = treeBuilder.createWires(wirePrefab, sparkPrefab);
 
-        return Math.Max(Math.Abs(minX), maxX);
+        return Mathf.Max(Math.Abs(minX), maxX, Math.Abs(minY), maxY, Math.Abs(minZ), maxZ );
     }
 
     public ManagerState getState() { return state; }

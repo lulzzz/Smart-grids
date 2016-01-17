@@ -161,7 +161,7 @@ public class House
     
     public void writePlotData(PrintWriter writer, String outputFolder, Moment moment)
     {
-        String plotFile = String.format("%s\\id %d moment %s.png", outputFolder, id, moment.toString());
+        String plotFile = String.format("%s/id %d moment %s.png", outputFolder, id, moment.toString());
         
         bid.writePlotData(plotFile, writer);
     }    
