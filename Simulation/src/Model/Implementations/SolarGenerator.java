@@ -8,18 +8,15 @@ import com.google.gson.annotations.Expose;
 public class SolarGenerator implements IGenerator 
 {
     @Expose
-    private int id;
-    @Expose
     private GeneratorType type;
     @Expose
     private double productionPerHour = 500;
     @Expose
     private double efficiency;
     
-    public SolarGenerator( int id, GeneratorType type )
+    public SolarGenerator()
     {
-        this.id = id;
-        this.type = type;
+        this.type = GeneratorType.Solar;
     }
     
     @Override

@@ -71,7 +71,7 @@ public class Simulation
             // Advance timeframe
             from.advance(timeStep);
             to.advance(timeStep);
-        }  
+        }
         
         json.add("frames", array);
         

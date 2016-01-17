@@ -22,7 +22,6 @@ public class City
     @Expose
     private ArrayList<Wire> wires;
 
-    public static int maxId = 0;
 
     public City() 
     {
@@ -54,19 +53,20 @@ public class City
     
        
 
-    public Problem toProblem() 
+   public Problem toProblem() 
     {
         Problem problem = new Problem();
         
-        for( House house : houses )
+        for( int i = 0; i < houses.size(); i++ )
         {
+            House house = houses.get(i);
             Participant houseParticipant = house.toParticipant();
-            Participant distributorParticipant = distributor.toParticipant( ++maxId );
+            Participant distributorParticipant = distributor.toParticipant( houses.size() + i );
             
             problem.addParticipant( houseParticipant );
-            //problem.addParticipant(distributorParticipant);
+            problem.addParticipant(distributorParticipant);
             
-            //problem.addLink(houseParticipant.getId(), distributorParticipant.getId(), Data.defaultCapacity);
+            problem.addLink(houseParticipant.getId(), distributorParticipant.getId(), Data.defaultCapacity);
             
         }
         

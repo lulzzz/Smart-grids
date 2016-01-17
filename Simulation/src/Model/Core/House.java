@@ -4,6 +4,7 @@ package Model.Core;
 import Model.DataSets.Data;
 import Model.Implementations.*;
 import Model.Interfaces.*;
+import Model.Interfaces.IAppliance.ApplianceType;
 import Model.Interfaces.IBid.*;
 import com.google.gson.annotations.*;
 import java.io.*;
@@ -12,6 +13,7 @@ import seas3.core.*;
 
 public class House
 {
+    private static int maxId = 0;
     @Expose
     private int id;
     @Expose
@@ -46,6 +48,8 @@ public class House
     public House(int id, int profile)
     {
         this.id = id;
+        if( id > maxId ) maxId = id;
+        
         this.profile = profile;
         
         appliances = new ArrayList<>();
@@ -59,23 +63,23 @@ public class House
         switch(profile)
         {
             case 1:
-                generators.add(new SolarGenerator(generators.size(),IGenerator.GeneratorType.Solar));
-                generators.add(new WindGenerator(generators.size(), IGenerator.GeneratorType.Wind));
+                generators.add(new SolarGenerator());
+                generators.add(new WindGenerator());
                 
-                appliances.add(new Appliance(appliances.size(), IAppliance.ApplianceType.Cooking, Data.consumTV));
+                appliances.add(new Appliance(ApplianceType.Cooking, Data.consumTV));
                 break;
                 
             case 2:
-                generators.add(new SolarGenerator(generators.size(),IGenerator.GeneratorType.Solar));
+                generators.add(new SolarGenerator());
                 
-                appliances.add(new Appliance(appliances.size(), IAppliance.ApplianceType.Cooking, Data.consumTV));
-                appliances.add(new Appliance(appliances.size(),IAppliance.ApplianceType.WashingMachine, Data.consumTV));
+                appliances.add(new Appliance(ApplianceType.Cooking, Data.consumTV));
+                appliances.add(new Appliance(ApplianceType.WashingMachine, Data.consumTV));
                 break;
                 
             case 3:
-                appliances.add(new Appliance(appliances.size(), IAppliance.ApplianceType.Cooking, Data.consumTV));
-                appliances.add(new Appliance(appliances.size(),IAppliance.ApplianceType.TV, Data.consumTV));
-                appliances.add(new Appliance(appliances.size(), IAppliance.ApplianceType.WashingMachine, Data.consumTV));
+                appliances.add(new Appliance(ApplianceType.Cooking, Data.consumTV));
+                appliances.add(new Appliance(ApplianceType.TV, Data.consumTV));
+                appliances.add(new Appliance(ApplianceType.WashingMachine, Data.consumTV));
                 break;
                 
         }
@@ -172,14 +176,14 @@ public class House
             if(link.source.getId() == id && link.dest.getId() != id)
             {
                 double value = assignment.get(link);
-                TraderType type = link.dest.getId() > City.maxId / 2 ? TraderType.Distributor : TraderType.House;
+                TraderType type = link.dest.getId() > maxId ? TraderType.Distributor : TraderType.House;
                 trades.put(+value, type);
                 totalTraded += value;
             }
             else if(link.dest.getId() == id && link.source.getId() != id)
             {
                 double value = assignment.get(link);
-                TraderType type = link.source.getId() > City.maxId / 2 ? TraderType.Distributor : TraderType.House;
+                TraderType type = link.source.getId() > maxId ? TraderType.Distributor : TraderType.House;
                 trades.put(-value, type);
                 totalTraded -= value;
             }            
@@ -199,4 +203,5 @@ public class House
         
         return same;
     }
+    
 }
