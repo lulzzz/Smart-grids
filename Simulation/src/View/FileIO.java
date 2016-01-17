@@ -99,7 +99,7 @@ public class FileIO
             city.addWire( wire );
         }
         
-        Simulation simulation = new Simulation(city, hour, minute, timeStep, frames, outputFolder);
+        Simulation simulation = new Simulation(city, hour, minute, timeStep, frames, outputFolder, cityModel);
         
         return simulation;
     }

@@ -58,8 +58,10 @@ public class TreeBuilder
             GameObject spark = MonoBehaviour.Instantiate(sparkPrefab, Vector3.zero, sparkPrefab.transform.rotation ) as GameObject;
             spark.transform.SetParent(city.transform);
             TranslationAnimator animator = spark.GetComponent<TranslationAnimator>();
-            animator.from = city.transform.GetChild(entry.Key).position;
-            animator.to = city.transform.GetChild(entry.Value).position;
+            Vector3 from = city.transform.GetChild(entry.Key).position;
+            Vector3 to = city.transform.GetChild(entry.Value).position;
+            animator.from = new Vector3(from.x, 0.25f, from.z);
+            animator.to = new Vector3(to.x, 0.25f, to.z);
             animator.addFlow(1);
             animator.animate();
 

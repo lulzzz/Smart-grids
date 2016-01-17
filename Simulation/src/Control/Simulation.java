@@ -6,6 +6,7 @@ import View.FileIO;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import java.io.*;
@@ -19,8 +20,9 @@ public class Simulation
     private int timeStep;
     private int frames;
     private String outputFolder;
+    private String cityModel;
 
-    public Simulation( City city, int startingHour, int startingMinute, int timeStep, int frames, String outputfolder )
+    public Simulation( City city, int startingHour, int startingMinute, int timeStep, int frames, String outputfolder, String cityModel )
     {
         this.city = city;
         
@@ -33,6 +35,7 @@ public class Simulation
         
         this.frames = frames;
         this.outputFolder = outputfolder;
+        this.cityModel = cityModel;
     }   
 
     public JsonObject run() throws IOException
@@ -40,6 +43,7 @@ public class Simulation
         // The output json
         JsonObject json = new JsonObject();
         Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
+        json.addProperty("cirtModel", cityModel);
         JsonArray array = new JsonArray();
         
         // Save starting state
