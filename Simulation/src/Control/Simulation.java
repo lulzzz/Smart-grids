@@ -1,41 +1,35 @@
 package Control;
 
-import Model.Core.Moment;
-import Model.Core.City;
-import View.FileIO;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
+import Model.Core.*;
+import View.*;
+import com.google.gson.*;
 import java.io.*;
 import seas3.core.*;
 import seas3.radpro.*;
 
 public class Simulation 
 {
-    private City city;
+    private Market market;
     private Moment from, to, startingMoment;
-    private int timeStep;
+    private int minutesPerFrame;
     private int frames;
     private String outputFolder;
-    private String cityModel;
+    private String marketMesh;
 
-    public Simulation( City city, int startingHour, int startingMinute, int timeStep, int frames, String outputfolder, String cityModel )
+    public Simulation( Market market, int hour, int minute, int frames, int minutesPerFrame, String outputfolder, String marketMesh )
     {
-        this.city = city;
+        this.market = market;
         
-        this.from = new Moment(startingHour,startingMinute);
-        this.to = new Moment(startingHour, startingMinute);
-        this.startingMoment = new Moment(startingHour, startingMinute);
-        to.advance(timeStep);
+        this.from = new Moment(hour, minute);
+        this.to = new Moment(hour, minute);
+        this.startingMoment = new Moment(hour, minute);
+        to.advance(minutesPerFrame);
         
-        this.timeStep = timeStep;
-        
+        this.minutesPerFrame = minutesPerFrame;
         this.frames = frames;
+        
         this.outputFolder = outputfolder;
-        this.cityModel = cityModel;
+        this.marketMesh = marketMesh;
     }   
 
     public JsonObject run() throws IOException
@@ -43,52 +37,52 @@ public class Simulation
         // The output json
         JsonObject json = new JsonObject();
         Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
-        json.addProperty("cirtModel", cityModel);
-        JsonArray array = new JsonArray();
+        json.addProperty("marketMesh", marketMesh);
+        JsonArray frameArray = new JsonArray();
         
         // Save starting state
-        city.setStartingMoment(from);
-        city.savePlots( outputFolder + "/plot images" );
-        array.add( new JsonParser().parse( gson.toJson(city) ).getAsJsonObject());
+        market.setStartingMoment(from);
+        market.savePlots( outputFolder + "/plot images" );
+        frameArray.add(new JsonParser().parse(gson.toJson(market) ).getAsJsonObject());
         
         for( int step = 0; step < frames; step++ )
         {
             // Print the moment
-            System.out.println(String.format("Simulating from: %s to %s", from.toString(), to.toString()));
+            System.out.println(String.format("Trading at %s", from.toString(), to.toString()));
 
-            Assignment assignment = solve();
+            Assignment assignment = trade();
 
-            // Process results
-            city.processAssignment( assignment );
-            // Develop the city in this timeframe mal nombre 3 en 1
-            city.develop( from, to );
-            city.savePlots(outputFolder+"/plot images");
-            
-            
-            
-            // Save city state
-            array.add( new JsonParser().parse( gson.toJson(city) ).getAsJsonObject());
+            // Update market state considering the trading results
+            market.advance( from, to, assignment );
+            // Create gnuplot scripts for the bidding systems
+            market.savePlots(outputFolder+"/plot images");
+
+            // Save market state
+            frameArray.add(new JsonParser().parse(gson.toJson(market) ).getAsJsonObject());
             
             // Refresh bids
-            city.refreshBids();
+            market.refreshBids();
 
             // Advance timeframe
-            from.advance(timeStep);
-            to.advance(timeStep);
+            from.advance(minutesPerFrame);
+            to.advance(minutesPerFrame);
         }
         
-        json.add("frames", array);
+        json.add("frames", frameArray);
         
+        // Plot bids using gnuplotScripts given in json
+        FileIO.plotBids(json);
+        // Save simulation json
         FileIO.saveJson(json, outputFolder + "/simulation.json");
-        FileIO.plotBids(outputFolder+"/plot images", frames, startingMoment, timeStep);
+        
         
         return json;
     }
     
-    private Assignment solve()
+    private Assignment trade()
     {
          // Solve the problem
-            Problem problem = city.toProblem();
+            Problem problem = market.toProblem();
             
             Solver radPro = new RadProSolver();
             Options results = radPro.solve(problem, new Options());

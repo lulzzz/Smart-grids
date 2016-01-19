@@ -3,5 +3,5 @@ using System.Collections;
 
 public enum GeneratorType
 {
-    Solar, Wind
+    Solar, Eolic
 }

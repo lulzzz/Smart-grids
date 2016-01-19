@@ -98,14 +98,14 @@ public class Manager : MonoBehaviour
         MoveOverTorus startingHourBall = myTorus.transform.GetChild(0).GetComponent<MoveOverTorus>();
         MoveOverTorus endingHourBall = myTorus.transform.GetChild(1).GetComponent<MoveOverTorus>();
 
-        int timeStep = 5;
+        int minutesPerFrame = 5;
         int startingHour = startingHourBall.hour;
         int startingMinute = startingHourBall.minute;
         int endingHour = endingHourBall.hour;
         int endingMinute = endingHourBall.minute;
 
         int m = (endingHour - startingHour) * 60 + endingMinute - startingMinute;
-        int frames = m / timeStep;
+        int frames = m / minutesPerFrame;
 
         JSONObject houseArray = new JSONObject(JSONObject.Type.ARRAY);
         JSONObject wireArray = new JSONObject(JSONObject.Type.ARRAY);
@@ -117,13 +117,13 @@ public class Manager : MonoBehaviour
             wireArray.Add(wire.toJson());
 
         JSONObject json = new JSONObject();
-        json.AddField("cityModel", cityPath);
+        json.AddField("marketMesh", cityPath.Replace("\\","/"));
         json.AddField("outputFolder", Application.dataPath + "/Simulator");
         json.AddField("hour", startingHour);
         json.AddField("minute", startingMinute);
         json.AddField("frames", frames);
-        json.AddField("timeStep", 5);
-        json.AddField("houses", houseArray);
+        json.AddField("minutesPerFrame", 5);
+        json.AddField("prosumers", houseArray);
         json.AddField("wires", wireArray);
         File.WriteAllText(filePath, json.ToString());
     }
@@ -146,6 +146,7 @@ public class Manager : MonoBehaviour
 
         JsonParser parser = new JsonParser(jsonPath, city, wireGOs);
         parser.createPanels(infoPanelPrefab,appliancePrefab, generatorPrefab, spriteOfAppliance, spriteOfGenerator);
+        
         // Enable all animators
         foreach (TranslationAnimator a in FindObjectsOfType<TranslationAnimator>())
         {
@@ -181,7 +182,7 @@ public class Manager : MonoBehaviour
         string sjson = File.ReadAllText(path);
         JSONObject jsonObject = new JSONObject(sjson);
 
-        string cityPath = jsonObject.GetField("cityModel").ToString();
+        string cityPath = jsonObject.GetField("cirtModel").ToString().Trim();
         loadCity(cityPath);
         simulationReady(path);
     }
@@ -195,6 +196,8 @@ public class Manager : MonoBehaviour
         GetComponent<KeyBoardInput>().setCity(city);
 
         // Create and set parent
+        path = Application.dataPath + "/ObjReader/Sample Files/city_obj.txt";
+        File.ReadAllText(path);
         GameObject[] houses = ObjReader.use.ConvertFile(path, false, material, transparent);
         foreach (GameObject house in houses)
         {

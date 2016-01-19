@@ -1,9 +1,9 @@
 
 package Model.Core;
 
-import Model.DataSets.IDataSet;
-import Model.DataSets.DiscreteDataSet;
+import Model.TemporalDistributions.DiscreteTemporalDistribution;
 import com.google.gson.annotations.Expose;
+import Model.TemporalDistributions.ITemporalDistribution;
 
 public class Weather 
 {
@@ -12,10 +12,10 @@ public class Weather
     @Expose
     private double windSpeed;
     
-    private IDataSet clouds;
-    private IDataSet winds;
+    private ITemporalDistribution clouds;
+    private ITemporalDistribution winds;
     
-    public Weather( DiscreteDataSet clouds, DiscreteDataSet winds )
+    public Weather( DiscreteTemporalDistribution clouds, DiscreteTemporalDistribution winds )
     {
         this.clouds = clouds;
         this.winds = winds;

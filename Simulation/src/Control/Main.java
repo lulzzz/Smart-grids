@@ -7,7 +7,7 @@ public class Main
 {
     public static void main(String[] args)
     {
-        // Parse command lines
+        // Parse command line arguments
         if( args.length != 1 )
         {
             System.out.println("Wrong number of arguments");

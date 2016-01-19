@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import seas3.core.*;
 
-public final class LinearBid implements IBid 
+public final class LinearBid implements IBiddingStrategy 
 {
     private double minPlot, maxPlot;
     

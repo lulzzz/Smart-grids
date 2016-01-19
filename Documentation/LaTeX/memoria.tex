@@ -8,7 +8,7 @@
 \usepackage[margin=1.2in]{geometry}
 \usepackage{graphicx}
 \usepackage{listings}
-\usepackage[latin1]{inputenc}
+\usepackage[utf8]{inputenc}
 
 \setcounter{page}{0}
 
@@ -24,20 +24,20 @@
 \numberwithin{equation}{section}
 \newtheorem{teo}{Teorema}[subsubsection]
 \newtheorem*{teo*}{Teorema}
-\newtheorem*{prop*}{ProposiciÛ}
-\newtheorem*{corol*}{Corol∑lari}
-\newtheorem{prop}{ProposiciÛ}[subsubsection]
-\newtheorem{corol}{Corol∑lari}[subsubsection]
+\newtheorem*{prop*}{Proposici√≥}
+\newtheorem*{corol*}{Corol¬∑lari}
+\newtheorem{prop}{Proposici√≥}[subsubsection]
+\newtheorem{corol}{Corol¬∑lari}[subsubsection]
 \newtheorem{lema}{Lema}[subsubsection]
-\newtheorem{defi}{DefiniciÛ}[subsubsection]
-\newtheorem{nota}{NotaciÛ}
+\newtheorem{defi}{Definici√≥}[subsubsection]
+\newtheorem{nota}{Notaci√≥}
 
 \theoremstyle{definition}
 \newtheorem{prob}{Problema}
-\newtheorem*{sol}{SoluciÛ}
+\newtheorem*{sol}{Soluci√≥}
 \newtheorem{ex}{Exemple}
 \newtheorem{exs}{Exemples}
-\newtheorem{obs}{ObservaciÛ}
+\newtheorem{obs}{Observaci√≥}
 \newtheorem{obss}{Observacions}
 
 \def\qed{\hfill $\square$}
@@ -68,13 +68,13 @@
 
 \textbf{\LARGE Trabajo final de grado} \\
 \vspace*{.5cm}
-\textbf{\LARGE GRADO DE INFORM¡TICA } \\
+\textbf{\LARGE GRADO DE INFORM√ÅTICA } \\
 \vspace*{.5cm}
-\textbf{\LARGE Facultat de Matem\`atiques \\ Universitat de Barcelona} \\
+\textbf{\LARGE Facultad de Matem√°ticas \\ Universidad de Barcelona} \\
 \vspace*{1.5cm}
 \rule{16cm}{0.1mm}\\
 \begin{Huge}
-\textbf{SimulaciÛn y VisualizaciÛn de Smart Grids} \\
+\textbf{Modelado y visualizaci√≥n de mercados distribuidos de energ√≠a} \\
 \end{Huge}
 \rule{16cm}{0.1mm}\\
 
@@ -87,9 +87,9 @@
 
 \renewcommand{\arraystretch}{1.5}
 \begin{tabular}{ll}
-\textbf{\Large Director:} & \textbf{\Large Dr. Jes˙s Cerquides } \\
-\textbf{\Large Realitzat a:} & \textbf{\Large  Institut de InvestigaciÛ de    } \\
-& \textbf{\Large Intel.ligËncia Artificial} \\
+\textbf{\Large Director:} & \textbf{\Large Dr. Jes√∫s Cerquides } \\
+& \textbf{\Large Dr. Juan Antonio Rodriguez}\\
+\textbf{\Large Realizado en:} & \textbf{\Large Consejo superior de investigaci√≥n cient√≠fica}\\
 \textbf{\Large Barcelona,} & \textbf{\Large \today }
 \end{tabular}
 
@@ -103,18 +103,13 @@
 \newpage
 \pagenumbering{roman} 
 
-\section*{Agradecimientos}
-Me gustarÌa agradecer a los siguientes personas por proporcionar material indispensable para la realizaciÛn del proyecto:
-- iconos: %<div>Icons made by <a href="http://www.freepik.com" title="Freepik">Freepik</a>, <a href="http://www.flaticon.com/authors/google" title="Google">Google</a> from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a>             is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0">CC BY 3.0</a></div>
-- usuarios de stackoverflow:
-\newpage
 
 \section*{Abstract}
 
 Example abstract.
 
-\section*{Res˙men}
-Res˙men
+\section*{Res√∫men}
+Res√∫men
 
 \newpage 
 
@@ -124,227 +119,283 @@ Res˙men
 
 \pagenumbering{arabic} 
 \setcounter{page}{1}
-\section{IntroducciÛn y antecedentes}
-\subsection{El entorno: La humanidad necesita energÌa elÈctrica}
-La energÌa elÈctrica es b·sica para la producciÛn de bienes y servicios. Cada vez necesitamos m·s energia. REE
-En EspaÒa la distribuciÛn de la energÌa se hace a base de distribuidoras que proveen energÌa a la red que conecta todos los consumidores, bien sean hogares o empresas. Bajo la amenaza de que la materia de energÌas fÛsiles, como el petrÛleo o el carbÛn, se van agotando, muchos goviernos muestran interÈs en invertir en investigar maneras m·s eficientes de tratar con la energÌa.
+% \section{Introducci√≥n y antecedentes}
+% \subsection{El entorno: La humanidad necesita energ√≠a el√©ctrica}
+% La energ√≠a el√©ctrica es b√°sica para la producci√≥n de bienes y servicios. Cada vez necesitamos m√°s energia. REE
+% En Espa√±a la distribuci√≥n de la energ√≠a se hace a base de distribuidoras que proveen energ√≠a a la red que conecta todos los consumidores, bien sean hogares o empresas. Bajo la amenaza de que la materia de energ√≠as f√≥siles, como el petr√≥leo o el carb√≥n, se van agotando, muchos goviernos muestran inter√©s en invertir en investigar maneras m√°s eficientes de tratar con la energ√≠a.
 
-Por un lado ha aumentado el Ìndice de plantas solares instaladas:
+% Por un lado ha aumentado el √≠ndice de plantas solares instaladas:
 
-Pero lo que realmente puede llegar a alterar el proceso de energÌa es el comienzo de la expansiÛ del sector de plantas renovables personales. Cada vez son m·s econÛmicos y eficientes, de manera que requieren menor inversiÛn inicial. 
+% Pero lo que realmente puede llegar a alterar el proceso de energ√≠a es el comienzo de la expansi√≥ del sector de plantas renovables personales. Cada vez son m√°s econ√≥micos y eficientes, de manera que requieren menor inversi√≥n inicial. 
 
-Auge de energÌas renovables personales. Mencionar artÌculos donde se tratan smart grids.
-\subsection{La idea de los Smart Grids}
+% Auge de energ√≠as renovables personales. Mencionar art√≠culos donde se tratan smart grids.
+% \subsection{Los mercados distribuidos de energ√≠a}
 
-AquÌ es donde entran las Smart Grids. Las smart grids proponen un sistema de distribuciÛn distribuido en vez de centralizado. Permiten la idea que los propios consumidores puedan vender energÌa que produzcan convirtiendose asÌ en prosumidores - productores y consumidores - Una Smarti grid
-Auge de energÌas renovables personales. Mencionar artÌculos donde se tratan smart grids.
-\subsection{El problema de la liquidaciÛn de mercados distribuidos de energÌa: CEAP}
-Quien controla todo el flujo, cuando se hacen los intercambios, como se hacen los intercambios, como pueden interferir los usuarios en estos intercambios. Mencionar reglamentos de otros paÌses y estado actual de EspaÒa.
+% Aqu√≠ es donde entran las Smart Grids. Las smart grids proponen un sistema de distribuci√≥n distribuido en vez de centralizado. Permiten la idea que los propios consumidores puedan vender energ√≠a que produzcan convirtiendose as√≠ en prosumidores - productores y consumidores - Una Smarti grid
+% Auge de energ√≠as renovables personales. Mencionar art√≠culos donde se tratan smart grids.
+
+% \subsection{El problema de la liquidaci√≥n de mercados distribuidos de energ√≠a: CEAP}
+
+% Quien controla todo el flujo, cuando se hacen los intercambios, como se hacen los intercambios, como pueden interferir los usuarios en estos intercambios. Mencionar reglamentos de otros pa√≠ses y estado actual de Espa√±a.
 
 
-\subsection{Algoritmos de clearing para mercados distribuidos de energÌa: ILP, Radpro} 
-\subsection{RadPro}
-\subsection{A continuaciÛn}
-Definiremos en que manera queremos ampliar este trabajo.
-\newpage
+% \subsection{Algoritmos de clearing para mercados distribuidos de energ√≠a: ILP, Radpro} 
+
+% \subsection{A continuaci√≥n}
+
+% Definiremos en que manera queremos ampliar este trabajo.
+
+% \newpage
+
+
+
+
+
+
 
 \section{Objetivos}
-\subsection{En este capÌtulo}
-\subsection{El problema}
-Explicar quÈ se intenta resolver
-\subsection{Partes del problema: CreaciÛn de grafo, CEAP, SimulaciÛn, VisualizaciÛn, Reports}
-Explicar por que existe cada parte y por que est· diferenciado del resto.
+
+\subsection{Funcionalidad}
+El objetivo principal del proyecto es construir un software que permita visualizar simulaciones hechas sobre mercados distribuidos de energ√≠a.
+El software deber√° cumplir con los requerimientos especificados en 2.1 y posibilitar los flujos de ejecuci√≥n establecidos en 2.2.
+
+\subsection{Requerimientos}
+
+La aplicaci√≥n debe ser usable, mantenibile y libremente distribuible.
+\begin{itemize}
+\item Requerimientos de Usabilidad
+
+\begin{itemize}
+
+\item La aplicaci√≥n se ejecutar√° en un \textbf{entorno tridimensional interactivo} para resaltar la naturaleza tridimensional del problema.
+
+\item El usuario podr√° interactuar con el programa mediante \textbf{controles minimalistas e intuitivos} para una r√°pida y fluida ejecuci√≥n del programa.
+
+\item El usuario podr√° \textbf{moverse libremente} por el entorno y \textbf{revelar o ocultar} las distintas partes de informaci√≥n de manera que pueda personalizar la informaci√≥n que percibe en cada momento.
+
+\end{itemize}
+
+\item Requerimientos de Mantenibilidad
+
+Desde el comienzo del proyecto, se ha tenido presente la posibilidad de seguir trabajando en el proyecto despu√©s de la entrega ante los tribunales. Por ello, se ha hecho especial incapi√© en:
+
+\begin{itemize}
+
+\item Se seguir√°n \textbf{patrones de dise√±o} standares a la hora de dise√±ar e implemetar el software de manera que el c√≥digo sea f√°cilmente modificable.
+
+\item Se crear√°n \textbf{m√∫ltiples diagramas} para mejorar la comprensi√≥n del programa.
+
+\item El programa contar√° con \textbf{mecansimos de ampliaci√≥n} que permitan facilitar futuras modificaciones.
+
+\end{itemize}
+
+\item Requirimientos sobre la Distribuci√≥n
+
+\begin{itemize}
+
+\item Todas las incorporaciones externas deber√°n contener licencias \textbf{gratuitas y libremente distribuibles} para mantener el proyecto asequible y accesible para todo usuario interesado en √©l.
+
+\item El producto final ser√° \textbf{multiplataforma} de manera que se pueda ejecutar en los sisemas operativos m√°s predominantes del mercado.
+
+\item El producto final ser√° un \textbf{ejecutable autocontenido} de manera que no requiera configuraci√≥n alguna para ser ejecutado.
+
+\end{itemize}
+\end{itemize}
+\subsection{Flujos de ejecuci√≥n}
+
+El proyecto debe contener tres partes: Especificaci√≥n del mercado, simulaci√≥n y visualizaci√≥n, siendo cada una ejecutable independientemente del resto. Las entradas y salidas de cada parte ser√°n un √∫nico fichero formateado acorde a toda la informaci√≥n relevante. A continuaci√≥n resumimos la funcionalidad y la interacci√≥n del usuario de cada parte:
+
+Especificaci√≥n del mercado
+
+Se trata de una aplicaci√≥n interactiva en el cual se genera un mercado a partir de la geolocalizaci√≥n de los prosumers proporcionada por el usuario. A partir de ese momento, el usuario podr√° definir distintos par√°metros sobre la simulaci√≥n a ejecutar sobre el mercado. Se generar√° un fichero formateado que contenga todos los par√°metros de la simlaci√≥n.
+
+Simulaci√≥n del mercado:
+
+Se generan y resuelven iterativamente problemas de CEAP modificando el estado de los datos a cada paso.
+Recibe los par√°metros elegidos por el usuario y genera un archivo con los resultados de la simulaci√≥n. El usuario no interviene en la ejecuci√≥n del simulador.
+
+Visualizaci√≥n del mercado:
+Genera una visualizaci√≥n a partir de los resultados obtenidos. El usuario puede interactuar con la informaci√≥n relevante y controlar la reproducci√≥n de los resultados. 
+
+Diagrama de flujo general:
+\includeImage{flujos_principales.png}
+
+El producto final contiene todas las partes y proporciona dos modos de ejecuci√≥n: Por una parte, debe permitir ejecutar todo el proceso de manera secuencial, por otra parte debe ser capaz de visualizar una simulaci√≥n a partir de un registro de simulaci√≥n creado externamente.
+
+
+\subsection{A continuaci√≥n}
+
+Explicamos la metodolog√≠a y herramientas utilizadas a lo largo del proyecto, razonando su elecci√≥n ante las alternativas.
 
 
 
+\newpage
 
-\section{MetodologÌa y herramientas}
-\subsection{En este capÌtulo}
-Explicar programas adeuados para cada parte asÌ como posibles distintas maneras de implementar cada aspecto a grandes rasgos
-\subsection{ Git}
+
+\section{Metodolog√≠a y herramientas}
+
+Explicaremos los programas y lenguajes m√°s importantes usados durante todo el proyecto, razonaremos su uso ante sus equivalentes y citaremos sus autores as√≠ como la licencia bajo la que se distribuye cada una de ellas. Se busca que los programas elegidos sean libres y gratuitos y que preferentemente tengan la posibilidad de ser multiplataforma para manterner el proyecto asequible y accesible para cada usuario interesado en √©l.
+
+\subsection{ Agile }
+Iteraciones y features.
+\subsection{ Decisiones de dise√±o }
+filosof√≠a de java y unity.
+\subsection{ Control de versiones: Git }
+
+Todo proyecto inform√°tico que supere un mes de tiempo de producci√≥n requiere de un software de control de versiones. Son programas pensados para ayudar a los programadores a compartir c√≥digo entre ellos e ir guardando versiones del proyecto, para poder volver a ellos ante un error inminente, sin que los programadores tengan que preocuparse de guardar versiones del proyecto localmente. 
+
+Los sistemas de control de versiones m√°s utilizados actualmente son Git, Mercurial y SVN. Dado que todos cumplen las expectativas de ser gratuitos y multiplataforma, nos decantamos por Git, dise√±ado por Linus Torvalds y distribuido bajo la licencia .... .
+
 Bitbucket
-Bitbucket es un servicio de alojamiento basado en web, para los proyectos que utilizan el sistema de control de revisiones Mercurial y Git. Bitbucket ofrece planes comerciales y gratuitos. Se ofrece cuentas gratuitas con un n˙mero ilimitado de repositorios privados (que puede tener hasta cinco usuarios en el caso de cuentas gratuitas) desde septiembre de 2010,1 los repositorios privados no se muestran en las p·ginas de perfil - si un usuario sÛlo tiene depÛsitos privados, el sitio web dar· el mensaje "Este usuario no tiene repositorios". El servicio est· escrito en Python.2
 
-Es similar a GitHub, que utiliza Git. En una entrada de blog del 2008,3 Bruce Eckel hace una comparaciÛn favorablemente de Bitbucket frente a Launchpad, que utiliza Bazaar.
+Los proyectos de Git usualmente utilizan un repositorio on-line donde ir guardando la versi√≥n definitiva del proyecto en cada momento. Para ello es necesario encontrar un servicio de alojamiento de proyectos git en la web. Posiblemente el m√°s reconocido sea GitHub, que es gratuito siempre y cuando se publique el c√≥digo de forma abierta. Tambi√©n ofrece repositorios de pago con un gasto mensual. Por otro lado, Bitbucket es una alternativa que ofrece tambi√©n la posibilidad de tener repositorios privados gratuitamente, siempre que no se supere el l√≠mite de 5 usuarios interventores del proyecto. Dado que la parte de RadPro se alojaba en un repositorio de BitBucket privado, se ha seguido la misma inciativa en este proyecto.
 
-Git
-Git (pronunciado "guit"2 ) es un software de control de versiones diseÒado por Linus Torvalds, pensando en la eficiencia y la confiabilidad del mantenimiento de versiones de aplicaciones cuando Èstas tienen un gran n˙mero de archivos de cÛdigo fuente. Al principio, Git se pensÛ como un motor de bajo nivel sobre el cual otros pudieran escribir la interfaz de usuario o front end como Cogito o StGIT. 3 Sin embargo, Git se ha convertido desde entonces en un sistema de control de versiones con funcionalidad plena. 4 Hay algunos proyectos de mucha relevancia que ya usan Git, en particular, el grupo de programaciÛn del n˙cleo Linux.
 
-El mantenimiento del software Git est· actualmente (2009) supervisado por Junio Hamano, quien recibe contribuciones al cÛdigo de alrededor de 280 programadores.
+\subsection{Documentaci√≥n: LaTeX}
+As√≠ como un sistema de control de versiones, mantener una documentaci√≥n clara del proyecto es esencial para su √©xito y sobre todo para el futuro si alguien decide retomar el proyecto. 
+Existen maneras espec√≠ficas de documentar programas inform√°ticos, como el JavaDoc de Java, pero debido a la naturaleza multiX del proyecto, se ha decidido usar una documentaci√≥n com√∫n para todo el proyecto. 
 
-Õndice  [ocultar] 
-1	CaracterÌsticas
-2	”rdenes b·sicas
-3	Buenas pr·cticas
-4	VÈase tambiÈn
-5	Referencias
-6	Enlaces externos
-CaracterÌsticas[editar]
-El diseÒo de Git se basÛ en BitKeeper y en Monotone. 5 6
+Los Typesetting systems son sistemas pensados para escribir un documento de manera formateada y ordenada. El m√°s conocido entre ellos sea probablemente TeX. Creado en 1974 por Donald Knuth, ha sido utilizado en la escritura de m√∫ltiples documentos cient√≠ficos. 
 
-El diseÒo de Git resulta de la experiencia del diseÒador de Linux, Linus Torvalds, manteniendo una enorme cantidad de cÛdigo distribuida y gestionada por mucha gente, que incide en numerosos detalles de rendimiento, y de la necesidad de rapidez en una primera implementaciÛn.
+A partir de TeX han salido derivados como LyX y LaTeX que pretenden facilitar su uso, as√≠ como presentar nuevas funcionalidades m√°s espec√≠ficas. Por otro lado, desde el a√±o 2000 existe el proyeto NTS, de New Typesetting System, una reimplementaci√≥n de TeX en Java, con la inteni√≥n de proporcionar las ventajas que este lenguaje aporta como la facilidad para multiplataforma. 
 
-Entre las caracterÌsticas m·s relevantes se encuentran:
-
-Fuerte apoyo al desarrollo no lineal, por ende rapidez en la gestiÛn de ramas y mezclado de diferentes versiones. Git incluye herramientas especÌficas para navegar y visualizar un historial de desarrollo no lineal. Una presunciÛn fundamental en Git es que un cambio ser· fusionado mucho m·s frecuentemente de lo que se escribe originalmente, conforme se pasa entre varios programadores que lo revisan.
-GestiÛn distribuida. Al igual que Darcs, BitKeeper, Mercurial, SVK, Bazaar y Monotone, Git le da a cada programador una copia local del historial del desarrollo entero, y los cambios se propagan entre los repositorios locales. Los cambios se importan como ramas adicionales y pueden ser fusionados en la misma manera que se hace con la rama local.
-Los almacenes de informaciÛn pueden publicarse por HTTP, FTP, rsync o mediante un protocolo nativo, ya sea a travÈs de una conexiÛn TCP/IP simple o a travÈs de cifrado SSH. Git tambiÈn puede emular servidores CVS, lo que habilita el uso de clientes CVS pre-existentes y mÛdulos IDE para CVS pre-existentes en el acceso de repositorios Git.
-Los repositorios Subversion y svk se pueden usar directamente con git-svn.
-GestiÛn eficiente de proyectos grandes, dada la rapidez de gestiÛn de diferencias entre archivos, entre otras mejoras de optimizaciÛn de velocidad de ejecuciÛn.
-Todas las versiones previas a un cambio determinado, implican la notificaciÛn de un cambio posterior en cualquiera de ellas a ese cambio (denominado autenticaciÛn criptogr·fica de historial). Esto existÌa en Monotone.
-Resulta algo m·s caro trabajar con ficheros concretos frente a proyectos, eso diferencia el trabajo frente a CVS, que trabaja con base en cambios de fichero, pero mejora el trabajo con afectaciones de cÛdigo que concurren en operaciones similares en varios archivos.
-Los renombrados se trabajan bas·ndose en similitudes entre ficheros, aparte de nombres de ficheros, pero no se hacen marcas explÌcitas de cambios de nombre con base en supuestos nombres ˙nicos de nodos de sistema de ficheros, lo que evita posibles, y posiblemente desastrosas, coincidencias de ficheros diferentes en un ˙nico nombre.
-Realmacenamiento periÛdico en paquetes (ficheros). Esto es relativamente eficiente para escritura de cambios y relativamente ineficiente para lectura si el reempaquetado (con base en diferencias) no ocurre cada cierto tiempo.
-
-\subsection{LaTeX}
-(escrito LaTeX en texto plano) es un sistema de composiciÛn de textos, orientado a la creaciÛn de documentos escritos que presenten una alta calidad tipogr·fica. Por sus caracterÌsticas y posibilidades, es usado de forma especialmente intensa en la generaciÛn de artÌculos y libros cientÌficos que incluyen, entre otros elementos, expresiones matem·ticas.
-
-LaTeX est· formado por un gran conjunto de macros de TeX, escrito por Leslie Lamport en 1984, con la intenciÛn de facilitar el uso del lenguaje de composiciÛn tipogr·fica, creado por Donald Knuth. Es muy utilizado para la composiciÛn de artÌculos acadÈmicos, tesis y libros tÈcnicos, dado que la calidad tipogr·fica de los documentos realizados con LaTeX es comparable a la de una editorial cientÌfica de primera lÌnea.
+En este proyecto, se ha decidido usar LaTeX como typesetting system por su robusteza y previa experiencia del autor con el mismo. El resultado se encuentra en este documento, que pretende ser una gu√≠a para entender las ideas y razones principales detr√°s del dise√±o del programa.
 
 LaTeX es software libre bajo licencia LPPL.
 
-MikTeX
-MiKTeX es una distribuciÛn TeX/LaTeX para Microsoft Windows que fue desarrollada por Christian Schenk.
+MiKTeX
 
-Las caracterÌsticas m·s apreciables de MiKTeX son su habilidad de actualizarse por sÌ mismo descargando nuevas versiones de componentes y paquetes instalados previamente, y su f·cil proceso de instalaciÛn.
+MiKTeX es una distribuci√≥n TeX/LaTeX para Microsoft Windows que fue desarrollada por Christian Schenk. Las caracter√≠sticas m√°s apreciables de MiKTeX son su habilidad de actualizarse por s√≠ mismo descargando nuevas versiones de componentes y paquetes instalados previamente, y su f√°cil proceso de instalaci√≥n.
 
-La versiÛn actual de MiKTeX es 2.9 y est· disponible en su p·gina oficial. Adem·s, tiene caracterÌsticas que incluyen MetaPost y pdfTeX y compatibilidad con Windows 7. A partir de la versiÛn 2.7 se incluyÛ soporte integrado para XeTeX. Desde la versiÛn 2.9 ofrece soporte para ConTeXt Mark IV.
-Licencia FSF/Debian
+La versi√≥n actual de MiKTeX es 2.9 y est√° disponible en su p√°gina oficial bajo la licencia FSF/Debian.
 
-Sublime Text es un editor de texto y editor de cÛdigo fuente est· escrito en C++ y Python para los plugins.1 Desarrollado originalmente como una extensiÛn de Vim, con el tiempo fue creando una identidad propia, por esto a˙n conserva un modo de ediciÛn tipo vi llamado Vintage mode.2
+Sublime Text
 
-Se distribuye de forma gratuita, sin embargo no es software libre o de cÛdigo abierto,3 se puede obtener una licencia para su uso ilimitado, pero el no disponer de Èsta no genera ninguna limitaciÛn m·s all· de una alerta cada cierto tiempo.
+Por √∫ltimo, necesitamos un editor de texto donde escribir el documento de LaTeX. Existen editores propiamente creados para ello como TeXnicCenter y TeXMaker, pero nos hemos decantado por el uso de Sublime Text. Sublime Text es un editor de texto plano gen√©rico que aporta la posibilidad de a√±adir resalte de sintaxis, posibilidad de builds propias, snippets que agilizan el desarrollo del documento mediante plugins, por lo que resulta m√°s c√≥modo de usar una vez se haya completado la configuraci√≥n inicial.
 
-\subsection{Blender}
-Blender es un programa inform·tico multi plataforma, dedicado especialmente al modelado, iluminaciÛn, renderizado, animaciÛn y creaciÛn de gr·ficos tridimensionales. TambiÈn de composiciÛn digital utilizando la tÈcnica procesal de nodos, ediciÛn de vÌdeo, escultura (incluye topologÌa din·mica) y pintura digital. En Blender, adem·s, se puede desarrollar vÌdeo juegos ya que posee un motor de juegos interno.
+Sublime Text se distribuye de forma gratuita, sin embargo no es software libre o de c√≥digo abierto, se puede obtener una licencia para su uso ilimitado, pero el no disponer de √©sta no genera ninguna limitaci√≥n m√°s all√° de una alerta cada cierto tiempo.
 
-El programa fue inicialmente distribuido de forma gratuita pero sin el cÛdigo fuente, con un manual disponible para la venta, aunque posteriormente pasÛ a ser software libre. Actualmente es compatible con todas las versiones de Windows, Mac OS X, GNU/Linux, Solaris, FreeBSD e IRIX.
-\subsection{Unity}
-Unity es un motor de videojuego multiplataforma creado por Unity Technologies. Unity est· disponible como plataforma de desarrollo para Microsoft Windows, OS X y Linux, y permite crear juegos para Windows, OS X, Linux, Xbox 360, PlayStation 3, Playstation Vita, Wii, Wii U, iPad, iPhone, Android y Windows Phone. Gracias al plugin web de Unity, tambiÈn se pueden desarrollar videojuegos de navegador para Windows y Mac. Desde el sitio web oficial se pueden descargar dos versiones: Unity y Unity Pro.
+\subsection{Modelado 3D: Blender}
 
-C\#
-Los scripts de Unity pueden ser programados en tres posibles lenguajes de programaciÛn: C\# Javascript, Boo. 
-\subsection{Java}
-Java es un lenguaje de programaciÛn de propÛsito general, concurrente, orientado a objetos que fue diseÒado especÌficamente para tener tan pocas dependencias de implementaciÛn como fuera posible. Su intenciÛn es permitir que los desarrolladores de aplicaciones escriban el programa una vez y lo ejecuten en cualquier dispositivo (conocido en inglÈs como WORA, o "write once, run anywhere"), lo que quiere decir que el cÛdigo que es ejecutado en una plataforma no tiene que ser recompilado para correr en otra. Java es, a partir de 2012, uno de los lenguajes de programaciÛn m·s populares en uso, particularmente para aplicaciones de cliente-servidor de web, con unos 10 millones de usuarios reportados.1 2
+Antes de que podamos simular una red el√©ctrica distribuida, deberemos crearla, y parte de ello consiste en modelar la malla 3D que representar√° el conjunto de edificios. Para ello necesitamos un programa de modelado 3D. 
 
-El lenguaje de programaciÛn Java fue originalmente desarrollado por James Gosling de Sun Microsystems (la cual fue adquirida por la compaÒÌa Oracle) y publicado en 1995 como un componente fundamental de la plataforma Java de Sun Microsystems. Su sintaxis deriva en gran medida de C y C++, pero tiene menos utilidades de bajo nivel que cualquiera de ellos. Las aplicaciones de Java son generalmente compiladas a bytecode (clase Java) que puede ejecutarse en cualquier m·quina virtual Java (JVM) sin importar la arquitectura de la computadora subyacente.
+El mercado ofrece varias alternativas para este prop√≥sito. Desde centrados en arquitectura e ingenier√≠a como AutoCad hasta modelado a trav√©s de escultura como ZBrush. Nosotros buscamos un programa de espectro gen√©rico, ya que aparte de las ciudades, queremos modelar los men√∫s y los controles de usuario usando dicho programa. Dentro de este √°mbito seguimos encontrando varias alternativas: 3DS Max, Maya, Lightwave, Blender... 
 
-La compaÒÌa Sun desarrollÛ la implementaciÛn de referencia original para los compiladores de Java, m·quinas virtuales, y librerÌas de clases en 1991 y las publicÛ por primera vez en 1995. A partir de mayo de 2007, en cumplimiento con las especificaciones del Proceso de la Comunidad Java, Sun volviÛ a licenciar la mayorÌa de sus tecnologÌas de Java bajo la Licencia P˙blica General de GNU. Otros tambiÈn han desarrollado implementaciones alternas a estas tecnologÌas de Sun, tales como el Compilador de Java de GNU y el GNU Classpath.
+Nos decidimos por Blender por ser gratuito y multiplataforma, adem√°s de ser muy completo y ofrecer todas las funcionalidades que buscamos.
+Blender fue inicialmente distribuido de forma gratuita pero sin el c√≥digo fuente, con un manual disponible para la venta, aunque posteriormente pas√≥ a ser software libre. 
 
-Usamos java porque radpro est· en java y por la capacidad de exportar un jar y por ser multiplataforma
-Netbeans
-NetBeans es un entorno de desarrollo integrado libre, hecho principalmente para el lenguaje de programaciÛn Java. Existe adem·s un n˙mero importante de mÛdulos para extenderlo. NetBeans IDE2 es un producto libre y gratuito sin restricciones de uso.
+\subsection{Entorno de visualizaci√≥n: Unity}
 
-NetBeans es un proyecto de cÛdigo abierto de gran Èxito con una gran base de usuarios, una comunidad en constante crecimiento, y con cerca de 100 socios en todo el mundo. Sun MicroSystems fundÛ el proyecto de cÛdigo abierto NetBeans en junio de 2000 y contin˙a siendo el patrocinador principal de los proyectos (Actualmente Sun Microsystems es administrado por Oracle Corporation).
+Unity es un motor de juegos, no est√° pensado para ser un entorno dedicado a la visualizaci√≥n como .... y .... . Sin embargo, un juego no es m√°s que una visualizaci√≥n interactiva compleja. Por ello, Unity ofrece un entorno en el que mostrar e interactuar con nuestros objetos tridimensionales de forma totalmente programable. Adem√°s cuenta con la ventaja de poder exportar el proyecto f√°cilmente a distintas plataformas como Windows, Mac y Linux, pero tambi√©n Web, Android y iPhone OS.
 
-La plataforma NetBeans permite que las aplicaciones sean desarrolladas a partir de un conjunto de componentes de software llamados mÛdulos. Un mÛdulo es un archivo Java que contiene clases de java escritas para interactuar con las APIs de NetBeans y un archivo especial (manifest file) que lo identifica como mÛdulo. Las aplicaciones construidas a partir de mÛdulos pueden ser extendidas agreg·ndole nuevos mÛdulos. Debido a que los mÛdulos pueden ser desarrollados independientemente, las aplicaciones basadas en la plataforma NetBeans pueden ser extendidas f·cilmente por otros desarrolladores de software.
+Creado por Unity Technologies, Unity est√° disponible en dos versiones: Unity ( totalmente gratuita ) y Unity Pro que contiene m√°s funcionalidades preimplementadas.
 
-El NetBeans IDE soporta el desarrollo de todos los tipos de aplicaciÛn Java (J2SE, web, EJB y aplicaciones mÛviles). Entre sus caracterÌsticas se encuentra un sistema de proyectos basado en Ant, control de versiones y refactoring.
+C\# y Microsoft Visual Studio
 
-NetBeans IDE 6.5.2, la cual fue publicada el 19 de noviembre de 2008, extiende las caracterÌsticas existentes del Java EE (incluyendo Soporte a Persistencia, EJB 3 y JAX-WS). Adicionalmente, el NetBeans Enterprise Pack soporta el desarrollo de Aplicaciones empresariales con Java EE 5, incluyendo herramientas de desarrollo visuales de SOA, herramientas de esquemas XML, orientaciÛn a web servicies (for BPEL), y modelado UML. El NetBeans C/C++ Pack soporta proyectos de C/C++, mientras el PHP Pack, soporta PHP 5.
+Dentro de Unity los scripts pueden ser programados en tres posibles lenguajes de programaci√≥n: C\# Javascript, Boo.
 
-Modularidad. Todas las funciones del IDE son provistas por mÛdulos. Cada mÛdulo provee una funciÛn bien definida, tales como el soporte de Java, ediciÛn, o soporte para el sistema de control de versiones. NetBeans contiene todos los mÛdulos necesarios para el desarrollo de aplicaciones Java en una sola descarga, permitiÈndole al usuario comenzar a trabajar inmediatamente.
+Se ha elegido C\# por su similitud a Java, el otro lenguaje importante de esta aplicaci√≥n, y ventajas que ofrece ante los dem√°s lenguajes de scripting, como ser fuertemente tipado (√∫til en proyectos de medida considerable) y la posibilidad de utilizar como editor Microsoft Visual Studio, un editor muy completo dise√±ado por Microsoft que cuenta, entre otras, con una licencia gratuita dirigida para uso de aplicaciones no empresariales.
 
-Sun Studio, Sun Java Studio Enterprise, y Sun Java Studio Creator de Sun Microsystems han sido todos basados en el IDE NetBeans.
+\subsection{Algoritmia: Java}
 
-Desde julio de 2006, NetBeans IDE es licenciado bajo la Common Development and Distribution License (CDDL), una licencia basada en la Mozilla Public License (MPL). En octubre de 2007, Sun anunciÛ que NetBeans desde entonces se ofrecer· bajo licenciamiento dual de Licencia CDDL y la GPL versiÛn 2.
-\subsection{JSON}
-JSON, acrÛnimo de JavaScript Object Notation, es un formato ligero para el intercambio de datos. JSON es un subconjunto de la notaciÛn literal de objetos de JavaScript que no requiere el uso de XML.
+Nos queda por cubrir la etapa de simulaci√≥n. Podr√≠a usarse cualquier lenguaje de programaci√≥n de prop√≥sito general para esta labor, pero dado que la base del simulador ( radPro ) ya est√° implementado en Java se ha decidido seguir usando el mismo lenguaje.
 
-La simplicidad de JSON ha dado lugar a la generalizaciÛn de su uso, especialmente como alternativa a XML en AJAX. Una de las supuestas ventajas de JSON sobre XML como formato de intercambio de datos en este contexto es que es mucho m·s sencillo escribir un analizador sint·ctico (parser) de JSON. En JavaScript, un texto JSON se puede analizar f·cilmente usando la funciÛn eval(), lo cual ha sido fundamental para que JSON haya sido aceptado por parte de la comunidad de desarrolladores AJAX, debido a la ubicuidad de JavaScript en casi cualquier navegador web.
+Adem√°s java sigue la filosof√≠a de posibilidad de multiplataforma y licencia gratuita que pretende cumplir este proyecto.
 
-En la pr·ctica, los argumentos a favor de la facilidad de desarrollo de analizadores o del rendimiento de los mismos son poco relevantes, debido a las cuestiones de seguridad que plantea el uso de eval() y el auge del procesamiento nativo de XML incorporado en los navegadores modernos. Por esa razÛn, JSON se emplea habitualmente en entornos donde el tamaÒo del flujo de datos entre cliente y servidor es de vital importancia (de aquÌ su uso por Yahoo, Google, etc, que atienden a millones de usuarios) cuando la fuente de datos es explÌcitamente de fiar y donde no es importante el no disponer de procesamiento XSLT para manipular los datos en el cliente.
+Como informaci√≥n, Java fue originalmente desarrollado por James Gosling de Sun Microsystems (la cual fue adquirida por la compa√±√≠a Oracle) y publicado en 1995 como un componente fundamental de la plataforma Java de Sun Microsystems. 
 
-Si bien es frecuente ver JSON posicionado contra XML, tambiÈn es frecuente el uso de JSON y XML en la misma aplicaciÛn. Por ejemplo, una aplicaciÛn de cliente que integra datos de Google Maps con datos meteorolÛgicos en SOAP hacen necesario soportar ambos formatos.
+Editor Netbeans
 
-Cada vez hay m·s soporte de JSON mediante el uso de paquetes escritos por terceras partes. La lista de lenguajes soportados incluye ActionScript, C, C++, C\#, ColdFusion, Common Lisp, Delphi, E, Eiffel, Java, JavaScript, ML, Objective-C, Objective CAML, Perl, PHP, Python, Rebol, Ruby, Lua y Visual FoxPro.
+Dada la gran fama de Java existen m√∫ltiples IDEs dedicados. Cualquiera de Eclipse o Android Studio servir√≠a para nuestro prop√≥sito, pero usaremos NetBeans por preferencia personal del autor, que es un entorno de desarrollo integrado libre, hecho principalmente para el lenguaje de programaci√≥n Java. Es un producto libre y gratuito sin restricciones de uso.
 
-En diciembre de 2005 Yahoo! comenzÛ a dar soporte opcional de JSON en algunos de sus servicios web.1
+\subsection{Intercambio de datos: JSON}
+Desde el momento en el que intervienen m√∫ltipls programas y lenguajes de programaci√≥n en un proyecto es indispensable definir un formato de intercambio de datos.
 
-El tÈrmino JSON est· altamente difundido en los medios de programaciÛn, sin embargo, es un tÈrmino mal descrito ya que en realidad es solo una parte de la definiciÛn del est·ndar ECMA-262 en que est· basado Javascript. De ahÌ que ni Yahoo, ni Google emplean JSON, sino LJS[cita requerida]. Una de las cualidades intrÌnsecas de Javascript denominada LJS (Literal Javascript) facilita el flujo de datos e incluso de funciones, para la cual no requiere la funciÛn eval() si son datos los que se transfieren como en el caso de XML. Todo lo referente a transferencia de datos en todos sus tipos, incluyendo arrays, booleans, integers, etc. no requieren de la funciÛn eval(), y es precisamente en eso en donde supera por mucho JavaScript al XML, si se utiliza el LJS y no la incorrecta definiciÛn de JSON.
+Actualmente, los dos formatos m√°s utilizados son XML y JSON. Por ser mucho m√°s simple e inteligible, elegiremos JSON, sin darle importancia diferencias de rendimiento que podr√≠a haber entre ellas. 
 
-Cada lenguaje tiene librerias propias de parseo/creaciÛn de json. Usaremos Gson de google para Java y JsonObject de <ref> para C\#.
+La mejor manera de visualizar un fichero JSON es utilizando una extensi√≥n para tu navegador preferido e internet. En nuestro caso, utilizaremos JSONView, escrito por Benjamin Hollis para Mozilla Firefox.
 
-\subsection{GnuPlot}
-gnuplot es un programa muy flexible para generar gr·ficas de funciones y datos.
+Por otra parte, necesitamos librer√≠as que nos faciliten la creaci√≥n y extracci√≥n de datos desde un archivo JSON. Cada lenguaje tiene librerias propias para esta funci√≥n. Usaremos Gson de google para Java y JsonObject esrito por Matt Schoen de Defective Studios para Unity.
 
-Este programa es compatible con los sistemas operativos m·s populares (Linux, UNIX, Windows, Mac OS X...). El origen de gnuplot data de 1986.
+\subsection{Trazado de gr√°ficas: Gnuplot}
+Por √∫ltimo, tendremos la necesidad de representar cciertos datos en forma de gr√°ficas, por lo que necesitamos el acceso a un programa dedicado a crear gr√°ficas de funciones.
 
-gnuplot puede producir sus resultados directamente en pantalla, asÌ como en multitud de formatos de imagen, como PNG, EPS, SVG, JPEG, etc. Se puede usar interactivamente o en modo por lotes (batch), usando scripts. Este programa tiene gran base de usuarios y est· convenientemente mantenido por sus desarrolladores. Existe una ingente cantidad de ayuda en Internet, aunque gran parte est· en inglÈs.
+Inicilmente, se busc√≥ una librer√≠a propia para Java como JFreeChart y GRAL, pero por su falta de flexibilidad se descartaron y se decidi√≥ utilizar Gnuplot, un programa completo pensado para generar gr√°ficas de funciones y datos.
 
-gnuplot es la herramienta de dibujo de gr·ficas del programa GNU Octave. Existen adem·s interfaces para su empleo a travÈs de diversos lenguajes de programaciÛn como Perl (via CPAN), Python (via Gnuplot-py o SAGE), Java (via jgnuplot), Ruby (via Ruby Gnuplot), Ch (via Ch Gnuplot), o Smalltalk (Squeak y GNU Smalltalk). Gnuplot tambiÈn puede ser empleado a travÈs de tuberÌas.1
+Gnuplot se cre√≥ en 1986 y es compatible con los sistemas operativos m√°s populares adem√°s de ser distribuido gratuitamente bajo licencia de software libre.
 
+\subsection{A continuaci√≥n}
+Empezaremos a explicar el dise√±o e ideas de implementaci√≥n de cada parte principal del proyecto, empezando por la creaci√≥n de un red el√©ctrica distribuida hasta la visualizaci√≥n de su simulaci√≥n.
 
-
-Licencia[editar]
-A pesar de su nombre, este programa no tiene ninguna relaciÛn con el Proyecto GNU. Originalmente, se eligiÛ el nombre "gnuplot" para evitar conflictos con otro programa de dibujo de gr·ficas llamado "newplot", que en inglÈs se pronuncia de igual modo. TambiÈn se tuvo en cuenta el parecido con otros dos de los nombres propuestos, "llamaplot" y "nplot" (Gnu, en inglÈs, significa Òu).[1]
-
-Este programa se distribuye bajo una licencia de software libre que permite la copia y modificaciÛn de su cÛdigo fuente. Sin embargo, las modificaciones sÛlo se pueden distribuir en forma de parches, por lo que no es compatible con la licencia GPL. [2]
-
-
-\subsection{A continuaciÛn}
-Iremos explicando cada parte desde el n˙cleo (CEAP) hasta el exterior (VisualizaciÛn)
 \newpage
 
 
 
 
-\section{CreaciÛn de la ciudad}
+\section{Especificaci√≥n del mercado}
 
-\subsection{ En este capÌtulo }
-Empezaremos por crear una ciudad sobre la cual simular una red elÈctrica inteligente. Para ello, primero deberemos definir que entendemos por ciudad dentro de nuestro programa, en que formato deberÌamos guardar esta informaciÛn, como acceder a esta informaciÛn desde dentro del visualizador, como se interpreta y reproduce esta informaciÛn dentro del visulizador, algoritmos que permiten crear una red que conecte todas las parcelas de nuestra ciudad y por ˙ltimo como usar herramientas como OpenStreetMap y CityEngine para crear ciudades realistas.
+En 4.1 se define el modelo de mercado y sus par√°metros como √°rbol dirigido ampliado, en 4.2 se define el formato del fichero de entrada que contiene la geolocalizaci√≥n de los prosumers, en 4.3 se detallan algoritmos para crear un √°rbol a partir de nodos situados sobre un plano. En 4.4, se explica el proceso de visualizaci√≥n del mercado. En 4.5 se describe el funcionamiento de los controles de usuario y por √∫ltimo en 4.6 se especifica el formate de datos de salida.
 
-\subsection{Definiendo la ciudad}
-Para visualizar una simulaciÛn, lo primero que necesitmos es una ciudad sobre la que hacer los c·lculos. Aprovechando que la visualizaciÛn ser· en 3D podemos usar como ciudad un modelo 3D. Dado que queremos permitir que la ciudad pueda ser elegida por el usuario en tiempo de ejecuciÛn, tendremos que crear un mecanismo que permita importar un modelo 3D desde un fichero.
+\subsection{Modelado de un mercado distribuido}
+Para visualizar una simulaci√≥n, lo primero que necesitmos es una ciudad sobre la que hacer los c√°lculos. Aprovechando que la visualizaci√≥n ser√° en 3D podemos usar como ciudad un modelo 3D. Dado que queremos permitir que la ciudad pueda ser elegida por el usuario en tiempo de ejecuci√≥n, tendremos que crear un mecanismo que permita importar un modelo 3D desde un fichero.
 
-Los grandes programas de modelado como Blender o 3DS Max permiten crear un objeto tridimensional para despuÈs exportarla a un fichero en una variada de formatos: max, 3ds, obj... Usaremos el formato Wavefront OBJ por su simplicitud y por ser de licencia abierta. Adem·s, OBJ es un formato muy extendido, por lo que la gran mayorÌa de programas de modelado 3D como blender o 3ds max lo soportan.
+Los grandes programas de modelado como Blender o 3DS Max permiten crear un objeto tridimensional para despu√©s exportarla a un fichero en una variada de formatos: max, 3ds, obj... Usaremos el formato Wavefront OBJ por su simplicitud y por ser de licencia abierta. Adem√°s, OBJ es un formato muy extendido, por lo que la gran mayor√≠a de programas de modelado 3D como blender o 3ds max lo soportan.
 
-Wavefront OBJ guarda la informaciÛn en lÌneas, donde cada lÌnea esta precedida por una cadena de caracteres que indican el tipo de la informaciÛn que sigue. Por ejemplo v 1 1 1 indica un vÈrtice en el punto (1,1,1) mientras que f 1 2 3 indica una cara triangular que une los tres primeros vÈrices.
-Una ventaja de Wavefront OBJ es la simplicidad en el que se pueden diferenciar multiples objetos dentro del mismo modelo. Nuestra ciudad ser· un ˙nico modelo que tenga por submodelo cada una de las casas/parcelas que requieran ser conectadas a la red. 
+Wavefront OBJ guarda la informaci√≥n en l√≠neas, donde cada l√≠nea esta precedida por una cadena de caracteres que indican el tipo de la informaci√≥n que sigue. Por ejemplo v 1 1 1 indica un v√©rtice en el punto (1,1,1) mientras que f 1 2 3 indica una cara triangular que une los tres primeros v√©rices.
+Una ventaja de Wavefront OBJ es la simplicidad en el que se pueden diferenciar multiples objetos dentro del mismo modelo. Nuestra ciudad ser√° un √∫nico modelo que tenga por submodelo cada una de las casas/parcelas que requieran ser conectadas a la red. 
 
-\subsection{Leyendo el fichero}
-Quiero agradecer a <Referencia> por donar a la comunidad un importador de OBJ especialmente diseÒado para Unity. El script coge como entrada un string a un fichero y devuelve una componente de tipo Mesh de Unity. El problema es que este script considera que todos los vertices pertenecen al mismo objeto. El cÛdigo se ha ampliado de manera que detecte las lÌneas de formato \"o <nombre>\" y asÌ crear una Mesh para cada parcela. El resultado es un array de Meshes. Crearemos un GameObject por cada uno que tenga como Mesh filter este mesh y por nombre su nombre y un GameObject empty llamado city 
-Por ˙ltimo el modelo de ciudad se situa en la escena y se escala de manera que quepa en el terreno. Ya estamos listos para proveer una red elÈctrica a esta ciudad.
+\subsection{Formato de entrada: Geolocalizaci√≥n de los prosumidores}
+Quiero agradecer a <Referencia> por donar a la comunidad un importador de OBJ especialmente dise√±ado para Unity. El script coge como entrada un string a un fichero y devuelve una componente de tipo Mesh de Unity. El problema es que este script considera que todos los vertices pertenecen al mismo objeto. El c√≥digo se ha ampliado de manera que detecte las l√≠neas de formato \"o <nombre>\" y as√≠ crear una Mesh para cada parcela. El resultado es un array de Meshes. Crearemos un GameObject por cada uno que tenga como Mesh filter este mesh y por nombre su nombre y un GameObject empty llamado city 
+Por √∫ltimo el modelo de ciudad se situa en la escena y se escala de manera que quepa en el terreno. Ya estamos listos para proveer una red el√©ctrica a esta ciudad.
 
 
-\subsection{Creando la red}
-Hay muchos algoritmos que permiten unir todos los puntos dados en un espacio creando asÌ un grafo. Recordamos que por limitaciones del RadPro nuesra red ser· un ·rbol, de manera que no podr· contener ning˙n ciclo. Dentro de los ·rboles podemos considerar dos posiciones: Creamos la red conociendo todos los puntos a unir o los puntos van aÒadiendose a lo largo del tiempo y la red va ampliandose secuencialmente de manera que preserve la estructura de ·rbol.
+\subsection{Algoritmos para la creaci√≥n de conectividad}
+Hay muchos algoritmos que permiten unir todos los puntos dados en un espacio creando as√≠ un grafo. Recordamos que por limitaciones del RadPro nuesra red ser√° un √°rbol, de manera que no podr√° contener ning√∫n ciclo. Dentro de los √°rboles podemos considerar dos posiciones: Creamos la red conociendo todos los puntos a unir o los puntos van a√±adiendose a lo largo del tiempo y la red va ampliandose secuencialmente de manera que preserve la estructura de √°rbol.
 
-\subsection{InformaciÛn completa: Steiner Trees}
-En el primer caso encontramos el conocido problema de Minimum Spanning Tree Problem, que trata de construir un camino que permita a un viajero pasar por todos los puntos recorriendo la mÌnima distancia posible. Sin embargo, en e entorno de nuestro problema, minimizar  el tiempo o la distancia que ha de recorrer la electricidad para llegar de un extremo a otro no es relevante (ocurre en milÈsimas de segundo), sino que podemos plantearnos el siguiente problema:
+\subsubsection{Informaci√≥n completa: Steiner Trees}
+En el primer caso encontramos el conocido problema de Minimum Spanning Tree Problem, que trata de construir un camino que permita a un viajero pasar por todos los puntos recorriendo la m√≠nima distancia posible. Sin embargo, en e entorno de nuestro problema, minimizar  el tiempo o la distancia que ha de recorrer la electricidad para llegar de un extremo a otro no es relevante (ocurre en mil√©simas de segundo), sino que podemos plantearnos el siguiente problema:
 
-Dado un conjunto de puntos P dentro de un espacio E, cual es la configuraciÛn que minimiza la distancia total de la red permitiendo crear nodos . Esto se traducirÌa en un menor coste de construcciÛn, ya que se ahorrarÌa en material y en tiempo requerido para montar la red. Este problema es conocido bajo el nombre de Steiner Tree Problem y ha sido muy estudiado por sus enormes aplicaciones en creaciÛn de redes. Los puntos aÒadidos se llaman Steiner points y cumplen ciertas propiedades curiosas como: 
-Como ma·ximo existen tantos steiner points como nodos iniciales menos dos
+Dado un conjunto de puntos P dentro de un espacio E, cual es la configuraci√≥n que minimiza la distancia total de la red permitiendo crear nodos . Esto se traducir√≠a en un menor coste de construcci√≥n, ya que se ahorrar√≠a en material y en tiempo requerido para montar la red. Este problema es conocido bajo el nombre de Steiner Tree Problem y ha sido muy estudiado por sus enormes aplicaciones en creaci√≥n de redes. Los puntos a√±adidos se llaman Steiner points y cumplen ciertas propiedades curiosas como: 
+Como ma√°ximo existen tantos steiner points como nodos iniciales menos dos
 Cada steiner points es un nodo en el que se cruzan exactamente 3 caminos
-Los tres caminos que intersectan en el punto se cortan en 120 grados entre sÌ.
+Los tres caminos que intersectan en el punto se cortan en 120 grados entre s√≠.
 
-Resulta que el problema es de complejidad NP-Hard y por lo que a partir de un n˙mero humilde de nodos (50 en un ordenador standard) la soluciÛn Ûptima es dificilmente alcanzable. Existen tambiÈn varias maneras de aproximar steiner points, pero no he podido encontrar ninguna librerÌa que los implemente m·s all· de artÌculos. El producto final contiene un jar llamado FindSteinerTree que recoge un listado de puntos en un archivo .txt y genera un .txt donde se guardan los steiner points y las conexiones entre los puntos.
+Resulta que el problema es de complejidad NP-Hard y por lo que a partir de un n√∫mero humilde de nodos (50 en un ordenador standard) la soluci√≥n √≥ptima es dificilmente alcanzable. Existen tambi√©n varias maneras de aproximar steiner points, pero no he podido encontrar ninguna librer√≠a que los implemente m√°s all√° de art√≠culos. El producto final contiene un jar llamado FindSteinerTree que recoge un listado de puntos en un archivo .txt y genera un .txt donde se guardan los steiner points y las conexiones entre los puntos.
 
 Formato del txt: <imagen>
 
-\subsection{InformaciÛn incompleta: Nearest neighbour problem}
-en el caso anterior consider·bamos que conocÌamos la posiciÛn de todos los puntos que formarÌan el grafo. Sin embargo, si nos fijamos en la realidad, esta idea no serÌa pr·ctica, ya que a lo largo del tiempo se van aÒadiendo y eliminando parcelas de manera que alteran los puntos del problema. Para crear un ·rbol en este caso usaremos el algoritmo Nearest Neighbour. Este algoritmo recorre cada uno de los puntos secuencialemnte y une el punto con el punto m·s cercano a menos que ese punto ya estÈ unido a Èl. Como tal tiene una complejidad cuadr·tica respecto a la cantidad de nodos y es resoluble hasta para un grafo enorme sin problemas.
+\subsubsection{Informaci√≥n incompleta: Nearest neighbour problem}
+en el caso anterior consider√°bamos que conoc√≠amos la posici√≥n de todos los puntos que formar√≠an el grafo. Sin embargo, si nos fijamos en la realidad, esta idea no ser√≠a pr√°ctica, ya que a lo largo del tiempo se van a√±adiendo y eliminando parcelas de manera que alteran los puntos del problema. Para crear un √°rbol en este caso usaremos el algoritmo Nearest Neighbour. Este algoritmo recorre cada uno de los puntos secuencialemnte y une el punto con el punto m√°s cercano a menos que ese punto ya est√© unido a √©l. Como tal tiene una complejidad cuadr√°tica respecto a la cantidad de nodos y es resoluble hasta para un grafo enorme sin problemas.
 
-Este algoritmo puede adaptarse correctamente a un entorno totalmente secuencial en el que los puntos van aÒadiendose de forma continuada y a cada paso la red es un ·rbol completo.
+Este algoritmo puede adaptarse correctamente a un entorno totalmente secuencial en el que los puntos van a√±adiendose de forma continuada y a cada paso la red es un √°rbol completo.
 
-ImplementaciÛn en pseudocÛdigo: <cÛdigo>
+Implementaci√≥n en pseudoc√≥digo: <c√≥digo>
 
-\subsection{ Ampliar a Open Street Map, CityEngine.}
-Por ˙ltimo se ha considerado como construir los modelos 3D de las ciudades. Y quÈ mejor manera que utilizando ejemplos existentes del mundo real. El mundo est· repleto de ciudades y gracias a mapas online como OpenStreetMap es f·cil conseguir un fichero que contenga toda la informaciÛn relevante de una zona del mundo, como por ejemplo el corazÛn de Manhattan. En OpenStreetMap podemos exportar un trozo de mapa en formator .osm muy parecido a xml que contine toda la informaciÛn sobre calles, parcelas parques etc. que se encuentran en ella. Ahora solo queda usar un programa de modelado procedural como CityEngine para crear una ciudad en 3D a partir del mapa! CityEngine soporta nativamente el tipo de archivos .osm y es capaz de crear modelos 3D a partir de mapa extruyendo las parcelas de edificaciones y aÒadiendoles materiales adecuados. 
+\subsection{Visualizaci√≥n del mercado}
 
-OpenStreetMap, como el nombre lo indica, es una iniciativa de software libre en el que son los mismos usuarios lso que van completando el mapa y aportando cada vez informaciÛn m·s detallada como donde se encuentran fuentes de agua o ciertas seÒales de tr·fico. Sin embargo, CityEngine es un programa con licencia de pago, por lo que se ha dejado fuera del proyecto final. De todas maneras, podremos visualizar algunos resultados obtenidos usando la aplicaciÛn de prueba de 30 dÌas que ofrece la empresa, que soporta importar archivos .osm y exportar el modelo en formato OBJ.
+\subsection{Controles de usuario}
+\subsubsection{hora}
+\subsubsection{capacidad}
+\subsubsection{perfil}
 
-\subsection{ A continuaciÛn }
-Ahora somos capaces de crear modelos 3D, bien desde mapas reales o usando un software de modelado, guardarlos en un fichero obj, abrirlos desde una aplicaciÛn y crearles una red elÈctrica a medida. Ya tenemos todo listo para poder simular como serÌa el trade de la energÌa en una ciudad asÌ en el que cada parcela sea capaz de comprar y vender energÌa a toda la red. Veremos como se define el perfil de una casa y como afecta cada uno de sus par·metros a la simulaciÛn final, asÌ como los detalles m·s importantes sobre el diseÒado e implementaciÛn del simulador.
+
+\subsection{Formato de salida: Mercado especificado}
+Se utilizar√° un documento json para exportar los datos recopilados durante la especificaci√≥n del mercado. El formato es el siguiente:
+imagen
+
+\textbf{A continuaci√≥n}
+
+Ahora somos capaces de crear modelos 3D, bien desde mapas reales o usando un software de modelado, guardarlos en un fichero obj, abrirlos desde una aplicaci√≥n y crearles una red el√©ctrica a medida. Ya tenemos todo listo para poder simular como ser√≠a el trade de la energ√≠a en una ciudad as√≠ en el que cada parcela sea capaz de comprar y vender energ√≠a a toda la red. Veremos como se define el perfil de una casa y como afecta cada uno de sus par√°metros a la simulaci√≥n final, as√≠ como los detalles m√°s importantes sobre el dise√±ado e implementaci√≥n del simulador.
 
 \newpage
 
 
 
 
-\section{SimulaciÛn}
-\subsection{En este capÌtulo}
-\subsection{FilosofÌa de diseÒo de java. POO, encapsulaciÛn, interfaces.}
+\section{Simulaci√≥n}
+\subsection{Diagrama principal}
+\includeImage{simulator.png}
+\subsection{Filosof√≠a de dise√±o de java. POO, encapsulaci√≥n, interfaces.}
 \subsection{Input/Output. }
 \subsection{Diagramas. }
 \subsection{Modelado de una casa}
@@ -352,103 +403,104 @@ Ahora somos capaces de crear modelos 3D, bien desde mapas reales o usando un sof
 \subsection{Generator,} 
 \subsection{Appliance, }
 \subsection{Bid.}
-\subsection{A continuaciÛn}
+\subsection{A continuaci√≥n}
 \newpage
 
 
 
 
-\section{VisualizaciÛn}
+\section{Visualizaci√≥n}
 
-\subsection{En este capÌtulo}
-Dada la naturaleza tridimensional del problema, se optÛ por usar un programa que permitiera visualizar los datos en 3D e interaccionar con ellos. Unity, como editor de juegos, permite esta interacciÛn y tiene la gran ventaja de poder crear un ejecutable para las plataformas m·s reconocidas como Windows, Mac, Linux, pero tambiÈn web o android. Dicho ejecutable ser· el producto final del proyecto, ya que incluir· el simulador, mientras que este a su vez incluye el resolvedor RadPro. Veremos primero la filosofÌa de diseÒo de Unity que cambia bastante en referente a paradigmas de POO comunes como Java o C++. Explicaremos el esquema b·sico de las componentes que forman el visualizador, y nos adentraremos en los detalles m·s interesantes que esconden. Por ˙ltimo veremos como crear el ejecutable para poder distribuir nustro programa f·cilmente.
+\subsection{En este cap√≠tulo}
+Dada la naturaleza tridimensional del problema, se opt√≥ por usar un programa que permitiera visualizar los datos en 3D e interaccionar con ellos. Unity, como editor de juegos, permite esta interacci√≥n y tiene la gran ventaja de poder crear un ejecutable para las plataformas m√°s reconocidas como Windows, Mac, Linux, pero tambi√©n web o android. Dicho ejecutable ser√° el producto final del proyecto, ya que incluir√° el simulador, mientras que este a su vez incluye el resolvedor RadPro. Veremos primero la filosof√≠a de dise√±o de Unity que cambia bastante en referente a paradigmas de POO comunes como Java o C++. Explicaremos el esquema b√°sico de las componentes que forman el visualizador, y nos adentraremos en los detalles m√°s interesantes que esconden. Por √∫ltimo veremos como crear el ejecutable para poder distribuir nustro programa f√°cilmente.
 \includeImage{visualization.png}
 
-\subsection{FilosofÌa de diseÒo de Unity}
-La programaciÛn en Unity puede efectuarse en los lenguajes C++, JavaScript y Boo, aunque este ˙ltimo no se utiliza habitualmente. Todos ellos son lenguajes dentro del paradigma ProgramaciÛn Orientada a Objetos, pero en Unity cambia la manera en el que se organizan los datos. El cambio m·s importante es que lo que se programa son comportamientos, no entes. Los objetos centrales de Unity son los prefabs: Packs de componentes que definen como se comporta ese objeto dentro de la escena. Por ejemplo, todos los objetos tienen una componente Transform que indica la posiciÛn, rotaciÛn y escala del objeto. Unity ofrece varias componentes comunes predefinidas listas para usar en tus prefabs tal como colliders para detectar colisiones entre objetos o mesh renderers para definir la geometrÌa ( los vÈrtices ) que forman el objeto. Por ello la implementaciÛn de funcionalidades se centra en encontrar acciones/comportamientos de los objetos de la escena y definir cdad uno de ellos en un fichero aparte. Por ejemplo: De manera que un mismo objeto que camine y hable tendr·, en vez de un fichero persona en el que se especifican ambos comportamientos como mÈtodos, dos comportamientos definidos en ficheros distintos Caminar y Hablar. La idea detr·s de esto es que si a posteriori se crea un objeto que solo camine, baste con aÒadirle la componente de caminar y ajustar sus par·metros desde dentro del editor. Las componentes son clases especiales que heredan de la clase MonoBehaviour de la librerÌa de Unity. Esto permite que los comportamientos sean aÒadidos a modelos creando lo que se conoce como gameObjects o prefabs, packs de modelo + comportamientos. Comportamientos comunes como colisiones o animaciones ya vienen implementadas en Unity y basta con aÒadirle la componente correspondiente a  
+\subsection{Filosof√≠a de dise√±o de Unity}
+La programaci√≥n en Unity puede efectuarse en los lenguajes C++, JavaScript y Boo, aunque este √∫ltimo no se utiliza habitualmente. Todos ellos son lenguajes dentro del paradigma Programaci√≥n Orientada a Objetos, pero en Unity cambia la manera en el que se organizan los datos. El cambio m√°s importante es que lo que se programa son comportamientos, no entes. Los objetos centrales de Unity son los prefabs: Packs de componentes que definen como se comporta ese objeto dentro de la escena. Por ejemplo, todos los objetos tienen una componente Transform que indica la posici√≥n, rotaci√≥n y escala del objeto. Unity ofrece varias componentes comunes predefinidas listas para usar en tus prefabs tal como colliders para detectar colisiones entre objetos o mesh renderers para definir la geometr√≠a ( los v√©rtices ) que forman el objeto. Por ello la implementaci√≥n de funcionalidades se centra en encontrar acciones/comportamientos de los objetos de la escena y definir cdad uno de ellos en un fichero aparte. Por ejemplo: De manera que un mismo objeto que camine y hable tendr√°, en vez de un fichero persona en el que se especifican ambos comportamientos como m√©todos, dos comportamientos definidos en ficheros distintos Caminar y Hablar. La idea detr√°s de esto es que si a posteriori se crea un objeto que solo camine, baste con a√±adirle la componente de caminar y ajustar sus par√°metros desde dentro del editor. Las componentes son clases especiales que heredan de la clase MonoBehaviour de la librer√≠a de Unity. Esto permite que los comportamientos sean a√±adidos a modelos creando lo que se conoce como gameObjects o prefabs, packs de modelo + comportamientos. Comportamientos comunes como colisiones o animaciones ya vienen implementadas en Unity y basta con a√±adirle la componente correspondiente a  
 
-\subsection{DiseÒando los paneles}
-Una vez ejecutada la simulaciÛn, contamos con un json que describe toda la informaciÛn relevante que ha ocurrido en cada frame. La informaciÛn sobre el momento del dÌa lo mostraremos en la GUI principal de manera que sea apreciable desde cualquier punto de la escena. Aprovechando la naturaleza 3D de nuestro visualizador intentaremos mostrar to da la informaciÛn posible en 3D. La informaciÛn referente a una casa la mostraremos en un canvas ( panel 2D ) pero situado dentro de la escena 3D sobre la casa en cuestiÛn. Por ˙ltimo visualizaremos los cables como lÌneas que van desde la casa origen hasta la casa de destino, su tamaÒo representar· la capacidad de ese cable, cisualizaremos el flujo de electricidad moviendo unas partÌculas en la direcciÛn del flujo sobre el cable y el flujo en si en un panel 3D sobre las partÌculas.
+\subsection{Dise√±ando los paneles}
+Una vez ejecutada la simulaci√≥n, contamos con un json que describe toda la informaci√≥n relevante que ha ocurrido en cada frame. La informaci√≥n sobre el momento del d√≠a lo mostraremos en la GUI principal de manera que sea apreciable desde cualquier punto de la escena. Aprovechando la naturaleza 3D de nuestro visualizador intentaremos mostrar to da la informaci√≥n posible en 3D. La informaci√≥n referente a una casa la mostraremos en un canvas ( panel 2D ) pero situado dentro de la escena 3D sobre la casa en cuesti√≥n. Por √∫ltimo visualizaremos los cables como l√≠neas que van desde la casa origen hasta la casa de destino, su tama√±o representar√° la capacidad de ese cable, cisualizaremos el flujo de electricidad moviendo unas part√≠culas en la direcci√≥n del flujo sobre el cable y el flujo en si en un panel 3D sobre las part√≠culas.
 
-DiseÒo del panel de una casa:<imagen>
+Dise√±o del panel de una casa:<imagen>
 
-- En la barra izquierda se muestran los generadores que contiene la casa. Un icono representa el tipo de generador que se trata, bien solar o eÛlica y sobre la imagen se sobrepone un relleno que representa la eficiencia que est· teniendo ese generador en ese momento en referencia al m·ximo rendimiento que podrÌa tener.
+- En la barra izquierda se muestran los generadores que contiene la casa. Un icono representa el tipo de generador que se trata, bien solar o e√≥lica y sobre la imagen se sobrepone un relleno que representa la eficiencia que est√° teniendo ese generador en ese momento en referencia al m√°ximo rendimiento que podr√≠a tener.
 
-- En el panel central se muestra la gr·fica de la apuesta realizada por esta casa.
+- En el panel central se muestra la gr√°fica de la apuesta realizada por esta casa.
 
-- En el panel derecho se aÒaden los dispositivos. De manera similar a los generadores, est·n representados por un icono referente al tipo del dispositivo y sobre ellos se sit˙a un relleno que muestra su progreso. 
+- En el panel derecho se a√±aden los dispositivos. De manera similar a los generadores, est√°n representados por un icono referente al tipo del dispositivo y sobre ellos se sit√∫a un relleno que muestra su progreso. 
 
-- En el panel inferior se encuentra la baterÌa, que tambiÈn contiene una imagen que se rellena indicando el porcentaje de baterÌa actual respecto al total.
+- En el panel inferior se encuentra la bater√≠a, que tambi√©n contiene una imagen que se rellena indicando el porcentaje de bater√≠a actual respecto al total.
 
-Tanto los generadores como los dispositivos son variables y se deben aÒadir en tiempo de ejecuciÛn, una vez se sepas cuantos y de que tipo son. Por ello, crearemos un prefab para cada uno de ellos.
+Tanto los generadores como los dispositivos son variables y se deben a√±adir en tiempo de ejecuci√≥n, una vez se sepas cuantos y de que tipo son. Por ello, crearemos un prefab para cada uno de ellos.
 
-Los cables los modelamos usando la componente LineRenderer de unity, que dados dos puntos genera una lÌnea personalizable entre que las une. Sobre ella moveremos un objeto con la componente TrailRenderer, que deja una estela detr·s del objeto mientras esta se mueva. Por ˙ltimo, sobre esta partÌcula situaremos un texto que indica la energÌa que se transfiere en ese instante.
+Los cables los modelamos usando la componente LineRenderer de unity, que dados dos puntos genera una l√≠nea personalizable entre que las une. Sobre ella moveremos un objeto con la componente TrailRenderer, que deja una estela detr√°s del objeto mientras esta se mueva. Por √∫ltimo, sobre esta part√≠cula situaremos un texto que indica la energ√≠a que se transfiere en ese instante.
 
 
-\subsection{Control de la c·mara}
-En cualquier momento del programa, el usuario puede controlar la posiciÛn y rotaciÛn de la c·mara. Los controles imitan el funcionamiento que ofrece el editor de unity por defecto: Con las teclas WASD se controla la posiciÛn de la c·mara mientras que el movimiento del ratÛn mientras se tenga el click derecho presionado controla la rotaciÛn. 
+\subsection{Control de la c√°mara}
+En cualquier momento del programa, el usuario puede controlar la posici√≥n y rotaci√≥n de la c√°mara. Los controles imitan el funcionamiento que ofrece el editor de unity por defecto: Con las teclas WASD se controla la posici√≥n de la c√°mara mientras que el movimiento del rat√≥n mientras se tenga el click derecho presionado controla la rotaci√≥n. 
 
-MonoBehaviour contiene un mÈtodo Update() que se llama a cada frame de la simulaciÛn. Cabe notar que entre llamadas al mÈtodo update pasa un tiempo variable. Por ello hay que ir con cuidado a la hora de hacer animaciones etc. hay que considerar la variable Time.deltaTime de unity en dondde se guarda el valor de tiempo que ha transcurrido entre el frame actual y el anterior. Usando los mÈtodos est·ticos de la clase Input de UnityEngine OnMouseDown y GetKeyDown() se detecta si alguna de las teclas del control de c·mara ha sido pulsada. A partir de aquÌ, se implementa la funcionalidad deseada ( Translate para las teclas de control y Rotate para la mouse).
+MonoBehaviour contiene un m√©todo Update() que se llama a cada frame de la simulaci√≥n. Cabe notar que entre llamadas al m√©todo update pasa un tiempo variable. Por ello hay que ir con cuidado a la hora de hacer animaciones etc. hay que considerar la variable Time.deltaTime de unity en dondde se guarda el valor de tiempo que ha transcurrido entre el frame actual y el anterior. Usando los m√©todos est√°ticos de la clase Input de UnityEngine OnMouseDown y GetKeyDown() se detecta si alguna de las teclas del control de c√°mara ha sido pulsada. A partir de aqu√≠, se implementa la funcionalidad deseada ( Translate para las teclas de control y Rotate para la mouse).
 \subsection{Eligiendo la ciudad}
 
-AÒadir un modelo a una escena previamente a su ejecuciÛn es relativamente sencillo, basta con crear un prefab que tenga las componentes que te interesan. Sin embargo, importar un modelo en tiempo de ejecuciÛn en Unity es m·s complicado de lo que puede parecer. El primer problema es abrir un cuadro de di·logo que permita al usuario elegir un archivo. Unity usa Mono que es un subconjunto de .NET FrameWork 2.0 especializado para juegos, que por defecto no incorpora la opciÛn de crear ventanas propias del SO. 
-La soluciÛn ha sido aÒadir el dll Windows.Forms.dll de .NET FrameWork 2.0 en una carpeta llamada Plugins dentro del proyecto de unity de manera que el compilador de unity comprenda que queremos usar tal extensiÛn y permita crear las ventanas. El soporte de .NET FrameWrk 2.0 no est· garantizado por Unity por lo que pueden saltar errores de seguridad al intentar abrir la ventana, pero ignorando estos defectos podemos permitir que el usuario abra un fichero. Quiero agradecer a <Referencia> por la soluciÛn prestada.
+A√±adir un modelo a una escena previamente a su ejecuci√≥n es relativamente sencillo, basta con crear un prefab que tenga las componentes que te interesan. Sin embargo, importar un modelo en tiempo de ejecuci√≥n en Unity es m√°s complicado de lo que puede parecer. El primer problema es abrir un cuadro de di√°logo que permita al usuario elegir un archivo. Unity usa Mono que es un subconjunto de .NET FrameWork 2.0 especializado para juegos, que por defecto no incorpora la opci√≥n de crear ventanas propias del SO. 
+La soluci√≥n ha sido a√±adir el dll Windows.Forms.dll de .NET FrameWork 2.0 en una carpeta llamada Plugins dentro del proyecto de unity de manera que el compilador de unity comprenda que queremos usar tal extensi√≥n y permita crear las ventanas. El soporte de .NET FrameWrk 2.0 no est√° garantizado por Unity por lo que pueden saltar errores de seguridad al intentar abrir la ventana, pero ignorando estos defectos podemos permitir que el usuario abra un fichero. Quiero agradecer a <Referencia> por la soluci√≥n prestada.
 
 \subsection{Seleccionando el perfil de las casas}
-Una vez la ciudad se encuentre en la escena el usuario podr· ver y modificar el perfil de la gente que vive en esa casa en tres niveles: Alto consumo, consumo regular o alto ahorro. 
+Una vez la ciudad se encuentre en la escena el usuario podr√° ver y modificar el perfil de la gente que vive en esa casa en tres niveles: Alto consumo, consumo regular o alto ahorro. 
 
-Cuando el usuario pasa el ratÛn por encima de una casa, est· casa se colorear· de un color dependiendo del perfil que tenga asignado. Por defecto, todas las casas tienen asignado el perfil de consumo regular que viene representado por el color naranja. Una vez situado el ratÛn sobre la casa el usuario podr· elegir el perfil deseado para esa casa simplemente pulsando las teclas 1, 2 o 3 siendo 1 el de menor consumo y 3 el mayor. 
+Cuando el usuario pasa el rat√≥n por encima de una casa, est√° casa se colorear√° de un color dependiendo del perfil que tenga asignado. Por defecto, todas las casas tienen asignado el perfil de consumo regular que viene representado por el color naranja. Una vez situado el rat√≥n sobre la casa el usuario podr√° elegir el perfil deseado para esa casa simplemente pulsando las teclas 1, 2 o 3 siendo 1 el de menor consumo y 3 el mayor. 
 
-Por ˙ltimo si se pulsa la tecla P, las casas se colorear·n con el color correspondiente a su perfil hasta que se vuelva a pulsar P. Esto permite visualizar la distribuciÛn de perfiles a lo largo de una ciudad.
+Por √∫ltimo si se pulsa la tecla P, las casas se colorear√°n con el color correspondiente a su perfil hasta que se vuelva a pulsar P. Esto permite visualizar la distribuci√≥n de perfiles a lo largo de una ciudad.
 
 \subsection{Seleccionando la franja horaria}
-El segundo paso es seleccionar de que hora a que hora se ejecutar· la simulaciÛn. Para ello contamos con un torus fino con dos bolas sobre ella. Estas bolas se pueden seleccionar y arrastrar sobre el torus y muestran un lienzo al moverse que indica la hora que seÒalan. La idea bajo esta implementaciÛn es:
-- Detectar si el mouse est· en modo drag con el mÈtodo OnMouseDrag de Monobehaviour
+El segundo paso es seleccionar de que hora a que hora se ejecutar√° la simulaci√≥n. Para ello contamos con un torus fino con dos bolas sobre ella. Estas bolas se pueden seleccionar y arrastrar sobre el torus y muestran un lienzo al moverse que indica la hora que se√±alan. La idea bajo esta implementaci√≥n es:
+- Detectar si el mouse est√° en modo drag con el m√©todo OnMouseDrag de Monobehaviour
 
-- Coger el punto que representa el ratÛn en la ventana
+- Coger el punto que representa el rat√≥n en la ventana
 
-- Hacer un cambio de base para que deje el pixel 0,0 estÈ situado en el centro de la screen
+- Hacer un cambio de base para que deje el pixel 0,0 est√© situado en el centro de la screen
 
-- normalizar el vector que va desde el centro hasta el punto del ratÛn.
+- normalizar el vector que va desde el centro hasta el punto del rat√≥n.
 
 - escalarlo por el radio mayor del torus para situarlo encima del mismo
 
-Por defecto estos valores empiezan de 06:00h a 18:00h. Cabe considerar que para que el funcionamiento del programa sea el esperado, la hora inicial deberÌa ser inferior a la hora final
+Por defecto estos valores empiezan de 06:00h a 18:00h. Cabe considerar que para que el funcionamiento del programa sea el esperado, la hora inicial deber√≠a ser inferior a la hora final
 
 
-\subsection{Ejecutando la animaciÛn} 
-Como tercer paso, el usuario hace click en la estrella de acuerdo con que est· contento con los par·metros elegidos hasta ahora. Esto crea un nuevo thread que se encarga de correr la simulaciÛn. La creaciÛn del thread se consigue gracias a la clase ThreadedJob que es aportaciÛn de <referencia> En particular este thread tiene un mÈtodo que se ejecutar· al ser creado. Adem·s, cada vez que el thread principal llame al metodo update de ThreadedJob, este actualizar· su estado y en caso de que haaya acabado generar· un evento que ser· tratado por el thread principal. Por ˙ltimo el thread se destruir· porque ya ha completado su trabajo.
-El thread al mismo tiempo crea un Process para abrir una ventana de terminal y ejecuta el simulador con los par·metros proveidos: java -jar simulator.jar. Cabe decir que si se utilizan rutas absolutas para decir a la terminal donde se encuentra el jar, nuestra aplicaciÛn no ser· distribuible, porque no funcionar· en otros ordenadores, por ello debemos poder acceder al simulador usando rutas relativas. Unity provee con la variable Application.dataPath que referencia en tiempo de ejecuciÛn a la carpeta de datos que est· utilizando Unity en ese momento. Mientras estamos en el editor de Unity, esta carpeta es la carpeta Assets del proyecto mientras que una vez se haya hecho la build, es la carpeta que acompaÒa al ejcutable ,exe. Por eso situaremos el jar dentro de esta carpeta y la aplicaciÛn ser· distribuible.
+\subsection{Ejecutando la animaci√≥n} 
+Como tercer paso, el usuario hace click en la estrella de acuerdo con que est√° contento con los par√°metros elegidos hasta ahora. Esto crea un nuevo thread que se encarga de correr la simulaci√≥n. La creaci√≥n del thread se consigue gracias a la clase ThreadedJob que es aportaci√≥n de <referencia> En particular este thread tiene un m√©todo que se ejecutar√° al ser creado. Adem√°s, cada vez que el thread principal llame al metodo update de ThreadedJob, este actualizar√° su estado y en caso de que haaya acabado generar√° un evento que ser√° tratado por el thread principal. Por √∫ltimo el thread se destruir√° porque ya ha completado su trabajo.
+El thread al mismo tiempo crea un Process para abrir una ventana de terminal y ejecuta el simulador con los par√°metros proveidos: java -jar simulator.jar. Cabe decir que si se utilizan rutas absolutas para decir a la terminal donde se encuentra el jar, nuestra aplicaci√≥n no ser√° distribuible, porque no funcionar√° en otros ordenadores, por ello debemos poder acceder al simulador usando rutas relativas. Unity provee con la variable Application.dataPath que referencia en tiempo de ejecuci√≥n a la carpeta de datos que est√° utilizando Unity en ese momento. Mientras estamos en el editor de Unity, esta carpeta es la carpeta Assets del proyecto mientras que una vez se haya hecho la build, es la carpeta que acompa√±a al ejcutable ,exe. Por eso situaremos el jar dentro de esta carpeta y la aplicaci√≥n ser√° distribuible.
 
-\subsection{Mostrando la informaciÛn relevante}
-Durante toda la ejecuciÛn del visualizador, se minimiza la nformaciÛn mostrada de manera que sea m·s intuitivo y disfrutable para el usuario final. En particular diversos objetos comparten el comportamiento de revelar/ocultar cierta informaciÛn al ser pulsados. Por ejemplo, al pulsar sobre las casas, veremos el informe de quÈ est· ocurriendo en esa casa mientras se ejecuta la simulaciÛn, mientras que si pulsamos sobre los focos de energÌa que pasan sobre los cables, veremos o ocultaremos un texto con cuanta energÌa transportan en cada momento. 
+\subsection{Mostrando la informaci√≥n relevante}
+Durante toda la ejecuci√≥n del visualizador, se minimiza la nformaci√≥n mostrada de manera que sea m√°s intuitivo y disfrutable para el usuario final. En particular diversos objetos comparten el comportamiento de revelar/ocultar cierta informaci√≥n al ser pulsados. Por ejemplo, al pulsar sobre las casas, veremos el informe de qu√© est√° ocurriendo en esa casa mientras se ejecuta la simulaci√≥n, mientras que si pulsamos sobre los focos de energ√≠a que pasan sobre los cables, veremos o ocultaremos un texto con cuanta energ√≠a transportan en cada momento. 
 
-Por otro lado, mediante las teclas H y G podemos controlar quÈ partes de la ciudad se ven en cada momento. Con H ( de house ) podemos revelar/ocultar las casas mientras que con G ( de grid ) podemos revelar/ocultar los cables. Por ˙ltimo, con la tecla Esc podremos salir de la aplicaciÛn. El objeto manager es el que contendr· estos comportamientos.
+Por otro lado, mediante las teclas H y G podemos controlar qu√© partes de la ciudad se ven en cada momento. Con H ( de house ) podemos revelar/ocultar las casas mientras que con G ( de grid ) podemos revelar/ocultar los cables. Por √∫ltimo, con la tecla Esc podremos salir de la aplicaci√≥n. El objeto manager es el que contendr√° estos comportamientos.
 
 \subsection{Programando las animaciones}
-La simulaciÛn nos da frames discretos en los que sabemos como es el estado del sistema. Nuestra intenciÛn ser· interpolar linealmente estos valores para que parezca que el movimiento es continuo. 
+La simulaci√≥n nos da frames discretos en los que sabemos como es el estado del sistema. Nuestra intenci√≥n ser√° interpolar linealmente estos valores para que parezca que el movimiento es continuo. 
 
 Unity cuenta con 2 modos por defecto que permiten hacer animaciones:
 -La componente Animation permite ejecutar animation clips guardados en una lista, es la manera original de hacer las animaciones.
--La componente Animator tambiÈn conocida como Mecanim, que genera una m·uina de estados que tiene en cada estado el clip de la animaciÛn y contiene transiciones entre estados que se encargan de controlar como cambian las animaciones.
+-La componente Animator tambi√©n conocida como Mecanim, que genera una m√°uina de estados que tiene en cada estado el clip de la animaci√≥n y contiene transiciones entre estados que se encargan de controlar como cambian las animaciones.
 
-Sin embargo, ninguna de ellas permite cambiar los clips de animaciÛn en tiempo de ejecuciÛn. Los clips han de estar guardados en ficheros .anim y ser referenciados en estas componentes, no se permite aÒadir clips en tiempo de ejecuciÛn. Es una limitaciÛn del sistema actual que han anunciado que aÒadir·n en una prÛxima versiÛn. Por ello, la soluciÛn es crearnos nosotros un algoritmo sencillo y simple que se encargue de simular animaciones b·sicas.
+Sin embargo, ninguna de ellas permite cambiar los clips de animaci√≥n en tiempo de ejecuci√≥n. Los clips han de estar guardados en ficheros .anim y ser referenciados en estas componentes, no se permite a√±adir clips en tiempo de ejecuci√≥n. Es una limitaci√≥n del sistema actual que han anunciado que a√±adir√°n en una pr√≥xima versi√≥n. Por ello, la soluci√≥n es crearnos nosotros un algoritmo sencillo y simple que se encargue de simular animaciones b√°sicas.
 
-Hay dos modos de animaciÛn: Repetitivo y continuo. En el repetitivo, el mismo frame se anima una y otra vez para analizar correcamente que ha pasado concretamente entre esos instantes de tiempo. En el continuo, la animaciÛn va recorriendo todos los frames y se repite una vez haya llegado al final.
-Todos los animadores tienen como entrada un array de datos. En el caso de la baterÌa estos datos representan el porcentaje de llenitud, mientras que en el caso de los dispositivos representan su progreso. La idea es llamar a un mÈtodo un n˙mero concreto de veces cada segundo donde se recalcule el valor actual y se actualize la informaciÛn necesaria correspondiente. Al finalizar el segundo, se llama a otro mÈtodo en el que o bien se pasa al siguiente estado o bien se reinicia el estado actual dependiendo de si la animaciÛn est· en modo repetitivo o no.
+Hay dos modos de animaci√≥n: Repetitivo y continuo. En el repetitivo, el mismo frame se anima una y otra vez para analizar correcamente que ha pasado concretamente entre esos instantes de tiempo. En el continuo, la animaci√≥n va recorriendo todos los frames y se repite una vez haya llegado al final.
+Todos los animadores tienen como entrada un array de datos. En el caso de la bater√≠a estos datos representan el porcentaje de llenitud, mientras que en el caso de los dispositivos representan su progreso. La idea es llamar a un m√©todo un n√∫mero concreto de veces cada segundo donde se recalcule el valor actual y se actualize la informaci√≥n necesaria correspondiente. Al finalizar el segundo, se llama a otro m√©todo en el que o bien se pasa al siguiente estado o bien se reinicia el estado actual dependiendo de si la animaci√≥n est√° en modo repetitivo o no.
 Una vez que hayamos calculado el valor actual basta con actualizar Image.fillAmount con el valor correcto.
 
 \subsection{Controlando el flow}
-Incluso en un entorno dirigido por componentes como unity, necesitamos un objeto que controle el estado del programa y decida que opciones est·n disponibles al usuario en cada momento. En nuestro proyecto, la componente Manager se encarga de esta funciÛn. Adem·s sirve como puente sobre las diferentes componentes. Si un objeto quiere comunicar algo a otro pero no tiene guardada una referencia a Èl, puede pasar la informaciÛn al manager y este ser· el que haga llegar la informaciÛn al destinatario. Funciona similarmente al mÈtodo main de los programas Java.
+Incluso en un entorno dirigido por componentes como unity, necesitamos un objeto que controle el estado del programa y decida que opciones est√°n disponibles al usuario en cada momento. En nuestro proyecto, la componente Manager se encarga de esta funci√≥n. Adem√°s sirve como puente sobre las diferentes componentes. Si un objeto quiere comunicar algo a otro pero no tiene guardada una referencia a √©l, puede pasar la informaci√≥n al manager y este ser√° el que haga llegar la informaci√≥n al destinatario. Funciona similarmente al m√©todo main de los programas Java.
 
-\subsection{Parseando el JSON}
-AsÌ como crear el json era muy sencillo, parsearlo lleva m·s tiempo. Primero debemos encontrar una librerÌa adecuada que sirva para Unity. Probablemente la herramienta m·s popular utilizada para controlar archivos JSON en C\# sea Json.NET creado por James Newton-King. De todas formas, dadas las limitaciones de compatibilidad de Unity con .NET, se necesita adaptar el cÛdigo a Unity. Existe esta adptaciÛn a la venta en la Asset Store de Unity, pero para mantener este proyecto gratuito, se ha evitado usarlo. 
+no puedo hacerlo con ThreadedJob porque no puedo hacer Instantiate dentro. La soluci√≥n ser√≠a devolver una struct con toda la informaci√≥n recopilada por el parseador y hacer las instanciaciones en el thread principal. \subsection{Parseando el JSON}
+
+As√≠ como crear el json era muy sencillo, parsearlo lleva m√°s tiempo. Primero debemos encontrar una librer√≠a adecuada que sirva para Unity. Probablemente la herramienta m√°s popular utilizada para controlar archivos JSON en C\# sea Json.NET creado por James Newton-King. De todas formas, dadas las limitaciones de compatibilidad de Unity con .NET, se necesita adaptar el c√≥digo a Unity. Existe esta adptaci√≥n a la venta en la Asset Store de Unity, pero para mantener este proyecto gratuito, se ha evitado usarlo. 
 
 De todos modos existen parseadores de JSON creados por la comunidad especialmente para Unity. Nosotro usaremos JSONObject de <referencia>.
 
-El primer paso es detectar con cuantos generadores y dispositivos cuenta cada casa e instanciar un prefab por cada uno en el panel de la casa correspondiente. Una vez todos los objetos de la escena existan popularemos sus componentes de animaciÛn con los datos guardados en el JSON. Para cada tipo de dato deberemos identificar cual es su animador, o bine FillImageAnimator en el caso de la baterÌa, los generadores o los dispositivos, o bien ChangeImageAnimator en el caso de las apuestas, o bien TranslationAnimator en el caso 
+El primer paso es detectar con cuantos generadores y dispositivos cuenta cada casa e instanciar un prefab por cada uno en el panel de la casa correspondiente. Una vez todos los objetos de la escena existan popularemos sus componentes de animaci√≥n con los datos guardados en el JSON. Para cada tipo de dato deberemos identificar cual es su animador, o bine FillImageAnimator en el caso de la bater√≠a, los generadores o los dispositivos, o bien ChangeImageAnimator en el caso de las apuestas, o bien TranslationAnimator en el caso 
 
-\subsection{A continuaciÛn}
+\subsection{A continuaci√≥n}
 Mostraremos las conclusiones obtenidas y posibles rutas de avance para este proyecto.
 
 \newpage
@@ -457,11 +509,26 @@ Mostraremos las conclusiones obtenidas y posibles rutas de avance para este proy
 
 \section{Futuro trabajo}
 
-\subsection{Futuro trabajo}
+\subsection{ Ampliar a Open Street Map, CityEngine.}
+Por √∫ltimo se ha considerado como construir los modelos 3D de las ciudades. Y qu√© mejor manera que utilizando ejemplos existentes del mundo real. El mundo est√° repleto de ciudades y gracias a mapas online como OpenStreetMap es f√°cil conseguir un fichero que contenga toda la informaci√≥n relevante de una zona del mundo, como por ejemplo el coraz√≥n de Manhattan. En OpenStreetMap podemos exportar un trozo de mapa en formator .osm muy parecido a xml que contine toda la informaci√≥n sobre calles, parcelas parques etc. que se encuentran en ella. Ahora solo queda usar un programa de modelado procedural como CityEngine para crear una ciudad en 3D a partir del mapa! CityEngine soporta nativamente el tipo de archivos .osm y es capaz de crear modelos 3D a partir de mapa extruyendo las parcelas de edificaciones y a√±adiendoles materiales adecuados. 
+
+OpenStreetMap, como el nombre lo indica, es una iniciativa de software libre en el que son los mismos usuarios lso que van completando el mapa y aportando cada vez informaci√≥n m√°s detallada como donde se encuentran fuentes de agua o ciertas se√±ales de tr√°fico. Sin embargo, CityEngine es un programa con licencia de pago, por lo que se ha dejado fuera del proyecto final. De todas maneras, podremos visualizar algunos resultados obtenidos usando la aplicaci√≥n de prueba de 30 d√≠as que ofrece la empresa, que soporta importar archivos .osm y exportar el modelo en formato OBJ.
+
+
+\subsection{OpenWeatherMap}
+
+\subsection{Reinforcement learning en bidding}
 
 \normalfont
 
 \newpage
+
+\section*{Agradecimientos}
+Me gustar√≠a agradecer a los siguientes personas por proporcionar material indispensable para la realizaci√≥n del proyecto:
+- iconos: %<div>Icons made by <a href="http://www.freepik.com" title="Freepik">Freepik</a>, <a href="http://www.flaticon.com/authors/google" title="Google">Google</a> from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a>             is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0">CC BY 3.0</a></div>
+- usuarios de stackoverflow:
+\newpage
+
 
 \begin{thebibliography}{25}
 \bibitem{pari} Batut, C.; Belabas, K.; Bernardi, D.; Cohen, H.; Olivier, M.: User's guide to \textit{PARI-GP},  \newline \texttt{pari.math.u-bordeaux.fr/pub/pari/manuals/2.3.3/users.pdf}, 2000.

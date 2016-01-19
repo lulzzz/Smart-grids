@@ -1,7 +1,7 @@
 
 package Model.Implementations;
 
-import Model.DataSets.DiscreteDataSet;
+import Model.TemporalDistributions.DiscreteTemporalDistribution;
 import Model.Interfaces.*;
 import Model.Core.*;
 import com.google.gson.annotations.*;
@@ -10,14 +10,14 @@ import seas3.core.Participant;
 
 public class Distributor implements IDistributor
 {
-    private DiscreteDataSet rate;
-    private IBid bid;
+    private DiscreteTemporalDistribution rate;
+    private IBiddingStrategy bid;
     @Expose
     private double currentRate;
     
     private static final double maxTrade = 100;
     
-    public Distributor( DiscreteDataSet rate )
+    public Distributor( DiscreteTemporalDistribution rate )
     {
         this.rate = rate;
     }

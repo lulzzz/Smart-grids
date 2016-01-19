@@ -9,7 +9,7 @@ import java.util.*;
 import java.util.function.*;
 import seas3.core.*;
 
-public class LogBid implements IBid 
+public class LogBid implements IBiddingStrategy 
 {
     private double minX, maxX, contactX, minPlot, maxPlot;
     

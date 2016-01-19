@@ -10,6 +10,6 @@ public interface IGenerator
     
     public enum GeneratorType
     {
-        Solar, Wind
+        Solar, Eolic
     }
 }

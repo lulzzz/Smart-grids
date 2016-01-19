@@ -1,7 +1,7 @@
 
 package Model.Implementations;
 
-import Model.DataSets.DiscreteDataSet;
+import Model.TemporalDistributions.DiscreteTemporalDistribution;
 import Model.Interfaces.IAppliance;
 import Model.Interfaces.IAppliance.ApplianceState;
 import Model.Core.Moment;
@@ -16,9 +16,9 @@ public class Appliance implements IAppliance
     @Expose
     private double progress;
     
-    private DiscreteDataSet consum;
+    private DiscreteTemporalDistribution consum;
     
-    public Appliance( ApplianceType type, DiscreteDataSet consum )
+    public Appliance( ApplianceType type, DiscreteTemporalDistribution consum )
     {
         this.type = type;
         this.consum = consum;
