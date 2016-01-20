@@ -1,69 +1,75 @@
 \select@language {spanish}
-\contentsline {section}{\numberline {1}Objetivos}{1}
-\contentsline {subsection}{\numberline {1.1}Funcionalidad}{1}
-\contentsline {subsection}{\numberline {1.2}Requerimientos}{1}
-\contentsline {subsection}{\numberline {1.3}Casos de uso}{2}
-\contentsline {subsection}{\numberline {1.4}A continuaci\IeC {\'o}n}{2}
-\contentsline {section}{\numberline {2}Metodolog\IeC {\'\i }a y herramientas}{3}
-\contentsline {subsection}{\numberline {2.1} Agile }{3}
-\contentsline {subsection}{\numberline {2.2} Decisiones de dise\IeC {\~n}o }{4}
-\contentsline {subsection}{\numberline {2.3} Control de versiones: Git }{4}
-\contentsline {subsection}{\numberline {2.4}Documentaci\IeC {\'o}n: LaTeX}{4}
-\contentsline {subsection}{\numberline {2.5}Modelado 3D: Blender}{5}
-\contentsline {subsection}{\numberline {2.6}Entorno de visualizaci\IeC {\'o}n: Unity}{6}
-\contentsline {subsection}{\numberline {2.7}Algoritmia: Java}{6}
-\contentsline {subsection}{\numberline {2.8}Intercambio de datos: JSON}{7}
-\contentsline {subsection}{\numberline {2.9}Trazado de gr\IeC {\'a}ficas: Gnuplot}{7}
-\contentsline {subsection}{\numberline {2.10}A continuaci\IeC {\'o}n}{7}
-\contentsline {section}{\numberline {3}Especificaci\IeC {\'o}n del mercado}{8}
-\contentsline {subsection}{\numberline {3.1}Modelado de un mercado distribuido}{8}
-\contentsline {subsection}{\numberline {3.2}Formato de entrada: Geolocalizaci\IeC {\'o}n de los prosumidores}{8}
-\contentsline {subsection}{\numberline {3.3}Algoritmos para la creaci\IeC {\'o}n de conectividad}{9}
-\contentsline {subsubsection}{\numberline {3.3.1}Informaci\IeC {\'o}n completa: Steiner Trees}{9}
-\contentsline {subsubsection}{\numberline {3.3.2}Informaci\IeC {\'o}n incompleta: Nearest neighbour problem}{9}
-\contentsline {subsection}{\numberline {3.4}Visualizaci\IeC {\'o}n del mercado}{10}
-\contentsline {subsection}{\numberline {3.5}Controles de usuario}{10}
-\contentsline {subsubsection}{\numberline {3.5.1}hora}{10}
-\contentsline {subsubsection}{\numberline {3.5.2}capacidad}{10}
-\contentsline {subsubsection}{\numberline {3.5.3}perfil}{10}
-\contentsline {subsection}{\numberline {3.6}Formato de salida: Mercado especificado}{10}
-\contentsline {section}{\numberline {4}Simulaci\IeC {\'o}n}{11}
-\contentsline {subsection}{\numberline {4.1}Filosof\IeC {\'\i }a de dise\IeC {\~n}o}{11}
-\contentsline {subsection}{\numberline {4.2}El paquete view}{11}
-\contentsline {subsubsection}{\numberline {4.2.1}Command Line Arguments}{12}
-\contentsline {subsubsection}{\numberline {4.2.2}FileIO}{12}
-\contentsline {subsection}{\numberline {4.3}El paquete control}{12}
-\contentsline {subsubsection}{\numberline {4.3.1}Simulation}{12}
-\contentsline {subsection}{\numberline {4.4}El paquete model.core}{12}
-\contentsline {subsubsection}{\numberline {4.4.1}Prosumer}{12}
-\contentsline {subsubsection}{\numberline {4.4.2}Wire}{12}
-\contentsline {subsubsection}{\numberline {4.4.3}Weather}{12}
-\contentsline {subsubsection}{\numberline {4.4.4}Distributor}{12}
-\contentsline {subsubsection}{\numberline {4.4.5}Moment}{12}
-\contentsline {subsection}{\numberline {4.5}El paquete model.components}{12}
-\contentsline {subsubsection}{\numberline {4.5.1}IBiddingStrategy}{12}
-\contentsline {subsubsection}{\numberline {4.5.2}IBattery}{12}
-\contentsline {subsubsection}{\numberline {4.5.3}IGenerator}{12}
-\contentsline {subsubsection}{\numberline {4.5.4}IAppliance}{12}
-\contentsline {subsection}{\numberline {4.6}El paquete model.data}{12}
-\contentsline {subsubsection}{\numberline {4.6.1}Data}{13}
-\contentsline {subsubsection}{\numberline {4.6.2}ITemporalDistribution}{13}
-\contentsline {subsection}{\numberline {4.7}A continuaci\IeC {\'o}n}{13}
-\contentsline {section}{\numberline {5}Visualizaci\IeC {\'o}n}{14}
-\contentsline {subsection}{\numberline {5.1}En este cap\IeC {\'\i }tulo}{14}
-\contentsline {subsection}{\numberline {5.2}Filosof\IeC {\'\i }a de dise\IeC {\~n}o de Unity}{14}
-\contentsline {subsection}{\numberline {5.3}Dise\IeC {\~n}ando los paneles}{15}
-\contentsline {subsection}{\numberline {5.4}Control de la c\IeC {\'a}mara}{16}
-\contentsline {subsection}{\numberline {5.5}Eligiendo la ciudad}{16}
-\contentsline {subsection}{\numberline {5.6}Seleccionando el perfil de las casas}{16}
-\contentsline {subsection}{\numberline {5.7}Seleccionando la franja horaria}{17}
-\contentsline {subsection}{\numberline {5.8}Ejecutando la animaci\IeC {\'o}n}{17}
-\contentsline {subsection}{\numberline {5.9}Mostrando la informaci\IeC {\'o}n relevante}{18}
-\contentsline {subsection}{\numberline {5.10}Programando las animaciones}{18}
-\contentsline {subsection}{\numberline {5.11}Controlando el flow}{19}
-\contentsline {subsection}{\numberline {5.12}Parseando el JSON}{19}
-\contentsline {subsection}{\numberline {5.13}A continuaci\IeC {\'o}n}{19}
-\contentsline {section}{\numberline {6}Futuro trabajo}{20}
-\contentsline {subsection}{\numberline {6.1} Ampliar a Open Street Map, CityEngine.}{20}
-\contentsline {subsection}{\numberline {6.2}OpenWeatherMap}{20}
-\contentsline {subsection}{\numberline {6.3}Reinforcement learning en bidding}{20}
+\contentsline {section}{\numberline {1}Introducci\IeC {\'o}n y antecedentes}{1}
+\contentsline {section}{\numberline {2}Objetivos}{1}
+\contentsline {subsection}{\numberline {2.1}Funcionalidad}{1}
+\contentsline {subsection}{\numberline {2.2}Requerimientos}{1}
+\contentsline {subsection}{\numberline {2.3}Casos de uso}{2}
+\contentsline {subsection}{\numberline {2.4}A continuaci\IeC {\'o}n}{2}
+\contentsline {section}{\numberline {3}Metodolog\IeC {\'\i }a y herramientas}{3}
+\contentsline {subsection}{\numberline {3.1} Agile }{3}
+\contentsline {subsection}{\numberline {3.2} Decisiones de dise\IeC {\~n}o }{4}
+\contentsline {subsection}{\numberline {3.3} Control de versiones: Git }{4}
+\contentsline {subsection}{\numberline {3.4}Documentaci\IeC {\'o}n: LaTeX}{4}
+\contentsline {subsection}{\numberline {3.5}Modelado 3D: Blender}{5}
+\contentsline {subsection}{\numberline {3.6}Entorno de visualizaci\IeC {\'o}n: Unity}{6}
+\contentsline {subsection}{\numberline {3.7}Algoritmia: Java}{6}
+\contentsline {subsection}{\numberline {3.8}Intercambio de datos: JSON}{7}
+\contentsline {subsection}{\numberline {3.9}Trazado de gr\IeC {\'a}ficas: Gnuplot}{7}
+\contentsline {subsection}{\numberline {3.10}A continuaci\IeC {\'o}n}{7}
+\contentsline {section}{\numberline {4}Especificaci\IeC {\'o}n del mercado}{8}
+\contentsline {subsection}{\numberline {4.1}Modelado de un mercado distribuido}{8}
+\contentsline {subsection}{\numberline {4.2}Formato de entrada: Geolocalizaci\IeC {\'o}n de los prosumidores}{8}
+\contentsline {subsection}{\numberline {4.3}Algoritmos para la creaci\IeC {\'o}n de conectividad}{9}
+\contentsline {subsubsection}{\numberline {4.3.1}Informaci\IeC {\'o}n completa: Steiner Trees}{9}
+\contentsline {subsubsection}{\numberline {4.3.2}Informaci\IeC {\'o}n incompleta: Nearest neighbour problem}{9}
+\contentsline {subsection}{\numberline {4.4}Visualizaci\IeC {\'o}n del mercado}{10}
+\contentsline {subsection}{\numberline {4.5}Controles de usuario}{10}
+\contentsline {subsubsection}{\numberline {4.5.1}hora}{10}
+\contentsline {subsubsection}{\numberline {4.5.2}capacidad}{10}
+\contentsline {subsubsection}{\numberline {4.5.3}perfil}{10}
+\contentsline {subsection}{\numberline {4.6}Formato de salida: Mercado especificado}{10}
+\contentsline {section}{\numberline {5}Simulaci\IeC {\'o}n}{11}
+\contentsline {subsection}{\numberline {5.1}Principios de dise\IeC {\~n}o}{11}
+\contentsline {subsubsection}{\numberline {5.1.1}Patr\IeC {\'o}n MVC}{11}
+\contentsline {subsubsection}{\numberline {5.1.2}Patr\IeC {\'o}n experto y la encapsulaci\IeC {\'o}n}{12}
+\contentsline {subsubsection}{\numberline {5.1.3}Interficies y ampliaci\IeC {\'o}n}{12}
+\contentsline {subsection}{\numberline {5.2}El paquete view}{13}
+\contentsline {subsubsection}{\numberline {5.2.1}Command Line Interface}{13}
+\contentsline {subsubsection}{\numberline {5.2.2}FileSystem}{13}
+\contentsline {subsection}{\numberline {5.3}El paquete control}{14}
+\contentsline {subsubsection}{\numberline {5.3.1}Main}{14}
+\contentsline {subsubsection}{\numberline {5.3.2}Simulation}{14}
+\contentsline {subsubsection}{\numberline {5.3.3}CEAPSolver}{15}
+\contentsline {subsection}{\numberline {5.4}El paquete model.core}{15}
+\contentsline {subsubsection}{\numberline {5.4.1}Prosumer}{15}
+\contentsline {subsubsection}{\numberline {5.4.2}Wire}{15}
+\contentsline {subsubsection}{\numberline {5.4.3}Weather}{15}
+\contentsline {subsubsection}{\numberline {5.4.4}Distributor}{15}
+\contentsline {subsubsection}{\numberline {5.4.5}Moment}{15}
+\contentsline {subsection}{\numberline {5.5}El paquete model.components}{15}
+\contentsline {subsubsection}{\numberline {5.5.1}IBiddingStrategy}{15}
+\contentsline {subsubsection}{\numberline {5.5.2}IBattery}{15}
+\contentsline {subsubsection}{\numberline {5.5.3}IGenerator}{15}
+\contentsline {subsubsection}{\numberline {5.5.4}IAppliance}{15}
+\contentsline {subsection}{\numberline {5.6}El paquete model.data}{15}
+\contentsline {subsubsection}{\numberline {5.6.1}Data}{15}
+\contentsline {subsubsection}{\numberline {5.6.2}ITemporalDistribution}{15}
+\contentsline {subsection}{\numberline {5.7}A continuaci\IeC {\'o}n}{15}
+\contentsline {section}{\numberline {6}Visualizaci\IeC {\'o}n}{16}
+\contentsline {subsection}{\numberline {6.1}En este cap\IeC {\'\i }tulo}{16}
+\contentsline {subsection}{\numberline {6.2}Filosof\IeC {\'\i }a de dise\IeC {\~n}o de Unity}{16}
+\contentsline {subsection}{\numberline {6.3}Dise\IeC {\~n}ando los paneles}{17}
+\contentsline {subsection}{\numberline {6.4}Control de la c\IeC {\'a}mara}{18}
+\contentsline {subsection}{\numberline {6.5}Eligiendo la ciudad}{18}
+\contentsline {subsection}{\numberline {6.6}Seleccionando el perfil de las casas}{18}
+\contentsline {subsection}{\numberline {6.7}Seleccionando la franja horaria}{19}
+\contentsline {subsection}{\numberline {6.8}Ejecutando la animaci\IeC {\'o}n}{19}
+\contentsline {subsection}{\numberline {6.9}Mostrando la informaci\IeC {\'o}n relevante}{20}
+\contentsline {subsection}{\numberline {6.10}Programando las animaciones}{20}
+\contentsline {subsection}{\numberline {6.11}Controlando el flow}{21}
+\contentsline {subsection}{\numberline {6.12}Parseando el JSON}{21}
+\contentsline {subsection}{\numberline {6.13}A continuaci\IeC {\'o}n}{21}
+\contentsline {section}{\numberline {7}Futuro trabajo}{22}
+\contentsline {subsection}{\numberline {7.1} Ampliar a Open Street Map, CityEngine.}{22}
+\contentsline {subsection}{\numberline {7.2}OpenWeatherMap}{22}
+\contentsline {subsection}{\numberline {7.3}Reinforcement learning en bidding}{22}

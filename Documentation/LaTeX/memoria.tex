@@ -185,7 +185,7 @@ Desde el comienzo del proyecto, se ha tenido presente la posibilidad de seguir t
 
 \item Se seguirán \textbf{patrones de diseño} standares a la hora de diseñar e implemetar el software de manera que el código sea fácilmente modificable.
 
-\item Se crearán \textbf{múltiples diagramas} para mejorar la comprensión del programa.
+\item El programa estará \textbf{documentado} mediante \textbf{diagramas} que mejoren la comprensión del proyecto y una \textbf{memoria} que sirva como consulta sobre funcionalidades concretas de cada parte del proyecto.
 
 \item El programa contará con \textbf{mecansimos de ampliación} que permitan facilitar futuras modificaciones.
 
@@ -398,15 +398,111 @@ En esta sección explicaremos más en detalle la parte de simulación. Para ello
 \includeImage{simulator.png}
 en cada apartado de esta sección se explica un paquete del programa: 5.1 se habla del paquete Vista, 5.2 del paquete de control, y el modelo está dividido en 3 paquetes el núcleo 5.3, componentes 5.4 páquete componentes, 5.5 Distribuciones temporales.
 
-\subsection{Filosofía de diseño}
-MVC, encapsulación, interfaces.
+\subsection{Principios de diseño}
+\subsubsection{Patrón MVC}
+
+El proyecto sigue el patrón modelo, vista y controlador. Se trata de dividir el código en tres partes:
+\begin{itemize}
+\item Vista: Se encarga de todas las interacciones externas del programa, bien sea capturar las interacciones del usuario o conexiones con otros programas o servicios como la red o el sistema de ficheros.
+\item Controlador: Controla el flujo principal del programa. La clase principal (main) se sitúa aquí. Funciona como enlace entre el modelo y resuelve los errores que se hayan podido generar a lo largo de la ejecución.
+\item Modelo: Contiene la representación de los datos usados en el programa ordenados de manera jerárquica.
+\end{itemize}
+
+Este patrón intenta eliminar dependencias entre distintas partes del programa para que sean modificables independientemente, lo cual proporciona mantenibilidad al proyecto.
+
+\subsubsection{Patrón experto y la encapsulación}
+La encapsulación es uno de los grandes pilares del paradigma de Programación Orientada a Objetos. Se trata de ocultar los atributos que definen el estado de una clsae de manera que solo sean modificables mediante los métodos que define la clase. De esta manera, el usuario de la clase se despreocupa de la representación interna de los datos y se centra únicamente en como usarlos. Esto previene que los datos sean modificados de forma incontrolada añadiendo robusteza y mantenibilidad al proyecto.
+
+El patrón experto ayuda a implementar la encapsulación en un proyecto. Afirma que aquel quien debe modificar el estado de un objeto es aquel quien sabe más sobre la misma, es decir, la propia clase. Un ejemplo simple que ilustra la encapsulación a través del patrón experto podría ser:
+
+\begin{itemize}
+\item Una clase persona tiene como atributo su edad. 
+\item Se quiere saber si una persona concreta es mayor de edad o no.
+\item Una posibilidad sería implementar un método getEdad() que devolviese la edad de la persona y evaluar getEdad() >= 18.
+\item Una alternativa que sigue el patrón experto sería crear un método esMayorDeEdad() que internamente evaluara edad >= 18. 
+\item Observamos que por un lado, la responsabilidad sobre checkear el estado del objeto se delega a la propia clase, que es el experto.
+\item Como beneficio añadido, se elimina la dependencia sobre la representación de datos interna, ya que de este modo el usuario de la clase no debe saber si la edad se representa mediante un entero o una clase propia o podría incluso no existir ningún atributo y que el resultado dependiera de un proceso de cálculo interno. 
+\end{itemize}
+
+La encapsulación facilita futuras modificaciones y aumenta la escalabilidad del programa, proporcionando mantenibilidad al proyecto.
+
+\subsubsection{Interficies y ampliación}
+Una interficie es una colección de métodos abstractos: Cabeceras de métodos sin implementación de su cuerpo. Una clase que implemente una interfaz debe definir el cuerpo de cada método abstracto descrito en la interfaz.
+
+Se permite guardar referencias a objetos a nivel de interficie, de manera que cualquiera clase que la implente, podrá ser asignada al objeto, sin importar la implementación concreta. 
+
+Esto proporciona separación entre distintas partes del proyecto, eliminando dependencias y propocionando mantenibilidad al proyecto como hemos discutido previamente. Además profundiza en la idea de la encapsulación, ya que al no saber como se implementarán las interficies ni como serán sus atributos, se evita incluir métodos que accedan directamente a la representación del objeto.
+
+Por último, las interficies proporcionan gran facilidad para ampliar el proyecto. Basta crear una nueva clase que implemente una interfaz del proyecto de otra manera para proporcionar una ejecución y resultados alternativos del proyecto.
+
+A continuación analizaremos el objetivo y funcionamiento de los distintos paquetes del proyecto.
+
 \subsection{El paquete view}
-El paquete vista controla la interacción del programa del simulador con el exterior.
-\subsubsection{Command Line Arguments}
-\subsubsection{FileIO}
+El programa interactúa con dos entes externos: La interfaz de línea de comandos y el sistema de ficheros. Cada una se representa en una clase propia que cuentan con métodos estáticos que proporcionan las funcionalidades deseadas. 
+
+\subsubsection{Command Line Interface}
+La clase CommandLineInterface cumple dos funciones:
+
+\begin{itemize}
+\item Analiza los parámetros pasados a la ejecución del programa: Asegura que siguen el formato establecido e informa al usuario del formato en caso contrario. Toda la información de entrada está contenido en un único fichero JSON, de manera que el único parámetro es la ruta del fichero de entrada. Concretamente, el formato del comando para ejecutar el JAR distribuible es:
+
+java -jar simulator.jar 'ruta del archivo de entrada'
+
+\item Ejecuta scripts de Gnuplot: A cada frame de la simulación, se crea un fichero que contienen órdenes de gnuplot para generar gráficas que representan las apuestas de mercado hechas por cada prosumer. A partir de la línea de comandos, se ejecuta un proceso de gnuplot que procesa estos scripts mediante el comando:
+
+gnuplot 'ruta del archivo de script'
+
+\end{itemize}
+
+\subsubsection{FileSystem}
+La clase FileSystem proporciona métodos para guardar y cargar ficheros desde la memoria. Concretamente:
+
+\begin{itemize}
+\item Procesa un fichero JSON ubicado en la ruta especificada y devuelve un objeto simulación con todos los parámetros inicializados.
+\item Guarda los comandos de gnuplot en un fichero de script en la ruta especificada. 
+\item Guarda los resultados de la simulación en un archivo JSON en la ruta especificada. Para consultar el formato de salida dirigirse al apartado 4.8.
+\end{itemize}
+
 \subsection{El paquete control}
-El controlador controla el flujo principal del programa y hace de enlace entre el modelo y la vista.
+El flujo principa de programa se centra en crear una simulación ejecutando secuencialmente frames del mismo. La clase principal del programa es Main, el cual crea una instancia de simulación donde se encuentra el ciclo principal del programa. La simulación utiliza el CEAPSolver para resolver el problema CEAP a cada frame.
+\subsubsection{Main}
+\begin{itemize}
+\item Parsea los parámetros recibidos utilizando Command Line Interface
+\item Genera una instancia de simulación utilizando FileSystem
+\item Ejecuta el bucle principal de la simulación
+\item Genera las gráficas de gnuplot usando FileSystem
+\item Guarda los resultados en un fichero JSON usando FileSystem
+\end{itemize}
 \subsubsection{Simulation}
+Una simulación viene definida por los siguientes parámetros:
+\begin{itemize}
+\item Market: Árbol dirigido donde cada nodo representa un prosumer y las arestas cables de electricidad que unen dos prosumers
+\item Hour y minute: El momento del día en el que empieza la simulación
+\item Frames: La cantidad de frames a simular. Afecta linealmente al tiempo de ejecución
+\item minutesPerFrame: La cantidad de tiempo que se avanza entre frame y frame
+\item OutputFolder: Carpeta donde se guardarán las gráficAS de gnuplot
+\end{itemize}
+El bucle principal del programa es el siguiente:
+[Pseudocódigo]
+Create JSON object;
+do
+{
+  <Market : Set bids    >;
+  CEAPSolver : Solve Market;
+  Maket : Process results  ;
+  Market : Generate script ;
+  /Gnuplot Script         /;
+  FileSystem : Plot Bids   ;
+  Add Frame to JSON object ;
+}while(More frames?)
+Return JSON object;
+
+
+
+
+\subsubsection{CEAPSolver}
+Cuenta con un único método que utiliza el JAR de RadPro para resolver el problema CEAP. Puede resolverlo utilizando distintas técnicas como ILP o RadPro.
+
 \subsection{El paquete model.core}
 En el paquete core se encuentran los objetos más importantes que intervienen en la simulación: Aquellos que no dependan de otros.
 \subsubsection{Prosumer}
@@ -552,7 +648,11 @@ OpenWeatherMap es una API pública que ofrece datos históricos y prediciones fu
 Aplicado al proyecto, podría hacerse un pequeño cliente HTTP que hiciera queries a la API de OpenWeatherMap y utilizar el JSON de respuesta para modelar el tiempo en la simulación. Además, unido con OpenStreetMap, podría usarse la longitud y la latitud del mapa seleccionado para consulta el tiempo en esa zona del mundo y utilizar dicha información en el simulador. Para empezar a consultar la API, basta con crear una API Key en http://openweathermap.org/appid y consultar el formato de las queries en su documentación en http://openweathermap.org/api.
 
 \subsection{Reinforcement learning en bidding}
-Por útimo el proyecto proporciona una plataforma donde poder testear estrategias de bidding en un mercado de energía. Tal y como se describe n el artículo [referencia], se pueden implementar procesos de reinforcement learning de manera que los prosumers 
+Por útimo el proyecto proporciona una plataforma donde poder testear estrategias de bidding en un mercado de energía. Tal y como se describe n el artículo [referencia], se pueden implementar procesos de reinforcement learning de manera que los prosumers vayan variando su oferta dependiendo de la información que vayan acumulando a lo largo del tiempo.
+
+
+
+
 \normalfont
 
 \newpage
@@ -569,12 +669,16 @@ Me gustaría agradecer a los siguientes personas por proporcionar material indis
 \item Parseador de ficheros OBJ: ObjReader by Starscene Software (starscenesoftware.com)
 
 \item Visor de diccionarios en el editor de Unity: SerializedDictionary by Vexe 
+
+\item Pseudocódigo y diagramas de flujo: Code2Flow
+
+\end{itemize}
 \newpage
 
 
 \begin{thebibliography}{25}
-RadPro
-Reinforcement learning
+\bibitem{pari} RadPro
+\bibitem{pari} Reinforcement learning
 
 \bibitem{pari} Batut, C.; Belabas, K.; Bernardi, D.; Cohen, H.; Olivier, M.: User's guide to \textit{PARI-GP},  \newline \texttt{pari.math.u-bordeaux.fr/pub/pari/manuals/2.3.3/users.pdf}, 2000.
 \end{thebibliography}
