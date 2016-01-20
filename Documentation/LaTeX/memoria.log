@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (MiKTeX 2.9) (preloaded format=pdflatex 2016.1.5)  18 JAN 2016 22:21
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (MiKTeX 2.9) (preloaded format=pdflatex 2016.1.5)  19 JAN 2016 06:15
 entering extended mode
 **./memoria.tex
 (memoria.tex
@@ -673,25 +673,25 @@ Overfull \hbox (88.08926pt too wide) in paragraph at lines 221--221
 <simulator.png, id=54, 1427.3325pt x 784.9325pt>
 File: simulator.png Graphic file (type png)
  <use simulator.png>
-Package pdftex.def Info: simulator.png used on input line 397.
+Package pdftex.def Info: simulator.png used on input line 396.
 (pdftex.def)             Requested size: 512.1496pt x 281.64127pt.
 
-Overfull \hbox (88.08926pt too wide) in paragraph at lines 397--397
+Overfull \hbox (88.08926pt too wide) in paragraph at lines 396--396
  [] 
  []
 
-[11 <./simulator.png>] [12]
-<visualization.png, id=62, 1789.68625pt x 792.9625pt>
+[11 <./simulator.png>] [12] [13]
+<visualization.png, id=65, 1789.68625pt x 792.9625pt>
 File: visualization.png Graphic file (type png)
  <use visualization.png>
-Package pdftex.def Info: visualization.png used on input line 416.
+Package pdftex.def Info: visualization.png used on input line 445.
 (pdftex.def)             Requested size: 512.1496pt x 226.91623pt.
 
-Overfull \hbox (88.08926pt too wide) in paragraph at lines 416--416
+Overfull \hbox (88.08926pt too wide) in paragraph at lines 445--445
  [] 
  []
 
-[13 <./visualization.png>] [14] [15] [16] [17] [18] [19] [20] [21] (memoria.aux
+[14 <./visualization.png>] [15] [16] [17] [18] [19] [20] [21] [22] (memoria.aux
 LaTeX Info: Redefining \. on input line 6.
 LaTeX Info: Redefining \% on input line 6.
 ) ) 
@@ -702,7 +702,7 @@ Here is how much of TeX's memory you used:
  8596 multiletter control sequences out of 15000+200000
  12345 words of font info for 49 fonts, out of 3000000 for 9000
  1025 hyphenation exceptions out of 8191
- 34i,7n,43p,1839b,400s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 34i,7n,43p,1839b,416s stack positions out of 5000i,500n,10000p,200000b,50000s
 <C:/Users/Martin/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfon
 ts/cm/cmbx12.pfb><C:/Users/Martin/AppData/Local/Programs/MiKTeX 2.9/fonts/type1
 /public/amsfonts/cm/cmcsc10.pfb><C:/Users/Martin/AppData/Local/Programs/MiKTeX 
@@ -711,9 +711,9 @@ grams/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/Martin/App
 Data/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti12.pfb><C:/Us
 ers/Martin/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmt
 t12.pfb>
-Output written on memoria.pdf (25 pages, 313888 bytes).
+Output written on memoria.pdf (26 pages, 315288 bytes).
 PDF statistics:
- 115 PDF objects out of 1000 (max. 8388607)
+ 118 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  21 words of extra memory for PDF output out of 10000 (max. 10000000)
 

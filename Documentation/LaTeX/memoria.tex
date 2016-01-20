@@ -88,7 +88,7 @@
 \renewcommand{\arraystretch}{1.5}
 \begin{tabular}{ll}
 \textbf{\Large Director:} & \textbf{\Large Dr. Jesús Cerquides } \\
-& \textbf{\Large Dr. Juan Antonio Rodriguez}\\
+& \textbf{\Large Dr. Juan Antonio Rodríguez-Aguilar}\\
 \textbf{\Large Realizado en:} & \textbf{\Large Consejo superior de investigación científica}\\
 \textbf{\Large Barcelona,} & \textbf{\Large \today }
 \end{tabular}
@@ -104,12 +104,12 @@
 \pagenumbering{roman} 
 
 
-\section*{Abstract}
+%\section*{Abstract}
 
-Example abstract.
+%Example abstract.
 
-\section*{Resúmen}
-Resúmen
+%\section*{Resúmen}
+%Resúmen
 
 \newpage 
 
@@ -119,7 +119,9 @@ Resúmen
 
 \pagenumbering{arabic} 
 \setcounter{page}{1}
-% \section{Introducción y antecedentes}
+
+
+\section{Introducción y antecedentes}
 % \subsection{El entorno: La humanidad necesita energía eléctrica}
 % La energía eléctrica es básica para la producción de bienes y servicios. Cada vez necesitamos más energia. REE
 % En España la distribución de la energía se hace a base de distribuidoras que proveen energía a la red que conecta todos los consumidores, bien sean hogares o empresas. Bajo la amenaza de que la materia de energías fósiles, como el petróleo o el carbón, se van agotando, muchos goviernos muestran interés en invertir en investigar maneras más eficientes de tratar con la energía.
@@ -157,7 +159,7 @@ Resúmen
 
 \subsection{Funcionalidad}
 El objetivo principal del proyecto es construir un software que permita visualizar simulaciones hechas sobre mercados distribuidos de energía.
-El software deberá cumplir con los requerimientos especificados en 2.1 y posibilitar los flujos de ejecución establecidos en 2.2.
+El software deberá cumplir con los requerimientos no funcionales especificados en 2.1 y posibilitar los casos de uso establecidos en 2.2.
 
 \subsection{Requerimientos}
 
@@ -201,7 +203,7 @@ Desde el comienzo del proyecto, se ha tenido presente la posibilidad de seguir t
 
 \end{itemize}
 \end{itemize}
-\subsection{Flujos de ejecución}
+\subsection{Casos de uso}
 
 El proyecto debe contener tres partes: Especificación del mercado, simulación y visualización, siendo cada una ejecutable independientemente del resto. Las entradas y salidas de cada parte serán un único fichero formateado acorde a toda la información relevante. A continuación resumimos la funcionalidad y la interacción del usuario de cada parte:
 
@@ -383,7 +385,6 @@ Implementación en pseudocódigo: <código>
 Se utilizará un documento json para exportar los datos recopilados durante la especificación del mercado. El formato es el siguiente:
 imagen
 
-\textbf{A continuación}
 
 Ahora somos capaces de crear modelos 3D, bien desde mapas reales o usando un software de modelado, guardarlos en un fichero obj, abrirlos desde una aplicación y crearles una red eléctrica a medida. Ya tenemos todo listo para poder simular como sería el trade de la energía en una ciudad así en el que cada parcela sea capaz de comprar y vender energía a toda la red. Veremos como se define el perfil de una casa y como afecta cada uno de sus parámetros a la simulación final, así como los detalles más importantes sobre el diseñado e implementación del simulador.
 
@@ -393,16 +394,46 @@ Ahora somos capaces de crear modelos 3D, bien desde mapas reales o usando un sof
 
 
 \section{Simulación}
-\subsection{Diagrama principal}
+En esta sección explicaremos más en detalle la parte de simulación. Para ello consideremos el siguiente diagrama:
 \includeImage{simulator.png}
-\subsection{Filosofía de diseño de java. POO, encapsulación, interfaces.}
-\subsection{Input/Output. }
-\subsection{Diagramas. }
-\subsection{Modelado de una casa}
-\subsection{Battery, }
-\subsection{Generator,} 
-\subsection{Appliance, }
-\subsection{Bid.}
+en cada apartado de esta sección se explica un paquete del programa: 5.1 se habla del paquete Vista, 5.2 del paquete de control, y el modelo está dividido en 3 paquetes el núcleo 5.3, componentes 5.4 páquete componentes, 5.5 Distribuciones temporales.
+
+\subsection{Filosofía de diseño}
+MVC, encapsulación, interfaces.
+\subsection{El paquete view}
+El paquete vista controla la interacción del programa del simulador con el exterior.
+\subsubsection{Command Line Arguments}
+\subsubsection{FileIO}
+\subsection{El paquete control}
+El controlador controla el flujo principal del programa y hace de enlace entre el modelo y la vista.
+\subsubsection{Simulation}
+\subsection{El paquete model.core}
+En el paquete core se encuentran los objetos más importantes que intervienen en la simulación: Aquellos que no dependan de otros.
+\subsubsection{Prosumer}
+
+\subsubsection{Wire}
+
+\subsubsection{Weather}
+
+\subsubsection{Distributor}
+
+\subsubsection{Moment}
+
+\subsection{El paquete model.components} 
+Contiene los objetos que forman un prosumer
+\subsubsection{IBiddingStrategy}
+
+\subsubsection{IBattery}
+
+\subsubsection{IGenerator}
+
+\subsubsection{IAppliance}
+
+\subsection{El paquete model.data}
+proporciona datos al resto del programa
+\subsubsection{Data}
+\subsubsection{ITemporalDistribution}
+
 \subsection{A continuación}
 \newpage
 
@@ -516,21 +547,35 @@ OpenStreetMap, como el nombre lo indica, es una iniciativa de software libre en 
 
 
 \subsection{OpenWeatherMap}
+OpenWeatherMap es una API pública que ofrece datos históricos y prediciones futuras sobre el tiempo a lo largo de todo el planeta. inspirada en la filosofía de OpenStreetMap y Wikipedia ofrece la información gratuitamente de manera que sea accesible para todos. Cuenta con datos de más de 250.000 ciudades repartidos a lo largo del mundo y su uso va creciendo superando ya un billón americano de consultas de predicciones al día.
+
+Aplicado al proyecto, podría hacerse un pequeño cliente HTTP que hiciera queries a la API de OpenWeatherMap y utilizar el JSON de respuesta para modelar el tiempo en la simulación. Además, unido con OpenStreetMap, podría usarse la longitud y la latitud del mapa seleccionado para consulta el tiempo en esa zona del mundo y utilizar dicha información en el simulador. Para empezar a consultar la API, basta con crear una API Key en http://openweathermap.org/appid y consultar el formato de las queries en su documentación en http://openweathermap.org/api.
 
 \subsection{Reinforcement learning en bidding}
-
+Por útimo el proyecto proporciona una plataforma donde poder testear estrategias de bidding en un mercado de energía. Tal y como se describe n el artículo [referencia], se pueden implementar procesos de reinforcement learning de manera que los prosumers 
 \normalfont
 
 \newpage
 
-\section*{Agradecimientos}
+\section*{Reconocimientos}
 Me gustaría agradecer a los siguientes personas por proporcionar material indispensable para la realización del proyecto:
-- iconos: %<div>Icons made by <a href="http://www.freepik.com" title="Freepik">Freepik</a>, <a href="http://www.flaticon.com/authors/google" title="Google">Google</a> from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a>             is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0">CC BY 3.0</a></div>
-- usuarios de stackoverflow:
+
+\begin{itemize}
+
+\item Icono 2D de la visualización: Icons made by Freepik (www.freepik.com) and Google ("http://www.flaticon.com/authors/google") from Flaticom (www.flaticon,com) licensed by Creative Commons BY 3.0 ("http://creativecommons.org/licenses/by/3.0/")
+
+\item Efecto de cargando: LoadingEffect by OneManArmy (http://armedunity.com/user/1-onemanarmy/)
+
+\item Parseador de ficheros OBJ: ObjReader by Starscene Software (starscenesoftware.com)
+
+\item Visor de diccionarios en el editor de Unity: SerializedDictionary by Vexe 
 \newpage
 
 
 \begin{thebibliography}{25}
+RadPro
+Reinforcement learning
+
 \bibitem{pari} Batut, C.; Belabas, K.; Bernardi, D.; Cohen, H.; Olivier, M.: User's guide to \textit{PARI-GP},  \newline \texttt{pari.math.u-bordeaux.fr/pub/pari/manuals/2.3.3/users.pdf}, 2000.
 \end{thebibliography}
 \end{document} 
