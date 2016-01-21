@@ -1,9 +1,10 @@
 
-package Model.Implementations;
+package Model.Core;
 
 import Model.TemporalDistributions.DiscreteTemporalDistribution;
 import Model.Interfaces.*;
 import Model.Core.*;
+import Model.Implementations.LinearBid;
 import com.google.gson.annotations.*;
 import seas3.core.Participant;
 

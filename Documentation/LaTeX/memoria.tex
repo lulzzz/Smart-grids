@@ -489,7 +489,7 @@ do
 {
   <Market : Set bids    >;
   CEAPSolver : Solve Market;
-  Maket : Process results  ;
+  Market : Process results ;
   Market : Generate script ;
   /Gnuplot Script         /;
   FileSystem : Plot Bids   ;
@@ -497,23 +497,61 @@ do
 }while(More frames?)
 Return JSON object;
 
+CEAPSolver se refiere a la librería importada.
 
+\subsection{El paquete model.data}
+Antes de describir la jerarquía del modelo de datos de arriba abajo, analizamos un nuevo tipo de dato esencial introducido en el proyecto, utilizado por distintas componentes principales del programa: ITemporalDistribution.
+\subsubsection{ITemporalDistribution}
+Los TemporalDistribution pretenden modelar valores que van cambiando a lo largo del tiempo, así como la cantidad de nubes o el gasto energético de una lavadora. Además proporciona una serie de facilidades que serán útiles a la hora de manipular datos que dependan del tiempo. La interfaz es la siguiente:
+\begin{itemize}
+\item public Double getValue(Moment moment);
 
+Devuelve el valor en el momento dado.
+\item public double getMeanBetween(Moment since, Moment until);
 
-\subsubsection{CEAPSolver}
-Cuenta con un único método que utiliza el JAR de RadPro para resolver el problema CEAP. Puede resolverlo utilizando distintas técnicas como ILP o RadPro.
+Devuelve la media de los valores que coge la variable entre dos momentos.
+\item public double getAddedValue(Moment since, Moment until);
+
+Devuelve la suma de todos los valores que coge la variable entre dos momentos.
+\item public double getProgress(Moment moment);
+
+Devuelve el avance de progresa en la que se situa el momento dado respecto al dominio de variabilidad de la variable.
+\end{itemize}
+Existen dos implementaciones principales de la interaz: 
+\begin{itemize}
+\item DiscreteTemporalDistribution: Lo implementa extendiendo la clase TreeMap<Moment, Double>. Contiene un conjunto discreto y ordenado de entradas Moment : Double.  
+\item ContinuousTemporalDistribution: Lo implementa utilizando dos UnaryDoubleOperators: Una para la función que modela el valor de la variable a lo largo del tiempo y una primitiva suya. De esta manera, la suma de todos valores entre dos momentos que es la integral, se puede calcular restando la evaluación de la primitiva en el momento inicial a la evaluación de la primitiva en el momento final.
+\end{itemize}
+\subsubsection{Data}
+En Data se definen variables estáticas que son las instancias de ITemporalDistribution que se usarán en el proyecto.
 
 \subsection{El paquete model.core}
 En el paquete core se encuentran los objetos más importantes que intervienen en la simulación: Aquellos que no dependan de otros.
-\subsubsection{Prosumer}
+\subsubsection{Market}
+Market es la cúspide de la jerarquía de datos del programa y contiene referencias a todos los datos del modelo. Está constituido por un conjunto de Prosumers y un conjunto Wires que forman el mercado interno del problema, un único Distributor que está conectado a cada prosumer y puede intercambiar energía con ellos y un Weather que controla el tiempo que hace, que afecta a las tasas de generación de los generadores.
+
+Tiene tres funcionalidades principales:
+\begin{itemize}
+\item Set Bids : Sitúa la ciudad en un momento concreto. Actualiza el tiempo que hace, el precio de la distribuidora y a continuación, pide a cada prosumer que realiza su apuesta acorde a la nueva información del entorno. Para analizar la realización de las apuestas consultar apartado [6.89]
+\item Process Results : Asigna a cada cable la corriente que transcurre por ella y a continuación indicaa cada prosumer los intercambios que ha realizado en la última tanda de tratos.
+\item Generate Script : Genera un único fichero que contiene las órdenes de gnuplot para generar las gráficas que representan la oferta hcha y los resultados obtenidos de cada prosumer. La escritura de las funciones a dibujar se delega a IBiddingStrategy dado que su expresión dependerá de la implementación elegida. 
+\end{itemize}
+El formato genérico de estos scripts es:
+\includeImage{formato_script.png}
 
 \subsubsection{Wire}
 
+Guarda conjuntamente la información de un cable: El prosumer de origen, el prosumer de destino, la capacidad máxima energía que puede transportar, y el flujo de energía en el momento actual. Los tres primeros valores se mantienen constantes a lo largo de la ejecución del problema mientras que el flujo se actualiza después de cada tanda de intercambios.
+
 \subsubsection{Weather}
+
+El tiempo se modela usando dos variables, nubes y viento, que van actualizándose a lo largo de la simulación. La variabilidad de estos valores viene dado por un ITemporalDistribution que se explica en el apartado [6.89], gracias a ello ofrece facilidades como obtener la cantidad media de nubes o la velocidad media del viento que ha habido entre un periodo de tiempo. 
 
 \subsubsection{Distributor}
 
-\subsubsection{Moment}
+Los distribuidores tienen un IBiddingStrategy que indica la apuesta que hacen en todo momento. A diferencia de los Prosumer, esta apuesta va variando según el momento en el que nos encontros, independientemente de como hayan sido los intercambios hechos en tandas previas. Para ello tienen ITemporalDistributions que indican como deben variar sus parámetros dependiendo del momento. En la implementación que se muestra, las distribuidoras usan una estrategia de apuesta lineal que depende de un parámetro, el ratio del precio, que va variando según la hora del día. 
+
+\subsubsection{Prosumer}
 
 \subsection{El paquete model.components} 
 Contiene los objetos que forman un prosumer
@@ -525,10 +563,7 @@ Contiene los objetos que forman un prosumer
 
 \subsubsection{IAppliance}
 
-\subsection{El paquete model.data}
-proporciona datos al resto del programa
-\subsubsection{Data}
-\subsubsection{ITemporalDistribution}
+
 
 \subsection{A continuación}
 \newpage

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (MiKTeX 2.9) (preloaded format=pdflatex 2016.1.5)  20 JAN 2016 21:30
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (MiKTeX 2.9) (preloaded format=pdflatex 2016.1.5)  21 JAN 2016 02:18
 entering extended mode
 **./memoria.tex
 (memoria.tex
@@ -693,36 +693,53 @@ Overfull \hbox (1.45807pt too wide) in paragraph at lines 407--408
  La cla-se prin-ci-pal (main)
  []
 
-[11 <./simulator.png>] [12] [13] [14] [15]
-<visualization.png, id=72, 1789.68625pt x 792.9625pt>
-File: visualization.png Graphic file (type png)
- <use visualization.png>
-Package pdftex.def Info: visualization.png used on input line 543.
-(pdftex.def)             Requested size: 512.1496pt x 226.91623pt.
+[11 <./simulator.png>] [12] [13] [14]
+Overfull \hbox (40.08183pt too wide) in paragraph at lines 522--523
+[]\OT1/cmr/m/n/12 DiscreteTemporalDistribution: Lo im-ple-men-ta ex-ten-dien-do
+ la cla-se Tree-Map<Moment,
+ []
 
-Overfull \hbox (88.08926pt too wide) in paragraph at lines 543--543
+[15] <formato_script.png, id=72, 410.7345pt x 414.95026pt>
+File: formato_script.png Graphic file (type png)
+
+<use formato_script.png>
+Package pdftex.def Info: formato_script.png used on input line 540.
+(pdftex.def)             Requested size: 512.1496pt x 517.4582pt.
+
+Overfull \hbox (88.08926pt too wide) in paragraph at lines 540--540
  [] 
  []
 
-[16 <./visualization.png>] [17] [18] [19] [20] [21] [22] [23]
-Overfull \hbox (51.7903pt too wide) in paragraph at lines 665--666
+[16] [17] <visualization.png, id=79, 1789.68625pt x 792.9625pt>
+File: visualization.png Graphic file (type png)
+
+<use visualization.png>
+Package pdftex.def Info: visualization.png used on input line 578.
+(pdftex.def)             Requested size: 512.1496pt x 226.91623pt.
+
+Overfull \hbox (88.08926pt too wide) in paragraph at lines 578--578
+ [] 
+ []
+
+[18] [19] [20] [21] [22] [23] [24] [25]
+Overfull \hbox (51.7903pt too wide) in paragraph at lines 700--701
 \OT1/cmr/m/n/12 Goo-gle ("http://www.flaticon.com/authors/google") from Fla-ti-
 com (www.flaticon,com)
  []
 
 
-Overfull \hbox (53.27092pt too wide) in paragraph at lines 665--666
+Overfull \hbox (53.27092pt too wide) in paragraph at lines 700--701
 \OT1/cmr/m/n/12 li-cen-sed by Crea-ti-ve Com-mons BY 3.0 ("http://creativecommo
 ns.org/licenses/by/3.0/") 
  []
 
 
-Overfull \hbox (37.3402pt too wide) in paragraph at lines 667--668
+Overfull \hbox (37.3402pt too wide) in paragraph at lines 702--703
 []\OT1/cmr/m/n/12 Efecto de car-gan-do: Loa-din-gEf-fect by One-Ma-nArmy (http:
 //armedunity.com/user/1-
  []
 
-[24] [25] (memoria.aux
+[26] [27] [28 <./formato_script.png>] [29 <./visualization.png>] (memoria.aux
 LaTeX Info: Redefining \. on input line 6.
 LaTeX Info: Redefining \% on input line 6.
 )
@@ -731,10 +748,10 @@ LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 5318 strings out of 493634
- 70866 string characters out of 3134832
- 145616 words of memory out of 3000000
- 8606 multiletter control sequences out of 15000+200000
+ 5323 strings out of 493634
+ 70975 string characters out of 3134832
+ 146616 words of memory out of 3000000
+ 8610 multiletter control sequences out of 15000+200000
  12345 words of font info for 49 fonts, out of 3000000 for 9000
  1025 hyphenation exceptions out of 8191
  34i,7n,43p,1839b,449s stack positions out of 5000i,500n,10000p,200000b,50000s
@@ -746,9 +763,9 @@ rams/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/Martin/AppD
 ata/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti12.pfb><C:/Use
 rs/Martin/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmtt
 12.pfb>
-Output written on memoria.pdf (29 pages, 325893 bytes).
+Output written on memoria.pdf (33 pages, 348194 bytes).
 PDF statistics:
- 127 PDF objects out of 1000 (max. 8388607)
+ 142 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
- 21 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 26 words of extra memory for PDF output out of 10000 (max. 10000000)
 

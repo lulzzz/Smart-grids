@@ -5,7 +5,7 @@
         <group>
             <file>file:/C:/Users/Martin/Documents/GitHub/Smart%20grids/Simulation/src/Model/TemporalDistributions/Data.java</file>
             <file>file:/C:/Users/Martin/Documents/GitHub/Smart%20grids/Simulation/src/Model/Implementations/LinearBid.java</file>
-            <file>file:/C:/Users/Martin/Documents/GitHub/Smart%20grids/Simulation/src/Model/Implementations/Distributor.java</file>
+            <file>file:/C:/Users/Martin/Documents/GitHub/Smart%20grids/Simulation/src/Model/Core/Distributor.java</file>
             <file>file:/C:/Users/Martin/Documents/GitHub/Smart%20grids/Simulation/src/Model/Interfaces/IBattery.java</file>
             <file>file:/C:/Users/Martin/Documents/GitHub/Smart%20grids/Simulation/src/View/FileIO.java</file>
             <file>file:/C:/Users/Martin/Documents/GitHub/Smart%20grids/Simulation/src/Model/TemporalDistributions/DiscreteTemporalDistribution.java</file>
@@ -26,6 +26,7 @@
             <file>file:/C:/Users/Martin/Documents/GitHub/Smart%20grids/Simulation/src/Model/Core/Moment.java</file>
             <file>file:/C:/Users/Martin/Documents/GitHub/Smart%20grids/Simulation/src/Control/Main.java</file>
             <file>file:/C:/Users/Martin/Documents/GitHub/Smart%20grids/Simulation/src/Model/Core/Weather.java</file>
+            <file>file:/C:/Users/Martin/Documents/GitHub/Smart%20grids/Simulation/src/Model/Interfaces/IDistributor.java</file>
         </group>
     </open-files>
 </project-private>

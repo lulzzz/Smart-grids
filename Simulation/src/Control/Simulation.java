@@ -55,8 +55,9 @@ public class Simulation
             // Update market state considering the trading results
             market.advance( from, to, assignment );
             // Create gnuplot scripts for the bidding systems
+            // pasar toda la ruta
             market.savePlots(outputFolder+"/plot images");
-
+            // ejecutar plotBid
             // Save market state
             frameArray.add(new JsonParser().parse(gson.toJson(market) ).getAsJsonObject());
             
