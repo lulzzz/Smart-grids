@@ -20,6 +20,7 @@
 	\end{center}
 	\end{figure}
 }
+\newcommand\abs[1]{\left|#1\right|}
 
 \numberwithin{equation}{section}
 \newtheorem{teo}{Teorema}[subsubsection]
@@ -74,7 +75,7 @@
 \vspace*{1.5cm}
 \rule{16cm}{0.1mm}\\
 \begin{Huge}
-\textbf{Modelado y visualización de mercados distribuidos de energía} \\
+\textbf{Modelado, simulación y visualización de mercados distribuidos de energía} \\
 \end{Huge}
 \rule{16cm}{0.1mm}\\
 
@@ -87,7 +88,7 @@
 
 \renewcommand{\arraystretch}{1.5}
 \begin{tabular}{ll}
-\textbf{\Large Director:} & \textbf{\Large Dr. Jesús Cerquides } \\
+\textbf{\Large Directores:} & \textbf{\Large Dr. Jesús Cerquides } \\
 & \textbf{\Large Dr. Juan Antonio Rodríguez-Aguilar}\\
 \textbf{\Large Realizado en:} & \textbf{\Large Consejo superior de investigación científica}\\
 \textbf{\Large Barcelona,} & \textbf{\Large \today }
@@ -552,20 +553,84 @@ El tiempo se modela usando dos variables, nubes y viento, que van actualizándos
 Los distribuidores tienen un IBiddingStrategy que indica la apuesta que hacen en todo momento. A diferencia de los Prosumer, esta apuesta va variando según el momento en el que nos encontros, independientemente de como hayan sido los intercambios hechos en tandas previas. Para ello tienen ITemporalDistributions que indican como deben variar sus parámetros dependiendo del momento. En la implementación que se muestra, las distribuidoras usan una estrategia de apuesta lineal que depende de un parámetro, el ratio del precio, que va variando según la hora del día. 
 
 \subsubsection{Prosumer}
+El diagrama de modelo de un prosumer es el siguiente:
+\includeImage{modelo_prosumer}
+Cada una de las componentes se explica en detalle en el siguiente apartado.
 
+Para crear un prosumer se necesita proveer un identificador único y opcionalmente un perfil de prosumer. Si se proporciona un perfil, se le añadirán IAppliances y IGenerators preconstruidos automáticamente. En cualquier momento se le podrán añadir componentes llamando a los métodos adecuados.
+
+Los prosumers recalculan su IBidStrategy dependiendo de los tratos que hayan hecho en la tanda anterior. Para ello proporcionan la informacionan la información del resto de sus componentes (batería, generadores y dispositivos) y es la misma estrategía la que decide como actualizar la apuesta. Este proceso se discute al final de este capítulo, en el apartado 6.89.
 \subsection{El paquete model.components} 
-Contiene los objetos que forman un prosumer
+El último paquete que queda por analizar son las componentes de un prosumer. Todas ellas tienen una interficie que implentan, de manera que si en un fuuro se hiciera una implementación más profunda y compleja de las mismas pudierase integrar al proyecto sin problemas. Las interficies son minimales. Se permite añadir más funcionalidades en las implementaciones, pero para poder utilizarlas se deberá castear la referencia de la interficie a la implementación concreta.
+
+\subsubsection{IBattery, IGenerator e IAppliance}
+Las siguientes imágenes muestran las interficies IBattery, IGenerator e IAppliance
+\includeImage{interficie_battery.png}
+Una batería ha de ser capaz de revelar el nivel de de energía que guarda, revelar la máxima cantidad de energía que puede albergar y modificar su nivel en una cantidad establecida.
+\includeImage{interficie_generator.png}
+Un generador ha de calcular la energía que produce en un intérvalo de tiempo.
+Ejemplo: SolarGenerator. Eficiencia y tal.
+\includeImage{interficie_appliance.png}
+Una appliance revela el estado en el que se encuentra y la hora de inicio y calcula la energía consumida 
+La mayoría de los métodos presentes son autoexplicativos. Tanto getConsum como getGeneration utilizan ITemporalDistributions para calcular el resultado. Get startingTime devuelve el momento en el que empieza la appliance
 \subsubsection{IBiddingStrategy}
 
-\subsubsection{IBattery}
+Una IBiddingStrategy requiere la implementación de cuatro métodos. A continuación se explica la funcionalidad esperada de cada método y su implementación en la estrategia LogBid del proyecto.
+\begin{itemize}
+\item setBid() : Es donde se actualiza la expresión que define la apuesta a partir de la información del entorno.
+\item toPLV() : Una PLV es un función lineal definida a trozos. El resolvedor de mercados CEAP recibe como entrada PLV por lo que es necesario linealizar en trozos la apuesta para poder resolver el mercado. 
+\item setTrades() : Una vez se haya resuelto el mercado se reciben los tratos que se hanaceptado para poder procesarlos internamente
+\item wirtePlotData() : Añade las órdenes de Gnuplot necesarias para dibujar la gráfica que representa la apuesta en un escritor de ficheros poporcionado.
+\end{itemize}
+\subsubsection{Implementación de IBiddingtrategy: LogBid}
 
-\subsubsection{IGenerator}
+La lógica de mercado dice que una apuesta ha de ser creciente respecto a la cantidad comprada. Además queremos que la apuesta siempre sea inferior al precio de la distribuidora para ser competitivos. Por último, si la curva depende de parámetros, podrá ser ajustada a las necesidades del prosumer en ese momento.
 
-\subsubsection{IAppliance}
+Buscamos una función continua, creciente, acotada por una función lineal ( precio de distribuidora ) que pueda ser ajustada mediante dos parámetros: La cantidad que necesita comprar el prosumer y la necesidad de energía del prosumer.
+
+Es bien conocido que una función logarítica es continua, creciente y acotada por cualquier función lineal. De hecho, se cumple la desigualdad: $$log(x+1) \leq x$$, donde la igualdad se produce únicamente en $x=0$. 
+
+Aplicado a una función lineal de pendiente $k$: $$klog(x+1) \leq kx$$
+
+Podemos añadirle un parámetro $a > 0$ que siga preservando la desigualdad: $$klog(\frac{x}{a}+1) \leq \frac{x}{a}$$
+
+Y utilizar este parámetro para modelar la necesidad. Desarrollando obtenemos una función con un parámetro :
+
+$$a*k*log(\frac{x}{a}+1) \leq kx$$
+
+Podemos extender la desigualdad a los negativos utilizando valores absolutos:
+
+$$\abs{a*k*log(\frac{x}{a}+1)} \leq \abs{kx}$$
+
+Como tanto $a$ como $k$ y el logaritmo de un valor mayor a uno son positivos
+
+$$a*k*log(\frac{\abs{x}}{a}+1) \leq \abs{kx}$$
+
+Por último, la cantidad mínima de compra controla el punto de contacto entre nuestra función y la lineal. añadamos un parámetro b que controle el punto de contacto:
+
+$$k*(b + a*log(\frac{\abs{x - b}}{a}+1)) = kx \leftrightarrow x = b $$
+
+Y obtenemos la expresión de la curva LogBid: $k*(b + a*log(\frac{\abs{x - b}}{a}+1))$ que cumple con los criterios que buscábamos.
 
 
+Para actualizar la expresión dependiendo del estado de prosumer deberemos calcular el dominio de la función, el precio del distribuidor, y la necesidad del prosumer. El cálculo de estos valores se explica en el siguiente diagrama:
+\begin{itemize}
+        \item Por cada generador, se suma el valor esperado que va a producir
+        \item Por cada dispositivo, se suma el valor esperado que va a consumir
+        \item La expectativa es la resta entre estos dos valores
+        \item El mínimo del dominio es la expectativa menos el nivel de batería
+        \item El máximo del dominio es el mínimo más la capacidad total de la batería
+        \item El precio del distribuidor se consigue consultando el precio actual del mismo
+        \item Por cada dispositivo que esté a la espera, se calcula el tiempo que falta para que empiece
+        \item la necesidad aumenta proporcionalmente al precio de la distribuidora e inversamente proporcionalmente a los minutos que falten por comenzar
+\end{itemize}
 
-\subsection{A continuación}
+La linealización de la curva se hace dividiendo el dominio en n puntos equidistantes (n controla la precisión de la linealización) y se encuentra la recta que pasa por dos puntos consecutivos. Cada una de estas recas es un ILV que alunirlas todas se obtiene un PLV.
+
+En writePlotData se escriben las órdenes de gnuplot siguiendo el formato especificado en 6.89
+
+
+A ontinuación analizaremos la tercera parte del proyecto: La visualización.
 \newpage
 
 
@@ -573,7 +638,6 @@ Contiene los objetos que forman un prosumer
 
 \section{Visualización}
 
-\subsection{En este capítulo}
 Dada la naturaleza tridimensional del problema, se optó por usar un programa que permitiera visualizar los datos en 3D e interaccionar con ellos. Unity, como editor de juegos, permite esta interacción y tiene la gran ventaja de poder crear un ejecutable para las plataformas más reconocidas como Windows, Mac, Linux, pero también web o android. Dicho ejecutable será el producto final del proyecto, ya que incluirá el simulador, mientras que este a su vez incluye el resolvedor RadPro. Veremos primero la filosofía de diseño de Unity que cambia bastante en referente a paradigmas de POO comunes como Java o C++. Explicaremos el esquema básico de las componentes que forman el visualizador, y nos adentraremos en los detalles más interesantes que esconden. Por último veremos como crear el ejecutable para poder distribuir nustro programa fácilmente.
 \includeImage{visualization.png}
 
@@ -662,8 +726,7 @@ De todos modos existen parseadores de JSON creados por la comunidad especialment
 
 El primer paso es detectar con cuantos generadores y dispositivos cuenta cada casa e instanciar un prefab por cada uno en el panel de la casa correspondiente. Una vez todos los objetos de la escena existan popularemos sus componentes de animación con los datos guardados en el JSON. Para cada tipo de dato deberemos identificar cual es su animador, o bine FillImageAnimator en el caso de la batería, los generadores o los dispositivos, o bien ChangeImageAnimator en el caso de las apuestas, o bien TranslationAnimator en el caso 
 
-\subsection{A continuación}
-Mostraremos las conclusiones obtenidas y posibles rutas de avance para este proyecto.
+A continuación, mostraremos posibles rutas de avance para este proyecto.
 
 \newpage
 
@@ -671,7 +734,7 @@ Mostraremos las conclusiones obtenidas y posibles rutas de avance para este proy
 
 \section{Futuro trabajo}
 
-\subsection{ Ampliar a Open Street Map, CityEngine.}
+\subsection{Open Street Map y CityEngine}
 Por último se ha considerado como construir los modelos 3D de las ciudades. Y qué mejor manera que utilizando ejemplos existentes del mundo real. El mundo está repleto de ciudades y gracias a mapas online como OpenStreetMap es fácil conseguir un fichero que contenga toda la información relevante de una zona del mundo, como por ejemplo el corazón de Manhattan. En OpenStreetMap podemos exportar un trozo de mapa en formator .osm muy parecido a xml que contine toda la información sobre calles, parcelas parques etc. que se encuentran en ella. Ahora solo queda usar un programa de modelado procedural como CityEngine para crear una ciudad en 3D a partir del mapa! CityEngine soporta nativamente el tipo de archivos .osm y es capaz de crear modelos 3D a partir de mapa extruyendo las parcelas de edificaciones y añadiendoles materiales adecuados. 
 
 OpenStreetMap, como el nombre lo indica, es una iniciativa de software libre en el que son los mismos usuarios lso que van completando el mapa y aportando cada vez información más detallada como donde se encuentran fuentes de agua o ciertas señales de tráfico. Sin embargo, CityEngine es un programa con licencia de pago, por lo que se ha dejado fuera del proyecto final. De todas maneras, podremos visualizar algunos resultados obtenidos usando la aplicación de prueba de 30 días que ofrece la empresa, que soporta importar archivos .osm y exportar el modelo en formato OBJ.

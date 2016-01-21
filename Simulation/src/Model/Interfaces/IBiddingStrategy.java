@@ -8,10 +8,11 @@ import seas3.core.*;
 
 public interface IBiddingStrategy 
 {
-    public PiecewiseLinearValuation toPLV();
+    
     public void develop( Moment moment, double minX, double maxX, IDistributor distributor, ArrayList<IAppliance> appliances);
-    public void writePlotData( String plotFile, PrintWriter writer );
+    public PiecewiseLinearValuation toPLV();
     public void setTrades( HashMap<Double,  TraderType> trades );
+    public void writePlotData( String plotFile, PrintWriter writer );
     
     public enum TraderType{ House, Distributor }
 }

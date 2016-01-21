@@ -191,17 +191,4 @@ public class Prosumer
         bid.setTrades(trades);
     }
     
-    @Override
-    public boolean equals(Object object)
-    {
-        boolean same = false;
-
-        if (object != null && object instanceof Prosumer)
-        {
-            same = this.id == ((Prosumer) object).id;
-        }
-        
-        return same;
-    }
-    
 }
