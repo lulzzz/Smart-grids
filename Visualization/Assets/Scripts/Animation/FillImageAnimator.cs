@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 using UnityEngine.UI;
+using System;
 
 public class FillImageAnimator : MonoBehaviour
 {
@@ -46,5 +47,20 @@ public class FillImageAnimator : MonoBehaviour
             current = next;
             next = (next + 1) % data.Count;
         }
+    }
+
+    public void stop()
+    {
+        this.enabled = false;
+        CancelInvoke();
+    }
+
+    public void advance()
+    {
+        int next = (current + 1) % data.Count;
+        current = next;
+        next = (next + 1) % data.Count;
+
+        image.fillAmount = data[current];
     }
 }

@@ -9,6 +9,10 @@ import com.google.gson.annotations.Expose;
 
 public class Appliance implements IAppliance 
 {
+    public enum ApplianceType
+    {
+        TV,Cooking, WashingMachine
+    }
     @Expose
     private ApplianceType type;
     @Expose
@@ -26,7 +30,6 @@ public class Appliance implements IAppliance
         this.progress = 0;
     }
     
-    @Override
     public void setStartingMoment(Moment moment) 
     {
         progress = consum.getProgress(moment);

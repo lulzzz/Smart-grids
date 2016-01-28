@@ -14,13 +14,15 @@ public class JsonParser
     private string jsonPath;
     private GameObject city;
     private List<GameObject> wireGOs;
+    private GameObject timeUI;
 
-    public JsonParser( string jsonPath, GameObject city, List<GameObject> wireGOs )
+    public JsonParser( string jsonPath, GameObject city, List<GameObject> wireGOs, GameObject timeUI )
     {
         panels = new List<InfoPanel>();
         this.jsonPath = jsonPath;
         this.city = city;
         this.wireGOs = wireGOs;
+        this.timeUI = timeUI;
     }
 
     public void createPanels( GameObject infoPanelPrefab, GameObject appliancePrefab, GameObject generatorPrefab, ApplianceSpriteDictionary spriteOfAppliance, GeneratorSpriteDictionary spriteOfGenerator )
@@ -39,7 +41,7 @@ public class JsonParser
             // Add collider and info panel
             BoxCollider collider = t.gameObject.AddComponent<BoxCollider>();
 
-            GameObject infoPanelGO = MonoBehaviour.Instantiate(infoPanelPrefab, t.position + collider.size.y * Vector3.up, Quaternion.identity) as GameObject;
+            GameObject infoPanelGO = MonoBehaviour.Instantiate(infoPanelPrefab, t.position + (collider.size.y + 1) * Vector3.up, Quaternion.identity) as GameObject;
             InfoPanel infoPanel = infoPanelGO.GetComponent<InfoPanel>();
             infoPanel.transform.SetParent(t);
 
@@ -75,6 +77,10 @@ public class JsonParser
         JSONObject frames = jsonObject.GetField("frames");
         foreach (JSONObject frame in frames.list)
         {
+            JSONObject moment = frame.GetField("moment");
+            string sMoment = moment.GetField("hour").ToString() + ":" + moment.GetField("minute").ToString();
+
+            timeUI.GetComponentInChildren<ChangeTextAnimator>().addString(sMoment);
             JSONObject houses = frame.GetField("houses");
             for (int i = 0; i < houses.list.Count; i++)
             {
@@ -132,6 +138,7 @@ public class JsonParser
                         identity.to.transform.position == city.transform.GetChild(destination).position)
                     {
                         identity.spark.GetComponent<TranslationAnimator>().addFlow(flow);
+                        identity.GetComponent<ShowHideCanvas>().target.GetComponentInChildren<ChangeTextAnimator>().addString(Mathf.Abs(flow) + " kw");
                     }
                 }
             }

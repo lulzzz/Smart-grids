@@ -1,6 +1,7 @@
 
 package Model.Implementations;
 
+import Model.Core.Distributor;
 import Model.Interfaces.*;
 import Model.Core.Moment;
 import com.google.gson.annotations.Expose;
@@ -15,7 +16,7 @@ public final class LinearBid implements IBiddingStrategy
     
     private double linearFactor;
     
-    public LinearBid(Double rate, IDistributor distributor) 
+    public LinearBid(Double rate, Distributor distributor) 
     {
         minPlot = -100;
         maxPlot = 100;
@@ -35,8 +36,7 @@ public final class LinearBid implements IBiddingStrategy
         return plv;
     }
 
-    @Override
-    public void develop(Moment moment, double minX, double maxX, IDistributor distributor, ArrayList<IAppliance> appliances) 
+    public void setBid(Moment moment, double minX, double maxX, Distributor distributor, ArrayList<IAppliance> appliances) 
     {
         linearFactor = distributor.getRate(moment);
     }
@@ -48,7 +48,7 @@ public final class LinearBid implements IBiddingStrategy
     }
 
     @Override
-    public void setTrades(HashMap<Double, TraderType> trades) 
+    public void processResults(HashMap<Double, TraderType> trades) 
     {
         
     }

@@ -89,4 +89,9 @@ public class Moment implements Comparable<Moment>
     {
         return hour >= since.hour && hour <= until.hour && minute >= since.minute && minute< until.minute;
     }
+
+    public int getMinute() 
+    {
+        return minute;
+    }
 }

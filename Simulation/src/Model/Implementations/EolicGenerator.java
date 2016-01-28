@@ -3,6 +3,7 @@ package Model.Implementations;
 
 import Model.Interfaces.IGenerator;
 import Model.Core.*;
+import Model.Implementations.SolarGenerator.GeneratorType;
 import com.google.gson.annotations.Expose;
 
 public class EolicGenerator implements IGenerator 
@@ -19,7 +20,6 @@ public class EolicGenerator implements IGenerator
         this.type = GeneratorType.Eolic;
     }
     
-    @Override
     public void setStartingMoment( Moment moment, Weather weather )
     {
         double c = weather.getWindSpeed(moment);

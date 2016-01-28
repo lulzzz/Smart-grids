@@ -3,8 +3,8 @@ package Model.Core;
 
 import Model.TemporalDistributions.Data;
 import Model.Implementations.*;
+import Model.Implementations.Appliance.ApplianceType;
 import Model.Interfaces.*;
-import Model.Interfaces.IAppliance.ApplianceType;
 import Model.Interfaces.IBiddingStrategy.*;
 import com.google.gson.annotations.*;
 import java.io.*;
@@ -96,13 +96,18 @@ public class Prosumer
         return new Participant(id, bid.toPLV());
     }
     
-    public void setStartingMoment(Moment moment, IDistributor distributor, Weather weather) 
+    public void setStartingMoment(Moment moment, Distributor distributor, Weather weather) 
     {
         for( IAppliance appliance : appliances )
-            appliance.setStartingMoment(moment);
+            ((Appliance)appliance).setStartingMoment(moment);
         
         for( IGenerator generator : generators )
-            generator.setStartingMoment(moment, weather);
+        {
+            if( generator instanceof SolarGenerator )
+                ((SolarGenerator) generator).setStartingMoment(moment, weather);
+            if( generator instanceof SolarGenerator )
+                ((SolarGenerator) generator).setStartingMoment(moment, weather);
+        }
         
         bid = new LogBid(moment, mandatory,mandatory + battery.getCapacity(), distributor, appliances);
     }
@@ -153,10 +158,10 @@ public class Prosumer
         }
     }
     
-    public void refreshBid( Moment moment, IDistributor distributor )
+    public void refreshBid( Moment moment, Distributor distributor )
     {
         // Regenerate bid
-        bid.develop( moment, mandatory, mandatory+battery.getCapacity(), distributor, appliances);
+        bid.setBid( moment, mandatory, mandatory+battery.getCapacity(), distributor, appliances);
     }
     
     public void writePlotData(PrintWriter writer, String outputFolder, Moment moment)
@@ -188,7 +193,6 @@ public class Prosumer
                 totalTraded -= value;
             }            
         }
-        bid.setTrades(trades);
+        bid.processResults(trades);
     }
-    
 }

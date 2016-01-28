@@ -24,7 +24,7 @@ public class KeyBoardInput : MonoBehaviour
 
 
 
-            if (Input.GetKeyDown(KeyCode.H))
+            if (Input.GetKeyDown(KeyCode.M))
             {
                 foreach (Transform t in city.transform)
                 {
@@ -53,6 +53,14 @@ public class KeyBoardInput : MonoBehaviour
                 }
                 Color c = new Color(RenderSettings.ambientLight.r, RenderSettings.ambientLight.g, RenderSettings.ambientLight.b + .1f);
                 RenderSettings.ambientLight = c;
+            }
+            if(Input.GetKeyDown(KeyCode.C))
+            {
+                foreach(Canvas c in FindObjectsOfType<Canvas>())
+                {
+                    if( c.name.StartsWith("Can"))
+                        c.enabled = !c.enabled;
+                }
             }
         }
     }

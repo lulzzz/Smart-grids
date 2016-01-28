@@ -1,6 +1,7 @@
 
 package Model.Implementations;
 
+import Model.Core.Distributor;
 import Model.Interfaces.*;
 import Model.Core.Moment;
 import com.google.gson.annotations.Expose;
@@ -24,13 +25,13 @@ public class LogBid implements IBiddingStrategy
     @Expose
     private String plotFile; 
     
-    public LogBid(Moment moment, double minX, double maxX, IDistributor distributor, ArrayList<IAppliance> appliances)
+    public LogBid(Moment moment, double minX, double maxX, Distributor distributor, ArrayList<IAppliance> appliances)
     {
         minPlot = -10;
         maxPlot = 20;
         
         trades = new HashMap<>();
-        develop( moment, minX, maxX, distributor, appliances );
+        setBid( moment, minX, maxX, distributor, appliances );
     }
     
     public PiecewiseLinearValuation toPLV()
@@ -65,7 +66,7 @@ public class LogBid implements IBiddingStrategy
     }
     
     @Override
-    public void setTrades( HashMap<Double, TraderType> trades )
+    public void processResults( HashMap<Double, TraderType> trades )
     {
         this.trades = trades;
     }
@@ -123,7 +124,7 @@ public class LogBid implements IBiddingStrategy
     }
 
     @Override
-    public final void develop( Moment moment, double minX, double maxX, IDistributor distributor, ArrayList<IAppliance> appliances) 
+    public final void setBid( Moment moment, double minX, double maxX, Distributor distributor, ArrayList<IAppliance> appliances) 
     {
         this.minX = minX;
         this.maxX = maxX;

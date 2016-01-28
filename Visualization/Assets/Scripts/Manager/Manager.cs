@@ -32,7 +32,9 @@ public class Manager : MonoBehaviour
             fader.toggleFade();
         }
     }
+
     
+
     // Build city objects
     [SerializeField] private Material material;
     [SerializeField] private Material transparent;
@@ -40,6 +42,9 @@ public class Manager : MonoBehaviour
     [SerializeField] private GameObject myTorus;
 
     [SerializeField] private GameObject wirePrefab;
+
+    
+
     [SerializeField] private GameObject sparkPrefab;
 
     // Visualization objects
@@ -142,9 +147,9 @@ public class Manager : MonoBehaviour
             jsonPath = Application.dataPath + "/Simulator/simulation.json";
             Destroy(myTorus, 2);
         }
-        //Instantiate(timeUIPrefab);
+        GameObject timeUI = Instantiate(timeUIPrefab) as GameObject;
 
-        JsonParser parser = new JsonParser(jsonPath, city, wireGOs);
+        JsonParser parser = new JsonParser(jsonPath, city, wireGOs, timeUI);
         parser.createPanels(infoPanelPrefab,appliancePrefab, generatorPrefab, spriteOfAppliance, spriteOfGenerator);
         
         // Enable all animators
@@ -154,9 +159,10 @@ public class Manager : MonoBehaviour
         }
         parser.parseJSON();
         Destroy(loader);
+    }
 
-        
-
+    public void animateAll()
+    {
         foreach (FillImageAnimator fillAnimator in FindObjectsOfType<FillImageAnimator>())
         {
             fillAnimator.animate();
@@ -165,12 +171,41 @@ public class Manager : MonoBehaviour
             changeAnimator.animate();
         foreach (TranslationAnimator translation in FindObjectsOfType<TranslationAnimator>())
             translation.animate();
+        foreach (ChangeTextAnimator translation in FindObjectsOfType<ChangeTextAnimator>())
+            translation.animate();
+    }
+
+    public void stopAnimating()
+    {
+        foreach (FillImageAnimator fillAnimator in FindObjectsOfType<FillImageAnimator>())
+        {
+            fillAnimator.stop();
+        }
+        foreach (ChangeImageAnimator changeAnimator in FindObjectsOfType<ChangeImageAnimator>())
+            changeAnimator.stop();
+        foreach (TranslationAnimator translation in FindObjectsOfType<TranslationAnimator>())
+            translation.stop();
+        foreach (ChangeTextAnimator translation in FindObjectsOfType<ChangeTextAnimator>())
+            translation.stop();
+    }
+
+    public void advanceFrame()
+    {
+        print("advance");
+        foreach (FillImageAnimator fillAnimator in FindObjectsOfType<FillImageAnimator>())
+        {
+            fillAnimator.advance();
+        }
+        foreach (ChangeImageAnimator changeAnimator in FindObjectsOfType<ChangeImageAnimator>())
+            changeAnimator.advance();
+        foreach (TranslationAnimator translation in FindObjectsOfType<TranslationAnimator>())
+            translation.advance();
+        foreach (ChangeTextAnimator translation in FindObjectsOfType<ChangeTextAnimator>())
+            translation.advance();
     }
 
     public void loadJson(string path)
     {
-        Instantiate(timeUIPrefab);
-
         foreach (Transform child in menuObjects.transform)
         {
             child.GetComponent<FadeMaterial>().toggleFade();
@@ -182,8 +217,13 @@ public class Manager : MonoBehaviour
         string sjson = File.ReadAllText(path);
         JSONObject jsonObject = new JSONObject(sjson);
 
-        string cityPath = jsonObject.GetField("cirtModel").ToString().Trim();
+        string cityPath = jsonObject.GetField("marketMesh").ToString().Replace("\"", "");
+        print(cityPath);
         loadCity(cityPath);
+        foreach (FadeMaterial fader in FindObjectsOfType<FadeMaterial>())
+        {
+            fader.toggleFade();
+        }
         simulationReady(path);
     }
 
@@ -196,7 +236,6 @@ public class Manager : MonoBehaviour
         GetComponent<KeyBoardInput>().setCity(city);
 
         // Create and set parent
-        path = Application.dataPath + "/ObjReader/Sample Files/city_obj.txt";
         File.ReadAllText(path);
         GameObject[] houses = ObjReader.use.ConvertFile(path, false, material, transparent);
         foreach (GameObject house in houses)

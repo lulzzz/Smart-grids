@@ -34,6 +34,21 @@ public class TranslationAnimator : MonoBehaviour
         this.enabled = true;
     }
 
+    public void stop()
+    {
+        this.enabled = false;
+        CancelInvoke();
+    }
+
+    public void advance()
+    {
+        int next = (current + 1) % flows.Count;
+        current = next;
+        next = (next + 1) % flows.Count;
+
+        transform.position = flows[current] > 0 ? from : to;
+    }
+
     public void FixedUpdate()
     {
         if (flows[current] != 0)
@@ -45,6 +60,7 @@ public class TranslationAnimator : MonoBehaviour
 
     public void frameEnded()
     {
+        print("pew");
         if (Manager.Instance.repeat)
         {
             transform.position = flows[current] > 0 ? from : to;

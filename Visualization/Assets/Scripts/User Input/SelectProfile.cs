@@ -31,6 +31,7 @@ public class SelectProfile : MonoBehaviour
     {
         assigned = 2;
         rend = GetComponent<Renderer>();
+        changeColor(0);
     }
 
     void OnMouseEnter ()

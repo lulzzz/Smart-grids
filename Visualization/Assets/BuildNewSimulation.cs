@@ -10,8 +10,11 @@ public class BuildNewSimulation : MonoBehaviour
     void OnMouseDown ()
     {
         string path = DialogManager.showObjDialog();
-        float size = Manager.Instance.loadCity(path);
+        if (path != null)
+        {
+            float size = Manager.Instance.loadCity(path);
 
-        Manager.Instance.cityImported(size);
+            Manager.Instance.cityImported(size);
+        }
     }
 }

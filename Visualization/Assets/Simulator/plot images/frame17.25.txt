@@ -3,7 +3,6 @@ set output 'C:/Users/Martin/Documents/GitHub/Smart grids/Visualization/Assets/Si
 unset arrow 
 f(x) = x >= -3.00 && x <= 7.00 ? 17.00*x : 1/0 
 g(x) = x >= -3.00 && x <= 7.00 ? sgn(x)*17.00*(0.00+1.00*log((abs(x)-0.00)/1.00 + 1)) : 1/0 
-set arrow from 7.00, 0 to 7.00,g(7.00) front 
 set samples 10000 
 set nokey 
 set xzeroaxis 
@@ -26,8 +25,6 @@ set output 'C:/Users/Martin/Documents/GitHub/Smart grids/Visualization/Assets/Si
 unset arrow 
 f(x) = x >= -3.00 && x <= 7.00 ? 17.00*x : 1/0 
 g(x) = x >= -3.00 && x <= 7.00 ? sgn(x)*17.00*(0.00+1.00*log((abs(x)-0.00)/1.00 + 1)) : 1/0 
-set arrow from 6.00, 0 to 6.00,f(6.00) front 
-set arrow from 7.00, 0 to 7.00,g(7.00) front 
 set samples 10000 
 set nokey 
 set xzeroaxis 
@@ -39,7 +36,6 @@ set output 'C:/Users/Martin/Documents/GitHub/Smart grids/Visualization/Assets/Si
 unset arrow 
 f(x) = x >= -3.00 && x <= 7.00 ? 17.00*x : 1/0 
 g(x) = x >= -3.00 && x <= 7.00 ? sgn(x)*17.00*(0.00+1.00*log((abs(x)-0.00)/1.00 + 1)) : 1/0 
-set arrow from -3.00, 0 to -3.00,f(-3.00) front 
 set samples 10000 
 set nokey 
 set xzeroaxis 
@@ -51,8 +47,6 @@ set output 'C:/Users/Martin/Documents/GitHub/Smart grids/Visualization/Assets/Si
 unset arrow 
 f(x) = x >= -3.00 && x <= 7.00 ? 17.00*x : 1/0 
 g(x) = x >= -3.00 && x <= 7.00 ? sgn(x)*17.00*(0.00+1.00*log((abs(x)-0.00)/1.00 + 1)) : 1/0 
-set arrow from 4.00, 0 to 4.00,g(4.00) front 
-set arrow from 6.00, 0 to 6.00,f(6.00) front 
 set samples 10000 
 set nokey 
 set xzeroaxis 
@@ -64,8 +58,6 @@ set output 'C:/Users/Martin/Documents/GitHub/Smart grids/Visualization/Assets/Si
 unset arrow 
 f(x) = x >= -3.00 && x <= 7.00 ? 17.00*x : 1/0 
 g(x) = x >= -3.00 && x <= 7.00 ? sgn(x)*17.00*(0.00+1.00*log((abs(x)-0.00)/1.00 + 1)) : 1/0 
-set arrow from 3.00, 0 to 3.00,f(3.00) front 
-set arrow from 7.00, 0 to 7.00,g(7.00) front 
 set samples 10000 
 set nokey 
 set xzeroaxis 

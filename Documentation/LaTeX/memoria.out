@@ -1,0 +1,63 @@
+\BOOKMARK [1][-]{section.1}{Introducci\363n y antecedentes}{}% 1
+\BOOKMARK [2][-]{subsection.1.1}{El dilema energ\351tico}{section.1}% 2
+\BOOKMARK [2][-]{subsection.1.2}{El problema de la liquidaci\363n de mercados distribuidos de energ\355a}{section.1}% 3
+\BOOKMARK [2][-]{subsection.1.3}{Algoritmos de resoluci\363n para mercados distribuidos de energ\355a}{section.1}% 4
+\BOOKMARK [1][-]{section.2}{Objetivos}{}% 5
+\BOOKMARK [2][-]{subsection.2.1}{Requerimientos no funcionales}{section.2}% 6
+\BOOKMARK [2][-]{subsection.2.2}{Casos de uso}{section.2}% 7
+\BOOKMARK [1][-]{section.3}{Metodolog\355a y herramientas}{}% 8
+\BOOKMARK [2][-]{subsection.3.1}{Organizaci\363n del proyecto}{section.3}% 9
+\BOOKMARK [3][-]{subsubsection.3.1.1}{ Control de versiones: Git }{subsection.3.1}% 10
+\BOOKMARK [3][-]{subsubsection.3.1.2}{Documentaci\363n: LaTeX, Gliffy y Code2flow}{subsection.3.1}% 11
+\BOOKMARK [2][-]{subsection.3.2}{Entornos de programaci\363n}{section.3}% 12
+\BOOKMARK [3][-]{subsubsection.3.2.1}{Entorno de simulaci\363n: Java}{subsection.3.2}% 13
+\BOOKMARK [3][-]{subsubsection.3.2.2}{Entorno de visualizaci\363n: Unity}{subsection.3.2}% 14
+\BOOKMARK [2][-]{subsection.3.3}{Generaci\363n de ficheros externos}{section.3}% 15
+\BOOKMARK [3][-]{subsubsection.3.3.1}{Modelado 3D: Blender}{subsection.3.3}% 16
+\BOOKMARK [3][-]{subsubsection.3.3.2}{Intercambio de datos: JSON}{subsection.3.3}% 17
+\BOOKMARK [3][-]{subsubsection.3.3.3}{Trazado de gr\341ficas: Gnuplot}{subsection.3.3}% 18
+\BOOKMARK [1][-]{section.4}{Modelado del mercado}{}% 19
+\BOOKMARK [2][-]{subsection.4.1}{Modelado de los prosumidores}{section.4}% 20
+\BOOKMARK [2][-]{subsection.4.2}{Modelado de la red}{section.4}% 21
+\BOOKMARK [2][-]{subsection.4.3}{Modelado del entorno del mercado}{section.4}% 22
+\BOOKMARK [1][-]{section.5}{Especificaci\363n del mercado}{}% 23
+\BOOKMARK [2][-]{subsection.5.1}{Formato de entrada: Localizaci\363n de los prosumidores}{section.5}% 24
+\BOOKMARK [2][-]{subsection.5.2}{Algoritmos de creaci\363n del \341rbol de conectividad}{section.5}% 25
+\BOOKMARK [3][-]{subsubsection.5.2.1}{Informaci\363n completa: Steiner trees }{subsection.5.2}% 26
+\BOOKMARK [3][-]{subsubsection.5.2.2}{Informaci\363n incompleta: Sequential nearest neighbour}{subsection.5.2}% 27
+\BOOKMARK [2][-]{subsection.5.3}{Entorno tridimensional de ajuste de par\341metros}{section.5}% 28
+\BOOKMARK [2][-]{subsection.5.4}{Controles de usuario}{section.5}% 29
+\BOOKMARK [2][-]{subsection.5.5}{Formato de salida: Mercado especificado}{section.5}% 30
+\BOOKMARK [1][-]{section.6}{Simulaci\363n}{}% 31
+\BOOKMARK [2][-]{subsection.6.1}{Principios de dise\361o}{section.6}% 32
+\BOOKMARK [3][-]{subsubsection.6.1.1}{El patr\363n MVC}{subsection.6.1}% 33
+\BOOKMARK [3][-]{subsubsection.6.1.2}{El patr\363n experto y la encapsulaci\363n}{subsection.6.1}% 34
+\BOOKMARK [3][-]{subsubsection.6.1.3}{Interficies y extensibilidad}{subsection.6.1}% 35
+\BOOKMARK [2][-]{subsection.6.2}{El paquete view}{section.6}% 36
+\BOOKMARK [3][-]{subsubsection.6.2.1}{Command Line Interface}{subsection.6.2}% 37
+\BOOKMARK [3][-]{subsubsection.6.2.2}{FileSystem}{subsection.6.2}% 38
+\BOOKMARK [2][-]{subsection.6.3}{El paquete control}{section.6}% 39
+\BOOKMARK [3][-]{subsubsection.6.3.1}{Main}{subsection.6.3}% 40
+\BOOKMARK [3][-]{subsubsection.6.3.2}{Simulation}{subsection.6.3}% 41
+\BOOKMARK [2][-]{subsection.6.4}{El paquete model.data}{section.6}% 42
+\BOOKMARK [3][-]{subsubsection.6.4.1}{ITemporalDistribution}{subsection.6.4}% 43
+\BOOKMARK [2][-]{subsection.6.5}{El paquete model.core}{section.6}% 44
+\BOOKMARK [3][-]{subsubsection.6.5.1}{Market}{subsection.6.5}% 45
+\BOOKMARK [3][-]{subsubsection.6.5.2}{Wire}{subsection.6.5}% 46
+\BOOKMARK [3][-]{subsubsection.6.5.3}{Weather}{subsection.6.5}% 47
+\BOOKMARK [3][-]{subsubsection.6.5.4}{Distributor}{subsection.6.5}% 48
+\BOOKMARK [3][-]{subsubsection.6.5.5}{Prosumer}{subsection.6.5}% 49
+\BOOKMARK [2][-]{subsection.6.6}{El paquete model.components}{section.6}% 50
+\BOOKMARK [3][-]{subsubsection.6.6.1}{IBattery, IGenerator e IAppliance}{subsection.6.6}% 51
+\BOOKMARK [3][-]{subsubsection.6.6.2}{IBiddingStrategy}{subsection.6.6}% 52
+\BOOKMARK [3][-]{subsubsection.6.6.3}{Implementaci\363n de IBiddingtrategy: LogBid}{subsection.6.6}% 53
+\BOOKMARK [2][-]{subsection.6.7}{Formato de salida: Registro de simulaci\363n}{section.6}% 54
+\BOOKMARK [1][-]{section.7}{Visualizaci\363n y producto final}{}% 55
+\BOOKMARK [2][-]{subsection.7.1}{Principios de dise\361o de Unity}{section.7}% 56
+\BOOKMARK [2][-]{subsection.7.2}{Entorno de visualizaci\363n}{section.7}% 57
+\BOOKMARK [2][-]{subsection.7.3}{El bloque de procesado}{section.7}% 58
+\BOOKMARK [2][-]{subsection.7.4}{El bloque de animaci\363n}{section.7}% 59
+\BOOKMARK [2][-]{subsection.7.5}{El bloque de interacci\363n}{section.7}% 60
+\BOOKMARK [1][-]{section.8}{Conclusiones y futuro trabajo}{}% 61
+\BOOKMARK [2][-]{subsection.8.1}{Conclusiones}{section.8}% 62
+\BOOKMARK [2][-]{subsection.8.2}{Futuro trabajo}{section.8}% 63

@@ -63,9 +63,10 @@ public class TreeBuilder
             animator.from = new Vector3(from.x, 0.25f, from.z);
             animator.to = new Vector3(to.x, 0.25f, to.z);
             animator.addFlow(1);
-            animator.animate();
+            animator.stop();
 
             wireIdentity.spark = spark;
+            wire.GetComponent<ShowHideCanvas>().target = spark.GetComponentInChildren<Canvas>().gameObject;
             
             wireGOs.Add(wire);
         }

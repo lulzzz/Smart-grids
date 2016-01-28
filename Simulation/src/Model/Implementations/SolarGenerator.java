@@ -7,6 +7,10 @@ import com.google.gson.annotations.Expose;
 
 public class SolarGenerator implements IGenerator 
 {
+    public enum GeneratorType
+    {
+        Solar, Eolic
+    }
     @Expose
     private GeneratorType type;
     @Expose
@@ -19,7 +23,6 @@ public class SolarGenerator implements IGenerator
         this.type = GeneratorType.Solar;
     }
     
-    @Override
     public void setStartingMoment( Moment moment, Weather weather )
     {
         double c = weather.getClouds(moment);

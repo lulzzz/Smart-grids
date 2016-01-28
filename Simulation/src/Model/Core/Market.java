@@ -17,7 +17,7 @@ public class Market
     @Expose
     private ArrayList<Prosumer> houses;
     @Expose
-    private IDistributor distributor;
+    private Distributor distributor;
     @Expose
     private ArrayList<Wire> wires;
     @Expose

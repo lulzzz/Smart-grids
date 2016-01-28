@@ -47,4 +47,18 @@ public class ChangeImageAnimator : MonoBehaviour
             current = (current + 1) % bidPlots.Count;
         }
     }
+
+    public void stop()
+    {
+        this.enabled = false;
+        CancelInvoke();
+    }
+    public void advance()
+    {
+        int next = (current + 1) % bidPlots.Count;
+        current = next;
+        next = (next + 1) % bidPlots.Count;
+
+        image.sprite = bidPlots[current];
+    }
 }

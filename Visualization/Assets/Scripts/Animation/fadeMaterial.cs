@@ -18,7 +18,7 @@ public class FadeMaterial : MonoBehaviour
     private Renderer rend;
     public float lerp;
 
-    void Start()
+    void Awake()
     {
         rend = GetComponent<Renderer>();
         rend.material = original;

@@ -5,20 +5,14 @@ import Model.Core.Moment;
 
 public interface IAppliance 
 {
-    public void setStartingMoment( Moment moment );
+    // Devuelve la energía requerida entre los momentos proveídos
     public double getConsum( Moment since, Moment until );
-    
+    // Devuelve el estado actual del dispositivo
     public ApplianceState getState();
-
+    // Devuelve el momento en el está programado el inicio del dispositivo
     public Moment getStartingTime();
-    
-    public enum ApplianceState 
-    {
-        Waiting, inExecution, Ended
-    }
+    // Los dispositivos pueden encontrarse en tres estados
+    public enum ApplianceState { Waiting, inExecution, Ended }
 
-    public enum ApplianceType
-    {
-        TV,Cooking, WashingMachine
-    }
+    
 }

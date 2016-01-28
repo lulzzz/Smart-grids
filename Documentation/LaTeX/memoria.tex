@@ -9,18 +9,39 @@
 \usepackage{graphicx}
 \usepackage{listings}
 \usepackage[utf8]{inputenc}
+\usepackage[hidelinks]{hyperref}
+\usepackage{verbatim}
+\usepackage[usenames]{color}
+\usepackage{float}
+\usepackage{subfigure}
 
 \setcounter{page}{0}
-
-\newcommand{\includeImage}[1]
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\includeImage}[3]
 {
-	\begin{figure}[htb]
+	\begin{figure}[H]
 	\begin{center}
-	\includegraphics[width=18cm]{#1}
+	\includegraphics[width=#2cm]{#1}
 	\end{center}
+	\caption{#3}
 	\end{figure}
 }
+
+\newcommand{\dualImage}[6]
+{
+	\begin{figure}[htbp]
+	\centering
+		\subfigure[#2]{\includegraphics[width=#6mm]{#1}}
+		\subfigure[#4]{\includegraphics[width=#6mm]{#3}}
+	\caption{#5}
+	\end{figure}
+}
+
 \newcommand\abs[1]{\left|#1\right|}
+\newcommand{\link}[2]
+{ 
+	\href{#2}{\textcolor{cyan}{#1}}
+}
 
 \numberwithin{equation}{section}
 \newtheorem{teo}{Teorema}[subsubsection]
@@ -105,13 +126,20 @@
 \pagenumbering{roman} 
 
 
-%\section*{Abstract}
+\section*{Abstract}
+Humanity needs energy. The industry, the educational and health institutious, even our own houses, all need energy to generate the goods they provide to us daily. But the raw materials historically used to produce energy is exhausting. Upon the drastical future, new models have been proposed. On one hand, new sources of energy have been found and developed, but none has overcome the use of fossil materials yet. On the other hand, there is ongoing reserch to find more efficient ways ways to use and deliver energy. 
 
-%Example abstract.
+The energy markets we know are centralized markets: a distributor produces the energy and hands it out using the electrical grid. As a consequence, a big part of the energy is lost due to distribution expenses. An alternative model surges under the name of Smart Grids [1]: distributed markets that allow users to trade (buy or sell) energy between them. The discovery and improvement of secure and fair algorithms that find the optimal allocation of energy for a distributed market given the requirements of each user and the constraints of the grid is a major research problem. In [2], the RadPro algorithm is presented, stating that can be used to solve energy allocation problems up to some restrictions.
 
-%\section*{Resúmen}
-%Resúmen
+This project, intends to visualize the evolution of a distributed market where the users make trade offers depending on their necessities. Each user is provided by some amount of electrical components such as generators and appliances that produce or consume energy over time. As a result, the trading offer of a user changes over time, depending on the energy requirements that dictate the state of its components. The project gives the option to build personalizable distributed markets and runs simulations over them. The results can be visualized in a 3D environment where the user is able to analyze and interact with all the information.
 
+\section*{Resumen}
+
+La humanidad necesita energía. La industria, los centros de enseñanza y de salud, incluso nuestras casas, todos necesitan energía para generar los bienes que nos proveen cada día. Pero la materia prima históricamente utilizada para producir energía se está agotando. Ante la alarmante situación, se han propuesto nuevos modelos de energía. Por un lado, se han descubierto y desarrollado nuevas fuentes de energía. Por otro, se investiga en nuevas maneras de utilizar y repartir energía de manera más eficiente.
+
+Los mercados de energía que conocemos son mercados centralizados: una distribuidora produce la energía y la reparte utilizando la red eléctrica. Como consecuencia, gran parte de la energía producida se pierde en gastos de distribución. Un modelo alternativo surge bajo el nombre de Smart Grids [1]: mercados distribuidos que permiten a los usuarios intercambiar, comprar o vender, energía entre ellos. El hallazgo y desarrollo de algoritmos justos y fiables que permitan encontrar la asignación de energía para un mercado distribuido de energia dadas los requerimientos de cada usuario y las restricciones de la red es un gran problema de investigación. En [2], se presenta el algoritmo RadPro, que afirma poder ser usado para resolver problemas de asignación de energía bajo unas condiciones.
+
+Este proyecto, pretende visualizar la evolución de mercados distribuidos de energía en los que los usuarios definen ofertas de compraventa dependiendo de sus necesidades. Cada usuario dispone de un número de generadores y dispositivos que producen o consumen energía a lo largo del tiempo. Como resultado, la oferta de compraventa de un usuario va variando en el tiempo dependiendo del estado de sus componentes. El proyecto permite crear mercados distribuidos personalizables y ejecuta simulaciones sobre ellos. Los resultados pueden ser visualizados en un entorno tridimensional donde el usuario es capaz de analizar e interactuar con la información.
 \newpage 
 
 \tableofcontents
@@ -123,32 +151,48 @@
 
 
 \section{Introducción y antecedentes}
-% \subsection{El entorno: La humanidad necesita energía eléctrica}
-% La energía eléctrica es básica para la producción de bienes y servicios. Cada vez necesitamos más energia. REE
-% En España la distribución de la energía se hace a base de distribuidoras que proveen energía a la red que conecta todos los consumidores, bien sean hogares o empresas. Bajo la amenaza de que la materia de energías fósiles, como el petróleo o el carbón, se van agotando, muchos goviernos muestran interés en invertir en investigar maneras más eficientes de tratar con la energía.
 
-% Por un lado ha aumentado el índice de plantas solares instaladas:
+La energía es una necesidad básica en nuestra sociedad. Prácticamente toda la industria requiere de energía para producir bienes. Incluso dentro de nuestras casas, hay mutitud de electrodomésticos que utilizan energía para facilitarnos nuestro día a día. Sin embargo, la materia prima históricamente utilizada para producir energía se está agotando.
 
-% Pero lo que realmente puede llegar a alterar el proceso de energía es el comienzo de la expansió del sector de plantas renovables personales. Cada vez son más económicos y eficientes, de manera que requieren menor inversión inicial. 
+\subsection{El dilema energético}
+A lo largo de los años, la energía se ha producido explotando sustancias fósiles de gran contenido energético como el carbón, el petróleo o el gas natural. Gracias al enorme consumo de energía en el planeta, las sustancias fósiles han ido disminuyendo en abundancia, haciendo cada vez más costosa su obtención y distribución, y poniendo potencialmente al planeta en una situación donde no haya suficiente materia prima para sustentar la demanda energética de la sociedad. Ante la alarmante situación, ha habido gran interés en investigar maneras de solventar este problema. Podemos separar las soluciones propuestas en dos vertientes principales:
+\begin{itemize}
+\item Una dirección es utilizar otras fuentes de energía, como la energía nuclear o las energías renovables. 
 
-% Auge de energías renovables personales. Mencionar artículos donde se tratan smart grids.
-% \subsection{Los mercados distribuidos de energía}
+La energía nuclear genera grandes cantidades de energía, pero representa un riesgo de irradiación radioactiva peligrosa en caso de un error del sistema. Por esta razón, nunca ha sido totalmente aceptada por la sociedad y se ha disminuido su uso en los útimos años. 
 
-% Aquí es donde entran las Smart Grids. Las smart grids proponen un sistema de distribución distribuido en vez de centralizado. Permiten la idea que los propios consumidores puedan vender energía que produzcan convirtiendose así en prosumidores - productores y consumidores - Una Smarti grid
-% Auge de energías renovables personales. Mencionar artículos donde se tratan smart grids.
+La gran ventaja de las energías renovables es que son teóricamente inagotables: deberíamos ser capaces de generar energía mientras haya luz solar o viento sobre el planeta. Además, no presentan posibles riesgos de salud y son más respetuosos con el medio ambiente. Aún son una tecnología joven, pero ha tenido grandes avances en los últimos años. De hecho, ya no solo se hacen plantaciones industriales de placas fotovoltaicas en zonas de alta generación, sino que se ha llegado al punto de que un usuario particular puede permitirse comprar sus propias placas fotovoltaicas para autoabastecer el consumo de su vivienda.
 
-% \subsection{El problema de la liquidación de mercados distribuidos de energía: CEAP}
+\item La otra dirección es disminuir el consumo energético. Con este objetivo en mente, cada año se abren múltiples campañas de concienciación que pretenden transmitir la importancia y los efectos que tiene ahorrar en energía. También se crean leyes y decretos que regulan el gasto energético de las empresas industriales.
 
-% Quien controla todo el flujo, cuando se hacen los intercambios, como se hacen los intercambios, como pueden interferir los usuarios en estos intercambios. Mencionar reglamentos de otros países y estado actual de España.
+Una nueva idea es optimizar la manera en la que se distribuye la energía para evitar gastos inecesarios. El modelo de distribución más extendido actualmente es un modelo centralizado: Una o unas cuantas distribuidoras se encargan de producir la energía y la reparten entre los consumidores usando el cableado eléctrico. Como consecuencia, una gran parte de la energía producida se pierde, disipándose en forma de calor. La alternativa es crear mercados distribuidos donde los usuarios estén interconectados y puedan intercambiarse energía entre sí, minimizando así gastos de distribución.
 
+\end{itemize}
+Las Smart Grid [1] unen la idea de que a partir de ahora, los usuarios podrán producir energía con la idea de utilizar un mercado distribuido, ofreciendo un modelo de mercado inteligente en el que cada usuario podrá intercambiar energía con otros usuarios. A estos usuarios se les asigna el nombre de prosumidores, ya que son productores y consumidores de energía simultaneamente. 
 
-% \subsection{Algoritmos de clearing para mercados distribuidos de energía: ILP, Radpro} 
+La consideración de un modelo distribuido de mercado crea nuevas preguntas a responder: ¿cómo indica un usuario sus intereses de compraventa?, ¿cómo afecta la topología y el diseño de la red a los intercambios?, y sobre todo, ¿cómo se gestionan los intercambios?. En el siguiente apartado formalizaremos el problema para poder dar una posible resolución a estas preguntas.
 
-% \subsection{A continuación}
+\subsection{El problema de la liquidación de mercados distribuidos de energía}
 
-% Definiremos en que manera queremos ampliar este trabajo.
+En su forma más general, un mercado distribuido de energía puede modelarse como un grafo $(P,E)$ donde cada nodo $p \in P$ representa un prosumidor y cada arista $\{p,p'\} \in E$ significa que el usuario $p$ y el usuario $p'$ están unidos mediante cableado eléctrico, de manera que pueden intercambiarse energía entre ellos.
 
-% \newpage
+Los intereses de cada prosumidor se representan mediante la oferta de compraventa que lanza al mercado. Esta oferta se modela utilizando una función $f:D \subset \R \to \R$ que indica el precio que está dispuesto a pagar dependiendo de la cantidad de energía que intercambie. El dominio de la función $D$ puede contener un parte negativa que representa que el prosumidor pretende vender esa cantidad de energía, mientras que la parte positiva se utiliza para indicar los precios de compra.
+
+La red puede contar con restricciones que limiten los intercambios posibles. Por ejemplo, se puede limitar la capacidad de las aristas de manera que la energía que pase por cada arista nunca supere la capacidad de la misma.
+
+Dada esta información, el problema de la liquidación de mercados distribuidos de energía consiste en encontrar posibles asignaciones de intercambios que cumplan los requisitos de todos los prosumidores y de la red.
+
+\subsection{Algoritmos de resolución para mercados distribuidos de energía} 
+
+Existen actualmente programas que resuelven el problema de la liquidación de energía simplificando alguno de sus aspectos. En [2], se define el problema EAP como el problema de liquidación de mercado donde las funciones de compraventa de los prosumidores son discretas. Para su resolución, se plantea el problema como un problema de optimización de manera que sea resoluble utilizando algoritmos de programación lineal entera. También se presenta el algoritmo RadPro: un método resolvedor basado en transpaso de mensajes que se aplica únicamente sobre grafos acíclicos, pero ofrece una gran mejora de eficiencia en estos casos. 
+
+A partir de entonces, se ha ampliado el problema a CEAP [3] que permite que las funciones de compraventa sean funciones lineales definidas a trozos.
+
+El presente proyecto pretende utilizar este resolvedor de problemas CEAP para crear un entorno de simulación de mercados distribuidos de energía. Se amplía la expresividad de los prosumidores añadiéndoles componentes eléctricas como baterías, generadores y dispositivos de consumo. De esta manera, sus ofertas de compraventa van variando dependiendo del estado actual de sus componentes. Dada la cantidad de información contenida en los resultados de la simulación, se ofrece un entorno de visualización tridimensional donde poder analizar e interactuar con los resultados fácilmente. 
+
+En la siguiente sección, se detallan los objetivos concretos del proyecto.
+
+\newpage
 
 
 
@@ -158,11 +202,10 @@
 
 \section{Objetivos}
 
-\subsection{Funcionalidad}
-El objetivo principal del proyecto es construir un software que permita visualizar simulaciones hechas sobre mercados distribuidos de energía.
+El objetivo principal del proyecto es ampliar el modelo de mercado distribuido y construir un software que permita visualizar simulaciones hechas sobre dichos mercados.
 El software deberá cumplir con los requerimientos no funcionales especificados en 2.1 y posibilitar los casos de uso establecidos en 2.2.
 
-\subsection{Requerimientos}
+\subsection{Requerimientos no funcionales}
 
 La aplicación debe ser usable, mantenibile y libremente distribuible.
 \begin{itemize}
@@ -180,15 +223,13 @@ La aplicación debe ser usable, mantenibile y libremente distribuible.
 
 \item Requerimientos de Mantenibilidad
 
-Desde el comienzo del proyecto, se ha tenido presente la posibilidad de seguir trabajando en el proyecto después de la entrega ante los tribunales. Por ello, se ha hecho especial incapié en:
-
 \begin{itemize}
 
-\item Se seguirán \textbf{patrones de diseño} standares a la hora de diseñar e implemetar el software de manera que el código sea fácilmente modificable.
+\item Se seguirán \textbf{patrones de diseño} estándares a la hora de diseñar e implemetar el software de manera que el código sea fácilmente modificable.
 
 \item El programa estará \textbf{documentado} mediante \textbf{diagramas} que mejoren la comprensión del proyecto y una \textbf{memoria} que sirva como consulta sobre funcionalidades concretas de cada parte del proyecto.
 
-\item El programa contará con \textbf{mecansimos de ampliación} que permitan facilitar futuras modificaciones.
+\item El programa contará con \textbf{mecanismos de extensión} que permitirán añadir nuevas funcionalidades fácilmente en el futuro.
 
 \end{itemize}
 
@@ -198,587 +239,858 @@ Desde el comienzo del proyecto, se ha tenido presente la posibilidad de seguir t
 
 \item Todas las incorporaciones externas deberán contener licencias \textbf{gratuitas y libremente distribuibles} para mantener el proyecto asequible y accesible para todo usuario interesado en él.
 
-\item El producto final será \textbf{multiplataforma} de manera que se pueda ejecutar en los sisemas operativos más predominantes del mercado.
+\item El producto final será \textbf{multiplataforma}, de manera que se pueda ejecutar en los sistemas operativos predominantes del mercado.
 
-\item El producto final será un \textbf{ejecutable autocontenido} de manera que no requiera configuración alguna para ser ejecutado.
+\item El producto final será un \textbf{ejecutable autocontenido}, de manera que no requiera configuración alguna para poder ser ejecutado.
 
 \end{itemize}
 \end{itemize}
 \subsection{Casos de uso}
 
-El proyecto debe contener tres partes: Especificación del mercado, simulación y visualización, siendo cada una ejecutable independientemente del resto. Las entradas y salidas de cada parte serán un único fichero formateado acorde a toda la información relevante. A continuación resumimos la funcionalidad y la interacción del usuario de cada parte:
+La ejecución del programa se divide en tres partes fundamentales:
 
-Especificación del mercado
+\begin{itemize}
+\item \textbf{Especificación del mercado}
 
-Se trata de una aplicación interactiva en el cual se genera un mercado a partir de la geolocalización de los prosumers proporcionada por el usuario. A partir de ese momento, el usuario podrá definir distintos parámetros sobre la simulación a ejecutar sobre el mercado. Se generará un fichero formateado que contenga todos los parámetros de la simlación.
+Una vez definido el modelo de mercado que queramos utilizar, el especificador permite al usuario crear mercados distribuidos a partir de la distribución espacial de los prosumidores. El mercado cuenta con componentes personalizables y controles que permiten ajustar parámetros de la simulación.
 
-Simulación del mercado:
+\item \textbf{Simulación del mercado}
 
-Se generan y resuelven iterativamente problemas de CEAP modificando el estado de los datos a cada paso.
-Recibe los parámetros elegidos por el usuario y genera un archivo con los resultados de la simulación. El usuario no interviene en la ejecución del simulador.
+La simulación es un proceso automático en el que el usuario no interviene. Trata de simular la evolución de un mercado a lo largo del tiempo construyendo una secuencia de frames que indiquen el estado del mercado en dicho instante. En cada frame, se considera el problema CEAP formado por las ofertas de compraventa actuales de cada usuario. Utilizando el resolvedor de problemas CEAP, se encuentra la asignación de intercambios óptima y se informa de ella a cada usuario para que procese la información y pueda decidir la oferta que presentará en el próximo frame.
 
-Visualización del mercado:
-Genera una visualización a partir de los resultados obtenidos. El usuario puede interactuar con la información relevante y controlar la reproducción de los resultados. 
+\item \textbf{Visualización del mercado}
 
-Diagrama de flujo general:
-\includeImage{flujos_principales.png}
+En la visualización se plasman los resultados obtenidos de la simulación en un entorno tridimensional. Trata de reproducir la información contenida en los frames de la simulación utilizando elementos visuales, de manera que se facilite la interpretación y análisis de los resultados. El usuario podrá interactuar con la información mostrada y controlar el flujo de la reproducción.
 
-El producto final contiene todas las partes y proporciona dos modos de ejecución: Por una parte, debe permitir ejecutar todo el proceso de manera secuencial, por otra parte debe ser capaz de visualizar una simulación a partir de un registro de simulación creado externamente.
+\end{itemize}
+
+En las figuras 2 y 3 se muestran los casos de uso del proyecto. Por un lado, se exige que cada parte sea ejecutable independientemente del resto. Por otro lado, existe un producto final que facilita la ejecución secuencial de todas las partes.
+
+\includeImage{casos_de_uso.png}{10}{ Cada parte ha de ser ejecutable de forma independiente}
+
+\includeImage{casos_de_uso_final.png}{14}{ El producto facilita la ejecución secuencial de todas las partes}
+
+%Para conocer el formato de entrada de cada parte consultar el apartado formato de entrada de la sección correspondiente, concretamente los apartados 4.2, 5.4, 6.3 ordenadando las partes secuencialmente.
+% <Localización de prosumidores>;
+
+% Especificación del mercado  ;
+
+% /    Mercado   /;
+% return;
+% <Mercado>;
+
+% Simulación;
+
+% /Registro simulación/;
+% return;
+% <Registro simulación>;
+
+% Visualización;
+
+% nop;
+% return;
 
 
-\subsection{A continuación}
 
-Explicamos la metodología y herramientas utilizadas a lo largo del proyecto, razonando su elección ante las alternativas.
+% <Localización de prosumidores>;
+
+% Especificación del mercado  ;
+
+% /    Mercado   /;
+
+% Simulación;
+
+% /Registro simulación/;
+
+% Visualización;
+
+% nop;
+% return;
 
 
+Ahora que conocemos los objetivos del proyecto, podemos comprender la estructura general del resto del documento: en la sección 3 se razona el software utilizado para realizar las distintas partes del proyecto. En la sección cuatro, se detalla el modelo de mercado distribuido utilizado. En la quinta sección, se explica la creación y especificación de los mercados distribuidos a partir de la distribución espacial de los prosumidores. En la sexta, se explican los pasos que se siguen para ejecutar una simulación sobre el mercado, mientras que en la séptima, se muestran las técnicas utilizadas para visualizar los resultados de forma inteligible. Por último, la sección 8 contiene las conclusiones del trabajo e ideas para poder seguir ampliando el proyecto en el futuro.
 
 \newpage
+
+
 
 
 \section{Metodología y herramientas}
 
-Explicaremos los programas y lenguajes más importantes usados durante todo el proyecto, razonaremos su uso ante sus equivalentes y citaremos sus autores así como la licencia bajo la que se distribuye cada una de ellas. Se busca que los programas elegidos sean libres y gratuitos y que preferentemente tengan la posibilidad de ser multiplataforma para manterner el proyecto asequible y accesible para cada usuario interesado en él.
+Explicaremos los programas y lenguajes más importantes usados durante todo el proyecto, razonaremos su uso ante programas equivalentes y citaremos a sus autores así como la licencia bajo la que se distribuyen. En el apartado 3.1 se explican las herramientas que ayudan a organizar el proyecto: control de versiones, documentación y diagramas. En el apartado 3.2 se encuentran los entornos de programación: Java y Unity, y en el apartado 3.3, se muestra el software utilizado para la generación de ficheros externos: Blender, JSON y Gnuplot.
 
-\subsection{ Agile }
-Iteraciones y features.
-\subsection{ Decisiones de diseño }
-filosofía de java y unity.
-\subsection{ Control de versiones: Git }
+\subsection{Organización del proyecto}
 
-Todo proyecto informático que supere un mes de tiempo de producción requiere de un software de control de versiones. Son programas pensados para ayudar a los programadores a compartir código entre ellos e ir guardando versiones del proyecto, para poder volver a ellos ante un error inminente, sin que los programadores tengan que preocuparse de guardar versiones del proyecto localmente. 
+\subsubsection{ Control de versiones: Git }
 
-Los sistemas de control de versiones más utilizados actualmente son Git, Mercurial y SVN. Dado que todos cumplen las expectativas de ser gratuitos y multiplataforma, nos decantamos por Git, diseñado por Linus Torvalds y distribuido bajo la licencia .... .
+Todo proyecto informático que supere un mes de tiempo de producción requiere de un software de control de versiones. Son programas pensados para ayudar a los programadores a compartir código entre ellos e ir guardando versiones del proyecto, para poder volver a versiones anteriores ante un error inminente.
 
-Bitbucket
+Los sistemas de control de versiones más utilizados actualmente son Git, Mercurial y SVN. Git y Mercurial tienen la ventaja de ser sistemas de control de versiones distribuidos, lo cual permite ir guardando versiones localmente sin necesidad de un repositorio central remoto. Al ser el único usuario del proyecto, ni siquiera se ha creado un repositorio remoto y se ha trabajado localmente en un repositorio Git, valorando la experiancia previa del autor con dicho software ante Mercurial.
 
-Los proyectos de Git usualmente utilizan un repositorio on-line donde ir guardando la versión definitiva del proyecto en cada momento. Para ello es necesario encontrar un servicio de alojamiento de proyectos git en la web. Posiblemente el más reconocido sea GitHub, que es gratuito siempre y cuando se publique el código de forma abierta. También ofrece repositorios de pago con un gasto mensual. Por otro lado, Bitbucket es una alternativa que ofrece también la posibilidad de tener repositorios privados gratuitamente, siempre que no se supere el límite de 5 usuarios interventores del proyecto. Dado que la parte de RadPro se alojaba en un repositorio de BitBucket privado, se ha seguido la misma inciativa en este proyecto.
+Git fue diseñado por Linus Torvalds y se distribuye bajo la licencia GNU GPL v2.
 
 
-\subsection{Documentación: LaTeX}
-Así como un sistema de control de versiones, mantener una documentación clara del proyecto es esencial para su éxito y sobre todo para el futuro si alguien decide retomar el proyecto. 
-Existen maneras específicas de documentar programas informáticos, como el JavaDoc de Java, pero debido a la naturaleza multiX del proyecto, se ha decidido usar una documentación común para todo el proyecto. 
+\subsubsection{Documentación: LaTeX, Gliffy y Code2flow}
 
-Los Typesetting systems son sistemas pensados para escribir un documento de manera formateada y ordenada. El más conocido entre ellos sea probablemente TeX. Creado en 1974 por Donald Knuth, ha sido utilizado en la escritura de múltiples documentos científicos. 
+Así como tener un sistema de control de versiones, mantener una documentación clara del proyecto es esencial para su éxito, sobre todo pensando en un futuro en el que se decida retomar el proyecto.
+Existen maneras específicas de documentar programas informáticos, como el JavaDoc de Java, pero debido a la variedad de herramientas de desarrollo del proyecto, se ha decidido unir toda la documentación comunmente en el presente documento. 
 
-A partir de TeX han salido derivados como LyX y LaTeX que pretenden facilitar su uso, así como presentar nuevas funcionalidades más específicas. Por otro lado, desde el año 2000 existe el proyeto NTS, de New Typesetting System, una reimplementación de TeX en Java, con la intenión de proporcionar las ventajas que este lenguaje aporta como la facilidad para multiplataforma. 
+Centrándonos en software genérico, la manera recomendable de escribir un documento técnico es utilizando los llamados Typesetting Systems. Son sistemas pensados para escribir un documento de manera formateada y ordenada. El más conocido entre ellos sea probablemente TeX, creado en 1974 por Donald Knuth, ha sido utilizado en la escritura de múltiples documentos científicos. A partir de TeX han salido derivados como LyX y LaTeX que pretenden facilitar su uso, así como presentar nuevas funcionalidades más específicas. 
+En este proyecto, se ha decidido usar LaTeX por su robustez y previa experiencia del autor con el mismo. 
 
-En este proyecto, se ha decidido usar LaTeX como typesetting system por su robusteza y previa experiencia del autor con el mismo. El resultado se encuentra en este documento, que pretende ser una guía para entender las ideas y razones principales detrás del diseño del programa.
+LaTeX es software libre distribuido bajo licencia LPPL.
 
-LaTeX es software libre bajo licencia LPPL.
+La inclusión de diagramas en la documentación facilita mucho la comprensión del proyecto, dado que pueden contener mucha información codificada mediante elementos visuales que la mente humana procesa rápida y eficazmente.
 
-MiKTeX
+Los diagramas de modelo y diagramas de clase ayudan a entender la estructura interna del proyecto, así como las conexiones entre sus partes. La herramienta web Gliffy cuenta con una licencia gratuita con la que se pueden crear múltiples diagramas de forma sencilla, siguiendo los estándares de notación.
 
-MiKTeX es una distribución TeX/LaTeX para Microsoft Windows que fue desarrollada por Christian Schenk. Las características más apreciables de MiKTeX son su habilidad de actualizarse por sí mismo descargando nuevas versiones de componentes y paquetes instalados previamente, y su fácil proceso de instalación.
+Por otro lado, los diagramas de flujo explican el proceso que sigue el programa en un momento concreto. Son adecuados para detallar momentos enrevesados e importantes del programa. Normalmente, se utiliza pseudocódigo para acompañar estos diagramas. La herramienta web gratuita Code2flow convierte automáticamente el pseudocódigo en un diagrama de flujo acelerando el proceso de creación de ambos.
 
-La versión actual de MiKTeX es 2.9 y está disponible en su página oficial bajo la licencia FSF/Debian.
+\subsection{Entornos de programación}
 
-Sublime Text
+\subsubsection{Entorno de simulación: Java}
 
-Por último, necesitamos un editor de texto donde escribir el documento de LaTeX. Existen editores propiamente creados para ello como TeXnicCenter y TeXMaker, pero nos hemos decantado por el uso de Sublime Text. Sublime Text es un editor de texto plano genérico que aporta la posibilidad de añadir resalte de sintaxis, posibilidad de builds propias, snippets que agilizan el desarrollo del documento mediante plugins, por lo que resulta más cómodo de usar una vez se haya completado la configuración inicial.
+Podría usarse cualquier lenguaje de programación de propósito general para esta labor, pero dado que la base del simulador, el resolvedor de CEAP, está implementado en Java se ha decidido seguir usando el mismo lenguaje.
 
-Sublime Text se distribuye de forma gratuita, sin embargo no es software libre o de código abierto, se puede obtener una licencia para su uso ilimitado, pero el no disponer de ésta no genera ninguna limitación más allá de una alerta cada cierto tiempo.
+El uso de Java ayuda a conseguir el requerimiento de multiplataforma del proyecto y también se distribuye bajo licencia gratuita. Java fue originalmente desarrollado por James Gosling y publicado en 1995 como un componente fundamental de la plataforma Java de Sun Microsystems. 
 
-\subsection{Modelado 3D: Blender}
+\subsubsection{Entorno de visualización: Unity}
 
-Antes de que podamos simular una red eléctrica distribuida, deberemos crearla, y parte de ello consiste en modelar la malla 3D que representará el conjunto de edificios. Para ello necesitamos un programa de modelado 3D. 
+Unity es un motor de juegos, no está pensado para ser un entorno dedicado a la visualización como D3 o Processing. Sin embargo, un juego no es más que una visualización interactiva compleja. Por ello, Unity ofrece la posibilidad de mostrar e interactuar con objetos tridimensionales de forma totalmente programable. 
 
-El mercado ofrece varias alternativas para este propósito. Desde centrados en arquitectura e ingeniería como AutoCad hasta modelado a través de escultura como ZBrush. Nosotros buscamos un programa de espectro genérico, ya que aparte de las ciudades, queremos modelar los menús y los controles de usuario usando dicho programa. Dentro de este ámbito seguimos encontrando varias alternativas: 3DS Max, Maya, Lightwave, Blender... 
+Unity cuenta con la ventaja de poder exportar el proyecto a distintas plataformas mediante un click, bien sean sistemas operativos tradicionales como Windows, Mac y Linux, o bien plataformas móviles como Web, Android y iPhone OS. 
 
-Nos decidimos por Blender por ser gratuito y multiplataforma, además de ser muy completo y ofrecer todas las funcionalidades que buscamos.
-Blender fue inicialmente distribuido de forma gratuita pero sin el código fuente, con un manual disponible para la venta, aunque posteriormente pasó a ser software libre. 
+Creado por Unity Technologies, Unity está disponible en dos versiones: Una versión totalmente gratuita y Unity Pro, comercial, que contiene más funcionalidades preimplementadas.
 
-\subsection{Entorno de visualización: Unity}
 
-Unity es un motor de juegos, no está pensado para ser un entorno dedicado a la visualización como .... y .... . Sin embargo, un juego no es más que una visualización interactiva compleja. Por ello, Unity ofrece un entorno en el que mostrar e interactuar con nuestros objetos tridimensionales de forma totalmente programable. Además cuenta con la ventaja de poder exportar el proyecto fácilmente a distintas plataformas como Windows, Mac y Linux, pero también Web, Android y iPhone OS.
 
-Creado por Unity Technologies, Unity está disponible en dos versiones: Unity ( totalmente gratuita ) y Unity Pro que contiene más funcionalidades preimplementadas.
+\subsection{Generación de ficheros externos}
 
-C\# y Microsoft Visual Studio
+\subsubsection{Modelado 3D: Blender}
 
-Dentro de Unity los scripts pueden ser programados en tres posibles lenguajes de programación: C\# Javascript, Boo.
+Dado que simularemos en un entorno tridimensional, necesitaremos una malla 3D que represente el conjunto de edificios. Para construirla, necesitamos usar un programa de modelado 3D. 
 
-Se ha elegido C\# por su similitud a Java, el otro lenguaje importante de esta aplicación, y ventajas que ofrece ante los demás lenguajes de scripting, como ser fuertemente tipado (útil en proyectos de medida considerable) y la posibilidad de utilizar como editor Microsoft Visual Studio, un editor muy completo diseñado por Microsoft que cuenta, entre otras, con una licencia gratuita dirigida para uso de aplicaciones no empresariales.
+El mercado ofrece varias alternativas para este propósito. Desde centrados en arquitectura e ingeniería como AutoCad hasta modelado a través de escultura como ZBrush. Nosotros buscamos un programa de espectro genérico, ya que aparte de las ciudades, queremos modelar menús y controles de usuario. 
 
-\subsection{Algoritmia: Java}
+Entre programas como 3DS Max, Maya y Lightwave nos decidimos por Blender por ser gratuito y multiplataforma, además de ser muy completo y ofrecer todas las funcionalidades que buscamos.
 
-Nos queda por cubrir la etapa de simulación. Podría usarse cualquier lenguaje de programación de propósito general para esta labor, pero dado que la base del simulador ( radPro ) ya está implementado en Java se ha decidido seguir usando el mismo lenguaje.
+Blender es mantenido por BlenderFoundation y se distribuye como código abierto.
 
-Además java sigue la filosofía de posibilidad de multiplataforma y licencia gratuita que pretende cumplir este proyecto.
+\subsubsection{Intercambio de datos: JSON}
 
-Como información, Java fue originalmente desarrollado por James Gosling de Sun Microsystems (la cual fue adquirida por la compañía Oracle) y publicado en 1995 como un componente fundamental de la plataforma Java de Sun Microsystems. 
+Desde el momento en el que intervienen múltiples lenguajes de programación en un proyecto, es indispensable definir un formato de intercambio de datos común. De esta manera, un programa puede exportar sus resultados en dicho formato de manera que el siguiente programa los entienda y utilice fácilmente.
 
-Editor Netbeans
+Actualmente, los dos formatos más utilizados son XML y JSON. Por ser mucho más simple e inteligible, nos decantaremos por el formato JSON. Necesitamos librerías propias de cada lenguaje que nos faciliten la creación y extracción de datos desde un archivo JSON. Usaremos Gson de google para Java y JsonObject [JSONObject] para Unity.
 
-Dada la gran fama de Java existen múltiples IDEs dedicados. Cualquiera de Eclipse o Android Studio serviría para nuestro propósito, pero usaremos NetBeans por preferencia personal del autor, que es un entorno de desarrollo integrado libre, hecho principalmente para el lenguaje de programación Java. Es un producto libre y gratuito sin restricciones de uso.
+\subsubsection{Trazado de gráficas: Gnuplot}
+Por último, tendremos la necesidad de representar ciertos datos en forma de gráficas, por lo que necesitamos el acceso a un programa donde crear gráficas de funciones en tiempo de ejecución.
 
-\subsection{Intercambio de datos: JSON}
-Desde el momento en el que intervienen múltipls programas y lenguajes de programación en un proyecto es indispensable definir un formato de intercambio de datos.
-
-Actualmente, los dos formatos más utilizados son XML y JSON. Por ser mucho más simple e inteligible, elegiremos JSON, sin darle importancia diferencias de rendimiento que podría haber entre ellas. 
-
-La mejor manera de visualizar un fichero JSON es utilizando una extensión para tu navegador preferido e internet. En nuestro caso, utilizaremos JSONView, escrito por Benjamin Hollis para Mozilla Firefox.
-
-Por otra parte, necesitamos librerías que nos faciliten la creación y extracción de datos desde un archivo JSON. Cada lenguaje tiene librerias propias para esta función. Usaremos Gson de google para Java y JsonObject esrito por Matt Schoen de Defective Studios para Unity.
-
-\subsection{Trazado de gráficas: Gnuplot}
-Por último, tendremos la necesidad de representar cciertos datos en forma de gráficas, por lo que necesitamos el acceso a un programa dedicado a crear gráficas de funciones.
-
-Inicilmente, se buscó una librería propia para Java como JFreeChart y GRAL, pero por su falta de flexibilidad se descartaron y se decidió utilizar Gnuplot, un programa completo pensado para generar gráficas de funciones y datos.
+Existen librerías propias de Java como JFreeChart y GRAL, pero por su falta de flexibilidad se han descartado y se ha decidido utilizar Gnuplot, un programa completo pensado para generar gráficas de funciones y datos.
 
 Gnuplot se creó en 1986 y es compatible con los sistemas operativos más populares además de ser distribuido gratuitamente bajo licencia de software libre.
 
-\subsection{A continuación}
-Empezaremos a explicar el diseño e ideas de implementación de cada parte principal del proyecto, empezando por la creación de un red eléctrica distribuida hasta la visualización de su simulación.
+
+En la siguiente sección, nos adentramos definimos el modelado del mercado distribuido de energía que utilizaremos a lo largo del proyecto.
 
 \newpage
 
 
 
+
+\section{Modelado del mercado}
+
+En esta sección se diseña un nuevo modelo de mercado distribuido de energía. En el apartado 4.1 se amplia la expresividad de los prosumidores, añadiendoles componentes eléctricas que determinarán las funciones de compraventa que realizarán en el futuro. En el apartado 4.2, se modela la red de conectividad incluyendo propiedades que restringen los intercambios que puedan realizarse entre prosumidores. Por último en 4.3, se sitúa el mercado en un entorno más real que cuenta con una distribuidora capaz de intercambiar energía con cada prosumidor y tiempo meteorológico que altera las tasas de producción de energía. 
+
+\subsection{Modelado de los prosumidores}
+
+Los intereses de cada prosumidor se representan mediante la oferta de compraventa que lanza al mercado. Esta oferta se modela utilizando una función lineal definida a trozos $f:D \subset \R \to \R$ que indica el precio que está dispuesto a pagar dependiendo de la cantidad de energía que intercambie. El dominio de la función $D$ puede contener una parte negativa que representa que el prosumidor pretende vender esa cantidad de energía, mientras que la parte positiva se utiliza para indicar los precios de compra.
+
+
+Por ejemplo la función de compraventa:
+\begin{align*}
+  f \colon [-5,10] \to &\R\\
+  x \mapsto& 
+  \left\{ \begin{matrix} -2x & x \in [-5,0] \\ 3x & x \in [0,10] \end{matrix} \right.
+\end{align*}
+
+representa que el usuario está dispuesto a vender cualquier cantidad $c \in [0,5]$ de energía al precio de $2c$ unidades, y también está interesado en comprar una cantidad $c' \in [0,10]$ al precio de $3c'$ unidades.
+
+
+En el modelo, las ofertas de compraventa dependen de las componentes eléctricas con las que cuentan los prosumidores.
+
+\includeImage{model_prosumer.png}{8}{ Diagrama de modelo de un prosumidor}
+
+Como se puede observar en la figura 3, un prosumidor cuenta con una batería y un número indefinido de generadores y dispositivos. Los generadores, como placas solares o aerogeneradores, producen energía a lo largo del tiempo; mientras que los dispositivos, como lavadoras, cocina o televisión, consumen energía.
+
+Generalmente hablando, si el gasto esperado en el siguiente tramo de tiempo es mayor de lo que se espera producir, la oferta del prosumdor priorizará comprar energía, mientras que si se encuentra en el caso opuesto, podrá permitirse vender energía o guardarla en la batería para utilizar o venderla más adelante. Los detalles sobre la creación de las ofertas de compraventa se encuentran en el apartado 6.6.
+
+\subsection{Modelado de la red}
+
+Dado que se utilizará el algoritmo RadPro como resolvedor de problemas CEAP, el mercado ha de ajustarse a sus requerimientos. El mercado será un árbol dirigido $(P,E)$ donde cada elemento $p \in P$ representa un prosumidor y cada elemento $(p,p') \in E$ indica que los prosumidores $p$ y $p'$ están unidos físicamente mediante cableado eléctrico, siendo $p$ el prosumidor de origen y $p'$ el destinatario.
+
+La topología de la red afecta a con quién puede intercambiar energía cada usuario. A la hora de resolver el problema, los prosumidores solo pueden intercambiar energía con prosumidores directamente conectados a ellos. No obstante, puede ocurrir que la energía intercambiada con un prosumidor adyacente llegue a un  destinatario final externo. 
+
+Por ejemplo, consideremos un mercado de tres prosumidores $A,B$ y $C$ conectados secuencialmente como se muestra en la figura 1.
+
+\includeImage{example_ABC.png}{5}{Ejemplo de mercado con tres prosumidores} 
+
+En un momento de intercambio, el prosumidor $A$ vende cuatro unidades de energía a su vecino $B$, el cual al mismo tiempo decide vender cuatro unidades de energía al prosumidor $C$. $C$ no es vecino de $A$, pero dado que todos los intercambios se producen instantáneamente, el efecto final del intercambio es que el prosumidor $A$ ha vendido cuatro unidades de energía a $C$. Sin embargo, para que esta operación sea posible, es indispensable que el prosumidor $B$ haya mostrado interés en comprar y vender cuatro unidades de energía en su oferta de compraventa.
+
+Como restricción añadida, cada cable cuenta con un máximo de capacidad de energía que puede transferir en cada instante. Ningún intercambio realizado podrá exceder la capacidad soportada por el cable.
+
+\clearpage
+
+\subsection{Modelado del entorno del mercado}
+
+Además del árbol de conectividad, el mercado cuenta con un entorno consistente en una distribuidora y el tiempo meteorológico.
+
+\includeImage{model_market.png}{8}{Diagrama de modelo del mercado}
+
+La distribuidora se encuentra conectada con cada prosumidor y actúa como un participante más del problema, vendiendo y comprando energía con los prosumidores. El precio de compraventa de la distribuidora es el mismo para todos los prosumidores, pero va variando cada hora. 
+
+Las ofertas que los prosumidores lanzan al mercado deberán tener en cuenta el precio de la distribuidora para ser competitivos: un prosumidor deberá vender energía de forma más barata que la distribuidora. Por otra parte, aparece la posibilidad de intentar comprar energía de forma más barata que la distribuidora intentando acordar un intercambio entre prosumidores.
+
+El tiempo meteorológico refleja la cantidad de nubes y la velocidad del viento que hay en cada momento. Esto varía el funcionamiento de los generadores de los prosumidores, aumentando o disminuyendo su eficiencia. Los datos del tiempo se actualizan cada hora a partir de un fichero de datos meteorológicos de Barcelona y su valor se interpola linealmente entre hora y hora.
+
+
+\vspace{1cm}
+
+Comprendido el modelo sobre el cual trabajaremos, en la siguiente sección nos adentramos en la costrucción del producto final empezando por la especificación del mercado.
+\newpage
 
 \section{Especificación del mercado}
+A continuación, se explica la creación de un entorno software que dada una lista de localizaciones de los prosumidores, crea un mercado distribuido que sigue el modelo especificado.Concretamente, en el apartado 5.1 se define el formato del fichero de entrada, en 5.2 se detallan algoritmos para crear un árbol de conectividad de la red a partir de las localizaciones. En 5.3, se explica la creación del entorno tridimensional donde el usuario podrá ajustar los parámetros del mercado. En 5.4 se describe el funcionamiento de los controles de usuario del entornp y finalmente, en 5.5 se indica el formato del fichero de salida que contiene el mercado especificado.
 
-En 4.1 se define el modelo de mercado y sus parámetros como árbol dirigido ampliado, en 4.2 se define el formato del fichero de entrada que contiene la geolocalización de los prosumers, en 4.3 se detallan algoritmos para crear un árbol a partir de nodos situados sobre un plano. En 4.4, se explica el proceso de visualización del mercado. En 4.5 se describe el funcionamiento de los controles de usuario y por último en 4.6 se especifica el formate de datos de salida.
+\subsection{Formato de entrada: Localización de los prosumidores}
 
-\subsection{Modelado de un mercado distribuido}
-Para visualizar una simulación, lo primero que necesitmos es una ciudad sobre la que hacer los cálculos. Aprovechando que la visualización será en 3D podemos usar como ciudad un modelo 3D. Dado que queremos permitir que la ciudad pueda ser elegida por el usuario en tiempo de ejecución, tendremos que crear un mecanismo que permita importar un modelo 3D desde un fichero.
+Aprovechando que la visualización será en tres dimensiones, usaremos como nodos del mercado mallas 3D: conjuntos de vértices, aristas y caras que forman figuras tridimensionales. En el caso de este problema, las mallas normalmente tendrán forma de edificio.
 
-Los grandes programas de modelado como Blender o 3DS Max permiten crear un objeto tridimensional para después exportarla a un fichero en una variada de formatos: max, 3ds, obj... Usaremos el formato Wavefront OBJ por su simplicitud y por ser de licencia abierta. Además, OBJ es un formato muy extendido, por lo que la gran mayoría de programas de modelado 3D como blender o 3ds max lo soportan.
+Los grandes programas de modelado como Blender o 3DS Max permiten exportar objetos tridimensional a ficheros formateados. Por ser un formato abierto, la entrada de datos del programa será un único archivo en formato OBJ que cumpla con las siguientes restricciones:
 
-Wavefront OBJ guarda la información en líneas, donde cada línea esta precedida por una cadena de caracteres que indican el tipo de la información que sigue. Por ejemplo v 1 1 1 indica un vértice en el punto (1,1,1) mientras que f 1 2 3 indica una cara triangular que une los tres primeros vérices.
-Una ventaja de Wavefront OBJ es la simplicidad en el que se pueden diferenciar multiples objetos dentro del mismo modelo. Nuestra ciudad será un único modelo que tenga por submodelo cada una de las casas/parcelas que requieran ser conectadas a la red. 
+\begin{itemize}
+\item Contendrá un único modelo con varios submodelos, cada uno representando un prosumidor del mercado.
+\item Cada submodelo tendrá su base en el plano $\{(x,y,z) \in \R^3 \, | \, z=0 \}$.
+\end{itemize}
 
-\subsection{Formato de entrada: Geolocalización de los prosumidores}
-Quiero agradecer a <Referencia> por donar a la comunidad un importador de OBJ especialmente diseñado para Unity. El script coge como entrada un string a un fichero y devuelve una componente de tipo Mesh de Unity. El problema es que este script considera que todos los vertices pertenecen al mismo objeto. El código se ha ampliado de manera que detecte las líneas de formato \"o <nombre>\" y así crear una Mesh para cada parcela. El resultado es un array de Meshes. Crearemos un GameObject por cada uno que tenga como Mesh filter este mesh y por nombre su nombre y un GameObject empty llamado city 
-Por último el modelo de ciudad se situa en la escena y se escala de manera que quepa en el terreno. Ya estamos listos para proveer una red eléctrica a esta ciudad.
+Se utilizará como posición del prosumidor el centro de masa del submodelo, es decir, la media aritmética de las coordenadas de sus vértices, proyectado sobre el plano $\{(x,y,z) \in \R^3 \, | \, z=0 \}$.
+
+\includeImage{gravity_center.png}{5}{El punto interior indica el centro de masas de un submodelo. Se tomará como posición la intersección del eje vertical con el plano}
+
+\subsection{Algoritmos de creación del árbol de conectividad}
+
+El siguiente paso es crear la red que une los prosumidores. Dados diversos puntos sobre un plano, hay muchos algoritmos que permiten unirlos todos creando un grafo. Sin embargo, por las limitaciones del algoritmo RadPro, solo nos sirven aquellos que den como resultado un árbol, esto es, un grafo acíclico.
+Podemos diferenciar los algoritmos que crean árboles dependiendo de la información de la que parten: (i) Información completa: se conoce de antemano la posición de todos los puntos, o (ii) Información incompleta: los puntos van añadiéndose a lo largo del tiempo y la red va ampliándose secuencialmente de manera que preserve la estructura de árbol.
+
+\subsubsection{Información completa: Steiner trees }
+
+En el caso de conocer la posición de todos los puntos nos encontramos con el conocido Minimum Spanning Tree Problem, que trata de construir un camino que permita a un viajero pasar por todos los puntos recorriendo la mínima distancia posible. No obstante, en el entorno de nuestro problema, minimizar  el tiempo o la distancia que ha de recorrer la electricidad para llegar de un extremo a otro no es relevante, sin embargo, podemos plantearnos esta variación del problema:
+
+Dado un conjunto de puntos dentro de un espacio euclídeo, cuál es el mínimo camino que conecta todos los puntos, pudiendo añadir nuevos nodos si fuera necesario. Este problema es conocido bajo el nombre de Steiner Tree Problem y ha sido muy estudiado por sus enormes aplicaciones en la creación de redes. La solución consiste en encontrar los puntos llamados Steiner points, que cumplen curiosas propiedades:
+\begin{itemize} 
+\item Como máximo existen tantos Steiner points como puntos iniciales menos dos.
+\item Cada Steiner point es un nodo en el que se cruzan exactamente 3 caminos.
+\item Los tres caminos que intersectan en el punto se cortan en 120 grados entre sí.
+\end{itemize}
+Como era de esperar, el problema es NP-Hard y su solución es difícilmente alcanzable a partir de mercados que superen los 100 nodos.
+
+\includeImage{steiner.png}{4}{La solución para cuatro puntos radica en la creación de dos Steiner points. Imagen proporcionada por Wikipedia}
+
+\subsubsection{Información incompleta: Sequential nearest neighbour}
+En el caso anterior se consideraba que se conocían la posición de todos los puntos que formarían el grafo. Sin embargo, si nos fijamos en la realidad, esta idea no es práctica, ya que a lo largo del tiempo se van incorporando nuevos consumidores al mercado, añadiendo nuevos puntos al problema.
+
+Para resolver este problema, debemos ser capaces de crear un árbol añadiendo nodos secuencialemente, preservando siempre la estructura de árbol. En la figura 8 se muestra el diagrama de flujo del algoritmo Sequential Nearest Neighbour que soluciona el problema.
 
 
-\subsection{Algoritmos para la creación de conectividad}
-Hay muchos algoritmos que permiten unir todos los puntos dados en un espacio creando así un grafo. Recordamos que por limitaciones del RadPro nuesra red será un árbol, de manera que no podrá contener ningún ciclo. Dentro de los árboles podemos considerar dos posiciones: Creamos la red conociendo todos los puntos a unir o los puntos van añadiendose a lo largo del tiempo y la red va ampliandose secuencialmente de manera que preserve la estructura de árbol.
 
-\subsubsection{Información completa: Steiner Trees}
-En el primer caso encontramos el conocido problema de Minimum Spanning Tree Problem, que trata de construir un camino que permita a un viajero pasar por todos los puntos recorriendo la mínima distancia posible. Sin embargo, en e entorno de nuestro problema, minimizar  el tiempo o la distancia que ha de recorrer la electricidad para llegar de un extremo a otro no es relevante (ocurre en milésimas de segundo), sino que podemos plantearnos el siguiente problema:
+% City;
+% Initialize empty wire list;
+% Initialize processed prosumidores lit with first prosumer;
+% do
+% {
+%   Get a prosumer;
+%   Find nearest prosumer between processed prosumidores;
+%   Create a wire between both prosumidores;
+%   Add the prosumer to the processed prosumidores;
+% }while(more prosumidores?);
+% Return list of wires;
 
-Dado un conjunto de puntos P dentro de un espacio E, cual es la configuración que minimiza la distancia total de la red permitiendo crear nodos . Esto se traduciría en un menor coste de construcción, ya que se ahorraría en material y en tiempo requerido para montar la red. Este problema es conocido bajo el nombre de Steiner Tree Problem y ha sido muy estudiado por sus enormes aplicaciones en creación de redes. Los puntos añadidos se llaman Steiner points y cumplen ciertas propiedades curiosas como: 
-Como maáximo existen tantos steiner points como nodos iniciales menos dos
-Cada steiner points es un nodo en el que se cruzan exactamente 3 caminos
-Los tres caminos que intersectan en el punto se cortan en 120 grados entre sí.
+\includeImage{flow_build_tree.png}{6}{ Diagrama de flujo del algoritmo nearest neighbour}
 
-Resulta que el problema es de complejidad NP-Hard y por lo que a partir de un número humilde de nodos (50 en un ordenador standard) la solución óptima es dificilmente alcanzable. Existen también varias maneras de aproximar steiner points, pero no he podido encontrar ninguna librería que los implemente más allá de artículos. El producto final contiene un jar llamado FindSteinerTree que recoge un listado de puntos en un archivo .txt y genera un .txt donde se guardan los steiner points y las conexiones entre los puntos.
+El algoritmo recorre cada punto secuencialmente y lo une con el punto más cercano dentro de aquellos puntos que ya han sido procesados. Tiene complejidad cuadrática respecto a la cantidad de nodos. Por ello, es aplicable en grafos enormes sin problemas.
 
-Formato del txt: <imagen>
 
-\subsubsection{Información incompleta: Nearest neighbour problem}
-en el caso anterior considerábamos que conocíamos la posición de todos los puntos que formarían el grafo. Sin embargo, si nos fijamos en la realidad, esta idea no sería práctica, ya que a lo largo del tiempo se van añadiendo y eliminando parcelas de manera que alteran los puntos del problema. Para crear un árbol en este caso usaremos el algoritmo Nearest Neighbour. Este algoritmo recorre cada uno de los puntos secuencialemnte y une el punto con el punto más cercano a menos que ese punto ya esté unido a él. Como tal tiene una complejidad cuadrática respecto a la cantidad de nodos y es resoluble hasta para un grafo enorme sin problemas.
+\subsection{Entorno tridimensional de ajuste de parámetros}
+En este apartado se analiza la creación de un entorno tridimensional donde el usuario pueda personalizar los parámetros de la simulación. La figura 9 presenta un posible entorno ya creado.
 
-Este algoritmo puede adaptarse correctamente a un entorno totalmente secuencial en el que los puntos van añadiendose de forma continuada y a cada paso la red es un árbol completo.
+\includeImage{entorno.png}{10}{Entorno de ajuste de parámetros}
 
-Implementación en pseudocódigo: <código>
+En este ejemplo, se diferencian los tres objetos principales: las figuras con forma de prisma constituyen la malla 3D proporcionada por el usuario, los tubos que unen estas figuras forman la red de conectividad y el círculo que rodea la escena es el reloj que se usa para ajustar la franja horaria del simulador. A continuación se explica como se crea cada objeto:
+\begin{itemize}
+\item \textbf{Malla 3D del mercado}
 
-\subsection{Visualización del mercado}
+Importar una malla 3D en tiempo de ejecución en Unity es más complicado de lo que pueda parecer. El primer problema es abrir un cuadro de diálogo que permita al usuario elegir un archivo. Debido a que Unity usa Mono, que es un subconjunto de .NET FrameWork 2.0 especializado, no cuenta con la opción de crear ventanas propias del SO. La solución es añadir un DLL propio de .NET FrameWork 2.0 como plugin al proyecto. De todas maneras, el soporte no es completo y a veces salen avisos de seguridad ignorables al intentar abrir archivos.
+
+Por otra parte, se necesita un parseador de ficheros OBJ para extraer la información del archivo y crear una malla 3D. El proyecto utiliza el plugin OBJReader [OBJReader] para este propósito. Una vez se haya creado la malla, se hacen los cálculos del punto de gravedad y la posición sobre el plano de cada submodelo para situarlos correctamente.
+
+\item \textbf{Red de conectividad}
+
+Los cables se modelan con un cilindro translúcido que contiene una esfera dentro. La esfera representa la electricidad que fluye por el cable y va recorriendo el cable desde el prosumidor de origen hasta el prosumidor de destino.
+
+A la hora de la ejecución, el algoritmo de creación del árbol de conectividad devuelve una lista de pares de prosumidores a unir. Por cada par, se deberá crear una instancia del cable y situar y orientarlo de manera adecuada utlizando cálculos matemáticos apropiados.
+
+\item \textbf{Reloj de simulación}
+
+El reloj de simulación se trata de un \textit{torus} fino orientado verticalmente con dos esferas sobre él.
+
+Lo único a tener en cuenta a la hora de la ejecución es la escala de la malla 3D del mercado, ya que el tamaño del reloj deberá ser siempre mayor que el mercado de manera que lo rodee.
+\end{itemize}
 
 \subsection{Controles de usuario}
-\subsubsection{hora}
-\subsubsection{capacidad}
-\subsubsection{perfil}
 
+Dentro del entorno de ajuste de parámetros, se añaden controles de usuario intuitivos que permitan ajustar parámetros del mercado y su simulación. En particular se pueden personalizar los perfiles de prosumidores, las capacidades de cableado y la franja horaria de la simulación.
+
+\begin{itemize}
+\item \textbf{Perfil de los prosumidores}
+El usuario puede seleccionar un perfil predefinido para cada prosumidor: Alto consumo, consumo medio o ahorrador. Estos perfiles afectan a la cantidad de generadores y dispositivos de consumo con los que contará el prosumidor. 
+
+Cuando el usuario pasa el ratón por encima de un prosumidor, éste se coloreará de diferente color dependiendo del perfil que tenga asignado. Por defecto, todos los prosumidores tienen asignado el perfil de consumo medio, que viene representado por el color amarilllo. Mientras se mantenga el ratón sobre el prosumidor, el usuario podrá elegir el perfil deseado pulsando las teclas 1, 2 y 3 del teclado, siendo 1 el de menor consumo y 3 el de mayor. 
+
+Por último, si se pulsa la tecla P, todos los prosumidores se colorearán con el color correspondiente a su perfil hasta que se vuelva a pulsar P. Esto permite visualizar la distribución de perfiles a lo largo del mercado.
+
+\includeImage{perfiles.png}{10}{Una posible distribución de perfiles del mercado. En verde los usuarios con perfil ahorrador, en amarillo los de perfil de consumo medio y en rojo los de consumo alto}
+
+\item \textbf{Capacidad del cableado}
+
+La capacidad de cada cable puede ser personalizada situándose encima de la misma y moviendo la rueda del ratón. Si el movimiento es de abajo a arriba, la capacidad aumenta y en caso contrario disminuye. 
+
+El usuario puede observar los cambios ya que la anchura del cable se ajusta a la capacidad actual del mismo.Por defecto, la capacidad de todos los cables empieza en 10 y varía entre 10 y 25 unidades.
+
+
+\item \textbf{La franja horaria}
+
+Se permite seleccionar la franja horaria en la que se ejecutará la simulación. Para ello, se deslizan las esferas situadas sobre el reloj, considerando que es un reloj solar, es decir, está dividido en 24 partes cada una representando una hora del día. El usuario percibe la hora que está ajustando mediante un panel que se revela mientras la esfera está en movimiento. Las figura 11 ilustra este efecto.
+
+\dualImage{hora_inicio.png}{ Por defecto la franja horaria es de 06h a 18h}{hora_10.png}{ Al mover las esferas se revela la hora que señalan}{Ajuste de la franja horaria}{70}
+
+\end{itemize}
+
+
+\clearpage
 
 \subsection{Formato de salida: Mercado especificado}
-Se utilizará un documento json para exportar los datos recopilados durante la especificación del mercado. El formato es el siguiente:
-imagen
+
+Se utilizará un documento JSON para exportar los datos recopilados durante la especificación del mercado. El formato se detalla en la figura 12.
+
+\includeImage{input.png}{10}{Formato del archivo JSON de salida }
+
+\vspace{2cm}
 
 
-Ahora somos capaces de crear modelos 3D, bien desde mapas reales o usando un software de modelado, guardarlos en un fichero obj, abrirlos desde una aplicación y crearles una red eléctrica a medida. Ya tenemos todo listo para poder simular como sería el trade de la energía en una ciudad así en el que cada parcela sea capaz de comprar y vender energía a toda la red. Veremos como se define el perfil de una casa y como afecta cada uno de sus parámetros a la simulación final, así como los detalles más importantes sobre el diseñado e implementación del simulador.
-
-\newpage
+En esta sección, hemos visto como importar mallas 3D desde un fichero OBJ y dotarlos de una red de conectividad a medida, de manera que el usuario pueda controlar intuitivamente los parámetros de la simulación. En el próximo capítulo se explica el proceso de simulación y la generación del archivo de resultados.
+\clearpage
 
 
 
 
 \section{Simulación}
-En esta sección explicaremos más en detalle la parte de simulación. Para ello consideremos el siguiente diagrama:
-\includeImage{simulator.png}
-en cada apartado de esta sección se explica un paquete del programa: 5.1 se habla del paquete Vista, 5.2 del paquete de control, y el modelo está dividido en 3 paquetes el núcleo 5.3, componentes 5.4 páquete componentes, 5.5 Distribuciones temporales.
+La simulación es un proceso en el que no interviene el usuario. Para entender su funcionamiento, en la figura 13 se muestra su diagrama de clases simplificado.
+\includeImage{simulator.png}{10}{Diagrama de clases del simulador}
+
+En el apartado 6.1 se indican los principios de diseño seguidos en la implementación del simulador. A partir del apartado 6.2, se utiliza un apartado para explicar cada paquete del programa: 6.2 habla del paquete vista, 6.3 del paquete de control, y el modelo está dividido en 3 paquetes: en 6.4 se introducen las distribuciones temporales, un tipo de dato esencial para comprender el resto del modelo, el núcleo del modelo se explica en el apartado 6.5, y las componentes de un prosumidor en el apartado 6.6. Finalmente, en el apartado 6.7 se especifica el formato de salida de los resultados.
 
 \subsection{Principios de diseño}
-\subsubsection{Patrón MVC}
+\subsubsection{El patrón MVC}
 
 El proyecto sigue el patrón modelo, vista y controlador. Se trata de dividir el código en tres partes:
 \begin{itemize}
-\item Vista: Se encarga de todas las interacciones externas del programa, bien sea capturar las interacciones del usuario o conexiones con otros programas o servicios como la red o el sistema de ficheros.
-\item Controlador: Controla el flujo principal del programa. La clase principal (main) se sitúa aquí. Funciona como enlace entre el modelo y resuelve los errores que se hayan podido generar a lo largo de la ejecución.
-\item Modelo: Contiene la representación de los datos usados en el programa ordenados de manera jerárquica.
+\item \textbf{Vista}
+
+Se encarga de todas las interacciones externas del programa, bien sea capturar las interacciones del usuario o conexiones con otros programas o servicios como la red o el sistema de ficheros.
+
+\item \textbf{Controlador}
+
+Controla el flujo principal del programa. La clase principal Main se sitúa aquí. Funciona como enlace entre el modelo y resuelve los errores que se hayan podido generar a lo largo de la ejecución.
+
+\item \textbf{Modelo}
+
+Contiene la representación de los datos usados en el programa ordenados de manera jerárquica.
 \end{itemize}
 
 Este patrón intenta eliminar dependencias entre distintas partes del programa para que sean modificables independientemente, lo cual proporciona mantenibilidad al proyecto.
 
-\subsubsection{Patrón experto y la encapsulación}
-La encapsulación es uno de los grandes pilares del paradigma de Programación Orientada a Objetos. Se trata de ocultar los atributos que definen el estado de una clsae de manera que solo sean modificables mediante los métodos que define la clase. De esta manera, el usuario de la clase se despreocupa de la representación interna de los datos y se centra únicamente en como usarlos. Esto previene que los datos sean modificados de forma incontrolada añadiendo robusteza y mantenibilidad al proyecto.
+\subsubsection{El patrón experto y la encapsulación}
+La encapsulación es uno de los grandes pilares del paradigma de Programación Orientada a Objetos. Se trata de ocultar los atributos que definen el estado de una clase de manera que solo sean modificables mediante los métodos que define la propia clase. De esta manera, el usuario de la clase se despreocupa de la representación interna de los datos y se centra únicamente en entender como interactuar con sus métodos. Esto previene que los datos sean modificados de forma incontrolada añadiendo robustez y mantenibilidad al proyecto.
 
-El patrón experto ayuda a implementar la encapsulación en un proyecto. Afirma que aquel quien debe modificar el estado de un objeto es aquel quien sabe más sobre la misma, es decir, la propia clase. Un ejemplo simple que ilustra la encapsulación a través del patrón experto podría ser:
+El patrón experto ayuda a implementar la encapsulación en un proyecto. Afirma que quien debe modificar el estado de un objeto es aquel quien sabe más sobre él, es decir, la propia clase. A continuación se incluye un simple ejemplo que ilustra la encapsulación a través del patrón experto:
 
 \begin{itemize}
-\item Una clase persona tiene como atributo su edad. 
-\item Se quiere saber si una persona concreta es mayor de edad o no.
-\item Una posibilidad sería implementar un método getEdad() que devolviese la edad de la persona y evaluar getEdad() >= 18.
-\item Una alternativa que sigue el patrón experto sería crear un método esMayorDeEdad() que internamente evaluara edad >= 18. 
-\item Observamos que por un lado, la responsabilidad sobre checkear el estado del objeto se delega a la propia clase, que es el experto.
-\item Como beneficio añadido, se elimina la dependencia sobre la representación de datos interna, ya que de este modo el usuario de la clase no debe saber si la edad se representa mediante un entero o una clase propia o podría incluso no existir ningún atributo y que el resultado dependiera de un proceso de cálculo interno. 
+\item Una clase \texttt{Persona} tiene como atributo su \texttt{edad}. 
+\item Desde una clase externa, se desea saber si una persona concreta es mayor de edad o no.
+\item Una posibilidad sería implementar un método \texttt{getEdad()} que devolviese la edad de la persona y evaluar \texttt{getEdad() >=  18}.
+\item La alternativa que sigue el patrón experto sería crear un método \texttt{esMayorDeEdad()} que internamente evaluara \texttt{edad >=  18}. 
+\item Observamos que por un lado, la responsabilidad sobre validar el estado del objeto se delega a la propia clase, que es el experto.
+\item Como beneficio añadido, se elimina la dependencia sobre la representación de datos interna, ya que de este modo el usuario de la clase no debe saber si la edad se representa mediante un entero o una clase propia. Podría incluso no existir ningún atributo y que el resultado dependiera de un proceso interno. 
 \end{itemize}
 
 La encapsulación facilita futuras modificaciones y aumenta la escalabilidad del programa, proporcionando mantenibilidad al proyecto.
 
-\subsubsection{Interficies y ampliación}
-Una interficie es una colección de métodos abstractos: Cabeceras de métodos sin implementación de su cuerpo. Una clase que implemente una interfaz debe definir el cuerpo de cada método abstracto descrito en la interfaz.
+\subsubsection{Interficies y extensibilidad}
+Una interficie es una colección de métodos abstractos: cabeceras de métodos sin implementación de su cuerpo. Una clase que implemente una interficie debe definir el cuerpo de cada método abstracto descrito en la interficie.
 
-Se permite guardar referencias a objetos a nivel de interficie, de manera que cualquiera clase que la implente, podrá ser asignada al objeto, sin importar la implementación concreta. 
+Se permite guardar referencias a objetos a nivel de interficie, de manera que cualquier clase que la implemente, podrá ser asignada a la referencia, sin importar la implementación concreta. 
 
-Esto proporciona separación entre distintas partes del proyecto, eliminando dependencias y propocionando mantenibilidad al proyecto como hemos discutido previamente. Además profundiza en la idea de la encapsulación, ya que al no saber como se implementarán las interficies ni como serán sus atributos, se evita incluir métodos que accedan directamente a la representación del objeto.
+Esto proporciona separación entre distintas partes del proyecto, eliminando dependencias y propocionando mantenibilidad al proyecto como se ha discutido previamente. Además profundiza en la idea de la encapsulación, ya que al no saber cómo se implementarán las interficies ni cómo serán sus atributos, se evita incluir métodos que accedan directamente a la representación del objeto.
 
-Por último, las interficies proporcionan gran facilidad para ampliar el proyecto. Basta crear una nueva clase que implemente una interfaz del proyecto de otra manera para proporcionar una ejecución y resultados alternativos del proyecto.
+Por último, las interficies proporcionan gran extensibilidad al proyecto. Basta crear una nueva clase que implemente una interficie del proyecto de otra manera para proporcionar una ejecución y resultados alternativos del proyecto.
 
 A continuación analizaremos el objetivo y funcionamiento de los distintos paquetes del proyecto.
 
 \subsection{El paquete view}
-El programa interactúa con dos entes externos: La interfaz de línea de comandos y el sistema de ficheros. Cada una se representa en una clase propia que cuentan con métodos estáticos que proporcionan las funcionalidades deseadas. 
+El programa interactúa con dos entes externos: La interfaz de línea de comandos y el sistema de ficheros. Cada uno se representa en una clase propia que cuenta con métodos estáticos que proporcionan las funcionalidades deseadas. 
 
 \subsubsection{Command Line Interface}
-La clase CommandLineInterface cumple dos funciones:
+La clase \texttt{CommandLineInterface} cumple dos funciones:
 
 \begin{itemize}
-\item Analiza los parámetros pasados a la ejecución del programa: Asegura que siguen el formato establecido e informa al usuario del formato en caso contrario. Toda la información de entrada está contenido en un único fichero JSON, de manera que el único parámetro es la ruta del fichero de entrada. Concretamente, el formato del comando para ejecutar el JAR distribuible es:
+\item Analiza los parámetros pasados a la ejecución del programa: asegura que siguen el formato establecido e informa al usuario del formato en caso contrario. Toda la información de entrada está contenida en un único fichero JSON, de manera que el único parámetro es la ruta del fichero de entrada. Concretamente, el formato del comando para ejecutar el JAR distribuible es:
 
-java -jar simulator.jar 'ruta del archivo de entrada'
+\texttt{java -jar simulator.jar 'ruta del archivo de entrada'}
 
-\item Ejecuta scripts de Gnuplot: A cada frame de la simulación, se crea un fichero que contienen órdenes de gnuplot para generar gráficas que representan las apuestas de mercado hechas por cada prosumer. A partir de la línea de comandos, se ejecuta un proceso de gnuplot que procesa estos scripts mediante el comando:
+\item Ejecuta scripts de Gnuplot: A cada frame de la simulación, se crea un fichero que contienen órdenes de gnuplot para generar gráficas que representan las ofertas de compraventa hechas por cada prosumer. A partir de la línea de comandos, se ejecuta un proceso de gnuplot que procesa estos scripts mediante el comando:
 
-gnuplot 'ruta del archivo de script'
+\texttt{gnuplot 'ruta del script de gnuplot'}
 
 \end{itemize}
 
 \subsubsection{FileSystem}
-La clase FileSystem proporciona métodos para guardar y cargar ficheros desde la memoria. Concretamente:
+La clase \texttt{FileSystem} proporciona métodos para guardar y cargar ficheros desde la memoria. Concretamente:
 
 \begin{itemize}
 \item Procesa un fichero JSON ubicado en la ruta especificada y devuelve un objeto simulación con todos los parámetros inicializados.
-\item Guarda los comandos de gnuplot en un fichero de script en la ruta especificada. 
-\item Guarda los resultados de la simulación en un archivo JSON en la ruta especificada. Para consultar el formato de salida dirigirse al apartado 4.8.
+\item Guarda las órdenes de gnuplot en un fichero de script ubicado en la ruta especificada. 
+\item Guarda los resultados de la simulación en un archivo JSON en la ruta especificada.
 \end{itemize}
 
 \subsection{El paquete control}
-El flujo principa de programa se centra en crear una simulación ejecutando secuencialmente frames del mismo. La clase principal del programa es Main, el cual crea una instancia de simulación donde se encuentra el ciclo principal del programa. La simulación utiliza el CEAPSolver para resolver el problema CEAP a cada frame.
+El flujo principal de programa se centra en crear una simulación ejecutando secuencialmente frames del mismo. La clase principal del programa es \texttt{Main}, el cual crea una instancia de \texttt{Simulation} donde se encuentra el bucle principal del programa. La simulación utiliza el resolvedor de problemas \texttt{CEAPSolver} para resolver el problema CEAP a cada frame.
 \subsubsection{Main}
-\begin{itemize}
-\item Parsea los parámetros recibidos utilizando Command Line Interface
-\item Genera una instancia de simulación utilizando FileSystem
-\item Ejecuta el bucle principal de la simulación
-\item Genera las gráficas de gnuplot usando FileSystem
-\item Guarda los resultados en un fichero JSON usando FileSystem
-\end{itemize}
-\subsubsection{Simulation}
-Una simulación viene definida por los siguientes parámetros:
-\begin{itemize}
-\item Market: Árbol dirigido donde cada nodo representa un prosumer y las arestas cables de electricidad que unen dos prosumers
-\item Hour y minute: El momento del día en el que empieza la simulación
-\item Frames: La cantidad de frames a simular. Afecta linealmente al tiempo de ejecución
-\item minutesPerFrame: La cantidad de tiempo que se avanza entre frame y frame
-\item OutputFolder: Carpeta donde se guardarán las gráficAS de gnuplot
-\end{itemize}
-El bucle principal del programa es el siguiente:
-[Pseudocódigo]
-Create JSON object;
-do
-{
-  <Market : Set bids    >;
-  CEAPSolver : Solve Market;
-  Market : Process results ;
-  Market : Generate script ;
-  /Gnuplot Script         /;
-  FileSystem : Plot Bids   ;
-  Add Frame to JSON object ;
-}while(More frames?)
-Return JSON object;
 
-CEAPSolver se refiere a la librería importada.
+En la figura 14 se observa el diagrama de la clase principal.
+% |CommandLineInterface : Parse arguments|;
+% FileSystem : Parse input file;
+% /simulation/;
+% Simulation : Main loop;
+% FileSystem : Save Simulation json;
+% /Simulation log/;
+% El digrama de flujo la función principal:
+
+\includeImage{flow_main.png}{5}{Diagrama de flujo de la clase principal}
+
+
+Primero se parsean los parámetros recibidos por la consola utilizando la clase \texttt{CommandLineInterface}. Si la ruta del archivo dado es correcta, se llama a \texttt{FileSystem} para generar una instancia de simulación. A continuación se ejecuta el bucle principal de la simulación, que se analiza en profundidad en el siguiente apartado. Por último, se crea un archivo JSON que contiene la información generada por la simulación.
+
+\subsubsection{Simulation}
+
+El bucle principal del programa se describe en la figura 15.
+\includeImage{flow_simulation.png}{4}{Diagrama de flujo de una simulación}
+
+Por cada frame de la simulación, se indica a cada componente del mercado que se sitúe en el momento adecuado. A continuación, se resuelve el mercado, encontrando los intercambios de energía que maximizan el beneficio total. Los prosumidores procesan los intercambios realizados y se genera el script de Gnuplot con las órdenes para dibujar la gráfica de cada prosumidor en este frame. Se llama a \texttt{FileSystem} para iniciar el proceso de Gnuplot y se guarda el estado del mercado en el objeto JSON de salida. Este objeto es devuelto como resultado de la simulación y será guardado en un fichero por la clase \texttt{Main}.
 
 \subsection{El paquete model.data}
-Antes de describir la jerarquía del modelo de datos de arriba abajo, analizamos un nuevo tipo de dato esencial introducido en el proyecto, utilizado por distintas componentes principales del programa: ITemporalDistribution.
+Antes de describir la jerarquía del modelo de datos en modo \textit{top-down}, introcimos un tipo de dato esencial para comprender el resto del modelo: \texttt{ITemporalDistribution}.
+
 \subsubsection{ITemporalDistribution}
-Los TemporalDistribution pretenden modelar valores que van cambiando a lo largo del tiempo, así como la cantidad de nubes o el gasto energético de una lavadora. Además proporciona una serie de facilidades que serán útiles a la hora de manipular datos que dependan del tiempo. La interfaz es la siguiente:
+Las distribuciones temporales pretenden modelar variables que van cambiando de valor a lo largo del tiempo. La cantidad de nubes en el cielo o el gasto energético de una lavadora son ejemplos de variables de este tipo. Además, esta clase proporciona una serie de facilidades que son útiles a la hora de manipular datos que dependan del tiempo. La figura 16 detalla la interficie.
+
+\includeImage{temporal.png}{12}{Interficie de una distribución temporal}
+
+Existen dos implementaciones de la interficie: 
 \begin{itemize}
-\item public Double getValue(Moment moment);
+\item \texttt{DiscreteTemporalDistribution}
 
-Devuelve el valor en el momento dado.
-\item public double getMeanBetween(Moment since, Moment until);
+La implementa extendiendo la clase \texttt{TreeMap<Moment, Double>}. Contiene un conjunto discreto y ordenado de entradas \texttt{Moment:Double} que representan medidas realizadas en un momento concreto. Los valores se interpolan linealmente entre dos medidas consecutivas para suavizar los saltos de valores.  
 
-Devuelve la media de los valores que coge la variable entre dos momentos.
-\item public double getAddedValue(Moment since, Moment until);
+\item \texttt{ContinuousTemporalDistribution}
 
-Devuelve la suma de todos los valores que coge la variable entre dos momentos.
-\item public double getProgress(Moment moment);
-
-Devuelve el avance de progresa en la que se situa el momento dado respecto al dominio de variabilidad de la variable.
+La implementa utilizando dos \texttt{UnaryDoubleOperators}: uno describe la función que modela el valor de la variable a lo largo del tiempo y el otro es una primitiva suya. De esta manera, el valor agregado de todos los valores que coge la variable entre dos momentos se traduce a la integral definida de la función principal entre ambos momentos, la cual es fácilmente calculable gracias a la conocida regla de Barrow.
+$$ \begin{matrix}\forall \, F \in \displaystyle\int f:& \\
+ & \displaystyle\int_a^b f = F(b) - F(a) \end{matrix}$$
 \end{itemize}
-Existen dos implementaciones principales de la interaz: 
-\begin{itemize}
-\item DiscreteTemporalDistribution: Lo implementa extendiendo la clase TreeMap<Moment, Double>. Contiene un conjunto discreto y ordenado de entradas Moment : Double.  
-\item ContinuousTemporalDistribution: Lo implementa utilizando dos UnaryDoubleOperators: Una para la función que modela el valor de la variable a lo largo del tiempo y una primitiva suya. De esta manera, la suma de todos valores entre dos momentos que es la integral, se puede calcular restando la evaluación de la primitiva en el momento inicial a la evaluación de la primitiva en el momento final.
-\end{itemize}
-\subsubsection{Data}
-En Data se definen variables estáticas que son las instancias de ITemporalDistribution que se usarán en el proyecto.
 
 \subsection{El paquete model.core}
-En el paquete core se encuentran los objetos más importantes que intervienen en la simulación: Aquellos que no dependan de otros.
+En el paquete core se encuentran los objetos más importantes que intervienen en la simulación, aquellos que conforman el modelo de mercado.
 \subsubsection{Market}
-Market es la cúspide de la jerarquía de datos del programa y contiene referencias a todos los datos del modelo. Está constituido por un conjunto de Prosumers y un conjunto Wires que forman el mercado interno del problema, un único Distributor que está conectado a cada prosumer y puede intercambiar energía con ellos y un Weather que controla el tiempo que hace, que afecta a las tasas de generación de los generadores.
+
+\texttt{Market} es la cúspide de la jerarquía de datos del programa y contiene referencias a todos los datos del modelo. Está constituido por un conjunto de \texttt{Prosumer} y un conjunto \texttt{Wire} que modelan el mercado distribuido del problema. Además, existe un \texttt{Distributor} que está conectado a cada prosumidor y puede intercambiar energía con ellos y un \texttt{Weather} que controla el tiempo meteorológico, lo cual afecta a la eficiencia de los generadores.
 
 Tiene tres funcionalidades principales:
 \begin{itemize}
-\item Set Bids : Sitúa la ciudad en un momento concreto. Actualiza el tiempo que hace, el precio de la distribuidora y a continuación, pide a cada prosumer que realiza su apuesta acorde a la nueva información del entorno. Para analizar la realización de las apuestas consultar apartado [6.89]
-\item Process Results : Asigna a cada cable la corriente que transcurre por ella y a continuación indicaa cada prosumer los intercambios que ha realizado en la última tanda de tratos.
-\item Generate Script : Genera un único fichero que contiene las órdenes de gnuplot para generar las gráficas que representan la oferta hcha y los resultados obtenidos de cada prosumer. La escritura de las funciones a dibujar se delega a IBiddingStrategy dado que su expresión dependerá de la implementación elegida. 
+\item \texttt{setBids}: Sitúa el mercado en un momento concreto. Actualiza el tiempo que hace, el precio de la distribuidora y a continuación pide a cada prosumidor que realice su oferta de compraventa acorde a la nueva información.
+
+\item \texttt{processResults}: Asigna a cada cable la corriente que transcurre por ella y a continuación indica a cada prosumer los intercambios que ha realizado en la última tanda de acuerdos para que éstos los procesen.
+
+\item \texttt{generateScript}: Genera un único fichero que contiene las órdenes de gnuplot para generar las gráficas que representan la oferta hecha y los resultados obtenidos de cada prosumidor. La escritura de las funciones a dibujar se delega a \texttt{IBiddingStrategy} dado que su expresión depende de la implementación elegida. La figura 17 muestra el formato general del script.
+
 \end{itemize}
-El formato genérico de estos scripts es:
-\includeImage{formato_script.png}
+
+\includeImage{formato_script.png}{7}{Formato del script de Gnuplot}
 
 \subsubsection{Wire}
 
-Guarda conjuntamente la información de un cable: El prosumer de origen, el prosumer de destino, la capacidad máxima energía que puede transportar, y el flujo de energía en el momento actual. Los tres primeros valores se mantienen constantes a lo largo de la ejecución del problema mientras que el flujo se actualiza después de cada tanda de intercambios.
+Guarda conjuntamente la información de un cable: El prosumidor de origen, el prosumidor de destino, la capacidad máxima de energía que puede transportar, y el flujo de energía en el momento actual. Los tres primeros valores se mantienen constantes a lo largo de la ejecución del problema mientras que el flujo se actualiza después de cada tanda de intercambios.
 
 \subsubsection{Weather}
 
-El tiempo se modela usando dos variables, nubes y viento, que van actualizándose a lo largo de la simulación. La variabilidad de estos valores viene dado por un ITemporalDistribution que se explica en el apartado [6.89], gracias a ello ofrece facilidades como obtener la cantidad media de nubes o la velocidad media del viento que ha habido entre un periodo de tiempo. 
+El tiempo se modela usando dos variables, nubes y viento, que van actualizándose a lo largo de la simulación. La variabilidad de estos valores viene dado por una \texttt{DiscreteTemporalDistribution}. Gracias a ello ofrece facilidades, como obtener la cantidad media de nubes o la velocidad media del viento que ha habido en un periodo de tiempo. 
 
 \subsubsection{Distributor}
 
-Los distribuidores tienen un IBiddingStrategy que indica la apuesta que hacen en todo momento. A diferencia de los Prosumer, esta apuesta va variando según el momento en el que nos encontros, independientemente de como hayan sido los intercambios hechos en tandas previas. Para ello tienen ITemporalDistributions que indican como deben variar sus parámetros dependiendo del momento. En la implementación que se muestra, las distribuidoras usan una estrategia de apuesta lineal que depende de un parámetro, el ratio del precio, que va variando según la hora del día. 
+Los distribuidores tienen un \texttt{IBiddingStrategy} que indica la oferta de compraventa que hacen en todo momento. A diferencia de los \texttt{Prosumer}, esta oferta va variando según la hora en la que se encuentre la simulación, independientemente de cómo hayan sido los intercambios hechos en tandas previas. Cuentan con variables de tipo \texttt{ITemporalDistribution} que indican cómo deben variar sus parámetros dependiendo del momento. En la implementación que se muestra, las distribuidoras usan una estrategia de apuesta lineal que depende de un parámetro, el ratio del precio, que va variando según la hora del día. 
 
 \subsubsection{Prosumer}
-El diagrama de modelo de un prosumer es el siguiente:
-\includeImage{modelo_prosumer}
-Cada una de las componentes se explica en detalle en el siguiente apartado.
+Modelamos los prosumidores como entes que tienen componentes eléctricas y presentan una oferta de compraventa dependiendo del estado de los mismos. Como se observa en la figura 18, cuentan en concreto con una batería y un número indefinido de generadores y dispositivos.
+\includeImage{modelo_prosumer.png}{10}{Diagrama de clases de un prosumidor}
 
-Para crear un prosumer se necesita proveer un identificador único y opcionalmente un perfil de prosumer. Si se proporciona un perfil, se le añadirán IAppliances y IGenerators preconstruidos automáticamente. En cualquier momento se le podrán añadir componentes llamando a los métodos adecuados.
+El siguiente apartado se dedica a explicar cada una de las componentes en detalle.
 
-Los prosumers recalculan su IBidStrategy dependiendo de los tratos que hayan hecho en la tanda anterior. Para ello proporcionan la informacionan la información del resto de sus componentes (batería, generadores y dispositivos) y es la misma estrategía la que decide como actualizar la apuesta. Este proceso se discute al final de este capítulo, en el apartado 6.89.
 \subsection{El paquete model.components} 
-El último paquete que queda por analizar son las componentes de un prosumer. Todas ellas tienen una interficie que implentan, de manera que si en un fuuro se hiciera una implementación más profunda y compleja de las mismas pudierase integrar al proyecto sin problemas. Las interficies son minimales. Se permite añadir más funcionalidades en las implementaciones, pero para poder utilizarlas se deberá castear la referencia de la interficie a la implementación concreta.
+El último paquete que queda por analizar son las componentes de un prosumidor. Todas ellas cuentan con una interficie, de manera que si en un futuro se hiciera una implementación más profunda y compleja pudiérase integrar al proyecto sin problemas. Las interficies son minimales, se permite añadir más funcionalidades en las implementaciones, pero para poder utilizarlas se deberá castear la referencia de la interficie a la implementación concreta.
 
 \subsubsection{IBattery, IGenerator e IAppliance}
-Las siguientes imágenes muestran las interficies IBattery, IGenerator e IAppliance
-\includeImage{interficie_battery.png}
-Una batería ha de ser capaz de revelar el nivel de de energía que guarda, revelar la máxima cantidad de energía que puede albergar y modificar su nivel en una cantidad establecida.
-\includeImage{interficie_generator.png}
-Un generador ha de calcular la energía que produce en un intérvalo de tiempo.
-Ejemplo: SolarGenerator. Eficiencia y tal.
-\includeImage{interficie_appliance.png}
-Una appliance revela el estado en el que se encuentra y la hora de inicio y calcula la energía consumida 
-La mayoría de los métodos presentes son autoexplicativos. Tanto getConsum como getGeneration utilizan ITemporalDistributions para calcular el resultado. Get startingTime devuelve el momento en el que empieza la appliance
+Las figuras 19, 20 y 21 muestran respectivamente las interficies de las baterías, generadores y dispositivos, y cuentan con comentarios que explican la funcionalidad esperada de cada método.
+
+\includeImage{battery.png}{7}{Interficie de una batería}
+
+Como es de esperar, el nivel de la batería deberá mantenerse por debajo de su capacidad siendo siempre mayor igual a cero.
+
+\includeImage{generator.png}{10}{Interficie de un generador}
+El programa cuenta con \texttt{SolarGenerator} y \texttt{EolicGenerator} que implementan la generación de forma distinta.
+\includeImage{appliance.png}{8}{Interficie de un dispositivo}
+Cabe notar que la implementación de \texttt{getGeneration} como de \texttt{getConsum} utilizan variables de tipo \texttt{ITemporalDistribution} para calcular el resultado. 
 \subsubsection{IBiddingStrategy}
 
-Una IBiddingStrategy requiere la implementación de cuatro métodos. A continuación se explica la funcionalidad esperada de cada método y su implementación en la estrategia LogBid del proyecto.
-\begin{itemize}
-\item setBid() : Es donde se actualiza la expresión que define la apuesta a partir de la información del entorno.
-\item toPLV() : Una PLV es un función lineal definida a trozos. El resolvedor de mercados CEAP recibe como entrada PLV por lo que es necesario linealizar en trozos la apuesta para poder resolver el mercado. 
-\item setTrades() : Una vez se haya resuelto el mercado se reciben los tratos que se hanaceptado para poder procesarlos internamente
-\item wirtePlotData() : Añade las órdenes de Gnuplot necesarias para dibujar la gráfica que representa la apuesta en un escritor de ficheros poporcionado.
-\end{itemize}
+Por último, presentamos una interfaz importante de cara a futuras ampliaciones: \texttt{IBiddingStrategy}.
+\includeImage{bidding.png}{12}{Interficie de una estrategia de apuestas}
+Para entender mejor el funcionamiento de las ofertas de compraventa, en el próximo apartado, se detalla una implementación de la interficie.
+
 \subsubsection{Implementación de IBiddingtrategy: LogBid}
 
-La lógica de mercado dice que una apuesta ha de ser creciente respecto a la cantidad comprada. Además queremos que la apuesta siempre sea inferior al precio de la distribuidora para ser competitivos. Por último, si la curva depende de parámetros, podrá ser ajustada a las necesidades del prosumer en ese momento.
+Primero extraemos las propiedades comunes que debe cumplir cualquier oferta de compraventa. La lógica de mercado indica que una oferta ha de ser creciente respecto a la cantidad comprada. Además queremos que la función que buscamos sea siempre inferior al precio de la distribuidora para que la oferta sea competitiva. Por último, es deseable que la curva sea ajustable mediante parámetros que permitan representar la necesidad del prosumidor en ese momento.
+Resumiendo, buscamos una función continua, creciente, acotada por una función lineal, la oferta de la distribuidora, y que pueda ser ajustada mediante parámetros.
 
-Buscamos una función continua, creciente, acotada por una función lineal ( precio de distribuidora ) que pueda ser ajustada mediante dos parámetros: La cantidad que necesita comprar el prosumer y la necesidad de energía del prosumer.
+Es bien conocido que las funciones logarítmicas son continuas, crecientes y acotadas por cualquier función lineal. De hecho, se cumple la desigualdad: 
+$$\log(x+1) \leq x$$
 
-Es bien conocido que una función logarítica es continua, creciente y acotada por cualquier función lineal. De hecho, se cumple la desigualdad: $$log(x+1) \leq x$$, donde la igualdad se produce únicamente en $x=0$. 
+donde la igualdad se produce únicamente en $x=0$. 
 
-Aplicado a una función lineal de pendiente $k$: $$klog(x+1) \leq kx$$
+Si suponemos que la función de la distribuidora tiene pendiente $k \in \R^+$: $$k\log(x+1) \leq kx$$
 
-Podemos añadirle un parámetro $a > 0$ que siga preservando la desigualdad: $$klog(\frac{x}{a}+1) \leq \frac{x}{a}$$
+Ahora, podemos añadirle un parámetro $a \in \R^+$ que siga preservando la desigualdad: $$k\log(\frac{x}{a}+1) \leq \frac{x}{a}$$
 
-Y utilizar este parámetro para modelar la necesidad. Desarrollando obtenemos una función con un parámetro :
+Desarrollando, obtenemos una función con un parámetro que podemos utilizar para modelar la necesidad:
+$$ak\log(\frac{x}{a}+1) \leq kx$$
 
-$$a*k*log(\frac{x}{a}+1) \leq kx$$
+Podemos extender la desigualdad a los negativos, para modelar ventas, utilizando valores absolutos:
+$$\abs{ak\log(\frac{x}{a}+1)} \leq \abs{kx}$$
 
-Podemos extender la desigualdad a los negativos utilizando valores absolutos:
+Tanto $a$ como $k$ como el logaritmo de un valor mayor a uno son siempre positivos. Por la desigualdad triangular podemos acotar superiormente $\abs{\frac{x}{a}+1} \leq \frac{\abs{x}}{a}+1$:
 
-$$\abs{a*k*log(\frac{x}{a}+1)} \leq \abs{kx}$$
+$$ak\log(\frac{\abs{x}}{a}+1) \leq \text{sign}(x)kx$$
 
-Como tanto $a$ como $k$ y el logaritmo de un valor mayor a uno son positivos
+Por último, podemos controlar el punto de contacto de la curva con la función lineal aplicando una translación a la curva. Añadiendo un parámetro $b \in \R$:
+$$sign(x)k(b + a\log(\frac{\abs{x - b}}{a}+1)) \leq kx$$
 
-$$a*k*log(\frac{\abs{x}}{a}+1) \leq \abs{kx}$$
+el punto de contacto entre las curvas se translada al punto $(b,kb)$.
 
-Por último, la cantidad mínima de compra controla el punto de contacto entre nuestra función y la lineal. añadamos un parámetro b que controle el punto de contacto:
+Obtenemos la expresión utilizada por \texttt{LogBid} para expresar las ofertas de compraventa de los prosumidores: 
+$$sign(x)k(b + a\log(\frac{\abs{x - b}}{a}+1))$$
+Las figura 23 muestra posibles diferentes formas que toma esta curva dependiendo de sus parámetros. La función pintada en morado representa la oferta de la distribuidora mientras que la que se encuentra pintada en azul se refiere a la oferta del prosumidor.
+\dualImage{plot1.png}{El prosumidor puede comprar y vender energía: k=9, a=1, b=0}{plot2.png}{El prosumidor únicamente compra energía: k=10, a=8, b=5}{Ejemplos de funciones de compraventa}{70}
 
-$$k*(b + a*log(\frac{\abs{x - b}}{a}+1)) = kx \leftrightarrow x = b $$
+Observamos que estas curvas tienen un dominio delimitado $[lower,upper]$ que depende de la cantidad total de energía que puede vender o comprar un prosumidor.
 
-Y obtenemos la expresión de la curva LogBid: $k*(b + a*log(\frac{\abs{x - b}}{a}+1))$ que cumple con los criterios que buscábamos.
+Queda por explicar, cómo se decide actualizar el valor de estos parámetros dependiendo del estado de las componentes del prosumidor. En concreto debemos definir el dominio $[lower,upper]$ de la curva, obtener la pendiente lineal $k$, calcular la necesidad del prosumidor $a$ y definir el punto de contacto $b$.
+
+\begin{enumerate}
+        \item Lo primero es calcular la expectativa de balance de energía esperada de cara al siguiente frame. Para ello, se suma el valor de generación esperado de cada generador y se resta el consumo esperado de cada dispositivo en marcha.
+        $$ expected = \sum_{gen} production(gen) - \sum_{app} consum(app)$$
+        \item El dominio de la curva indica cuánta energía puede llegar a intercambiar el prosumidor. El prosumidor debe abastecer su consumo esperado. Por ello, puede vender como máximo energía como tenga almacenada en la batería menos la expectativa de energía calculada. La cantidad máxima que puede comprar el prosumidor depende de la capacidad de la batería, una vez se haya aplicado la expectativa de energía. Esto es, el nivel actual de batería menos la expectación más la capacidad de la batería. O dicho de otro modo, el mínimo del dominio más la capacidad de la batería.
+        $$ lower = battery.level - expected $$
+        $$ upper = lower + battery.capacity $$
+        \item La pendiente de la función lineal es el precio de la distribuidora en ese momento.
+        $$ k = distributor.rate $$
+        \item Para calcular la necesidad, se calcula el tiempo que falta para que empiece cada dispositivo en espera. La necesidad aumenta inversamente proporcional a los minutos que falten para el comienzo de cada dispositivo.
+        $$ a = \sum_{app} \frac{k}{app.minutesToStart} $$
+        \item El punto de contacto representa la cantidad de energía que el prosumidor debe comprar necesariamente. Por este motivo, coincidirá con $lower$ cuando éste sea positivo y valdrá cero en caso contrario.
+        $$ b = max( lower, 0 ) $$
+\end{enumerate}
+\clearpage
+\subsection{Formato de salida: Registro de simulación}
+
+En las figuras 24 y 25 se detalla el formato del fichero JSON de salida.
+
+\includeImage{output_general.png}{10}{Formato del archivo JSON de salida}
+
+\includeImage{output_prosumer.png}{10}{Formato de los prosumidores en el archivo JSON de salida}
+
+\vspace{2cm}
+
+En la siguiente sección, nos adentramos en la tercera y última parte del proyecto: la visualización.
+\newpage
 
 
-Para actualizar la expresión dependiendo del estado de prosumer deberemos calcular el dominio de la función, el precio del distribuidor, y la necesidad del prosumer. El cálculo de estos valores se explica en el siguiente diagrama:
+
+
+\section{Visualización y producto final}
+
+La visualización se encarga de generar un entorno tridimensional donde poder analizar e interactuar con los resultados de la simulación. La estructura simplificada de las componentes que la conforman se encuentra en la figura 26.
+
+
+\includeImage{visualization.png}{18}{Diagrama de las componentes del visualizador}
+
+Manager es la componente que controla el flujo del visualizador y funciona como puente para unir las distintas componentes. El resto de componentes se dividen en tres bloques: procesos que se ejecutan de forma transparente al usuario, animaciones de los distintos objetos de la escena y componentes que controlan las interacciones on el usuario.
+
+Esta sección comienza explicando los principios de diseño distintivos de Unity en el apartado 7.1. El apartado 7.2 se utiliza para describir los objetos que conforman el entorno de visualización. A partir de este momento se resume el contenido de cada bloque: el apartado 7.3 se encarga de los procesos transparentes al usuario; el apartado 7.4 explica cómo se animan los distinos elementos de la escena; y finalmente, en el apartado 7.5 se muestran los controles de los que dispondrá el usuario dentro del visualizador.
+
+\subsection{Principios de diseño de Unity}
+
+Desde el punto de vista de la programación, Unity es una librería más que cuenta con clases y métodos que facilitan la creación y el control de objetos comúnmente encontrados en juegos, como colisiones o la gravedad. 
+
+Esta librería se encuentra disponible en tres lenguajes de programación: C\#, Java y Boo. Todos ellos son lenguajes dentro del paradigma Programación Orientada a Objetos. Sin embargo, el diseño de una aplicación en Unity se aleja de lo que uno normalmente espera de un entorno de POO.
+
+La diferencia clave es que en Unity lo que se programa son comportamientos, en lugar de entes que constan de datos y métodos como en la programación usual.
+Por ejemplo, consideremos una escena que consta de personas y perros. Se quiere lograr que las personas sean capaces de caminar por la escena y hablar con otras personas, mientras que los perros se limitan únicamente a caminar por la escena.
+
+El diseño propuesto por el paradigma general de Programación Orientado a Objetos trataría de crear dos clases \texttt{Persona} y \texttt{Perro}, donde el primero contaría con los métodos \texttt{hablar()} y \texttt{caminar()} mientras que la clase \texttt{Perro} contaría con un método dedicado a implementar su manera de caminar.
+
+La filosofía de diseño de Unity propone crear clases que definan comportamientos, en lugar de entes abstractos. En este ejemplo, se crearían dos clases \texttt{Caminar} y \texttt{Hablar} que implementarían cada uno de los métodos de manera genérica. Igual que las clases, estos comportamientos pueden recibir parámetros, como clips de animación, para modificar su funcionamiento dependiendo del objeto en el que nos encontremos. El resultado son dos tipos de objetos: Unos que cuentan con los comportamientos \texttt{Caminar} y \texttt{Hablar} y otros que cuentan únicamente con \texttt{Caminar}.
+
+A los objetos que constan de una colección de comportamientos se les conoce con el nombre \texttt{prefab} en Unity, y son los objetos básicos para crear cualquier escena. Unity ofrece una variedad de componentes predefinidas listas para ser añadidas a los prefabs del proyecto. Si deseamos que las personas no choquen entre ellas, basta con añadir una componente \texttt{Collider} al \texttt{prefab} de persona. Si queremos que los perros se representen mediante una malla 3D, añadiremos la componente \texttt{Mesh Renderer} al prefab de perro, y así consecutivamente con todos los comportamientos. 
+
+Como en la mayoría de proyectos, se necesita normalmente un objeto que controle el estado del programa y decida qué opciones están disponibles al usuario en cada momento. En el presene proyecto, la componente \texttt{Manager} es la que se encarga de esta función.
+
+La componente \texttt{Manager} sigue el patrón de diseño Singleton: se limita a una la cantidad de instancias que puedan existir de este objeto en la escena. Esto permite crear una variable estática dentro de la clase que referencia a la única instancia actual de la clase. Como resultado, se facilita enormemente la conexión entre las diferentes componentes del proyecto utilizando \texttt{Manager} como enlace, ya que cualquier comportamiento puede enviar sus datos al \texttt{Manager} utilizando esta referencia estática de \texttt{Manager}, que se encargará de hacer llegar el mensaje al destinatario especificado.
+
+Estrictamente hablando, las componentes del bloque de procesos que se explican en el apartado 7.3 no siguen la idea de comportamientos, porque son simplemente algoritmos que se ejecutan de forma transparente al usuario. El resto de componentes son comportamientos que forman parte de prefabs. Analizaremos su funcionalidad en los apartados 7.4 y 7.5.
+\clearpage
+\subsection{Entorno de visualización}
+
+Antes de analizar los comportamientos, analizaremos los nuevos objetos que se añaden a la escena cuando entramos al visualizador. Como se puede observar en la figura 27, comparado con el entorno de ajuste de parámetros, se elimina el reloj y se añaden dos nuevos objetos: paneles informativos de los prosumidores y el menú de control de reproducción.
+
+\includeImage{entorno_vis.png}{10}{Entorno de visualización}
 \begin{itemize}
-        \item Por cada generador, se suma el valor esperado que va a producir
-        \item Por cada dispositivo, se suma el valor esperado que va a consumir
-        \item La expectativa es la resta entre estos dos valores
-        \item El mínimo del dominio es la expectativa menos el nivel de batería
-        \item El máximo del dominio es el mínimo más la capacidad total de la batería
-        \item El precio del distribuidor se consigue consultando el precio actual del mismo
-        \item Por cada dispositivo que esté a la espera, se calcula el tiempo que falta para que empiece
-        \item la necesidad aumenta proporcionalmente al precio de la distribuidora e inversamente proporcionalmente a los minutos que falten por comenzar
+\item \textbf{Paneles informativos de los prosumidores}
+
+Una vez procesados los resultados de la simulación, se añade a cada prosumidor un panel imbuido en 3D que representa su estado a lo largo de la reproducción. En la figura 28 se encuentra una instancia del diseño del panel informativo.
+
+\includeImage{info_panel.png}{10}{Diseño del panel informativo de un prosumidor}
+
+En la barra de la izquierda se muestran los generadores que contiene la casa. Un icono [Icons] representa el tipo de generador del que se trata, y sobre la imagen se superpone un relleno que representa la eficiencia que está teniendo ese generador en ese momento en referencia al máximo rendimiento que podría tener.
+
+En la de la barra derecha se añaden los dispositivos. De manera similar a los generadores, están representados por un icono referente al tipo de dispositivo y sobre ellos se superpone una imagen que va rellenándose de forma horaria mostrando el progreso de completitud del dispositivo. 
+
+El panel central alberga la gráfica de la función de compraventa efectuada por el prosumidor, con flechas que indican los acuerdos realizados en la tanda anterior. 
+
+Por último, en el panel inferior se encuentra la batería, que también cuenta con una imagen que se rellena horizontalmente indicando el porcentaje de batería actual.
+
+\item \textbf{Menú de reproducción}
+
+El menú de reproducción sirve para controlar el tempo en el que se muestran los resultados de la simución. Su diseño se encuentra en la figura 29.
+
+\includeImage{time.png}{10}{Diseño del menú de reproducción}
+
+Consta de dos paneles de misma altura. El primero contiene un texto que muestra la hora en la que se encuentra la simulación en todo momento. El segundo cuenta con los controles de usuario, los botones de \textit{play}, pausa y \textit{step} que se explican en detalle en el apartado 7.5.
 \end{itemize}
 
-La linealización de la curva se hace dividiendo el dominio en n puntos equidistantes (n controla la precisión de la linealización) y se encuentra la recta que pasa por dos puntos consecutivos. Cada una de estas recas es un ILV que alunirlas todas se obtiene un PLV.
 
-En writePlotData se escriben las órdenes de gnuplot siguiendo el formato especificado en 6.89
+\subsection{El bloque de procesado} 
+Como se indica en los requerimientos del proyecto, el producto final ha de facilitar la ejecución secuencial de cada una de las partes. En este apartado explicamos cómo se ejecuta el simulador desde dentro del entorno de visualización y cómo se procesan los resultados para poder mostrarlos adecuadamente en pantalla.
+\clearpage
+\begin{itemize}
+\item \textbf{Ejecución de la simulación}
+
+La figura 30 recuerda el entorno de ajuste de parámetros.
+
+\includeImage{entorno.png}{10}{Entorno de ajuste de parámetros}
+
+Una vez el usuario esté contento con los parámetros de simulación elegidos siguiendo las indicaciones de la sección 4, puede pulsar sobre la estrellita que se encuentra sobre el mercado para inicializar el simulador.
+
+Esto crea internamente un nuevo hilo que se encarga de correr la simulación. Mientras tanto, en la escena se muestra un icono de carga, pero sigue animándose como anteriormente.
+La creación del hilo es posible gracias a la clase \texttt{ThreadedJob} [ThreadedJob].
+Cuando el hilo acaba, genera un evento que será tratado por el hilo principal y se autodestruye.
+
+Este hilo se encarga de crear un \texttt{Process} para abrir una ventana de terminal y ejecutar el simulador con los parámetros proveídos. Cabe mencionar, que para su correcto funcionamiento, deberemos incluir el JAR distribuible del simulador en una ruta relativa al visualizador. De esta manera, el hilo será capaz de encontrar la ruta absoluta hasta el simulador y ejecutar el comando satisfactoriamente en cualquier plataforma.
+
+\item \textbf{Análisis de los resultados de la simulación}
+
+Los resultados de la simulación se guardan en un archivo JSON que contiene toda la información necesaria para replicar la simulación. 
+
+Probablemente, la herramienta más popular utilizada para controlar archivos JSON en C\# sea Json.NET creado por James Newton-King. De todas formas, dadas las limitaciones de compatibilidad de Unity con .NET, la librería no se soporta. No obstante, existen librerías de JSON creadas especialmente para Unity. En el presente proyecto se utiliza la librería JSONObject [6].
+
+El parseado del fichero se hace en dos fases. Primero se detecta con cuántos generadores y dispositivos cuenta cada prosumidor y se generan los paneles informativos acordemente.
+En la segunda fase, se coge la componente de animación de cada objeto de la escena y se popula con los datos del fichero.
+
+Lamentablemente, Unity no permite hacer llamadas a su librería fuera del hilo principal, por lo que el parseado del fichero se debe hacer en el hilo principal. Esto provoca que la escena se congele hasta que se complete el proceso y pueda verse el resultado final.
+\end{itemize} 
 
 
-A ontinuación analizaremos la tercera parte del proyecto: La visualización.
+
+\subsection{El bloque de animación}
+
+La simulación contiene \textit{frames} que indican el estado en el que se encuentra el mercado en un instante concreto. El objetivo es interpolar linealmente los valores que definen el estado del mercado para conseguir una animación continua y fluida. 
+
+Unity cuenta con dos sistemas por defecto para hacer animaciones:
+\begin{itemize}
+\item La componente \texttt{Animation} permite ejecutar clips de animación guardados previamente en una lista, y es la manera tradicional de conseguir animaciones en Unity.
+\item A partir de la verión 4, Unity incorpora la componente \texttt{Animator} que consta de una máquina de estados donde cada nodo es un clip de animación y cada arista define los parámetros de la transición entre dos clips.
+\end{itemize}
+
+Sin embargo, ninguna de las dos maneras permite aún crear y asignar clips de animación en tiempo de ejecución. Estos sistemas solo funcionan si los clips están guardados en ficheros ANIM y son referenciados correctamente en las componentes mencionadas.
+Dado que en el proyecto no podemos saber como serán las animaciones hasta que se haya ejecutado el simulador, crearemos nosotros un algoritmo sencillo que se encargue de simular las animaciones.
+
+Definiremos dos modos de animación: 
+
+\begin{itemize}
+\item \textbf{Modo repetitivo}
+
+La simulación se congela entre dos frames y se anima la evolución de un frame al siguiente una y otra vez. Esto permite analizar concretamente qué ha ocurrido entre estos instantes de tiempo. 
+
+\item \textbf{Modo continuo}
+
+En el modo continuo, la animación va recorriendo todos los frames y vuelve a repetirse cuando haya llegado al final de la simulación.
+
+\end{itemize}
+
+La escena cuenta con diversos objetos que han de ser animados de forma distinta. Las imágenes superpuestas sobre los generadores, los dispositivos y la batería han de animar el atributo llamado \texttt{fillAmount} de la componente \texttt{Image} que tienen. La componente \texttt{FillImageAnimator} es la que se encarga de esta función.
+
+El panel donde se muestran la función de compraventa ha de actualizarse cada frame mostrando la nueva imagen. Esto lo controla la componente \texttt{ChangeImageAnimator}. Finalmente la componente \texttt{TranslationAnimator} se encarga de animar el recorrido que efectúan las esferas de electricidad según el flujo que recorre por su cable.
+
+Todas estas componentes tienen como entrada un array de datos que se rellena a la hora de parsear el fichero JSON generado por la simulación y se basan en llamar repetidamente a una función de actualización cada cierto intervalo de tiempo que indique el nuevo valor que ha de tomar la variable en cuestión.
+
+La componente \texttt{FadeMaterial} es diferente, ya que utiliza \textit{lerping}, una técnica implementada internamente en Unity, para animar el material de un objeto desde opaco o translúcido a uno transparente y viceversa. Esto se utiliza para permitir al usuario controlar la visibilidad de los distintos elementos de la escena, como se detalla en los controles de usuario explicados en el siguiente apartado.
+
+\subsection{El bloque de interacción}
+
+La visualización de los resultados de la simulación es interactiva y cuenta con diversos controles que permiten personalizar lo que ve el usuario en todo momento.
+
+\begin{itemize}
+\item \textbf{Control de la cámara}
+
+El usuario cuenta con esta funcionalidad a lo largo de toda la ejecución del producto final. Permite controlar la posición y rotación de la cámara imitando los controles que se utilizan dentro del editor de Unity. Las teclas WASD controlan la posición de la cámara mientras que el movimiento del ratón controla la rotación mientras se tenga el click derecho presionado controla la rotación. 
+
+La implementación de esta funcionalidad se encuentra en \texttt{ControlCamera} que se basa en utilizar los métodos estáticos de la clase \texttt{Input} de Unity para detectar la entrada del usuario y recolocar y rotar la cámara utilizando cálculos matemáticos adecuados.
+
+\item \textbf{Revelar y ocultar información}
+
+Durante toda la ejecución del visualizador, se minimiza la información mostrada de manera que sea más intuitivo y disfrutable para el usuario final. En particular, varios objetos cuentan con la funcionalidad de revelar cierta información al hacer click o interactuar con ellas. 
+
+Por ejemplo, una vez se hayan procesado los resultados de la simulación, el usuario puede pulsar sobre un prosumidor para revelar u ocultar su panel informativo. Del mismo modo, si se clicka sobre las esferas de electricidad que viajan por los cables, se podrá mostrar o ocultar un panel donde se indica la cantidad de energía que está fluyendo en el momento actual. En la figura 31 se ejemplifica este comportamiento.
+
+\clearpage
+\dualImage{sphere.png}{Por defecto, el flujo permanece oculto}{sphere_flow.png}{Al hacer click se muestra el panel}{Ejemplo de revelación de información}{50}
+
+Por otra parte, el usuario puede ocultar o revelar completamente todos los objetos que sean de un tipo concreto. Mediante la tecla \texttt{G}, de \textit{grid}, podremos decidir si se muestra el árbol de conectividad o no, mientras que con la tecla \texttt{C}, de \textit{canvas}, cambiaremos la visibilidad de los paneles de flujo de energía del mercado.
+
+
+
+\item \textbf{Control de la reproducción}
+
+Por último, el visualizador cuenta con un menú para controlar la reproducción de la simulación.
+
+\includeImage{time.png}{8}{Diseño del menú de reproducción}
+
+Dada su importancia para poder analizar correctamente los resultados, este menú es siempre visible y se renderiza en la HUD del programa, ocupando la parte superior de la pantalla. Su comportamiento se define en \texttt{Reproduction}
+
+Cuenta con tres botones interactuables, siendo los botones de \textit{play} y pausa de tipo \textit{toggle}. Mientras el botón de \textit{play} esté desactivado, los elementos de la escena permanecerán estáticos. Si se activa, se recorrerán todos los \textit{frames} consecutivamente reproduciendo la simulación completa. 
+
+Sin embargo, si el usario hace click sobre el botón de pausa, el transcurso de la animación parará y se centrará en animar la evolución desde el \textit{frame} actual hasta el siguiente una y otra vez. Esto permite analizar concretamente qué ha ocurrido entre estos instantes de tiempo. 
+
+Una vez nos encontremos en estado de pausa, podremos avanzar al siguiente frame pulsando el botón de \textit{step}.
+\end{itemize}
+
+\vspace{2cm}
+Aquí acaba la explicación de la implementación de las distintas partes del proyecto. La siguiente sección resume las conclusiones del proyecto y propone posibles rutas de avance en el futuro.
+
 \newpage
 
+\section{Conclusiones y futuro trabajo}
 
+En el apartado 8.1 resumimos los avances aportados en este proyecto. El documento termina proponiendo posibles futuras rutas de trabajo en 8.2.
 
+\subsection{Conclusiones}
 
-\section{Visualización}
+El proyecto aporta tres contribuciones al área de mercados distribuidos de energía:
+\begin{itemize}
+\item Una \textbf{ampliación del modelo de mercado}, añadiendo por un lado componentes eléctricas que determinan la oferta de compraventa de los prosumidores y por otro un entorno más realista constituido por una distibuidora y el tiempo meteorológico, que aportan realismo a los resultados.
 
-Dada la naturaleza tridimensional del problema, se optó por usar un programa que permitiera visualizar los datos en 3D e interaccionar con ellos. Unity, como editor de juegos, permite esta interacción y tiene la gran ventaja de poder crear un ejecutable para las plataformas más reconocidas como Windows, Mac, Linux, pero también web o android. Dicho ejecutable será el producto final del proyecto, ya que incluirá el simulador, mientras que este a su vez incluye el resolvedor RadPro. Veremos primero la filosofía de diseño de Unity que cambia bastante en referente a paradigmas de POO comunes como Java o C++. Explicaremos el esquema básico de las componentes que forman el visualizador, y nos adentraremos en los detalles más interesantes que esconden. Por último veremos como crear el ejecutable para poder distribuir nustro programa fácilmente.
-\includeImage{visualization.png}
+\item Un \textbf{entorno de simulación} donde se computa la evolución de un mercado distribuido de energía, adaptándose en todo momento a los intercambios que se van realizando y las condiciones del entorno.  
+\item Un \textbf{entorno de visualización} donde se observan los resultados de la simulación, de manera que facilite el análisis del comportamiento del mercado.
 
-\subsection{Filosofía de diseño de Unity}
-La programación en Unity puede efectuarse en los lenguajes C++, JavaScript y Boo, aunque este último no se utiliza habitualmente. Todos ellos son lenguajes dentro del paradigma Programación Orientada a Objetos, pero en Unity cambia la manera en el que se organizan los datos. El cambio más importante es que lo que se programa son comportamientos, no entes. Los objetos centrales de Unity son los prefabs: Packs de componentes que definen como se comporta ese objeto dentro de la escena. Por ejemplo, todos los objetos tienen una componente Transform que indica la posición, rotación y escala del objeto. Unity ofrece varias componentes comunes predefinidas listas para usar en tus prefabs tal como colliders para detectar colisiones entre objetos o mesh renderers para definir la geometría ( los vértices ) que forman el objeto. Por ello la implementación de funcionalidades se centra en encontrar acciones/comportamientos de los objetos de la escena y definir cdad uno de ellos en un fichero aparte. Por ejemplo: De manera que un mismo objeto que camine y hable tendrá, en vez de un fichero persona en el que se especifican ambos comportamientos como métodos, dos comportamientos definidos en ficheros distintos Caminar y Hablar. La idea detrás de esto es que si a posteriori se crea un objeto que solo camine, baste con añadirle la componente de caminar y ajustar sus parámetros desde dentro del editor. Las componentes son clases especiales que heredan de la clase MonoBehaviour de la librería de Unity. Esto permite que los comportamientos sean añadidos a modelos creando lo que se conoce como gameObjects o prefabs, packs de modelo + comportamientos. Comportamientos comunes como colisiones o animaciones ya vienen implementadas en Unity y basta con añadirle la componente correspondiente a  
+\end{itemize}
 
-\subsection{Diseñando los paneles}
-Una vez ejecutada la simulación, contamos con un json que describe toda la información relevante que ha ocurrido en cada frame. La información sobre el momento del día lo mostraremos en la GUI principal de manera que sea apreciable desde cualquier punto de la escena. Aprovechando la naturaleza 3D de nuestro visualizador intentaremos mostrar to da la información posible en 3D. La información referente a una casa la mostraremos en un canvas ( panel 2D ) pero situado dentro de la escena 3D sobre la casa en cuestión. Por último visualizaremos los cables como líneas que van desde la casa origen hasta la casa de destino, su tamaño representará la capacidad de ese cable, cisualizaremos el flujo de electricidad moviendo unas partículas en la dirección del flujo sobre el cable y el flujo en si en un panel 3D sobre las partículas.
+Siguiendo los objetivos propuestos, se ha conseguido un ejecutable autocontenido, libremente \textbf{distribuible} entre las plataformas predominantes de la industria. 
+El programa cuenta con una elevada tasa de \textbf{usabilidad}, debido a los intuitivos controles con los que cuenta y la  libertad que ofrece sobre la información que percibe el usuario en todo momento. La parte del visualizador, no cumple completamente con los estándares de \textbf{mantenibilidad} esperados en los objetivos. No obstante, la parte del simulador, sí que sigue un diseño fuertemente basado en patrones y está estructurado de manera que sea fácil  modificarlo en el futuro.
 
-Diseño del panel de una casa:<imagen>
+\subsection{Futuro trabajo}
 
-- En la barra izquierda se muestran los generadores que contiene la casa. Un icono representa el tipo de generador que se trata, bien solar o eólica y sobre la imagen se sobrepone un relleno que representa la eficiencia que está teniendo ese generador en ese momento en referencia al máximo rendimiento que podría tener.
+Los proyectos nunca se terminan. Siempre hay lugar para posibles ampliaciones y mejoras. De ahí que se llamen proyectos. 
+\begin{itemize}
+\item \textbf{Open Street Map y CityEngine}
 
-- En el panel central se muestra la gráfica de la apuesta realizada por esta casa.
+El proyecto no se ha centrado en la creación de mallas 3D de mercados, pero hay mucho por investigar al respecto. El mundo está repleto de ciudades y gracias a mapas online como OpenStreetMap es fácil conseguir un fichero que contenga toda la información relevante de una zona del mundo, como el corazón de Manhattan. En OpenStreetMap podemos exportar un fragmento de mapa en formato OSM, un formato parecido a XML, que contine información sobre calles, parcelas parques etc. que se encuentran en ella. Al ser de contribución abierta, cada vez alberga información más detallada incluyendo señales de tráfico incluso fuentes públicas de agua. 
 
-- En el panel derecho se añaden los dispositivos. De manera similar a los generadores, están representados por un icono referente al tipo del dispositivo y sobre ellos se sitúa un relleno que muestra su progreso. 
+Una vez conseguido el trozo de mapa que nos interesa, basta usar un programa de modelado procedural para reproducir la ciudad entera en 3D. CityEngine es un programa comercial que soporta nativamente el formato OSM y es capaz de crear modelos 3D a partir del mapa extruyendo las parcelas de edificaciones y añadiéndoles materiales adecuados. Incluso permite modificar los detalles de los edificios pudiendo indicar su año de construcción o zona de edificación, bien sea rural, residencial o industrial.
 
-- En el panel inferior se encuentra la batería, que también contiene una imagen que se rellena indicando el porcentaje de batería actual respecto al total.
+Debido a las limitaciones del tiempo y el desorbitado precio del programa CityEngine, solo se ha experimentado utilizando la licencia de prueba de 30 días que ofrece la empresa.
 
-Tanto los generadores como los dispositivos son variables y se deben añadir en tiempo de ejecución, una vez se sepas cuantos y de que tipo son. Por ello, crearemos un prefab para cada uno de ellos.
+\item \textbf{OpenWeatherMap}
 
-Los cables los modelamos usando la componente LineRenderer de unity, que dados dos puntos genera una línea personalizable entre que las une. Sobre ella moveremos un objeto con la componente TrailRenderer, que deja una estela detrás del objeto mientras esta se mueva. Por último, sobre esta partícula situaremos un texto que indica la energía que se transfiere en ese instante.
+Otra manera de obtener resultados más realistas es utilizar datos actuales de meteorología para modelar el tiempo que hace en el mercado.
 
+OpenWeatherMap es una API pública que ofrece datos históricos y prediciones futuras sobre el tiempo a lo largo de todo el planeta. Inspirada en la filosofía de OpenStreetMap y Wikipedia ofrece la información gratuitamente de manera que sea accesible para todos. Cuenta con datos de más de 250.000 ciudades repartidas a lo largo del mundo y su uso va creciendo, superando ya las mil millones de consultas de predicciones al día.
 
-\subsection{Control de la cámara}
-En cualquier momento del programa, el usuario puede controlar la posición y rotación de la cámara. Los controles imitan el funcionamiento que ofrece el editor de unity por defecto: Con las teclas WASD se controla la posición de la cámara mientras que el movimiento del ratón mientras se tenga el click derecho presionado controla la rotación. 
+Aplicado al proyecto, podría hacerse un pequeño cliente HTTP que hiciera queries a la API de OpenWeatherMap y utilizar el JSON de respuesta para modelar el tiempo en la simulación. Además, unido a OpenStreetMap, podría usarse la longitud y la latitud del mapa de seleccionado para consulta el tiempo en esa zona del mundo y utilizar dicha información en el simulador. Para empezar a consultar la API, basta con \link{crear una API Key}{http://openweathermap.org/appid} y consultar el formato de las queries en su \link{documentación}{http://openweathermap.org/api}.
 
-MonoBehaviour contiene un método Update() que se llama a cada frame de la simulación. Cabe notar que entre llamadas al método update pasa un tiempo variable. Por ello hay que ir con cuidado a la hora de hacer animaciones etc. hay que considerar la variable Time.deltaTime de unity en dondde se guarda el valor de tiempo que ha transcurrido entre el frame actual y el anterior. Usando los métodos estáticos de la clase Input de UnityEngine OnMouseDown y GetKeyDown() se detecta si alguna de las teclas del control de cámara ha sido pulsada. A partir de aquí, se implementa la funcionalidad deseada ( Translate para las teclas de control y Rotate para la mouse).
-\subsection{Eligiendo la ciudad}
+Los datos de meteorología que se utilizan en el presente proyecto se han extraído de OpenWeatherMap, pero son estáticos, no dependen del entorno real del mercado.
 
-Añadir un modelo a una escena previamente a su ejecución es relativamente sencillo, basta con crear un prefab que tenga las componentes que te interesan. Sin embargo, importar un modelo en tiempo de ejecución en Unity es más complicado de lo que puede parecer. El primer problema es abrir un cuadro de diálogo que permita al usuario elegir un archivo. Unity usa Mono que es un subconjunto de .NET FrameWork 2.0 especializado para juegos, que por defecto no incorpora la opción de crear ventanas propias del SO. 
-La solución ha sido añadir el dll Windows.Forms.dll de .NET FrameWork 2.0 en una carpeta llamada Plugins dentro del proyecto de unity de manera que el compilador de unity comprenda que queremos usar tal extensión y permita crear las ventanas. El soporte de .NET FrameWrk 2.0 no está garantizado por Unity por lo que pueden saltar errores de seguridad al intentar abrir la ventana, pero ignorando estos defectos podemos permitir que el usuario abra un fichero. Quiero agradecer a <Referencia> por la solución prestada.
+\item \textbf{Estrategias de reinforcement learning}
 
-\subsection{Seleccionando el perfil de las casas}
-Una vez la ciudad se encuentre en la escena el usuario podrá ver y modificar el perfil de la gente que vive en esa casa en tres niveles: Alto consumo, consumo regular o alto ahorro. 
+El proyecto actual ofrece una plataforma donde poder testear estrategias de bidding sobre un mercado de energía. Tal y como se describe en el artículo [10], se pueden implementar exitosos procesos de reinforcement learning de manera que los prosumidores vayan variando su oferta dependiendo de la información que vayan acumulando a lo largo del tiempo. Como resultado, se obtendrían agentes inteligentes, capaces de adaptarse al mercado y encargarse de gestionar todas las necesidades energéticas que pueda tener un usuario particular.
 
-Cuando el usuario pasa el ratón por encima de una casa, está casa se coloreará de un color dependiendo del perfil que tenga asignado. Por defecto, todas las casas tienen asignado el perfil de consumo regular que viene representado por el color naranja. Una vez situado el ratón sobre la casa el usuario podrá elegir el perfil deseado para esa casa simplemente pulsando las teclas 1, 2 o 3 siendo 1 el de menor consumo y 3 el mayor. 
-
-Por último si se pulsa la tecla P, las casas se colorearán con el color correspondiente a su perfil hasta que se vuelva a pulsar P. Esto permite visualizar la distribución de perfiles a lo largo de una ciudad.
-
-\subsection{Seleccionando la franja horaria}
-El segundo paso es seleccionar de que hora a que hora se ejecutará la simulación. Para ello contamos con un torus fino con dos bolas sobre ella. Estas bolas se pueden seleccionar y arrastrar sobre el torus y muestran un lienzo al moverse que indica la hora que señalan. La idea bajo esta implementación es:
-- Detectar si el mouse está en modo drag con el método OnMouseDrag de Monobehaviour
-
-- Coger el punto que representa el ratón en la ventana
-
-- Hacer un cambio de base para que deje el pixel 0,0 esté situado en el centro de la screen
-
-- normalizar el vector que va desde el centro hasta el punto del ratón.
-
-- escalarlo por el radio mayor del torus para situarlo encima del mismo
-
-Por defecto estos valores empiezan de 06:00h a 18:00h. Cabe considerar que para que el funcionamiento del programa sea el esperado, la hora inicial debería ser inferior a la hora final
-
-
-\subsection{Ejecutando la animación} 
-Como tercer paso, el usuario hace click en la estrella de acuerdo con que está contento con los parámetros elegidos hasta ahora. Esto crea un nuevo thread que se encarga de correr la simulación. La creación del thread se consigue gracias a la clase ThreadedJob que es aportación de <referencia> En particular este thread tiene un método que se ejecutará al ser creado. Además, cada vez que el thread principal llame al metodo update de ThreadedJob, este actualizará su estado y en caso de que haaya acabado generará un evento que será tratado por el thread principal. Por último el thread se destruirá porque ya ha completado su trabajo.
-El thread al mismo tiempo crea un Process para abrir una ventana de terminal y ejecuta el simulador con los parámetros proveidos: java -jar simulator.jar. Cabe decir que si se utilizan rutas absolutas para decir a la terminal donde se encuentra el jar, nuestra aplicación no será distribuible, porque no funcionará en otros ordenadores, por ello debemos poder acceder al simulador usando rutas relativas. Unity provee con la variable Application.dataPath que referencia en tiempo de ejecución a la carpeta de datos que está utilizando Unity en ese momento. Mientras estamos en el editor de Unity, esta carpeta es la carpeta Assets del proyecto mientras que una vez se haya hecho la build, es la carpeta que acompaña al ejcutable ,exe. Por eso situaremos el jar dentro de esta carpeta y la aplicación será distribuible.
-
-\subsection{Mostrando la información relevante}
-Durante toda la ejecución del visualizador, se minimiza la nformación mostrada de manera que sea más intuitivo y disfrutable para el usuario final. En particular diversos objetos comparten el comportamiento de revelar/ocultar cierta información al ser pulsados. Por ejemplo, al pulsar sobre las casas, veremos el informe de qué está ocurriendo en esa casa mientras se ejecuta la simulación, mientras que si pulsamos sobre los focos de energía que pasan sobre los cables, veremos o ocultaremos un texto con cuanta energía transportan en cada momento. 
-
-Por otro lado, mediante las teclas H y G podemos controlar qué partes de la ciudad se ven en cada momento. Con H ( de house ) podemos revelar/ocultar las casas mientras que con G ( de grid ) podemos revelar/ocultar los cables. Por último, con la tecla Esc podremos salir de la aplicación. El objeto manager es el que contendrá estos comportamientos.
-
-\subsection{Programando las animaciones}
-La simulación nos da frames discretos en los que sabemos como es el estado del sistema. Nuestra intención será interpolar linealmente estos valores para que parezca que el movimiento es continuo. 
-
-Unity cuenta con 2 modos por defecto que permiten hacer animaciones:
--La componente Animation permite ejecutar animation clips guardados en una lista, es la manera original de hacer las animaciones.
--La componente Animator también conocida como Mecanim, que genera una máuina de estados que tiene en cada estado el clip de la animación y contiene transiciones entre estados que se encargan de controlar como cambian las animaciones.
-
-Sin embargo, ninguna de ellas permite cambiar los clips de animación en tiempo de ejecución. Los clips han de estar guardados en ficheros .anim y ser referenciados en estas componentes, no se permite añadir clips en tiempo de ejecución. Es una limitación del sistema actual que han anunciado que añadirán en una próxima versión. Por ello, la solución es crearnos nosotros un algoritmo sencillo y simple que se encargue de simular animaciones básicas.
-
-Hay dos modos de animación: Repetitivo y continuo. En el repetitivo, el mismo frame se anima una y otra vez para analizar correcamente que ha pasado concretamente entre esos instantes de tiempo. En el continuo, la animación va recorriendo todos los frames y se repite una vez haya llegado al final.
-Todos los animadores tienen como entrada un array de datos. En el caso de la batería estos datos representan el porcentaje de llenitud, mientras que en el caso de los dispositivos representan su progreso. La idea es llamar a un método un número concreto de veces cada segundo donde se recalcule el valor actual y se actualize la información necesaria correspondiente. Al finalizar el segundo, se llama a otro método en el que o bien se pasa al siguiente estado o bien se reinicia el estado actual dependiendo de si la animación está en modo repetitivo o no.
-Una vez que hayamos calculado el valor actual basta con actualizar Image.fillAmount con el valor correcto.
-
-\subsection{Controlando el flow}
-Incluso en un entorno dirigido por componentes como unity, necesitamos un objeto que controle el estado del programa y decida que opciones están disponibles al usuario en cada momento. En nuestro proyecto, la componente Manager se encarga de esta función. Además sirve como puente sobre las diferentes componentes. Si un objeto quiere comunicar algo a otro pero no tiene guardada una referencia a él, puede pasar la información al manager y este será el que haga llegar la información al destinatario. Funciona similarmente al método main de los programas Java.
-
-no puedo hacerlo con ThreadedJob porque no puedo hacer Instantiate dentro. La solución sería devolver una struct con toda la información recopilada por el parseador y hacer las instanciaciones en el thread principal. \subsection{Parseando el JSON}
-
-Así como crear el json era muy sencillo, parsearlo lleva más tiempo. Primero debemos encontrar una librería adecuada que sirva para Unity. Probablemente la herramienta más popular utilizada para controlar archivos JSON en C\# sea Json.NET creado por James Newton-King. De todas formas, dadas las limitaciones de compatibilidad de Unity con .NET, se necesita adaptar el código a Unity. Existe esta adptación a la venta en la Asset Store de Unity, pero para mantener este proyecto gratuito, se ha evitado usarlo. 
-
-De todos modos existen parseadores de JSON creados por la comunidad especialmente para Unity. Nosotro usaremos JSONObject de <referencia>.
-
-El primer paso es detectar con cuantos generadores y dispositivos cuenta cada casa e instanciar un prefab por cada uno en el panel de la casa correspondiente. Una vez todos los objetos de la escena existan popularemos sus componentes de animación con los datos guardados en el JSON. Para cada tipo de dato deberemos identificar cual es su animador, o bine FillImageAnimator en el caso de la batería, los generadores o los dispositivos, o bien ChangeImageAnimator en el caso de las apuestas, o bien TranslationAnimator en el caso 
-
-A continuación, mostraremos posibles rutas de avance para este proyecto.
-
-\newpage
-
-
-
-\section{Futuro trabajo}
-
-\subsection{Open Street Map y CityEngine}
-Por último se ha considerado como construir los modelos 3D de las ciudades. Y qué mejor manera que utilizando ejemplos existentes del mundo real. El mundo está repleto de ciudades y gracias a mapas online como OpenStreetMap es fácil conseguir un fichero que contenga toda la información relevante de una zona del mundo, como por ejemplo el corazón de Manhattan. En OpenStreetMap podemos exportar un trozo de mapa en formator .osm muy parecido a xml que contine toda la información sobre calles, parcelas parques etc. que se encuentran en ella. Ahora solo queda usar un programa de modelado procedural como CityEngine para crear una ciudad en 3D a partir del mapa! CityEngine soporta nativamente el tipo de archivos .osm y es capaz de crear modelos 3D a partir de mapa extruyendo las parcelas de edificaciones y añadiendoles materiales adecuados. 
-
-OpenStreetMap, como el nombre lo indica, es una iniciativa de software libre en el que son los mismos usuarios lso que van completando el mapa y aportando cada vez información más detallada como donde se encuentran fuentes de agua o ciertas señales de tráfico. Sin embargo, CityEngine es un programa con licencia de pago, por lo que se ha dejado fuera del proyecto final. De todas maneras, podremos visualizar algunos resultados obtenidos usando la aplicación de prueba de 30 días que ofrece la empresa, que soporta importar archivos .osm y exportar el modelo en formato OBJ.
-
-
-\subsection{OpenWeatherMap}
-OpenWeatherMap es una API pública que ofrece datos históricos y prediciones futuras sobre el tiempo a lo largo de todo el planeta. inspirada en la filosofía de OpenStreetMap y Wikipedia ofrece la información gratuitamente de manera que sea accesible para todos. Cuenta con datos de más de 250.000 ciudades repartidos a lo largo del mundo y su uso va creciendo superando ya un billón americano de consultas de predicciones al día.
-
-Aplicado al proyecto, podría hacerse un pequeño cliente HTTP que hiciera queries a la API de OpenWeatherMap y utilizar el JSON de respuesta para modelar el tiempo en la simulación. Además, unido con OpenStreetMap, podría usarse la longitud y la latitud del mapa seleccionado para consulta el tiempo en esa zona del mundo y utilizar dicha información en el simulador. Para empezar a consultar la API, basta con crear una API Key en http://openweathermap.org/appid y consultar el formato de las queries en su documentación en http://openweathermap.org/api.
-
-\subsection{Reinforcement learning en bidding}
-Por útimo el proyecto proporciona una plataforma donde poder testear estrategias de bidding en un mercado de energía. Tal y como se describe n el artículo [referencia], se pueden implementar procesos de reinforcement learning de manera que los prosumers vayan variando su oferta dependiendo de la información que vayan acumulando a lo largo del tiempo.
-
-
-
-
+\end{itemize}
 \normalfont
 
 \newpage
 
 \section*{Reconocimientos}
-Me gustaría agradecer a los siguientes personas por proporcionar material indispensable para la realización del proyecto:
+Me gustaría mostrar mi agradecimiento a las siguientes personas y entidades por proporcionarme material indispensable para la realización del proyecto:
+\vspace{5mm}
 
-\begin{itemize}
+[JSONObject] JSON file parser for Unity, Matt Schoen\newline
+\texttt{ http://wiki.unity3d.com/index.php?title=JSONObject}
 
-\item Icono 2D de la visualización: Icons made by Freepik (www.freepik.com) and Google ("http://www.flaticon.com/authors/google") from Flaticom (www.flaticon,com) licensed by Creative Commons BY 3.0 ("http://creativecommons.org/licenses/by/3.0/")
+\vspace{5mm}
+[OBJReader] OBJ file parser for Unity, StarScene software \newline
+\texttt{http://www.starscenesoftware.com/objreader.html}
 
-\item Efecto de cargando: LoadingEffect by OneManArmy (http://armedunity.com/user/1-onemanarmy/)
+\vspace{5mm}
+[Icons] 2D Icons, made by Freepik at FlatIcon
+\newline \texttt{www.flaticon.com}
 
-\item Parseador de ficheros OBJ: ObjReader by Starscene Software (starscenesoftware.com)
-
-\item Visor de diccionarios en el editor de Unity: SerializedDictionary by Vexe 
-
-\item Pseudocódigo y diagramas de flujo: Code2Flow
-
-\end{itemize}
-\newpage
-
+\vspace{5mm}
+[ThreadedJob] Thread generator for Unity, user Bunny83 at UnityAnswers
+\newline \texttt{http://answers.unity3d.com/users/6612/bunny83.html}
 
 \begin{thebibliography}{25}
-\bibitem{pari} RadPro
-\bibitem{pari} Reinforcement learning
+\bibitem{pari} European Technology Patform: Update of the SmartGrids SRA 2007 for the needs by the year 2035, 2012.
 
-\bibitem{pari} Batut, C.; Belabas, K.; Bernardi, D.; Cohen, H.; Olivier, M.: User's guide to \textit{PARI-GP},  \newline \texttt{pari.math.u-bordeaux.fr/pub/pari/manuals/2.3.3/users.pdf}, 2000.
+\bibitem{pari} J. Cerquides; G. Picard; J. A. Rodríguez-Aguilar: Designing a Marketplace for the Trading and Distribution
+of Energy in the Smart Grid, 2015.
+
+\bibitem{pari} J. Cerquides; G. Picard; J. A. Rodríguez-Agilar:
+ Defining and solving the energy allocation problem with continuous prosumers, 2015.
+
+\bibitem{pari} D. Urieli and P. Stone: TacTex’13: A Champion Adaptive Power Trading Agent, 2013.
 \end{thebibliography}
 \end{document} 
 
