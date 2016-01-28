@@ -4,6 +4,7 @@ package Model.Implementations;
 import Model.Core.Distributor;
 import Model.Interfaces.*;
 import Model.Core.Moment;
+import Model.Core.Weather;
 import com.google.gson.annotations.Expose;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -51,6 +52,12 @@ public final class LinearBid implements IBiddingStrategy
     public void processResults(HashMap<Double, TraderType> trades) 
     {
         
+    }
+
+    @Override
+    public void setBid(Moment moment, Distributor distributor, Weather weather, IBattery battery, ArrayList<IGenerator> generators, ArrayList<IAppliance> appliances) 
+    {
+        linearFactor = distributor.getRate(moment);
     }
     
 }

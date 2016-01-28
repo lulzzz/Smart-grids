@@ -4,6 +4,7 @@ package Model.Implementations;
 import Model.Core.Distributor;
 import Model.Interfaces.*;
 import Model.Core.Moment;
+import Model.Core.Weather;
 import com.google.gson.annotations.Expose;
 import java.io.PrintWriter;
 import java.util.*;
@@ -149,5 +150,45 @@ public class LogBid implements IBiddingStrategy
         
         // Update the curve
         curve = x -> Math.signum(x) * linearFactor * ( contactX + tightness * Math.log( (Math.abs(x) - minX) / tightness + 1));
+    }
+
+    @Override
+    public void setBid(Moment moment, Distributor distributor, Weather weather, IBattery battery, ArrayList<IGenerator> generators, ArrayList<IAppliance> appliances) 
+    {
+        // Predict from now to 5 seconds later 
+        Moment next = new Moment(moment.getHour(), moment.getMinute());
+        next.advance(5);
+        
+        // Generation
+        double expectedGeneration = 0;
+        for( IGenerator generator : generators )
+            expectedGeneration += generator.getGeneration(moment, next, weather);
+        
+        // Consum
+        double expectedConsum = 0;
+        for(IAppliance appliance : appliances )
+            expectedConsum += appliance.getConsum(moment, next);
+        
+        // Expected
+        double expected = expectedGeneration - expectedConsum;
+        
+        // Domain
+        double lower = battery.getLevel() - expected;
+        double upper = lower + battery.getCapacity();
+        
+        // Rate
+        double rate = distributor.getRate(moment);
+        
+        // Necessity
+        double necessity = 0;
+        for(IAppliance appliance : appliances)
+        {
+            if( appliance.getState() == IAppliance.ApplianceState.Waiting )
+            {
+                int minutes = appliance.getStartingTime().minutesSince(moment);
+                if( minutes != 0 )
+                    necessity += rate / minutes;
+            }
+        }
     }
 }
